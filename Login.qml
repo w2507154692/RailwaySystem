@@ -3,9 +3,9 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 
 Window {
-    width: 640; height: 480
+    width: 960; height: 720
     minimumWidth: 480; minimumHeight: 360;
-    maximumWidth: 1280; maximumHeight: 960
+    maximumWidth: 1920; maximumHeight: 1440
     visible: true
     color: "#f8f8f8"
     title: "欢迎登录"
@@ -14,14 +14,24 @@ Window {
 
     Rectangle {
         anchors.fill: parent
-        color: "#f8f8f8"
-        // 可加背景图片以实现毛玻璃效果
+        color: "#f8f8f8"  // 添加背景色作为底色
+
+        // 背景图片
         Image {
             anchors.fill: parent
-            source: ":/new/prefix1/images/Login-background.png"
+            source: "qrc:/new/prefix1/images/277ecba1b1fef84bec27c063ff102690.png"
             fillMode: Image.PreserveAspectCrop
-            opacity: 0.2
+            opacity: 0.15  // 降低透明度，让背景更柔和
+            visible: true
         }
+
+        // 添加一个半透明遮罩，让文字更清晰
+        Rectangle {
+            anchors.fill: parent
+            color: "#ffffff"
+            opacity: 0.1
+        }
+
 
         Column {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -31,13 +41,17 @@ Window {
             // 欢迎登录
             Text {
                 text: "欢迎登录"
-                font.pixelSize: 36
-                color: "#2c3e50"
+                font.pixelSize: 38
+                color: "#1a252f"  // 更深的颜色，增强对比度
                 font.bold: true
                 font.family: "Microsoft YaHei"
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.weight: Font.DemiBold
+
+                // 添加文字阴影效果
+                style: Text.Raised
+                styleColor: "#ffffff"
             }
 
             // 切换登录方式
@@ -46,22 +60,26 @@ Window {
                 spacing: 20
 
                 Text {
+                    id: userLoginText
                     text: "用户登录"
-                    color: isAdminLogin ? "#7f8c8d" : "#3498db"
+                    color: {
+                        if (userLoginMouseArea.containsMouse && isAdminLogin) {
+                            return "#2c3e50"  // 悬停时的深色
+                        }
+                        return isAdminLogin ? "#7f8c8d" : "#3498db"
+                    }
                     font.pixelSize: 16
                     font.family: "Microsoft YaHei"
                     font.weight: isAdminLogin ? Font.Normal : Font.Medium
-                    
+
                     MouseArea {
+                        id: userLoginMouseArea
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
+                        hoverEnabled: true
                         onClicked: {
                             isAdminLogin = false
                         }
-                        // hoverEnabled: isAdminLogin ? true : false
-                        hoverEnabled: true
-                        onEntered: parent.color = "black"
-                        onExited: parent.color = "#7f8c8d"
                     }
                 }
                 Rectangle {
@@ -70,15 +88,23 @@ Window {
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 Text {
+                    id: adminLoginText
                     text: "管理员登录"
-                    color: isAdminLogin ? "#3498db" : "#7f8c8d"
+                    color: {
+                        if (adminLoginMouseArea.containsMouse && !isAdminLogin) {
+                            return "#2c3e50"  // 悬停时的深色
+                        }
+                        return isAdminLogin ? "#3498db" : "#7f8c8d"
+                    }
                     font.pixelSize: 16
                     font.family: "Microsoft YaHei"
                     font.weight: isAdminLogin ? Font.Medium : Font.Normal
-                    
+
                     MouseArea {
+                        id: adminLoginMouseArea
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
+                        hoverEnabled: true
                         onClicked: {
                             isAdminLogin = true
                         }
@@ -92,12 +118,22 @@ Window {
 
                 // 用户名输入
                 Rectangle {
-                    width: 360
-                    height: 56
-                    radius: 8
+                    width: 380
+                    height: 58
+                    radius: 10
                     color: "#ffffff"
-                    border.color: "#e0e6ed"
+                    border.color: "#d5d5d5"
                     border.width: 1
+
+                    // 添加轻微阴影效果
+                    Rectangle {
+                        anchors.fill: parent
+                        anchors.topMargin: 2
+                        radius: 10
+                        color: "#f5f5f5"
+                        opacity: 0.3
+                        z: -1
+                    }
 
                     Row {
                         anchors.fill: parent
@@ -113,11 +149,11 @@ Window {
                             width: isAdminLogin ? 56 : 40
                             horizontalAlignment: Text.AlignRight
                         }
-                        Rectangle { 
-                            width: 1; 
-                            height: 24; 
-                            color: "#e0e6ed"; 
-                            anchors.verticalCenter: parent.verticalCenter 
+                        Rectangle {
+                            width: 1;
+                            height: 24;
+                            color: "#e0e6ed";
+                            anchors.verticalCenter: parent.verticalCenter
                         }
                         TextField {
                             id: username
@@ -136,12 +172,22 @@ Window {
 
                 // 密码输入
                 Rectangle {
-                    width: 360
-                    height: 56
-                    radius: 8
+                    width: 380
+                    height: 58
+                    radius: 10
                     color: "#ffffff"
-                    border.color: "#e0e6ed"
+                    border.color: "#d5d5d5"
                     border.width: 1
+
+                    // 添加轻微阴影效果
+                    Rectangle {
+                        anchors.fill: parent
+                        anchors.topMargin: 2
+                        radius: 10
+                        color: "#f5f5f5"
+                        opacity: 0.3
+                        z: -1
+                    }
 
                     Row {
                         anchors.fill: parent
@@ -157,11 +203,11 @@ Window {
                             width: 40
                             horizontalAlignment: Text.AlignRight
                         }
-                        Rectangle { 
-                            width: 1; 
-                            height: 24; 
-                            color: "#e0e6ed"; 
-                            anchors.verticalCenter: parent.verticalCenter 
+                        Rectangle {
+                            width: 1;
+                            height: 24;
+                            color: "#e0e6ed";
+                            anchors.verticalCenter: parent.verticalCenter
                         }
                         TextField {
                             id: password
@@ -183,12 +229,22 @@ Window {
             // 登录按钮
             Rectangle {
                 id: loginButton
-                width: 360
-                height: 52
-                radius: 8
-                color: "#3498db"
+                width: 380
+                height: 54
+                radius: 10
+                color: "#409CFC"
                 anchors.horizontalCenter: parent.horizontalCenter
-                
+
+                // 添加轻微阴影
+                Rectangle {
+                    anchors.fill: parent
+                    anchors.topMargin: 3
+                    radius: 10
+                    color: "#1c5a85"
+                    opacity: 0.4
+                    z: -1
+                }
+
                 Text {
                     text: "登录"
                     color: "white"
@@ -197,22 +253,22 @@ Window {
                     font.weight: Font.Medium
                     anchors.centerIn: parent
                 }
-                
+
                 MouseArea {
                     anchors.fill: parent
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
                     onEntered: {
-                        loginButton.color = "#2980b9"
+                        loginButton.color = "#1f5f99"
                     }
                     onExited: {
-                        loginButton.color = "#3498db"
+                        loginButton.color = "#409CFC"
                     }
                     onPressed: {
-                        loginButton.color = "#1f5499"
+                        loginButton.color = "#174a73"
                     }
                     onReleased: {
-                        loginButton.color = "#2980b9"
+                        loginButton.color = "#1f5f99"
                     }
                     onClicked: {
                         // 登录逻辑
@@ -223,43 +279,53 @@ Window {
             // 注册按钮
             Rectangle {
                 id: registerButton
-                width: 360
-                height: 52
-                radius: 8
+                width: 380
+                height: 54
+                radius: 10
                 color: "#ffffff"
-                border.color: "#e0e6ed"
-                border.width: 1
+                border.color: "#c5c5c5"
+                border.width: 1.5
                 visible: !isAdminLogin  // 管理员登录时隐藏注册按钮
                 anchors.horizontalCenter: parent.horizontalCenter
-                
+
+                // 添加轻微阴影
+                Rectangle {
+                    anchors.fill: parent
+                    anchors.topMargin: 2
+                    radius: 10
+                    color: "#e8e8e8"
+                    opacity: 0.3
+                    z: -1
+                }
+
                 Text {
                     text: "注册"
-                    color: "#5a6c7d"
+                    color: "#4a4a4a"
                     font.pixelSize: 18
                     font.family: "Microsoft YaHei"
                     font.weight: Font.Medium
                     anchors.centerIn: parent
                 }
-                
+
                 MouseArea {
                     anchors.fill: parent
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
                     onEntered: {
-                        registerButton.color = "#f8f9fa"
-                        registerButton.border.color = "#bdc3c7"
+                        registerButton.color = "#f8f8f8"
+                        registerButton.border.color = "#aaa"
                     }
                     onExited: {
                         registerButton.color = "#ffffff"
-                        registerButton.border.color = "#e0e6ed"
+                        registerButton.border.color = "#c5c5c5"
                     }
                     onPressed: {
-                        registerButton.color = "#ecf0f1"
-                        registerButton.border.color = "#95a5a6"
+                        registerButton.color = "#e8e8e8"
+                        registerButton.border.color = "#999"
                     }
                     onReleased: {
-                        registerButton.color = "#f8f9fa"
-                        registerButton.border.color = "#bdc3c7"
+                        registerButton.color = "#f8f8f8"
+                        registerButton.border.color = "#aaa"
                     }
                     onClicked: {
                         // 注册逻辑
