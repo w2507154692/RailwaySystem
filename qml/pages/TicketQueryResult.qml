@@ -252,18 +252,30 @@ Window {
                             }
                             // 车次、箭头、时刻表
                             Column {
-                                spacing: 2
                                 anchors.verticalCenter: parent.verticalCenter
                                 Text { text: "G115"; font.bold: true; font.pixelSize: 25; color: "#222"; horizontalAlignment: Text.AlignHCenter
                                 anchors.horizontalCenter: parent.horizontalCenter}
                                 Image {
                                     source: "qrc:/resources/icon/arrow.svg"
-                                    Layout.preferredWidth: 90
-                                    Layout.preferredHeight: 10
+                                    width: 90
+                                    height: 10
                                     fillMode: Image.PreserveAspectFit
                                 }
+
+                                //间距
+                                Item{
+                                    height: 2
+                                    width: 1
+                                }
+
                                 Text { text: "6小时7分"; font.pixelSize: 10; color: "#888"; horizontalAlignment: Text.AlignHCenter
                                 anchors.horizontalCenter: parent.horizontalCenter}
+
+                                //间距
+                                Item{
+                                    height: 2
+                                    width: 1
+                                }
                                 CustomButton {
                                     text: "时刻表"
                                     width: 60

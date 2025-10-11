@@ -4,15 +4,15 @@ Item {
     width: 800
     height: 79
 
-    Rectangle {
-        x: 3
-        y: 3
-        width: mainContent.cardWidth - 70 // 60按钮宽+10间距
-        height: parent.height
-        radius: 16
-        color: "#b3d1ff"
-        opacity: 0.5
-    }
+    // Rectangle {
+    //     x: 3
+    //     y: 3
+    //     width: mainContent.cardWidth - 70 // 60按钮宽+10间距
+    //     height: parent.height
+    //     radius: 16
+    //     color: "#b3d1ff"
+    //     opacity: 0.5
+    // }
 
     Rectangle {
         width: mainContent.cardWidth - 70
