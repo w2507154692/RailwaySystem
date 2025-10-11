@@ -1,0 +1,38 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>resources/images/logbackground.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>qml/components/SideBar.qml</file>
+        <file>qml/pages/PassengerInfo.qml</file>
+        <file>qml/pages/TicketQuery.qml</file>
+        <file>qml/pages/Profile.qml</file>
+        <file>qml/pages/TicketQueryResult.qml</file>
+        <file>qml/pages/OrderConfirm.qml</file>
+        <file>qml/pages/MyOrders.qml</file>
+        <file>qml/pages/Timetable.qml</file>
+        <file>qml/pages/TrainManagement.qml</file>
+        <file>qml/pages/OrderManagement.qml</file>
+        <file>qml/pages/UserManagement.qml</file>
+        <file>qml/components/MenuButton.qml</file>
+        <file>resources/icon/Add.png</file>
+        <file>resources/icon/Cancel.png</file>
+        <file>resources/icon/Delete.png</file>
+        <file>resources/icon/Edit.png</file>
+        <file>resources/icon/Find.png</file>
+        <file>resources/icon/MyOrders.png</file>
+        <file>resources/icon/OrderManagement.png</file>
+        <file>resources/icon/Profile.png</file>
+        <file>resources/icon/TicketQuery.png</file>
+        <file>resources/icon/TrainIcon.png</file>
+        <file>resources/icon/TrainManagement.png</file>
+        <file>resources/icon/UserManagement.png</file>
+        <file>resources/icon/Calendar.png</file>
+        <file>qml/components/Header.qml</file>
+        <file>qml/pages/PersonalInfoDialog.qml</file>
+        <file>qml/components/CustomButton.qml</file>
+        <file>resources/icon/arrow.svg</file>
+        <file>qml/components/test.qml</file>
+        <file>qml/components/PassengerCard.qml</file>
+    </qresource>
+</RCC>
