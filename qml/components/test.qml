@@ -9,21 +9,12 @@ Window{
     maximumWidth: 1920; maximumHeight: 1440
     visible: true
     color: "#ffffff"
-    Rectangle{
-        width: 500
-        height: 1440
-        color: "black"
-        Rectangle{
-            width: 100
-            height: 1440
-            color: "pink"
-        }
-        Rectangle{
-            width: 100
-            height: 1440
-            color: "yellow"
-        }
-        }
+    Image {
+        width: 200    // 你想要的宽度
+        height: 20
+        fillMode: Image.PreserveAspectFit
+        source: "qrc:/resources/icon/arrow.svg"
+    }
 
 
 }
