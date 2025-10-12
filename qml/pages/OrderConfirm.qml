@@ -54,117 +54,175 @@ Window {
         border.color: "#4d4d4d"
         radius: 20
         color: "pink"
-        Column{
+        ColumnLayout{
             anchors.fill: parent
             anchors.margins: 20
             spacing: 0
             //订单信息
-            Rectangle{
+            Rectangle {
                 height: 80
-                width: parent.width
+                Layout.fillWidth: true
                 radius: 10
                 gradient: Gradient {
                     GradientStop { position: 0.0; color: "#ffffff" }
                     GradientStop { position: 1.0; color: "#cce5ff" }
                 }
-                Row{
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                RowLayout {
+                    anchors.fill: parent
+                    spacing: 0
+                    Layout.preferredWidth: 1000
 
-                    // 出发时间
-                    Column {
-                        spacing: 2
-                        Text { text: "09:10"; font.bold: false; font.pixelSize: 30; color: "#222" }
-                        Text { text: "北京南（始）"; font.pixelSize: 10; color: "#222"; horizontalAlignment: Text.AlignHCenter }
+                    // 间隔
+                    Item {
+                        Layout.preferredWidth: 80
+                        Layout.alignment: Qt.AlignVCenter
                     }
 
-                    //间隔
-                    Item{
-                        width: 50
-                        height: 1
+                    // 出发时间
+                    ColumnLayout {
+                        spacing: 2
+                        Layout.preferredWidth: 100
+                        Text {
+                            width: 100; height: 39;
+                            text: "09:10"; font.bold: false; font.pixelSize: 30; color: "#222";
+                            horizontalAlignment: Text.AlignLeft
+                            Layout.alignment: Qt.AlignLeft
+                        }
+                        Text {
+                            width: 100; height: 15;
+                            text: "北京南（始）"; font.pixelSize: 10; color: "#222";
+                            horizontalAlignment: Text.AlignLeft
+                            Layout.alignment: Qt.AlignLeft
+                        }
+                    }
+
+                    // 间隔
+                    Item {
+                        Layout.preferredWidth: 50
+                        Layout.alignment: Qt.AlignVCenter
                     }
 
                     // 车次、箭头、时刻表
-                    Column {
+                    ColumnLayout {
                         spacing: 2
-                        anchors.verticalCenter: parent.verticalCenter
-                        Text { text: "G115"; font.bold: false; font.pixelSize: 22; color: "#222"; horizontalAlignment: Text.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter}
+                        Layout.preferredWidth: 70
+                        Text {
+                            width: 70; height: 23;
+                            text: "G115"; font.bold: false;
+                            font.pixelSize: 22; color: "#222";
+                            horizontalAlignment: Text.AlignHCenter
+                            Layout.alignment: Qt.AlignHCenter
+                        }
                         Image {
                             source: "qrc:/resources/icon/arrow.svg"
-                            width: 100
-                            height: 10
+                            width: 60; height: 10
                             fillMode: Image.PreserveAspectFit
+                            Layout.alignment: Qt.AlignHCenter
                         }
-                        Text { text: "6小时7分"; font.pixelSize: 10; color: "#888"; horizontalAlignment: Text.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter}
+                        Text {
+                            width: 60; height: 15;
+                            text: "6小时7分"; font.pixelSize: 10;
+                            color: "#888";
+                            horizontalAlignment: Text.AlignHCenter
+                            Layout.alignment: Qt.AlignHCenter
+                        }
                     }
 
-                    //间隔
-                    Item{
-                        width: 50
-                        height: 1
+                    // 间隔
+                    Item {
+                        Layout.preferredWidth: 50
+                        Layout.alignment: Qt.AlignVCenter
                     }
 
                     // 到达时间
-                    Column {
+                    ColumnLayout {
                         spacing: 2
-                        Text { text: "15:17"; font.bold: false; font.pixelSize: 30; color: "#222" }
-                        Text { text: "上海虹桥（过）"; font.pixelSize: 10; color: "#222"; horizontalAlignment: Text.AlignHCenter }
+                        Layout.preferredWidth: 100
+                        Text {
+                            width: 100; height: 39;
+                            text: "15:17"; font.bold: false; font.pixelSize: 30; color: "#222";
+                            horizontalAlignment: Text.AlignRight
+                            Layout.alignment: Qt.AlignRight
+                        }
+                        Text {
+                            width: 100; height: 15;
+                            text: "上海虹桥（终）"; font.pixelSize: 10; color: "#222";
+                            horizontalAlignment: Text.AlignRight
+                            Layout.alignment: Qt.AlignRight
+                        }
                     }
 
-                    //间隔
-                    Item{
-                        width: 50
-                        height: 1
+                    // 间隔
+                    Item {
+                        Layout.preferredWidth: 80
+                        Layout.alignment: Qt.AlignVCenter
                     }
 
-                    Text{
-                        anchors.verticalCenter: parent.verticalCenter
+                    Text {
+                        width: 87; height: 26;
                         text: "二等座 × "
                         font.pixelSize: 20
+                        horizontalAlignment: Text.AlignHCenter
+                        Layout.alignment: Qt.AlignVCenter
                     }
 
-
-                    Text{
-                        anchors.verticalCenter: parent.verticalCenter
+                    Text {
+                        width: 25; height: 40;
                         text: "1"
                         font.pixelSize: 30
+                        horizontalAlignment: Text.AlignHCenter
+                        Layout.alignment: Qt.AlignVCenter
                     }
 
-                    //间隔
-                    Item{
-                        width: 50
-                        height: 1
+                    // 间隔
+                    Item {
+                        Layout.preferredWidth: 50
+                        Layout.alignment: Qt.AlignVCenter
                     }
 
-                    Text{
-                        anchors.verticalCenter: parent.verticalCenter
+                    Text {
+                        width: 46; height: 26;
                         text: "共计 "
                         font.pixelSize: 20
+                        horizontalAlignment: Text.AlignHCenter
+                        Layout.alignment: Qt.AlignVCenter
                     }
 
-                    Text{
-                        anchors.verticalCenter: parent.verticalCenter
+                    Text {
+                        width: 18; height: 26;
                         text: "¥ "
                         font.pixelSize: 20
                         color: "#ee8732"
+                        horizontalAlignment: Text.AlignHCenter
+                        Layout.alignment: Qt.AlignVCenter
                     }
 
-                    Text{
-                        anchors.verticalCenter: parent.verticalCenter
+                    Text {
+                        width: 200; height: 60;
                         text: "780"
                         font.pixelSize: 40
                         color: "#ee8732"
-
+                        horizontalAlignment: Text.AlignLeft
+                        Layout.alignment: Qt.AlignVCenter
                     }
+
+                    // 间隔
+                    Item {
+                        Layout.preferredWidth: 50
+                        Layout.alignment: Qt.AlignVCenter
+                    }
+                }
+
+                // 间隔
+                Item {
+                    Layout.fillHeight: true
                 }
             }
 
             //间距
             Item{
-                height: 20
-                width: parent.width
+                Layout.preferredHeight: 20
+                Layout.alignment: Qt.AlignHCenter
             }
 
             //选择乘车人
@@ -175,14 +233,14 @@ Window {
 
             //间距
             Item{
-                height: 2
-                width: parent.width
+                Layout.preferredHeight: 2
+                Layout.alignment: Qt.AlignHCenter
             }
 
             //乘车人信息
             Rectangle{
-                height:parent.height - 185
-                width: parent.width
+                Layout.fillHeight: true
+                Layout.fillWidth: true
                 radius: 20
                 border.color: "#b3b3b3"
 
