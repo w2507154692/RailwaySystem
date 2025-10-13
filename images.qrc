@@ -34,5 +34,6 @@
         <file>resources/icon/arrow.svg</file>
         <file>qml/components/test.qml</file>
         <file>qml/components/PassengerCard.qml</file>
+        <file>qml/components/TicketCard.qml</file>
     </qresource>
 </RCC>
