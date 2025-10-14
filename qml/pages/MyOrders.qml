@@ -11,5 +11,14 @@ Window {
     visible: true
     color: "#ffffff"
 
+    RowLayout {
+        anchors.fill: parent
 
+        // 侧边栏
+        SideBar {
+            Layout.preferredWidth: 150
+            Layout.fillHeight: true
+        }
+
+    }
 }

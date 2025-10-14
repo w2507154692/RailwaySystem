@@ -134,6 +134,7 @@ Item {
             // 中间分隔线
             Rectangle {
                 width: 2
+                Layout.topMargin: 8
                 Layout.preferredHeight: 110
                 // Layout.fillHeight: true
                 color: "#ccc"
@@ -147,6 +148,7 @@ Item {
 
             // 二等 + 一等 + 商务
             RowLayout {
+                Layout.topMargin: 5
                 Layout.fillHeight: true
 
                 // 座位等级

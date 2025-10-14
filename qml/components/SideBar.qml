@@ -12,7 +12,7 @@ Item {
         // height: 1500
         width: 130
         // color: "#ffffff"
-        color:"pink"
+        // color:"pink"
         height: parent.height
         Rectangle {
             width: 2

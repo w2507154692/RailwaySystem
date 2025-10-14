@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import Qt5Compat.GraphicalEffects
 
 Item {
     id: root
@@ -11,26 +12,20 @@ Item {
     property alias iconSource: icon.source
     property bool selected: false
 
-    // 按钮颜色属性
-    property color normalColor: "#8ec9ff"      // 未选中颜色
-    property color selectedColor: "#007fff"    // 选中颜色
-
-    // 文字颜色属性
-    property color normalTextColor: "#5D7FA9"     // 未选中文字色
-    property color selectedTextColor: "#fff"// 选中文字色
-
-    // signal selectedChanged(bool selected)
+    property color normalColor: "#8ec9ff"
+    property color selectedColor: "#007fff"
+    property color normalTextColor: "#5D7FA9"
+    property color selectedTextColor: "#fff"
 
     // 阴影层
-    Rectangle {
-        x: 2
-        y: 2
-        width: parent.width
-        height: parent.height
-        radius: 8
-        color: "#cecece"
-        opacity: 1
-        z: -1
+    DropShadow {
+        anchors.fill: menubutton
+        source: menubutton
+        color: "#8B8989"
+        radius: 12
+        samples: 17
+        horizontalOffset: 2
+        verticalOffset: 2
     }
 
     Rectangle {
@@ -68,7 +63,7 @@ Item {
                 font.pixelSize: 16
                 verticalAlignment: Text.AlignVCenter
                 anchors.verticalCenter: parent.verticalCenter
-                x: root.iconSource !== "" ? icon.width : (parent.width - width) / 2 // 有图标时在图标后，无图标时居中
+                x: root.iconSource !== "" ? icon.width : (parent.width - width) / 2
             }
         }
     }

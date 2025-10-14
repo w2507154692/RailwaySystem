@@ -66,8 +66,7 @@ Window {
                     Row {
                         spacing: 8
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-                        anchors.left: parent.left
-                        anchors.leftMargin: 30
+                        Layout.leftMargin: 30
 
                         Text {
                             text: "日期：2025年6月4日"
@@ -85,14 +84,16 @@ Window {
                         }
                     }
 
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
                     // 右侧筛选项
                     GridLayout {
                         columns: 3
                         rowSpacing: 10
                         columnSpacing: 32
-                        anchors.right: parent.right
-                        anchors.rightMargin: 100
-                        Layout.alignment: Qt.AlignRight
+                        Layout.rightMargin: 30
 
                         // 第一行
                         RowLayout {

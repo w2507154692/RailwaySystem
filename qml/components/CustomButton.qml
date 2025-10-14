@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import Qt5Compat.GraphicalEffects
 
 Item {
     id: root
@@ -19,15 +20,15 @@ Item {
     property bool fontBold: false
     signal clicked
 
-    Rectangle {
-        x: 2
-        y: 2
-        width: parent.width
-        height: parent.height
-        radius: 8
-        color: "#cecece"
-        opacity: 1
-        z: -1
+    // 阴影层
+    DropShadow {
+        anchors.fill: menubutton
+        source: menubutton
+        color: "#8B8989"
+        radius: 12
+        samples: 17
+        horizontalOffset: 4
+        verticalOffset: 4
     }
 
     Rectangle {
