@@ -213,59 +213,123 @@ Window {
         anchors.topMargin: 145
         anchors.horizontalCenterOffset: 0 // 头部+筛选区高度
 
-        // 票务查询结果卡片区
-        TicketCard {
-            width: parent.width - 40
-            height: 140
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: 15
-            visible: true
+        ColumnLayout {
+            anchors.fill: parent
+            anchors.topMargin: 8
+            anchors.leftMargin: 5
+            anchors.rightMargin: 8
+            // 滚动卡片区
+            ScrollView {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                // anchors.fill: parent
+                // contentWidth: parent.width
+
+                ColumnLayout {
+                    anchors.top: parent.top
+                    anchors.topMargin: 10
+                    anchors.left: parent.left
+                    anchors.leftMargin: 10
+                    anchors.right: parent.right
+                    anchors.rightMargin: 10
+
+                    // 票务查询结果卡片区
+                    TicketCard {
+                        Layout.topMargin: 15
+                        Layout.alignment: Qt.AlignHCenter
+                        // width: parent.width - 40
+                        // height: 140
+                        // anchors.horizontalCenter: parent.horizontalCenter
+                        // anchors.top: parent.top
+                        // anchors.topMargin: 15
+                        visible: true
+                    }
+                    TicketCard {
+                        Layout.topMargin: 15
+                        Layout.alignment: Qt.AlignHCenter
+                        // width: parent.width - 40
+                        // height: 140
+                        // anchors.horizontalCenter: parent.horizontalCenter
+                        // anchors.top: parent.top
+                        // anchors.topMargin: 15
+                        visible: true
+                    }
+                    // TicketCard {
+                    //     Layout.topMargin: 15
+                    //     Layout.alignment: Qt.AlignHCenter
+                    //     // width: parent.width - 40
+                    //     // height: 140
+                    //     // anchors.horizontalCenter: parent.horizontalCenter
+                    //     // anchors.top: parent.top
+                    //     // anchors.topMargin: 15
+                    //     visible: true
+                    // }
+                    // TicketCard {
+                    //     Layout.topMargin: 15
+                    //     Layout.alignment: Qt.AlignHCenter
+                    //     // width: parent.width - 40
+                    //     // height: 140
+                    //     // anchors.horizontalCenter: parent.horizontalCenter
+                    //     // anchors.top: parent.top
+                    //     // anchors.topMargin: 15
+                    //     visible: true
+                    // }
+                }
+            }
+
+            //底部分割线
+            Rectangle {
+                // Layout.topMargin: 20
+
+                Layout.preferredHeight: 5
+                Layout.fillWidth: true
+                // anchors.horizontalCenter: parent.horizontalCenter
+                // anchors.bottom: parent.bottom
+                // anchors.bottomMargin: 70
+                // anchors.leftMargin: 20
+                // width: parent.width - 40
+                // height: 2
+                color: 'pink'
+                // color: "#808080"
+                radius: 1
+            }
+
+            // 底部按钮区
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                // anchors.horizontalCenter: parent.horizontalCenter
+                // anchors.bottom: parent.bottom
+                // anchors.bottomMargin: 30
+                spacing: 32
+                Layout.bottomMargin: 30
+
+                MenuButton {
+                    text: "耗时最短"
+                    width: 160
+                    height: 30
+                    textx: width / 4 + 10
+                }
+                MenuButton {
+                    text: "发时最早"
+                    width: 160
+                    height: 30
+                    textx: width / 4 + 10
+                }
+                MenuButton {
+                    text: "到时最早"
+                    width: 160
+                    height: 30
+                    textx: width / 4 + 10
+                }
+                MenuButton {
+                    text: "价格最低"
+                    width: 160
+                    height: 30
+                    textx: width / 4 + 10
+                }
+            }
         }
 
-        //底部分割线
-        Rectangle {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 70
-            anchors.leftMargin: 20
-            width: parent.width - 40
-            height: 2
-            color: "#808080"
-            radius: 1
-        }
-
-        // 底部按钮区
-        Row {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 30
-            spacing: 32
-
-            MenuButton {
-                text: "耗时最短"
-                width: 160
-                height: 30
-                textx: width / 4 + 10
-            }
-            MenuButton {
-                text: "发时最早"
-                width: 160
-                height: 30
-                textx: width / 4 + 10
-            }
-            MenuButton {
-                text: "到时最早"
-                width: 160
-                height: 30
-                textx: width / 4 + 10
-            }
-            MenuButton {
-                text: "价格最低"
-                width: 160
-                height: 30
-                textx: width / 4 + 10
-            }
-        }
     }
 }
