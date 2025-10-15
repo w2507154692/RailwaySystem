@@ -35,5 +35,7 @@
         <file>qml/components/test.qml</file>
         <file>qml/components/PassengerCard.qml</file>
         <file>qml/components/TicketCard.qml</file>
+        <file>qml/components/OrderCard.qml</file>
+        <file>qml/components/CheckButton.qml</file>
     </qresource>
 </RCC>

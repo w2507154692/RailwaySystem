@@ -3,6 +3,7 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../components"
+import Qt5Compat.GraphicalEffects
 
 Window {
     width: 960; height: 720
@@ -241,42 +242,123 @@ Window {
             Rectangle{
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+                Layout.rightMargin: 2
                 radius: 20
                 border.color: "#b3b3b3"
 
-                //主内容
-                Column{
-                    anchors.fill:parent
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.margins: 10
-                    spacing: 30
-                    Row{
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        Rectangle{
-                            height: 50
-                            width: 50
-                            color: "yellow"
-                        }
-                        Rectangle{
-                            height: 50
-                            width: 50
-                            color: "blue"
-                        }
-                    }
+                ScrollView {
+                    anchors.fill: parent
+                    contentWidth: parent.width
+                    anchors.rightMargin: 4
 
-                    Row{
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        Rectangle{
-                            height: 50
-                            width: 50
-                            color: "blue"
+
+
+                    ColumnLayout {
+                        anchors.top: parent.top
+                        anchors.topMargin: 10
+                        anchors.left: parent.left
+                        anchors.leftMargin: 50
+                        anchors.right: parent.right
+                        anchors.rightMargin: 30
+                        spacing:20
+                        RowLayout{
+                            PassengerCard{
+                                width: 700
+                            }
+
+                            //间隔
+                            Item{
+                                Layout.fillWidth: true
+                            }
+
+                            //按钮
+                            CheckButton{
+                                Layout.rightMargin: 50
+                            }
                         }
-                        Rectangle{
-                            height: 50
-                            width: 50
-                            color: "yellow"
+
+
+                        RowLayout{
+                            PassengerCard{
+                                width: 700
+                            }
+
+                            //间隔
+                            Item{
+                                Layout.fillWidth: true
+                            }
+
+                            //按钮
+                            CheckButton{
+                                Layout.rightMargin: 50
+                            }
+                        }
+
+                        RowLayout{
+                            PassengerCard{
+                                width: 700
+                            }
+
+                            //间隔
+                            Item{
+                                Layout.fillWidth: true
+                            }
+
+                            //按钮
+                            CheckButton{
+                                Layout.rightMargin: 50
+                            }
+                        }
+
+                        RowLayout{
+                            PassengerCard{
+                                width: 700
+                            }
+
+                            //间隔
+                            Item{
+                                Layout.fillWidth: true
+                            }
+
+                            //按钮
+                            CheckButton{
+                                Layout.rightMargin: 50
+                            }
+                        }
+
+                        RowLayout{
+                            PassengerCard{
+                                width: 700
+                            }
+
+                            //间隔
+                            Item{
+                                Layout.fillWidth: true
+                            }
+
+                            //按钮
+                            CheckButton{
+                                Layout.rightMargin: 50
+                            }
+                        }
+
+                        RowLayout{
+                            PassengerCard{
+                                width: 700
+                            }
+
+                            //间隔
+                            Item{
+                                Layout.fillWidth: true
+                            }
+
+                            //按钮
+                            CheckButton{
+                                Layout.rightMargin: 50
+                            }
                         }
                     }
+                //主内容
                 }
             }
 
@@ -292,6 +374,4 @@ Window {
             }
         }
     }
-
-
 }
