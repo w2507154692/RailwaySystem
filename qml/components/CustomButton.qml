@@ -17,6 +17,9 @@ Item {
     property color textColor: "#5D7FA9"           // 默认文字色
     property color pressedTextColor: "#fff" // 按下时文字色
     property int fontSize: 18
+    property int borderRadius: 8
+    property int borderWidth: 0
+    property color borderColor: "transparent"
     property bool fontBold: false
     signal clicked
 
@@ -29,12 +32,15 @@ Item {
         samples: 17
         horizontalOffset: 4
         verticalOffset: 4
+
     }
 
     Rectangle {
         id: menubutton
         anchors.fill: parent
-        radius: 8
+        border.width: root.borderWidth
+        border.color: root.borderColor
+        radius: root.borderRadius
         color: mouseArea.pressed ? root.pressedColor : root.customColor
 
         MouseArea {

@@ -37,16 +37,186 @@ Window {
                     anchors.rightMargin: 30
 
                     // 卡片列表
-                    PassengerCard { Layout.fillWidth: true }
-                    PassengerCard { Layout.fillWidth: true }
-                    PassengerCard { Layout.fillWidth: true }
-                    PassengerCard { Layout.fillWidth: true }
-                    PassengerCard { Layout.fillWidth: true }
-                    PassengerCard { Layout.fillWidth: true }
-                    PassengerCard { Layout.fillWidth: true }
-                    PassengerCard { Layout.fillWidth: true }
-                    PassengerCard { Layout.fillWidth: true }
-                    PassengerCard { Layout.fillWidth: true }
+                    RowLayout{
+                        PassengerCard { Layout.fillWidth: true }
+                        // 按钮
+                        Rectangle {
+                            Layout.preferredWidth: 60
+                            Layout.preferredHeight: 60
+                            radius: 16
+                            color: "#fff"
+                            x: mainContent.cardWidth - 60
+                            y: (parent.height - height) / 2
+                            z: 1
+                            Image {
+                                anchors.centerIn: parent
+                                source: "qrc:/resources/icon/Edit.png"
+                                width: 60
+                                height: 60
+                            }
+                        }
+                    }
+
+
+                    RowLayout{
+                        PassengerCard { Layout.fillWidth: true }
+                        // 按钮
+                        Rectangle {
+                            Layout.preferredWidth: 60
+                            Layout.preferredHeight: 60
+                            radius: 16
+                            color: "#fff"
+                            x: mainContent.cardWidth - 60
+                            y: (parent.height - height) / 2
+                            z: 1
+                            Image {
+                                anchors.centerIn: parent
+                                source: "qrc:/resources/icon/Edit.png"
+                                width: 60
+                                height: 60
+                            }
+                        }
+                    }
+
+                    RowLayout{
+                        PassengerCard { Layout.fillWidth: true }
+                        // 按钮
+                        Rectangle {
+                            Layout.preferredWidth: 60
+                            Layout.preferredHeight: 60
+                            radius: 16
+                            color: "#fff"
+                            x: mainContent.cardWidth - 60
+                            y: (parent.height - height) / 2
+                            z: 1
+                            Image {
+                                anchors.centerIn: parent
+                                source: "qrc:/resources/icon/Edit.png"
+                                width: 60
+                                height: 60
+                            }
+                        }
+                    }
+
+                    RowLayout{
+                        PassengerCard { Layout.fillWidth: true }
+                        // 按钮
+                        Rectangle {
+                            Layout.preferredWidth: 60
+                            Layout.preferredHeight: 60
+                            radius: 16
+                            color: "#fff"
+                            x: mainContent.cardWidth - 60
+                            y: (parent.height - height) / 2
+                            z: 1
+                            Image {
+                                anchors.centerIn: parent
+                                source: "qrc:/resources/icon/Edit.png"
+                                width: 60
+                                height: 60
+                            }
+                        }
+                    }
+
+                    RowLayout{
+                        PassengerCard { Layout.fillWidth: true }
+                        // 按钮
+                        Rectangle {
+                            Layout.preferredWidth: 60
+                            Layout.preferredHeight: 60
+                            radius: 16
+                            color: "#fff"
+                            x: mainContent.cardWidth - 60
+                            y: (parent.height - height) / 2
+                            z: 1
+                            Image {
+                                anchors.centerIn: parent
+                                source: "qrc:/resources/icon/Edit.png"
+                                width: 60
+                                height: 60
+                            }
+                        }
+                    }
+
+                    RowLayout{
+                        PassengerCard { Layout.fillWidth: true }
+                        // 按钮
+                        Rectangle {
+                            Layout.preferredWidth: 60
+                            Layout.preferredHeight: 60
+                            radius: 16
+                            color: "#fff"
+                            x: mainContent.cardWidth - 60
+                            y: (parent.height - height) / 2
+                            z: 1
+                            Image {
+                                anchors.centerIn: parent
+                                source: "qrc:/resources/icon/Edit.png"
+                                width: 60
+                                height: 60
+                            }
+                        }
+                    }
+
+                    RowLayout{
+                        PassengerCard { Layout.fillWidth: true }
+                        // 按钮
+                        Rectangle {
+                            Layout.preferredWidth: 60
+                            Layout.preferredHeight: 60
+                            radius: 16
+                            color: "#fff"
+                            x: mainContent.cardWidth - 60
+                            y: (parent.height - height) / 2
+                            z: 1
+                            Image {
+                                anchors.centerIn: parent
+                                source: "qrc:/resources/icon/Edit.png"
+                                width: 60
+                                height: 60
+                            }
+                        }
+                    }
+
+                    RowLayout{
+                        PassengerCard { Layout.fillWidth: true }
+                        // 按钮
+                        Rectangle {
+                            Layout.preferredWidth: 60
+                            Layout.preferredHeight: 60
+                            radius: 16
+                            color: "#fff"
+                            x: mainContent.cardWidth - 60
+                            y: (parent.height - height) / 2
+                            z: 1
+                            Image {
+                                anchors.centerIn: parent
+                                source: "qrc:/resources/icon/Edit.png"
+                                width: 60
+                                height: 60
+                            }
+                        }
+                    }
+
+                    RowLayout{
+                        PassengerCard { Layout.fillWidth: true }
+                        // 按钮
+                        Rectangle {
+                            Layout.preferredWidth: 60
+                            Layout.preferredHeight: 60
+                            radius: 16
+                            color: "#fff"
+                            x: mainContent.cardWidth - 60
+                            y: (parent.height - height) / 2
+                            z: 1
+                            Image {
+                                anchors.centerIn: parent
+                                source: "qrc:/resources/icon/Edit.png"
+                                width: 60
+                                height: 60
+                            }
+                        }
+                    }
                     // ...更多卡片
                 }
             }

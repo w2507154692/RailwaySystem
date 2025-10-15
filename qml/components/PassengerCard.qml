@@ -12,7 +12,7 @@ Item {
 
         // 卡片
         Rectangle {
-            Layout.preferredWidth: parent.width - 70
+            Layout.preferredWidth: parent.width
             Layout.preferredHeight: parent.height
             radius: 16
             gradient: Gradient {
@@ -32,7 +32,7 @@ Item {
                 // 间隔
                 Item {
                     Layout.preferredWidth: 20
-                    Layout.alignment: Qt.AlignVCenter
+                    Layout.alignment: Qt.AlignCenter
                 }
 
                 // 一行文本 + 一行文本
@@ -40,6 +40,8 @@ Item {
 
                     // 第一行文本
                     RowLayout {
+                        Layout.topMargin: 12
+
                         Text {
                             Layout.preferredWidth: 54
                             Layout.preferredHeight: 23
@@ -56,8 +58,16 @@ Item {
                             color: "#222"
                         }
                     }
+
+                    //间距
+                    Item{
+                        Layout.fillHeight: true
+                    }
+
                     // 第二行文本
                     RowLayout {
+                        Layout.bottomMargin: 20
+
                         Text {
                             Layout.preferredWidth: 90
                             Layout.preferredHeight: 23
@@ -78,13 +88,14 @@ Item {
 
                 // 一行文本 + 一行文本
                 ColumnLayout {
+                    Layout.topMargin: 12
 
                     // 第一行文本
                     RowLayout {
                         Text {
                             Layout.preferredWidth: 70
                             Layout.preferredHeight: 23
-                            text: "手机号："
+                            text: "联系方式："
                             font.pixelSize: 18
                             color: "#222"
                         }
@@ -92,17 +103,25 @@ Item {
                         Text {
                             Layout.preferredWidth: 150
                             Layout.preferredHeight: 23
-                            text: "17816936112"
+                            text: "    17816936112"
                             font.pixelSize: 18
                             color: "#222"
                         }
                     }
+
+
+                    //间距
+                    Item{
+                        Layout.fillHeight: true
+                    }
+
                     // 第二行文本
                     RowLayout {
+                        Layout.bottomMargin: 20
                         Text {
                             Layout.preferredWidth: 90
                             Layout.preferredHeight: 23
-                            text: "优惠类别："
+                            text: "优惠类型："
                             font.pixelSize: 18
                             color: "#222"
                         }
@@ -116,23 +135,6 @@ Item {
                         }
                     }
                 }
-            }
-        }
-
-        // 按钮
-        Rectangle {
-            Layout.preferredWidth: 60
-            Layout.preferredHeight: 60
-            radius: 16
-            color: "#fff"
-            x: mainContent.cardWidth - 60
-            y: (parent.height - height) / 2
-            z: 1
-            Image {
-                anchors.centerIn: parent
-                source: "qrc:/resources/icon/Edit.png"
-                width: 60
-                height: 60
             }
         }
     }
