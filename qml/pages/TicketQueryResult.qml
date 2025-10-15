@@ -7,7 +7,7 @@ import "../components"
 Window {
     width: 960; height: 720
     minimumWidth: 480; minimumHeight: 360;
-    maximumWidth: 1920; maximumHeight: 1440
+    maximumWidth: 960; maximumHeight: 1440
     visible: true
     color: "#ffffff"
 
@@ -221,67 +221,48 @@ Window {
             // 滚动卡片区
             ScrollView {
                 Layout.fillHeight: true
-                Layout.fillWidth: true
+                // Layout.fillWidth: true
+                Layout.leftMargin: 10
+                Layout.rightMargin: 10
                 // anchors.fill: parent
                 // contentWidth: parent.width
 
+
                 ColumnLayout {
-                    anchors.top: parent.top
-                    anchors.topMargin: 10
-                    anchors.left: parent.left
-                    anchors.leftMargin: 10
-                    anchors.right: parent.right
+                    id: columnLayout
+                    anchors.fill: parent
                     anchors.rightMargin: 10
 
                     // 票务查询结果卡片区
                     TicketCard {
+                        Layout.fillWidth: true
                         Layout.topMargin: 15
-                        Layout.alignment: Qt.AlignHCenter
-                        // width: parent.width - 40
-                        // height: 140
-                        // anchors.horizontalCenter: parent.horizontalCenter
-                        // anchors.top: parent.top
-                        // anchors.topMargin: 15
                         visible: true
                     }
                     TicketCard {
+                        Layout.fillWidth: true
                         Layout.topMargin: 15
-                        Layout.alignment: Qt.AlignHCenter
-                        // width: parent.width - 40
-                        // height: 140
-                        // anchors.horizontalCenter: parent.horizontalCenter
-                        // anchors.top: parent.top
-                        // anchors.topMargin: 15
                         visible: true
                     }
-                    // TicketCard {
-                    //     Layout.topMargin: 15
-                    //     Layout.alignment: Qt.AlignHCenter
-                    //     // width: parent.width - 40
-                    //     // height: 140
-                    //     // anchors.horizontalCenter: parent.horizontalCenter
-                    //     // anchors.top: parent.top
-                    //     // anchors.topMargin: 15
-                    //     visible: true
-                    // }
-                    // TicketCard {
-                    //     Layout.topMargin: 15
-                    //     Layout.alignment: Qt.AlignHCenter
-                    //     // width: parent.width - 40
-                    //     // height: 140
-                    //     // anchors.horizontalCenter: parent.horizontalCenter
-                    //     // anchors.top: parent.top
-                    //     // anchors.topMargin: 15
-                    //     visible: true
-                    // }
+                    TicketCard {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 15
+                        visible: true
+                    }
+                    TicketCard {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 15
+                        visible: true
+                    }
                 }
             }
 
             //底部分割线
             Rectangle {
-                // Layout.topMargin: 20
-
-                Layout.preferredHeight: 5
+                Layout.topMargin: 10
+                Layout.leftMargin: 25
+                Layout.rightMargin: 25
+                Layout.preferredHeight: 2
                 Layout.fillWidth: true
                 // anchors.horizontalCenter: parent.horizontalCenter
                 // anchors.bottom: parent.bottom
@@ -289,19 +270,20 @@ Window {
                 // anchors.leftMargin: 20
                 // width: parent.width - 40
                 // height: 2
-                color: 'pink'
-                // color: "#808080"
+                // color: 'pink'
+                color: "#ccc"
                 radius: 1
             }
 
             // 底部按钮区
             RowLayout {
+                Layout.topMargin: 10
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
                 // anchors.horizontalCenter: parent.horizontalCenter
                 // anchors.bottom: parent.bottom
                 // anchors.bottomMargin: 30
-                spacing: 32
+                spacing: 80
                 Layout.bottomMargin: 30
 
                 MenuButton {

@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.15
 
 Item {
     width: 920
+    // Layout.fillWidth: True
     height: 140
 
     Rectangle {
@@ -40,7 +41,8 @@ Item {
                     spacing: 40
                     // 出发时间
                     ColumnLayout {
-                        anchors.top: parent.top
+                        // anchors.top: parent.top
+                        Layout.alignment: Qt.AlignTop
 
                         // 间隔
                         Item {
@@ -94,7 +96,8 @@ Item {
                     }
                     // 到达时间
                     ColumnLayout {
-                        anchors.top: parent.top
+                        // anchors.top: parent.top
+                        Layout.alignment: Qt.AlignTop
 
                         // 间隔
                         Item {
@@ -102,12 +105,14 @@ Item {
                         }
 
                         Text {
-                            anchors.right: parent.right
+                            // anchors.right: parent.right
+                            Layout.alignment: Qt.AlignRight
                             text: "15:17"; font.bold: true;
                             font.pixelSize: 28; color: "#222"
                         }
                         Text {
-                            anchors.right: parent.right
+                            // anchors.right: parent.right
+                            Layout.alignment: Qt.AlignRight
                             text: "（过）上海虹桥";
                             font.pixelSize: 14; color: "#222";
                         }
