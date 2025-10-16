@@ -49,7 +49,7 @@ Window{
 
                 // 完全自定义滚动条样式
                 ScrollBar.vertical: BasicScrollBar {
-                    width: 12
+                    width: 8
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     height: parent.height - 8
@@ -117,21 +117,21 @@ Window{
                 spacing: 80
                 Layout.bottomMargin: 30
 
-                MenuButton {
+                CustomButton {
                     text: "提交订单"
                     width: 250
                     height: 30
-                    textx: width / 4 + 32
+
                 }
-                MenuButton {
+                CustomButton {
                     text: "返回"
-                    normalColor: "#e6e6e6"
-                    normalTextColor: "#666"
-                    selectedColor: "#666"
-                    selectedTextColor: "#fff"
+                    customColor: "#e6e6e6"
+                    textColor: "#666"
+                    pressedColor: "#666"
+                    pressedTextColor: "#fff"
                     width: 250
                     height: 30
-                    textx: width / 2 - 15
+
                 }
             }
         }
