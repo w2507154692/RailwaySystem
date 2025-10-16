@@ -1,0 +1,139 @@
+import QtQuick 2.15
+import QtQuick.Window 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+import "../components"
+
+Window{
+    width: 960; height: 720
+    minimumWidth: 480; minimumHeight: 360
+    maximumWidth: 1920; maximumHeight: 1440
+    visible: true
+    color: "#ffffff"
+
+    //标题
+    Header {
+        id: header
+        width: parent.width
+        title: "提交订单"
+        radius: height * 0.4
+        onCloseClicked: {
+            submitOrderDialog.visible = false
+        }
+    }
+
+    //下部
+    Rectangle {
+        width: parent.width
+        height: parent.height - header.height - 20 // 可根据内容调整高度
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: header.height + 20
+        anchors.left: parent.left
+        // anchors.leftMargin: 30
+        anchors.right: parent.right
+        // anchors.rightMargin: 30
+
+        ColumnLayout {
+            anchors.fill: parent
+            // anchors.topMargin: 8
+            // anchors.leftMargin: 5
+            // anchors.rightMargin: 8
+            // 滚动卡片区
+            ScrollView {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                // Layout.leftMargin: 10
+                // Layout.rightMargin: 10
+                // contentWidth: parent.width
+
+                // 完全自定义滚动条样式
+                ScrollBar.vertical: BasicScrollBar {
+                    width: 12
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: parent.height - 8
+                    policy: ScrollBar.AlwaysOn
+                    handleNormalColor: "#a0a0a0"
+                    handleLength: 60 // 这里设置你想要的长度
+                }
+
+                ColumnLayout {
+                    id: columnLayout
+                    anchors.fill: parent
+                    anchors.rightMargin: 10
+                    anchors.leftMargin: 40
+
+                    // 票务查询结果卡片区
+                    OrderCard {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 15
+                        visible: true
+                    }
+                    OrderCard {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 15
+                        visible: true
+                    }
+                    OrderCard {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 15
+                        visible: true
+                    }
+                    OrderCard {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 15
+                        visible: true
+                    }
+                }
+            }
+
+            //底部分割线
+            Rectangle {
+                Layout.topMargin: 10
+                Layout.leftMargin: 40
+                Layout.rightMargin: 40
+                Layout.preferredHeight: 2
+                Layout.fillWidth: true
+                // anchors.horizontalCenter: parent.horizontalCenter
+                // anchors.bottom: parent.bottom
+                // anchors.bottomMargin: 70
+                // anchors.leftMargin: 20
+                // width: parent.width - 40
+                // height: 2
+                // color: 'pink'
+                color: "#ccc"
+                radius: 1
+            }
+
+            // 底部按钮区
+            RowLayout {
+                Layout.topMargin: 10
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                // anchors.horizontalCenter: parent.horizontalCenter
+                // anchors.bottom: parent.bottom
+                // anchors.bottomMargin: 30
+                spacing: 80
+                Layout.bottomMargin: 30
+
+                MenuButton {
+                    text: "提交订单"
+                    width: 250
+                    height: 30
+                    textx: width / 4 + 32
+                }
+                MenuButton {
+                    text: "返回"
+                    normalColor: "#e6e6e6"
+                    normalTextColor: "#666"
+                    selectedColor: "#666"
+                    selectedTextColor: "#fff"
+                    width: 250
+                    height: 30
+                    textx: width / 2 - 15
+                }
+            }
+        }
+    }
+}

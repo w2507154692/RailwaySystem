@@ -38,5 +38,6 @@
         <file>qml/components/OrderCard.qml</file>
         <file>qml/components/CheckButton.qml</file>
         <file>qml/components/BasicScrollBar.qml</file>
+        <file>qml/pages/SubmitOrderDialog.qml</file>
     </qresource>
 </RCC>

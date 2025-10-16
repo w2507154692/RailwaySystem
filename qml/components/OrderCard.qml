@@ -5,7 +5,6 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Item {
-    width: 920
     height: 170
 
     Rectangle {
@@ -29,12 +28,10 @@ Item {
 
             //头部
             RowLayout{
-                anchors.top: parent.top
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.topMargin: 8
-                anchors.leftMargin: 15
-                anchors.rightMargin: 15
+
+                Layout.topMargin: 8
+                Layout.leftMargin: 15
+                Layout.rightMargin: 15
 
                 Text{
                     text:"订单号： 00000002"
