@@ -37,5 +37,6 @@
         <file>qml/components/TicketCard.qml</file>
         <file>qml/components/OrderCard.qml</file>
         <file>qml/components/CheckButton.qml</file>
+        <file>qml/components/BasicScrollBar.qml</file>
     </qresource>
 </RCC>

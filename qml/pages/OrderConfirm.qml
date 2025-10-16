@@ -242,26 +242,44 @@ Window {
             Rectangle{
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                Layout.rightMargin: 2
                 radius: 20
                 border.color: "#b3b3b3"
 
+                //上间距
+                Item{
+                    id:topSpacing
+                    anchors.top: parent.top
+                    height: 8
+                }
+
+                //滚动卡片区
                 ScrollView {
-                    anchors.fill: parent
-                    contentWidth: parent.width
-                    anchors.rightMargin: 4
+                    anchors.top: topSpacing.bottom
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.bottom: bottomSpacing.top
+                    anchors.rightMargin: 2
 
-
+                    // 完全自定义滚动条样式
+                    ScrollBar.vertical: BasicScrollBar {
+                        width: 12
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        height: parent.height - 8
+                        policy: ScrollBar.AlwaysOn
+                        handleNormalColor: "#a0a0a0"
+                        handleLength: 60 // 这里设置你想要的长度
+                    }
 
                     ColumnLayout {
-                        anchors.top: parent.top
-                        anchors.topMargin: 10
-                        anchors.left: parent.left
+                        anchors.fill: parent
                         anchors.leftMargin: 50
-                        anchors.right: parent.right
                         anchors.rightMargin: 30
-                        spacing:20
+
+
+
                         RowLayout{
+                            Layout.preferredWidth: 880
                             PassengerCard{
                                 width: 700
                             }
@@ -273,28 +291,11 @@ Window {
 
                             //按钮
                             CheckButton{
-                                Layout.rightMargin: 50
-                            }
-                        }
-
-
-                        RowLayout{
-                            PassengerCard{
-                                width: 700
-                            }
-
-                            //间隔
-                            Item{
-                                Layout.fillWidth: true
-                            }
-
-                            //按钮
-                            CheckButton{
-                                Layout.rightMargin: 50
                             }
                         }
 
                         RowLayout{
+                            Layout.preferredWidth: 880
                             PassengerCard{
                                 width: 700
                             }
@@ -306,11 +307,11 @@ Window {
 
                             //按钮
                             CheckButton{
-                                Layout.rightMargin: 50
                             }
                         }
 
                         RowLayout{
+                            Layout.preferredWidth: 880
                             PassengerCard{
                                 width: 700
                             }
@@ -322,11 +323,11 @@ Window {
 
                             //按钮
                             CheckButton{
-                                Layout.rightMargin: 50
                             }
                         }
 
                         RowLayout{
+                            Layout.preferredWidth: 880
                             PassengerCard{
                                 width: 700
                             }
@@ -338,11 +339,11 @@ Window {
 
                             //按钮
                             CheckButton{
-                                Layout.rightMargin: 50
                             }
                         }
 
                         RowLayout{
+                            Layout.preferredWidth: 880
                             PassengerCard{
                                 width: 700
                             }
@@ -354,11 +355,33 @@ Window {
 
                             //按钮
                             CheckButton{
-                                Layout.rightMargin: 50
+                            }
+                        }
+
+                        RowLayout{
+                            Layout.preferredWidth: 880
+                            PassengerCard{
+                                width: 700
+                            }
+
+                            //间隔
+                            Item{
+                                Layout.fillWidth: true
+                            }
+
+                            //按钮
+                            CheckButton{
                             }
                         }
                     }
-                //主内容
+
+                }
+
+                //下间距
+                Item{
+                    id:bottomSpacing
+                    anchors.bottom: parent.bottom
+                    height: 8
                 }
             }
 
