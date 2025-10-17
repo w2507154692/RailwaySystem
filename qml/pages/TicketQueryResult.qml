@@ -7,7 +7,7 @@ import "../components"
 Window {
     width: 960; height: 720
     minimumWidth: 480; minimumHeight: 360;
-    maximumWidth: 960; maximumHeight: 1440
+    maximumWidth: 1920; maximumHeight: 1440
     visible: true
     color: "#ffffff"
 
@@ -237,32 +237,34 @@ Window {
                     handleLength: 60 // 这里设置你想要的长度
                 }
 
-
-                ColumnLayout {
-                    id: columnLayout
+                Item {
                     anchors.fill: parent
-                    anchors.rightMargin: 10
+                    anchors.rightMargin: 30
 
-                    // 票务查询结果卡片区
-                    TicketCard {
-                        Layout.fillWidth: true
-                        Layout.topMargin: 15
-                        visible: true
-                    }
-                    TicketCard {
-                        Layout.fillWidth: true
-                        Layout.topMargin: 15
-                        visible: true
-                    }
-                    TicketCard {
-                        Layout.fillWidth: true
-                        Layout.topMargin: 15
-                        visible: true
-                    }
-                    TicketCard {
-                        Layout.fillWidth: true
-                        Layout.topMargin: 15
-                        visible: true
+                    ColumnLayout {
+                        width: parent.width
+
+                        // 票务查询结果卡片区
+                        TicketCard {
+                            Layout.fillWidth: true
+                            Layout.topMargin: 15
+                            visible: true
+                        }
+                        TicketCard {
+                            Layout.fillWidth: true
+                            Layout.topMargin: 15
+                            visible: true
+                        }
+                        TicketCard {
+                            Layout.fillWidth: true
+                            Layout.topMargin: 15
+                            visible: true
+                        }
+                        TicketCard {
+                            Layout.fillWidth: true
+                            Layout.topMargin: 15
+                            visible: true
+                        }
                     }
                 }
             }
