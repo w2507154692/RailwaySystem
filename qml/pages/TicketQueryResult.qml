@@ -220,6 +220,7 @@ Window {
             // anchors.rightMargin: 8
             // 滚动卡片区
             ScrollView {
+                id: scrollview
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.leftMargin: 15
@@ -237,37 +238,33 @@ Window {
                     handleLength: 60 // 这里设置你想要的长度
                 }
 
-                Item {
-                    anchors.fill: parent
-                    anchors.rightMargin: 30
+                ColumnLayout {
+                    width: scrollview.width - 20
 
-                    ColumnLayout {
-                        width: parent.width
-
-                        // 票务查询结果卡片区
-                        TicketCard {
-                            Layout.fillWidth: true
-                            Layout.topMargin: 15
-                            visible: true
-                        }
-                        TicketCard {
-                            Layout.fillWidth: true
-                            Layout.topMargin: 15
-                            visible: true
-                        }
-                        TicketCard {
-                            Layout.fillWidth: true
-                            Layout.topMargin: 15
-                            visible: true
-                        }
-                        TicketCard {
-                            Layout.fillWidth: true
-                            Layout.topMargin: 15
-                            visible: true
-                        }
+                    // 票务查询结果卡片区
+                    TicketCard {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 15
+                        visible: true
+                    }
+                    TicketCard {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 15
+                        visible: true
+                    }
+                    TicketCard {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 15
+                        visible: true
+                    }
+                    TicketCard {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 15
+                        visible: true
                     }
                 }
             }
+
 
             //底部分割线
             Rectangle {

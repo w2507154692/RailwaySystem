@@ -41,8 +41,10 @@ Window{
             // anchors.rightMargin: 8
             // 滚动卡片区
             ScrollView {
+                id: scrollview
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+                Layout.leftMargin: 20
                 // Layout.leftMargin: 10
                 // Layout.rightMargin: 10
                 // contentWidth: parent.width
@@ -59,30 +61,24 @@ Window{
                 }
 
                 ColumnLayout {
-                    id: columnLayout
-                    anchors.fill: parent
-                    anchors.rightMargin: 10
-                    anchors.leftMargin: 40
+                    width: scrollview.width - 20
+                    spacing: 15
 
                     // 票务查询结果卡片区
                     OrderCard {
                         Layout.fillWidth: true
-                        Layout.topMargin: 15
                         visible: true
                     }
                     OrderCard {
                         Layout.fillWidth: true
-                        Layout.topMargin: 15
                         visible: true
                     }
                     OrderCard {
                         Layout.fillWidth: true
-                        Layout.topMargin: 15
                         visible: true
                     }
                     OrderCard {
                         Layout.fillWidth: true
-                        Layout.topMargin: 15
                         visible: true
                     }
                 }
