@@ -217,15 +217,25 @@ Window {
             anchors.fill: parent
             anchors.topMargin: 8
             anchors.leftMargin: 5
-            anchors.rightMargin: 8
+            // anchors.rightMargin: 8
             // 滚动卡片区
             ScrollView {
                 Layout.fillHeight: true
-                // Layout.fillWidth: true
-                Layout.leftMargin: 10
-                Layout.rightMargin: 10
-                // anchors.fill: parent
+                Layout.fillWidth: true
+                Layout.leftMargin: 15
+                // Layout.rightMargin: 10
                 // contentWidth: parent.width
+
+                // 完全自定义滚动条样式
+                ScrollBar.vertical: BasicScrollBar {
+                    width: 8
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: parent.height - 8
+                    policy: ScrollBar.AlwaysOn
+                    handleNormalColor: "#a0a0a0"
+                    handleLength: 60 // 这里设置你想要的长度
+                }
 
 
                 ColumnLayout {
