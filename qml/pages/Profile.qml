@@ -13,10 +13,6 @@ Window{
 
     RowLayout {
         anchors.fill: parent
-        anchors.leftMargin: 0
-        anchors.rightMargin: 0
-        anchors.topMargin: 0
-        anchors.bottomMargin: 0
 
         SideBar {
             Layout.preferredWidth: 150
@@ -26,21 +22,17 @@ Window{
         Rectangle{
             Layout.fillWidth: true
             Layout.fillHeight: true
-            // color: "red"
 
 
-            Rectangle{
-                anchors.topMargin: 18
-                anchors.rightMargin: 68
-                anchors.bottomMargin: 86
+            Item {
                 anchors.fill: parent
-                // color: "blue"
+                anchors.leftMargin: 20
+                anchors.rightMargin: 150
+                anchors.topMargin: 30
+                anchors.bottomMargin: 86
 
-
-
-                Column {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.topMargin: 32
+                ColumnLayout {
+                    width: parent.width
                     spacing: 36
 
                     // 个人信息标题
@@ -49,23 +41,60 @@ Window{
                         font.pixelSize: 28
                         font.bold: true
                         color: "#007FFF"
-                        anchors.left: parent.left
-                        // anchors.leftMargin: 12
                     }
 
-                    // 信息卡片区
-                    Item {
-                        width: 600
-                        height: 60
+                    RowLayout {
+                        ColumnLayout {
+                            spacing: 25
+
+                            RowLayout{
+                                Text {
+                                    text: "姓名："
+                                    font.pixelSize: 20
+                                    color: "#222"
+                                }
+                                Text {
+                                    text: "王宇豪"
+                                    font.pixelSize: 20
+                                    color: "#222"
+                                }
+                                Text {
+                                    Layout.leftMargin: 80
+                                    text: "联系方式："
+                                    font.pixelSize: 20
+                                    color: "#222"
+                                }
+                                Text {
+                                    text: "17816936112"
+                                    font.pixelSize: 20
+                                    color: "#222"
+                                }
+                            }
+                            RowLayout {
+                                Text {
+                                    text: "身份证号："
+                                    font.pixelSize: 20
+                                    color: "#222"
+                                }
+                                Text {
+                                    text: "412828200507112111"
+                                    font.pixelSize: 20
+                                    color: "#222"
+                                }
+                            }
+                        }
+
+                        Item {
+                            Layout.fillWidth: true
+                        }
 
                         // 编辑按钮
                         Rectangle {
-                            width: 32; height: 32; radius: 6
+                            Layout.preferredWidth: 32
+                            Layout.preferredHeight: 32
+                            Layout.leftMargin: 50
+                            radius: 6
                             color: "#fff"
-                            anchors.right: parent.right
-                            anchors.top: parent.top
-                            anchors.rightMargin: 10
-                            anchors.topMargin:16
                             // 阴影
                             Rectangle {
                                 color: "#b3d1ff"
@@ -80,43 +109,13 @@ Window{
                                 width:60; height:60
                             }
                         }
-
-                        Column {
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-                            // anchors.leftMargin: 18
-                            anchors.rightMargin: 64 // 留编辑按钮空间
-                            spacing: 20
-
-                            Row {
-                                spacing: 100
-                                Text {
-                                    text: "姓名： 王宇豪"
-                                    font.pixelSize: 20
-                                    color: "#222"
-                                }
-                                Text {
-                                    text: "联系方式：17816936112"
-                                    font.pixelSize: 20
-                                    color: "#222"
-                                }
-                            }
-                            Text {
-                                text: "身份证号： 412828200507112111"
-                                font.pixelSize: 20
-                                color: "#222"
-                            }
-                        }
                     }
 
                     // 分割线
                     Rectangle {
-                        y: 0
-                        width: parent.width - 32
-                        height: 2
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 2
                         color: "#cce5ff"
-                        anchors.left: parent.left
-                        // anchors.leftMargin: 16
                         radius: 1
                     }
 
@@ -126,27 +125,23 @@ Window{
                         font.pixelSize: 26
                         font.bold: true
                         color: "#007FFF"
-                        anchors.left: parent.left
-                        // anchors.leftMargin: 12
-                        // anchors.topMargin: 18
                     }
 
                     // 按钮区
                     Column {
                         spacing: 24
-                        anchors.left: parent.left
-                        // anchors.leftMargin: 32
 
                         CustomButton{
-                            width: 180;height: 42
+                            Layout.preferredWidth: 180
+                            Layout.preferredHeight: 42
                             text: "退出登录"
                             activeFocusOnTab: true
                             focus: true
-
                         }
 
                         CustomButton{
-                            width: 180;height: 42
+                            Layout.preferredWidth: 180
+                            Layout.preferredHeight: 42
                             text: "注销账号"
                         }
                     }
