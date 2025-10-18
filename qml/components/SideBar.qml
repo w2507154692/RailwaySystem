@@ -5,7 +5,15 @@ import "../components"
 
 
 Item {
-    width: 150
+    // 支持外部传递菜单数据
+    property var menuModel: [
+        { text: "车票查询", iconSource: "qrc:/resources/icon/TicketQuery.png" },
+        { text: "乘车人信息", iconSource: "qrc:/resources/icon/OrderManagement.png" },
+        { text: "我的订单", iconSource: "qrc:/resources/icon/MyOrders.png" },
+        { text: "个人中心", iconSource: "qrc:/resources/icon/Profile.png" }
+    ]
+
+    width: 130
     height: parent ? parent.height : 600 // 如果有父级就跟随父级高度，否则默认600
 
     Rectangle {
@@ -26,12 +34,17 @@ Item {
             anchors.fill: parent
             spacing: 0
 
-            // 顶部菜单按钮区
-            MenuButton { text: "车票查询"; iconSource: "qrc:/resources/icon/TicketQuery.png"; Layout.margins: 10 }
-            MenuButton { text: "乘车人信息"; iconSource: "qrc:/resources/icon/OrderManagement.png"; Layout.margins: 10 }
-            MenuButton { text: "我的订单"; iconSource: "qrc:/resources/icon/MyOrders.png"; Layout.margins: 10 }
+            // 顶部三个菜单按钮
+            Repeater {
+                model: menuModel.length > 3 ? menuModel.slice(0, 3) : menuModel
+                MenuButton {
+                    text: modelData.text
+                    iconSource: modelData.iconSource
+                    Layout.margins: 10
+                }
+            }
 
-            Item { Layout.fillHeight: true } // 弹性占位
+            Item { Layout.fillHeight: true } // 占位弹性空间
 
             Rectangle {
                 width: parent.width
@@ -41,12 +54,14 @@ Item {
                 Layout.fillWidth: true
             }
 
+            // 底部一个菜单按钮
             MenuButton {
-                text: "个人中心"
-                iconSource: "qrc:/resources/icon/Profile.png"
-                normalColor: "#A9C4EB"
-                Layout.margins: 16
+                text: menuModel.length > 3 ? menuModel[3].text : ""
+                iconSource: menuModel.length > 3 ? menuModel[3].iconSource : ""
+                Layout.margins: 10
             }
+
+
         }
     }
 

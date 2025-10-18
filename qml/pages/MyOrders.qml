@@ -20,5 +20,38 @@ Window {
             Layout.fillHeight: true
         }
 
+        //主内容
+        Rectangle{
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            color:"pink"
+            ColumnLayout{
+                //间距
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                Item{
+                    Layout.preferredHeight: 20
+                }
+
+                RowLayout{
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    OrderCard{
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                    }
+
+                    // ColumnLayout{
+                    //     CustomButton{
+
+                    //     }
+
+                    //     CustomButton{
+
+                    //     }
+                    // }
+                }
+            }
+        }
     }
 }

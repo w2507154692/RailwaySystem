@@ -13,10 +13,6 @@ Window{
 
     RowLayout {
         anchors.fill: parent
-        anchors.leftMargin: 0
-        anchors.rightMargin: 0
-        anchors.topMargin: 0
-        anchors.bottomMargin: 0
 
         SideBar {
             Layout.preferredWidth: 150
