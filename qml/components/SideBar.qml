@@ -18,8 +18,10 @@ Item {
             width: 2
             anchors.top: parent.top
             anchors.bottom: parent.bottom
+            anchors.topMargin: 20
+            anchors.bottomMargin: 20
             anchors.right: parent.right
-            color: "#b3b3b3"
+            color: "#cccccc"
         }
 
         ColumnLayout {
