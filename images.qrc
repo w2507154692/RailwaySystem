@@ -39,5 +39,6 @@
         <file>qml/components/CheckButton.qml</file>
         <file>qml/components/BasicScrollBar.qml</file>
         <file>qml/pages/SubmitOrderDialog.qml</file>
+        <file>qml/components/TimetableView.qml</file>
     </qresource>
 </RCC>
