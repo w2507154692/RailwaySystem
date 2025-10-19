@@ -40,5 +40,6 @@
         <file>qml/components/BasicScrollBar.qml</file>
         <file>qml/pages/SubmitOrderDialog.qml</file>
         <file>qml/components/TimetableView.qml</file>
+        <file>qml/components/SearchBar.qml</file>
     </qresource>
 </RCC>

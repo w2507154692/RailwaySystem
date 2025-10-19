@@ -14,8 +14,10 @@ Item {
         { name: "定远", arrive: "11:46", depart: "11:50", stop: "4分" },
         { name: "南京南", arrive: "14:23", depart: "14:25", stop: "2分" },
         { name: "上海虹桥", arrive: "15:57", depart: "16:00", stop: "3分" },
-        { name: "杭州东", arrive: "16:40", depart: "", stop: "" }
+        { name: "杭州东", arrive: "16:40", depart: "---", stop: "---" }
     ]
+
+    property bool showButtons: true
 
     //背景
     Rectangle {
@@ -43,7 +45,7 @@ Item {
                 width: parent.width
                 height: parent.height
                 // 左侧编辑图标占位
-                Item { Layout.preferredWidth: 36 }
+                Item { Layout.preferredWidth: 36; visible: showButtons }
 
                 //间隔
                 Item{
@@ -104,7 +106,7 @@ Item {
                 }
 
                 // 右侧删除图标占位
-                Item { Layout.preferredWidth: 36 }
+                Item { Layout.preferredWidth: 36; visible: showButtons }
             }
         }
 
@@ -155,11 +157,7 @@ Item {
                                 Item {
                                     Layout.preferredWidth: 36
                                     Layout.preferredHeight: 40
-                                    Rectangle{
-                                        anchors.fill: parent
-                                        color: "pink"
-                                    }
-
+                                    visible: showButtons
                                     Button {
                                         anchors.centerIn: parent
                                         width: 24; height: 24
@@ -236,6 +234,7 @@ Item {
                                 Item {
                                     Layout.preferredWidth: 36
                                     Layout.preferredHeight: 40
+                                    visible: showButtons
                                     Button {
                                         anchors.centerIn: parent
                                         width: 36; height: 36
@@ -264,8 +263,4 @@ Item {
             }
         }
     }
-
-
-
-
 }

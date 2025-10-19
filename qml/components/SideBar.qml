@@ -13,6 +13,9 @@ Item {
         { text: "个人中心", iconSource: "qrc:/resources/icon/Profile.png" }
     ]
 
+    property bool showBottomLine: true    // 控制分隔线显示
+    property bool showBottomButton: true  // 控制底部按钮显示
+
     width: 130
     height: parent ? parent.height : 600 // 如果有父级就跟随父级高度，否则默认600
 
@@ -48,12 +51,14 @@ Item {
 
             Item { Layout.fillHeight: true } // 占位弹性空间
 
+            // 分隔线
             Rectangle {
                 width: parent.width
                 height: 1
                 color: "#CCE5FF"
                 Layout.margins: 10
                 Layout.fillWidth: true
+                visible: showBottomLine   // 控制显示
             }
 
             // 底部一个菜单按钮
@@ -61,10 +66,8 @@ Item {
                 text: menuModel.length > 3 ? menuModel[3].text : ""
                 iconSource: menuModel.length > 3 ? menuModel[3].iconSource : ""
                 Layout.margins: 10
+                visible: showBottomButton // 控制显示
             }
-
-
         }
     }
-
 }
