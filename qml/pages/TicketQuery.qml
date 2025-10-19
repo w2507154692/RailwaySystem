@@ -22,45 +22,126 @@ Window {
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color: "red"
 
-            Column {
+            ColumnLayout {
                 anchors.fill: parent
-                anchors.margins: 40
+                anchors.leftMargin: 70
+                anchors.rightMargin: 90
                 spacing: 32
 
-                Row {
-                    spacing: 80
+                Item {
+                    Layout.fillHeight: true
+                }
+
+                RowLayout {
                     Text {
                         text: "北京"
                         font.pixelSize: 48
                         color: "#222"
-                        // 可加 maximumWidth 限制
                     }
+
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
                     Image {
                         source: "qrc:/resources/icon/TrainIcon.png"
-                        width: 48; height: 48
+                        Layout.preferredWidth: 100
+                        Layout.preferredHeight: 100
                     }
+
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
                     Text {
                         text: "上海"
                         font.pixelSize: 48
                         color: "#222"
 
-
                     }
                 }
 
+                // 分割线
                 Rectangle {
-                    width: 400; height: 60
-                    radius: 12
-                    color: "#6ea8fe"
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 2
+                    Layout.topMargin: -60
+                    color: "#e6e6e6"
+                }
+
+                // 日期
+                RowLayout {
+                    Layout.topMargin: -60
+
                     Text {
-                        anchors.centerIn: parent
-                        text: "查询车票"
-                        color: "#fff"
-                        font.pixelSize: 32
+                        text: "6月30日"
+                        font.pixelSize: 25
+                        color: "#222"
                     }
+
+                    Text {
+                        Layout.leftMargin: 50
+                        text: "今天"
+                        font.pixelSize: 25
+                        color: "#656565"
+                    }
+                }
+
+                // 按钮
+                CustomButton {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 75
+                    Layout.topMargin: -20
+                    text: "查询车票"
+                    textColor: "white"
+                    fontSize: 30
+                    customColor: "#3B99FB"
+                }
+
+                // 历史记录
+                RowLayout {
+                    Layout.topMargin: -10
+
+                    Text {
+                        text: "北京--嘉兴南"
+                        font.pixelSize: 20
+                        color: "#ACACAC"
+                    }
+
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
+                    Text {
+                        text: "北京--嘉兴南"
+                        font.pixelSize: 20
+                        color: "#ACACAC"
+                    }
+
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
+                    Text {
+                        text: "北京--嘉兴南"
+                        font.pixelSize: 20
+                        color: "#ACACAC"
+                    }
+
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
+                    Text {
+                        text: "清除历史"
+                        font.pixelSize: 20
+                        color: "#ACACAC"
+                    }
+                }
+
+                Item {
+                    Layout.fillHeight: true
                 }
             }
         }
