@@ -7,32 +7,36 @@ Item {
     height: 40
     width: 120
 
-    //确认时，文字"#fff" : "#5D7FA9"，按钮："#007fff" : "#8ec9ff"
-    //取消时，文字"#000" : "#666",按钮："#b3b3b3" : "#e6e6e6"
+    // 按钮类型：confirm（确认/登录），cancel（取消/注册）
+    property string buttonType: "confirm" // "confirm" 或 "cancel"
 
-
+    // 可外部覆盖的属性
     property alias text: label.text
-    property color customColor: "#8ec2ff"      // 默认色，可外部覆盖
-    property color pressedColor: "#007fff"     // 按下时色
-    property color textColor: "#fff"           // 默认文字色
-    property color pressedTextColor: "#fff" // 按下时文字色
     property int fontSize: 18
     property int borderRadius: 8
-    property int borderWidth: 0
-    property color borderColor: "transparent"
+    property int borderWidth: buttonType === "cancel" ? 1.5 : 0
+    property color borderColor: buttonType === "cancel" ? "#c5c5c5" : "transparent"
     property bool fontBold: false
+
+    // 按钮颜色
+    property color customColor: buttonType === "confirm" ? "#409CFC" : "#ffffff"
+    property color pressedColor: buttonType === "confirm" ? "#174a73" : "#e8e8e8"
+    property color hoverColor: buttonType === "confirm" ? "#1f5f99" : "#f8f8f8"
+
+    // 文字颜色
+    property color textColor: buttonType === "confirm" ? "#fff" : "#4a4a4a"
+    property color pressedTextColor: buttonType === "confirm" ? "#fff" : "#4a4a4a"
+
     signal clicked
 
-    // 阴影层
     DropShadow {
         anchors.fill: menubutton
         source: menubutton
-        color: "#8B8989"
-        radius: 12
-        samples: 17
-        horizontalOffset: 4
-        verticalOffset: 4
-
+        color: buttonType === "confirm" ? "#1c5a85" : "#e8e8e8"
+        radius: 10
+        samples: 16
+        horizontalOffset: 2
+        verticalOffset: 2
     }
 
     Rectangle {
@@ -41,13 +45,16 @@ Item {
         border.width: root.borderWidth
         border.color: root.borderColor
         radius: root.borderRadius
-        color: mouseArea.pressed ? root.pressedColor : root.customColor
+        color: mouseArea.pressed ? root.pressedColor
+              : mouseArea.containsMouse ? root.hoverColor
+              : root.customColor
 
         MouseArea {
             id: mouseArea
             anchors.fill: parent
-            onClicked: root.clicked()
+            hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
+            onClicked: root.clicked()
         }
 
         Text {
@@ -56,8 +63,7 @@ Item {
             color: mouseArea.pressed ? root.pressedTextColor : root.textColor
             font.pixelSize: root.fontSize
             font.bold: root.fontBold
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.centerIn: parent
         }
     }
 }

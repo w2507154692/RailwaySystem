@@ -125,6 +125,7 @@ Window {
                 Item { Layout.preferredWidth: 22}
                 // 确认按钮
                 CustomButton{
+                    buttonType: "confirm"
                     text: "确认"
                     height: 26
                     width:100
@@ -135,6 +136,7 @@ Window {
 
                 // 取消按钮
                 CustomButton{
+                    buttonType: "cancel"
                     text: "取消"
                     height: 26
                     width:100
