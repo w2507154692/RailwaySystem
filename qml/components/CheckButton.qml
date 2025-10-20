@@ -6,13 +6,16 @@ import Qt5Compat.GraphicalEffects
 
 Item {
     id: root
-    width: 34
-    height: 34
+    property int buttonWidth: 28
+    property int buttonHeight: 28
+    property int buttonRadius: buttonWidth / 2
+
+    width: buttonWidth + 6
+    height: buttonHeight + 6
 
     property bool checked: false
     signal toggled(bool checked)
 
-    // 阴影效果
     DropShadow {
         anchors.fill: circle
         source: circle
@@ -23,23 +26,21 @@ Item {
         samples: 16
     }
 
-    // 按钮主体
     Rectangle {
         id: circle
         anchors.centerIn: parent
-        width: 28
-        height: 28
-        radius: width / 2
+        width: root.buttonWidth
+        height: root.buttonHeight
+        radius: root.buttonRadius
         color: "#F3F5F7"
         border.color: "#DDD"
         border.width: 1
 
-        // 选中圆
         Rectangle {
             anchors.centerIn: parent
-            width: 16
-            height: 16
-            radius: width / 2
+            width: root.buttonWidth * 0.57
+            height: root.buttonHeight * 0.57
+            radius: root.buttonRadius * 0.57
             color: root.checked ? "#67B7FF" : "transparent"
             visible: root.checked
         }

@@ -12,9 +12,9 @@ Item {
 
 
     property alias text: label.text
-    property color customColor: "#8ec9ff"      // 默认色，可外部覆盖
+    property color customColor: "#8ec2ff"      // 默认色，可外部覆盖
     property color pressedColor: "#007fff"     // 按下时色
-    property color textColor: "#5D7FA9"           // 默认文字色
+    property color textColor: "#fff"           // 默认文字色
     property color pressedTextColor: "#fff" // 按下时文字色
     property int fontSize: 18
     property int borderRadius: 8

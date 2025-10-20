@@ -2,10 +2,10 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Shapes
 
-
 Rectangle {
     id: infoHeader
     property string title: "标题" // 外部传入
+    property int titleFontSize: 28 // 标题字体大小，默认28
     signal closeClicked         // 关闭按钮点击信号
 
     width: parent ? parent.width : 600
@@ -24,7 +24,7 @@ Rectangle {
         text: infoHeader.title
         color: "white"
         font.bold: false
-        font.pixelSize: 28
+        font.pixelSize: infoHeader.titleFontSize  // 使用开放的字体大小属性
         leftPadding: 10
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left

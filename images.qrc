@@ -41,5 +41,7 @@
         <file>qml/pages/SubmitOrderDialog.qml</file>
         <file>qml/components/TimetableView.qml</file>
         <file>qml/components/SearchBar.qml</file>
+        <file>qml/pages/AddUserDialog.qml</file>
+        <file>qml/pages/ResetPasswordDialog.qml</file>
     </qresource>
 </RCC>
