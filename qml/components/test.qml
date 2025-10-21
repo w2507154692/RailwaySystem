@@ -5,30 +5,25 @@ import QtQuick.Layouts 1.15
 import Qt5Compat.GraphicalEffects
 import "../pages"
 
-Window {
-    width: 800
-    height: 600
-    visible: true
-    Rectangle{
-        anchors.fill: parent
-        // width: parent.width
-        // height: parent.height
-
-        ColumnLayout{
-            width: parent.width
-            height: parent.height
-            RowLayout{
-                Label{
-                    Layout.fillWidth: true
-                    text:"ww"
-                }
-
-                TextField{
-                    Layout.fillWidth:true
+Item {
+        width: 960; height: 540
+        ListView{
+            anchors.fill: parent
+            model: Qt.fontFamilies()
+            delegate: Item {
+                height: 64
+                width: parent.width
+                Rectangle{
+                    height: 48
+                    width: parent.width
+                    Text {
+                        id: txtShow
+                        anchors.centerIn: parent
+                        color: "black"
+                        text: "字体名称" + index + ": " + modelData
+                        font.family: modelData
+                    }
                 }
             }
         }
-
     }
-
-}

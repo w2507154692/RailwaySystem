@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window{
-    width: 960; height: 720
+    width: 1280; height: 720
     minimumWidth: 480; minimumHeight: 360
     maximumWidth: 1920; maximumHeight: 1440
     visible: true
@@ -15,7 +15,7 @@ Window{
         anchors.fill: parent
 
         SideBar {
-            Layout.preferredWidth: 150
+            Layout.preferredWidth: 220
             Layout.fillHeight: true
         }
 

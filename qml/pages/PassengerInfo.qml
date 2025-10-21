@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window {
-    width: 960; height: 720
+    width: 1280; height: 720
     color: "#ffffff"
 
     RowLayout {
@@ -13,7 +13,7 @@ Window {
 
         // 侧边栏
         SideBar {
-            Layout.preferredWidth: 150
+            Layout.preferredWidth: 220
             Layout.fillHeight: true
         }
 
@@ -21,7 +21,6 @@ Window {
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color: "red"
 
             // 滚动卡片区
             ScrollView {

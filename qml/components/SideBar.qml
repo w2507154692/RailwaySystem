@@ -16,14 +16,11 @@ Item {
     property bool showBottomLine: true    // 控制分隔线显示
     property bool showBottomButton: true  // 控制底部按钮显示
 
-    width: 130
-    height: parent ? parent.height : 600 // 如果有父级就跟随父级高度，否则默认600
+    width: 180
+    height: 600 // 如果有父级就跟随父级高度，否则默认600
 
     Rectangle {
-        // height: 1500
-        width: 130
-        // color: "#ffffff"
-        // color:"pink"
+        width: 200
         height: parent.height
         Rectangle {
             width: 2
@@ -37,15 +34,21 @@ Item {
 
         ColumnLayout {
             anchors.fill: parent
-            spacing: 0
+            anchors.topMargin: 20
+            anchors.leftMargin: 15
+            anchors.rightMargin: 25
+            spacing: 10
 
             // 顶部三个菜单按钮
             Repeater {
                 model: menuModel.length > 3 ? menuModel.slice(0, 3) : menuModel
                 MenuButton {
+                    // Layout.rightMargin: 15
+                    Layout.fillWidth: true
                     text: modelData.text
                     iconSource: modelData.iconSource
-                    Layout.margins: 10
+                    // iconWidth: 40
+                    // iconHeight: 40
                 }
             }
 
@@ -54,7 +57,7 @@ Item {
             // 分隔线
             Rectangle {
                 width: parent.width
-                height: 1
+                height: 2
                 color: "#CCE5FF"
                 Layout.margins: 10
                 Layout.fillWidth: true
@@ -63,9 +66,13 @@ Item {
 
             // 底部一个菜单按钮
             MenuButton {
+                Layout.fillWidth: true
+                Layout.topMargin: -5
+                Layout.bottomMargin: 30
+                Layout.leftMargin: 10
+                Layout.rightMargin: 10
                 text: menuModel.length > 3 ? menuModel[3].text : ""
                 iconSource: menuModel.length > 3 ? menuModel[3].iconSource : ""
-                Layout.margins: 10
                 visible: showBottomButton // 控制显示
             }
         }
