@@ -43,5 +43,6 @@
         <file>qml/components/SearchBar.qml</file>
         <file>qml/pages/AddUserDialog.qml</file>
         <file>qml/pages/ResetPasswordDialog.qml</file>
+        <file>qml/components/SelectButton.qml</file>
     </qresource>
 </RCC>

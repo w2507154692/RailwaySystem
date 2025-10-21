@@ -286,39 +286,78 @@ Window {
 
             // 底部按钮区
             RowLayout {
-                Layout.topMargin: 10
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter
-                // anchors.horizontalCenter: parent.horizontalCenter
-                // anchors.bottom: parent.bottom
-                // anchors.bottomMargin: 30
-                spacing: 80
+                Layout.topMargin: 10
                 Layout.bottomMargin: 30
+                Layout.alignment: Qt.AlignHCenter
+                spacing: 80
 
-                MenuButton {
+                property int selectedIndex: 0
+
+                SelectButton {
+                    Layout.preferredWidth: 160
+                    Layout.preferredHeight: 30
                     text: "耗时最短"
-                    width: 160
-                    height: 30
-                    textx: width / 4 + 10
+                    index: 0
+                    selected: parent.selectedIndex == index
+                    onClicked: parent.selectedIndex = index
+                    fontSize: 16
                 }
-                MenuButton {
+                SelectButton {
+                    Layout.preferredWidth: 160
+                    Layout.preferredHeight: 30
                     text: "发时最早"
-                    width: 160
-                    height: 30
-                    textx: width / 4 + 10
+                    index: 1
+                    selected: parent.selectedIndex == index
+                    onClicked: parent.selectedIndex = index
+                    fontSize: 16
                 }
-                MenuButton {
+
+                SelectButton {
+                    Layout.preferredWidth: 160
+                    Layout.preferredHeight: 30
                     text: "到时最早"
-                    width: 160
-                    height: 30
-                    textx: width / 4 + 10
+                    index: 2
+                    selected: parent.selectedIndex == index
+                    onClicked: parent.selectedIndex = index
+                    fontSize: 16
                 }
-                MenuButton {
+                SelectButton {
+                    Layout.preferredWidth: 160
+                    Layout.preferredHeight: 30
                     text: "价格最低"
-                    width: 160
-                    height: 30
-                    textx: width / 4 + 10
+                    index: 3
+                    selected: parent.selectedIndex == index
+                    onClicked: parent.selectedIndex = index
+                    fontSize: 16
                 }
+
+
+
+                // MenuButton {
+                //     text: "耗时最短"
+                //     width: 160
+                //     height: 30
+                //     textx: width / 4 + 10
+                // }
+                // MenuButton {
+                //     text: "发时最早"
+                //     width: 160
+                //     height: 30
+                //     textx: width / 4 + 10
+                // }
+                // MenuButton {
+                //     text: "到时最早"
+                //     width: 160
+                //     height: 30
+                //     textx: width / 4 + 10
+                // }
+                // MenuButton {
+                //     text: "价格最低"
+                //     width: 160
+                //     height: 30
+                //     textx: width / 4 + 10
+                // }
             }
         }
 

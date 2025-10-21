@@ -14,9 +14,9 @@ Item {
     property alias iconSource: icon.source
     property bool selected: false
 
-    property color normalColor: "#87CEEB"
-    property color hoverColor: "#3399FF"
-    property color pressColor: "#2379FF"
+    property color normalColor: "#70B9FF"
+    property color hoverColor: "#2379FF"
+    property color pressColor: "#1359FF"
     property color selectedColor: "#3399FF"
     property color normalTextColor: "white"
 

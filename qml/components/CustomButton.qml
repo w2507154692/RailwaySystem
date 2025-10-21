@@ -14,7 +14,7 @@ Item {
     property alias text: label.text
     property int fontSize: 18
     property int borderRadius: 8
-    property int borderWidth: buttonType === "cancel" ? 1.5 : 0
+    property double borderWidth: buttonType === "cancel" ? 1.5 : 0
     property color borderColor: buttonType === "cancel" ? "#c5c5c5" : "transparent"
     property bool fontBold: false
 
