@@ -26,21 +26,10 @@ Item {
     property color hoverColor: "#2379FF"
     property color pressedColor: "#1359FF"
     property color selectedColor: "#2379FF"
-    // property color customColor: buttonType === "confirm" ? "#409CFC" : "#ffffff"
-    // property color pressedColor: buttonType === "confirm" ? "#174a73" : "#e8e8e8"
-    // property color hoverColor: buttonType === "confirm" ? "#1f5f99" : "#f8f8f8"
 
     // 文字颜色
     property color textColor: "#fff"
     property color pressedTextColor: "#fff"
-    // property color textColor: buttonType === "confirm" ? "#fff" : "#4a4a4a"
-    // property color pressedTextColor: buttonType === "confirm" ? "#fff" : "#4a4a4a"
-
-    // onClicked: {
-    //     if(!selected) {
-    //         root.clicked(index)
-    //     }
-    // }
 
     signal clicked
 
@@ -71,7 +60,9 @@ Item {
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
             onClicked: {
-                root.clicked()
+                if(!selected) {
+                    root.clicked()
+                }
             }
         }
 

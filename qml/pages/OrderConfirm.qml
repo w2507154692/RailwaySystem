@@ -54,7 +54,6 @@ Window {
         anchors.topMargin: 90
         border.color: "#4d4d4d"
         radius: 20
-        color: "pink"
         ColumnLayout{
             anchors.fill: parent
             anchors.margins: 20

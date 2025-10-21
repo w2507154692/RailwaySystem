@@ -8,17 +8,30 @@ Item {
     height: 80
     width: 200
 
-    property alias text: label.text
-    property alias textColor: label.color
-    property alias textSize: label.font.pixelSize
-    property alias iconSource: icon.source
-    property bool selected: false
+    // 按钮选择
+    property int index: 0 // 按钮索引
+    property bool selected // 是否选中
 
+    // 可外部覆盖的属性
+    property alias text: label.text
+    property int fontSize: 18
+    property int borderRadius: 8
+    property double borderWidth: 0
+    property color borderColor: "transparent"
+    property bool fontBold: false
+    property alias iconSource: icon.source
+
+    // 按钮颜色
     property color normalColor: "#70B9FF"
     property color hoverColor: "#2379FF"
-    property color pressColor: "#1359FF"
-    property color selectedColor: "#3399FF"
-    property color normalTextColor: "white"
+    property color pressedColor: "#1359FF"
+    property color selectedColor: "#2379FF"
+
+    // 文字颜色
+    property color textColor: "#fff"
+    property color pressedTextColor: "#fff"
+
+    signal clicked
 
     // 阴影层
     DropShadow {
@@ -34,29 +47,26 @@ Item {
     Rectangle {
         id: menubutton
         anchors.fill: parent
-        radius: 8
-        color: root.selected ? root.selectedColor : root.normalColor
+        border.width: root.borderWidth
+        border.color: root.borderColor
+        radius: root.borderRadius
+        color: root.selected ? root.selectedColor
+                : mouseArea.pressed ? root.pressedColor
+                : mouseArea.containsMouse ? root.hoverColor
+                : root.normalColor
 
         MouseArea {
+            id: mouseArea
             anchors.fill: parent
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
-            onEntered: {
-                menubutton.color = root.hoverColor
-            }
-            onExited: {
-                menubutton.color = root.normalColor
-            }
-            onPressed: {
-                menubutton.color = root.pressColor
-            }
-            onReleased: {
-                menubutton.color = root.hoverColor
-            }
             onClicked: {
-                // 登录逻辑
+                if(!selected) {
+                    root.clicked()
+                }
             }
         }
+
         RowLayout {
             anchors.fill: parent
 
@@ -80,7 +90,7 @@ Item {
                 Layout.rightMargin: 10
                 horizontalAlignment: Text.AlignHCenter
                 text: "按钮"
-                color: root.normalTextColor
+                color: mouseArea.pressed ? root.pressedTextColor : root.textColor
                 font.pixelSize: 22
             }
         }

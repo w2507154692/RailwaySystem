@@ -312,7 +312,6 @@ Window {
                     onClicked: parent.selectedIndex = index
                     fontSize: 16
                 }
-
                 SelectButton {
                     Layout.preferredWidth: 160
                     Layout.preferredHeight: 30
@@ -331,33 +330,6 @@ Window {
                     onClicked: parent.selectedIndex = index
                     fontSize: 16
                 }
-
-
-
-                // MenuButton {
-                //     text: "耗时最短"
-                //     width: 160
-                //     height: 30
-                //     textx: width / 4 + 10
-                // }
-                // MenuButton {
-                //     text: "发时最早"
-                //     width: 160
-                //     height: 30
-                //     textx: width / 4 + 10
-                // }
-                // MenuButton {
-                //     text: "到时最早"
-                //     width: 160
-                //     height: 30
-                //     textx: width / 4 + 10
-                // }
-                // MenuButton {
-                //     text: "价格最低"
-                //     width: 160
-                //     height: 30
-                //     textx: width / 4 + 10
-                // }
             }
         }
 

@@ -5,12 +5,16 @@ import "../components"
 
 
 Item {
+    id: root
+
+    property int selectedIndex: 0
+
     // 支持外部传递菜单数据
     property var menuModel: [
-        { text: "车票查询", iconSource: "qrc:/resources/icon/TicketQuery.png" },
-        { text: "乘车人信息", iconSource: "qrc:/resources/icon/OrderManagement.png" },
-        { text: "我的订单", iconSource: "qrc:/resources/icon/MyOrders.png" },
-        { text: "个人中心", iconSource: "qrc:/resources/icon/Profile.png" }
+        {index: 0, text: "车票查询", iconSource: "qrc:/resources/icon/TicketQuery.png" },
+        {index: 1, text: "乘车人信息", iconSource: "qrc:/resources/icon/OrderManagement.png" },
+        {index: 2, text: "我的订单", iconSource: "qrc:/resources/icon/MyOrders.png" },
+        {index: 3, text: "个人中心", iconSource: "qrc:/resources/icon/Profile.png" }
     ]
 
     property bool showBottomLine: true    // 控制分隔线显示
@@ -49,6 +53,8 @@ Item {
                     iconSource: modelData.iconSource
                     // iconWidth: 40
                     // iconHeight: 40
+                    selected: root.selectedIndex == modelData.index
+                    onClicked: root.selectedIndex = modelData.index
                 }
             }
 
@@ -74,6 +80,8 @@ Item {
                 text: menuModel.length > 3 ? menuModel[3].text : ""
                 iconSource: menuModel.length > 3 ? menuModel[3].iconSource : ""
                 visible: showBottomButton // 控制显示
+                selected: root.selectedIndex == (menuModel.length > 3 ? menuModel[3].index : -1)
+                onClicked: root.selectedIndex = (menuModel.length > 3 ? menuModel[3].index : -1)
             }
         }
     }
