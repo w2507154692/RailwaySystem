@@ -43,5 +43,9 @@
         <file>qml/components/SearchBar.qml</file>
         <file>qml/pages/AddUserDialog.qml</file>
         <file>qml/pages/ResetPasswordDialog.qml</file>
+        <file>qml/pages/AddStationDialog.qml</file>
+        <file>qml/pages/EditStationDialog.qml</file>
+        <file>qml/pages/TrainTimetableDialog.qml</file>
+        <file>qml/pages/EditSeatTemplateDialog.qml</file>
     </qresource>
 </RCC>

@@ -19,13 +19,16 @@ Item {
 
     property bool showButtons: true
 
+    // 新增：外部可控边框宽度
+    property int borderWidth: 1
+
     //背景
     Rectangle {
         anchors.fill: parent
         radius: 8
         color: "#fff"
         border.color: "#dde"
-        border.width: 1
+        border.width: borderWidth   // 这里引用属性
     }
 
     ColumnLayout{
