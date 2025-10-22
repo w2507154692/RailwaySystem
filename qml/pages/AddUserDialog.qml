@@ -141,11 +141,6 @@ Window {
                     height: 26
                     width:100
                     fontSize:14
-                    customColor: "#e6e6e6"
-                    textColor: "#666"
-                    pressedTextColor: "#000"
-                    pressedColor: "#b3b3b3"
-
                 }
 
                 Item { Layout.preferredWidth: 22}
