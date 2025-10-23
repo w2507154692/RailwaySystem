@@ -24,7 +24,7 @@ Item {
     height: 600 // 如果有父级就跟随父级高度，否则默认600
 
     Rectangle {
-        width: 200
+        width: 180
         height: parent.height
         Rectangle {
             width: 2
