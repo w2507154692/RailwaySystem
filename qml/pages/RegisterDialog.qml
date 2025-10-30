@@ -16,7 +16,6 @@ Window {
         id: root
         width: parent.width
         height: parent.height
-        radius: 14
         color: "#ffffff"
         border.color: "#666"
         border.width: 2

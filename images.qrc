@@ -44,8 +44,8 @@
         <file>qml/pages/AddUserDialog.qml</file>
         <file>qml/pages/ResetPasswordDialog.qml</file>
         <file>qml/components/SelectButton.qml</file>
-        <file>qml/pages/AddStationDialog.qml</file>
-        <file>qml/pages/EditStationDialog.qml</file>
+        <file>qml/pages/AddPassingStationDialog.qml</file>
+        <file>qml/pages/EditPassingStationDialog.qml</file>
         <file>qml/pages/TrainTimetableDialog.qml</file>
         <file>qml/pages/EditSeatTemplateDialog.qml</file>
         <file>qml/pages/RegisterDialog.qml</file>
