@@ -5,10 +5,12 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window {
+    id: mainWindow
     width: 600; height: 410
     minimumWidth: 600; minimumHeight: 410
     visible: true
     color: "#ffffff"
+    flags:Qt.FramelessWindowHint
 
     Rectangle {
         id: root
@@ -18,6 +20,23 @@ Window {
         color: "#ffffff"
         border.color: "#666"
         border.width: 2
+
+        MouseArea {
+           anchors.fill: parent
+           // 定义拖动
+           property real clickX: 0
+           property real clickY: 0
+
+           onPressed: {
+               clickX = mouse.x;
+               clickY = mouse.y;
+           }
+           onPositionChanged: {
+               // 拖动窗口
+               mainWindow.x += mouse.x - clickX;
+               mainWindow.y += mouse.y - clickY;
+           }
+       }
 
         // 顶部渐变标题栏
         Header{
