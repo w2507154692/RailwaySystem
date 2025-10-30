@@ -5,20 +5,39 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window {
+    id: mainWindow
     width: 400; height: 260
     minimumWidth: 400; minimumHeight: 260;
     maximumWidth: 1920; maximumHeight: 1440
     visible: true
     color: "#ffffff"
+    flags: Qt.FramelessWindowHint
 
     Rectangle {
         id:root
         width: parent.width
         height: parent.height
-        radius: 14
+        radius: 0
         color: "#ffffff"
         border.color: "#666"
         border.width: 2
+
+        MouseArea {
+           anchors.fill: parent
+           // 定义拖动
+           property real clickX: 0
+           property real clickY: 0
+
+           onPressed: {
+               clickX = mouse.x;
+               clickY = mouse.y;
+           }
+           onPositionChanged: {
+               // 拖动窗口
+               mainWindow.x += mouse.x - clickX;
+               mainWindow.y += mouse.y - clickY;
+           }
+       }
 
         // 顶部渐变标题栏
         Header{
@@ -53,31 +72,42 @@ Window {
                     text: "站名："
                     font.pixelSize: 12
                     color: "#444"
-                    Layout.preferredWidth: 48
+                    Layout.preferredWidth: 60
                     horizontalAlignment: Text.AlignRight
                 }
-                TextField {
+                ComboBox {
                     id: stationName
-                    Layout.preferredWidth: 82
-                    height: 24
-                    font.pixelSize: 10
-                    background: Rectangle {
-                        radius: 5
-                        border.color: "#888"
-                        border.width: 1
-                        color: "#fff"
+                    Layout.preferredWidth: 100
+
+                    model: ["--"].concat(Array.from({length: 24}, (_, i) => i.toString().padStart(2, "0")))
+                    currentIndex: 0
+                    contentItem: Text {
+                        text: parent.displayText
+
+                        // horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        font.pixelSize: 12
+                        color: "#444"
+                        anchors.fill: parent
+                        anchors.leftMargin: 6
                     }
                 }
 
                 Item{
                     Layout.fillWidth: true
                 }
+            }
+
+            // 第二排：是否起始站 开时
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 8
 
                 Label {
                     text: "到时："
                     font.pixelSize: 12
                     color: "#444"
-                    Layout.preferredWidth: 36
+                    Layout.preferredWidth: 60
                     horizontalAlignment: Text.AlignRight
                 }
 
@@ -97,7 +127,6 @@ Window {
                         color: "#444"
                         anchors.fill: parent
                         anchors.leftMargin: 6
-
                     }
 
                 }
@@ -122,41 +151,16 @@ Window {
                 Label { text: "分"; font.pixelSize: 12; color: "#444"; }
             }
 
-            // 第二排：停留 开时
+            // 第二排：是否起始站 开时
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 8
-                Label {
-                    text: "停留："
-                    font.pixelSize: 12
-                    color: "#444"
-                    Layout.preferredWidth: 48
-                    horizontalAlignment: Text.AlignRight
-                }
-                TextField {
-                    id: stopTime
-                    Layout.preferredWidth: 40
-                    height: 28
-                    font.pixelSize: 10
-                    background: Rectangle {
-                        radius: 5
-                        border.color: "#888"
-                        border.width: 1
-                        color: "#fff"
-                    }
-                }
-
-                Label { text: "分"; font.pixelSize: 12; color: "#444"; }
-
-                Item{
-                    Layout.fillWidth: true
-                }
 
                 Label {
                     text: "开时："
                     font.pixelSize: 12
                     color: "#444"
-                    Layout.preferredWidth: 36
+                    Layout.preferredWidth: 60
                     horizontalAlignment: Text.AlignRight
                 }
 
@@ -195,27 +199,6 @@ Window {
                     }
                 }
                 Label { text: "分"; font.pixelSize: 12; color: "#444"; }
-            }
-
-            // 起始站
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: 4
-                Label {
-                    text: "起始站："
-                    font.pixelSize: 12
-                    color: "#444"
-                    Layout.preferredWidth: 48
-                    horizontalAlignment: Text.AlignRight
-                }
-                CheckButton {
-                    id: adminCheck
-                    checked: false
-                    buttonWidth: 22
-                    buttonHeight: 16
-                    buttonRadius: 4
-                }
-                Item { Layout.fillWidth: true } // 占位
             }
 
 

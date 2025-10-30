@@ -5,18 +5,36 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window{
+    id: mainWindow
     width: 960; height: 720
     minimumWidth: 480; minimumHeight: 360
     maximumWidth: 1920; maximumHeight: 1440
     visible: true
     color: "#ffffff"
+    flags: Qt.FramelessWindowHint
+
+    MouseArea {
+       anchors.fill: parent
+       // 定义拖动
+       property real clickX: 0
+       property real clickY: 0
+
+       onPressed: {
+           clickX = mouse.x;
+           clickY = mouse.y;
+       }
+       onPositionChanged: {
+           // 拖动窗口
+           mainWindow.x += mouse.x - clickX;
+           mainWindow.y += mouse.y - clickY;
+       }
+   }
 
     //标题
     Header {
         id: header
         width: parent.width
         title: "提交订单"
-        radius: height * 0.4
         onCloseClicked: {
             submitOrderDialog.visible = false
         }
@@ -33,6 +51,8 @@ Window{
         // anchors.leftMargin: 30
         anchors.right: parent.right
         // anchors.rightMargin: 30
+
+
 
         ColumnLayout {
             anchors.fill: parent

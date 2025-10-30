@@ -10,7 +10,7 @@ Rectangle {
 
     width: parent ? parent.width : 600
     height: 60
-    radius: 12
+    radius: 0
     // 渐变背景（从左到右）
     gradient: Gradient {
         orientation: Gradient.Horizontal   // 横向渐变
