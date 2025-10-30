@@ -49,5 +49,7 @@
         <file>qml/pages/TrainTimetableDialog.qml</file>
         <file>qml/pages/EditSeatTemplateDialog.qml</file>
         <file>qml/pages/RegisterDialog.qml</file>
+        <file>qml/pages/StationListDialog.qml</file>
+        <file>qml/components/StationListView.qml</file>
     </qresource>
 </RCC>

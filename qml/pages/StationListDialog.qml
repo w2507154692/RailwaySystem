@@ -32,25 +32,11 @@ Window {
                 Layout.rightMargin: 1
                 Layout.topMargin: 1
                 Text {
-                    text: "G115"
+                    text: "车站管理"
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 28
                     font.bold: true
-                }
-                // 编辑按钮(装饰)
-                Image {
-                    source: "qrc:/resources/icon/Edit.png" // 换成你的资源路径
-                    width: 40
-                    height: 40
-                    anchors.left: parent.horizontalCenter
-                    anchors.leftMargin: 40
-                    anchors.verticalCenter: parent.verticalCenter
-                    MouseArea {
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        // onClicked: ...
-                    }
                 }
             }
 
@@ -62,7 +48,7 @@ Window {
             }
 
             //时刻表
-            TimetableView{
+            StationListView{
                 Layout.fillWidth: true
                 height: 450
                 borderWidth:0
@@ -100,7 +86,10 @@ Window {
             RowLayout {
                 Layout.fillWidth: true
                 Layout.topMargin: 10
-                Item { Layout.preferredWidth: 30}
+                Item {
+                    Layout.fillWidth: true
+                }
+
                 // 确认按钮
                 CustomButton{
                     buttonType: "confirm"
@@ -111,7 +100,9 @@ Window {
                     fontSize:14
                 }
 
-                Item { Layout.fillWidth: true }
+                Item {
+                    Layout.preferredWidth: 40
+                }
 
                 // 取消按钮
                 CustomButton{
@@ -123,7 +114,9 @@ Window {
                     fontSize:14
                 }
 
-                Item { Layout.preferredWidth: 50}
+                Item {
+                    Layout.fillWidth: true
+                }
             }
 
             Item{

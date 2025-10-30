@@ -3,20 +3,18 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Item {
-    id: timetable
-    width: 370
+    id: stationList
+    width: 250
     height: 320
 
     property var stations: [
-        { name: "北京南", arrive: "----", depart: "9:10", stop: "---" },
-        { name: "沧州西", arrive: "10:03", depart: "10:05", stop: "2分" },
-        { name: "济南西", arrive: "10:51", depart: "11:01", stop: "10分" },
-        { name: "定远", arrive: "11:46", depart: "11:50", stop: "4分" },
-        { name: "南京南", arrive: "14:23", depart: "14:25", stop: "2分" },
-        { name: "上海虹桥", arrive: "15:57", depart: "16:00", stop: "3分" },
-        { name: "杭州东", arrive: "16:40", depart: "---", stop: "---" },
-        { name: "杭州东", arrive: "16:40", depart: "---", stop: "---" },
-        { name: "杭州东", arrive: "16:40", depart: "---", stop: "---" }
+        { name: "北京南", city: "北京"},
+        { name: "上海虹桥", city: "上海"},
+        { name: "遵义北", city: "遵义"},
+        { name: "嘉兴南", city: "嘉兴"},
+        { name: "贺州西", city: "贺州"},
+        { name: "温州南", city: "温州"},
+        { name: "贵州", city: "贵州"},
     ]
 
     property bool showButtons: true
@@ -61,7 +59,7 @@ Item {
                 Text {
                     text: "站名"
                     font.bold: true
-                    Layout.preferredWidth: 60
+                    Layout.preferredWidth: 48
                     horizontalAlignment: Text.AlignHCenter
                 }
 
@@ -72,33 +70,7 @@ Item {
                 }
 
                 Text {
-                    text: "到时"
-                    font.bold: true
-                    Layout.preferredWidth: 55
-                    horizontalAlignment: Text.AlignHCenter
-                }
-
-                //间隔
-                Item{
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                }
-
-                Text {
-                    text: "发时"
-                    font.bold: true
-                    Layout.preferredWidth: 55
-                    horizontalAlignment: Text.AlignHCenter
-                }
-
-                //间隔
-                Item{
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                }
-
-                Text {
-                    text: "停留"
+                    text: "城市"
                     font.bold: true
                     Layout.preferredWidth: 48
                     horizontalAlignment: Text.AlignHCenter
@@ -151,7 +123,7 @@ Item {
                     width: scrollview.width
                     height: scrollview.height
                     Repeater {
-                        model: timetable.stations
+                        model: stationList.stations
                         ColumnLayout{
                             Layout.fillWidth: true
                             RowLayout {
@@ -181,7 +153,7 @@ Item {
 
                                 Text {
                                     text: modelData.name
-                                    Layout.preferredWidth: 60
+                                    Layout.preferredWidth: 48
                                     Layout.preferredHeight: 40
                                     verticalAlignment: Text.AlignVCenter
                                     // font.pixelSize: 16
@@ -194,35 +166,7 @@ Item {
                                 }
 
                                 Text {
-                                    text: modelData.arrive
-                                    Layout.preferredWidth: 55
-                                    Layout.preferredHeight: 40
-                                    verticalAlignment: Text.AlignVCenter
-                                    // font.pixelSize: 16
-                                    horizontalAlignment: Text.AlignHCenter
-                                }
-
-                                //间隔
-                                Item{
-                                    Layout.fillWidth: true
-                                }
-
-                                Text {
-                                    text: modelData.depart
-                                    Layout.preferredWidth: 55
-                                    Layout.preferredHeight: 40
-                                    verticalAlignment: Text.AlignVCenter
-                                    // font.pixelSize: 16
-                                    horizontalAlignment: Text.AlignHCenter
-                                }
-
-                                //间隔
-                                Item{
-                                    Layout.fillWidth: true
-                                }
-
-                                Text {
-                                    text: modelData.stop
+                                    text: modelData.city
                                     Layout.preferredWidth: 48
                                     Layout.preferredHeight: 40
                                     verticalAlignment: Text.AlignVCenter
