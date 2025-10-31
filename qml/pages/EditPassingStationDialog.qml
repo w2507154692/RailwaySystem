@@ -10,14 +10,14 @@ Window {
     minimumWidth: 400; minimumHeight: 260;
     maximumWidth: 1920; maximumHeight: 1440
     visible: true
-    color: "#ffffff"
+    color: "transparent"
     flags: Qt.FramelessWindowHint
 
     Rectangle {
         id:root
         width: parent.width
         height: parent.height
-        radius: 0
+        radius: 16
         color: "#ffffff"
         border.color: "#666"
         border.width: 2

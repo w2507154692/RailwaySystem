@@ -9,12 +9,13 @@ Window {
     minimumWidth: 480; minimumHeight: 360
     maximumWidth: 1920; maximumHeight: 1440
     visible: true
-    color: "#ffffff"
+    color: "transparent"
     flags: Qt.FramelessWindowHint
 
     Rectangle {
         width: parent.width
         height: parent.height
+        radius: 16
         // color: "pink"
 
         MouseArea {

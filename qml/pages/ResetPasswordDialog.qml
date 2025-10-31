@@ -10,7 +10,7 @@ Window {
     minimumWidth: 400; minimumHeight: 260;
     maximumWidth: 1920; maximumHeight: 1440
     visible: true
-    color: "#ffffff"
+    color: "transparent"
     flags: Qt.FramelessWindowHint
 
     Rectangle {
@@ -20,6 +20,7 @@ Window {
         color: "#ffffff"
         border.color: "#666"
         border.width: 2
+        radius: 16
 
         MouseArea {
            anchors.fill: parent

@@ -10,25 +10,8 @@ Window {
     minimumWidth: 400; minimumHeight: 260;
     maximumWidth: 1920; maximumHeight: 1440
     visible: true
-    color: "#ffffff"
+    color: "transparent"
     flags: Qt.FramelessWindowHint
-
-    MouseArea {
-       anchors.fill: parent
-       // 定义拖动
-       property real clickX: 0
-       property real clickY: 0
-
-       onPressed: {
-           clickX = mouse.x;
-           clickY = mouse.y;
-       }
-       onPositionChanged: {
-           // 拖动窗口
-           mainWindow.x += mouse.x - clickX;
-           mainWindow.y += mouse.y - clickY;
-       }
-   }
 
     Rectangle {
         id:root
@@ -37,6 +20,24 @@ Window {
         color: "#ffffff"
         border.color: "#666"
         border.width: 2
+        radius: 16
+
+        MouseArea {
+           anchors.fill: parent
+           // 定义拖动
+           property real clickX: 0
+           property real clickY: 0
+
+           onPressed: {
+               clickX = mouse.x;
+               clickY = mouse.y;
+           }
+           onPositionChanged: {
+               // 拖动窗口
+               mainWindow.x += mouse.x - clickX;
+               mainWindow.y += mouse.y - clickY;
+           }
+       }
 
         // 顶部渐变标题栏
         Header{

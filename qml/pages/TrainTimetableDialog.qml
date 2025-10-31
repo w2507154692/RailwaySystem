@@ -123,7 +123,7 @@ Window {
                     fontSize:14
                 }
 
-                Item { Layout.preferredWidth: 50}
+                Item { Layout.preferredWidth: 30}
             }
 
             Item{
