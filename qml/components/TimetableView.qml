@@ -261,7 +261,7 @@ Item {
                                 Layout.leftMargin: 30
                                 Layout.rightMargin: 30
                                 Layout.fillWidth: true
-                                height: 1
+                                Layout.preferredHeight: 2
                                 // Layout.leftMargin: 36
                                 // Layout.columnSpan: 6
                                 color: "#b3b3b3"

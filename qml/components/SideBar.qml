@@ -24,7 +24,7 @@ Item {
     height: 600 // 如果有父级就跟随父级高度，否则默认600
 
     Rectangle {
-        width: 180
+        width: 190
         height: parent.height
         Rectangle {
             width: 2
@@ -40,7 +40,7 @@ Item {
             anchors.fill: parent
             anchors.topMargin: 20
             anchors.leftMargin: 15
-            anchors.rightMargin: 25
+            anchors.rightMargin: 15
             spacing: 10
 
             // 顶部三个菜单按钮
