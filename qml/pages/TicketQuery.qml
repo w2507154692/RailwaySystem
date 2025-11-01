@@ -7,7 +7,8 @@ import "../components"
 Page {
     id:ticketQueryPage
     objectName: "qrc:/qml/pages/TicketQuery.qml"
-    width: 1080; height: 720
+    width: parent ? parent.width : 1040
+    height: parent ? parent.height : 640
     visible: true
 
     RowLayout {
@@ -18,8 +19,8 @@ Page {
 
             ColumnLayout {
                 anchors.fill: parent
-                anchors.leftMargin: 170
-                anchors.rightMargin: 190
+                anchors.leftMargin: 110
+                anchors.rightMargin: 130
                 spacing: 32
 
                 Item {
@@ -75,7 +76,7 @@ Page {
                 // 按钮
                 CustomButton {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 75
+                    Layout.preferredHeight: 72
                     Layout.topMargin: -20
                     text: "查询车票"
                     textColor: "white"
@@ -100,7 +101,7 @@ Page {
 
                     Text {
                         text: "北京--嘉兴南"
-                        font.pixelSize: 20
+                        font.pixelSize: 18
                         color: "#ACACAC"
                     }
 
@@ -110,7 +111,7 @@ Page {
 
                     Text {
                         text: "北京--嘉兴南"
-                        font.pixelSize: 20
+                        font.pixelSize: 18
                         color: "#ACACAC"
                     }
 
@@ -120,7 +121,7 @@ Page {
 
                     Text {
                         text: "北京--嘉兴南"
-                        font.pixelSize: 20
+                        font.pixelSize: 18
                         color: "#ACACAC"
                     }
 
@@ -130,7 +131,7 @@ Page {
 
                     Text {
                         text: "清除历史"
-                        font.pixelSize: 20
+                        font.pixelSize: 18
                         color: "#ACACAC"
                     }
                 }

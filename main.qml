@@ -6,8 +6,8 @@ import "qml/components"
 
 ApplicationWindow {
     id: appWin
-    width: 1280
-    height: 720
+    width: 1040
+    height: 640
     visible: true
     title: "铁路系统"
 
@@ -19,10 +19,12 @@ ApplicationWindow {
     RowLayout {
         width: parent.width
         anchors.fill: parent
+        spacing: 0
 
         SideBar {
             id: sideBar
             role: userRole
+            Layout.fillHeight: true
             onNavigate: function(pageUrl) {
                 if (stackView.currentItem && stackView.currentItem.objectName === pageUrl)
                     return
@@ -41,7 +43,7 @@ ApplicationWindow {
                     sideBar.currentUrl = currentItem.objectName
             }
         }
-    }
+}
 
     Component.onCompleted: {
         loadStartPage()

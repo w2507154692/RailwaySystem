@@ -91,7 +91,7 @@ Item {
                 horizontalAlignment: Text.AlignHCenter
                 text: "按钮"
                 color: mouseArea.pressed ? root.pressedTextColor : root.textColor
-                font.pixelSize: 22
+                font.pixelSize: root.fontSize
             }
         }
 

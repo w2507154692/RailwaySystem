@@ -5,7 +5,8 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Page{
-    width: 1080; height: 720
+    width: parent ? parent.width : 1080
+    height: parent ? parent.height : 720
     id:profilePage
     objectName: "qrc:/qml/pages/Profile.qml"
     visible: true

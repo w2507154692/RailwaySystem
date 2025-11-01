@@ -6,7 +6,7 @@ import "../components"
 Rectangle {
     color:"#fff"
     id: root
-    width: 200
+    width: 190
     height: 720
     property string role: "user"          // "user" / "admin" / "passenger" 等
     property string currentUrl: ""        // 由外部 StackView 设置
@@ -55,8 +55,9 @@ Rectangle {
             model: menuList
             delegate: MenuButton {
                 Layout.fillWidth: true
-                height: 80
+                Layout.preferredHeight: 60
                 text: modelData.text
+                fontSize: 20
                 iconSource: modelData.icon
                 selected: isSelected(modelData.url)
                 onClicked: {
@@ -80,7 +81,10 @@ Rectangle {
         MenuButton {
             visible: role === "user"
             Layout.fillWidth: true
-            height: 80
+            Layout.preferredHeight: 50
+            Layout.leftMargin: 10
+            Layout.rightMargin: 15
+            Layout.bottomMargin: 15
             text: profileItem.text
             iconSource: profileItem.icon
             selected: isSelected(profileItem.url)

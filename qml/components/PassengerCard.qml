@@ -3,7 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Item {
-    width: 800
+    // width: 800
     height: 79
 
     // 卡片 + 按钮
