@@ -40,8 +40,8 @@ Item {
         // 表头
         Rectangle {
             Layout.topMargin: 2
-            Layout.leftMargin: 2
-            Layout.rightMargin: 2
+            // Layout.leftMargin: 2
+            // Layout.rightMargin: 2
             radius: 8
             Layout.fillWidth: true
             Layout.preferredHeight: 32
@@ -60,7 +60,7 @@ Item {
 
                 Text {
                     text: "站名"
-                    font.bold: true
+                    color: "#4D4D4D"
                     Layout.preferredWidth: 60
                     horizontalAlignment: Text.AlignHCenter
                 }
@@ -73,7 +73,7 @@ Item {
 
                 Text {
                     text: "到时"
-                    font.bold: true
+                    color: "#4D4D4D"
                     Layout.preferredWidth: 55
                     horizontalAlignment: Text.AlignHCenter
                 }
@@ -86,7 +86,7 @@ Item {
 
                 Text {
                     text: "发时"
-                    font.bold: true
+                    color: "#4D4D4D"
                     Layout.preferredWidth: 55
                     horizontalAlignment: Text.AlignHCenter
                 }
@@ -99,7 +99,7 @@ Item {
 
                 Text {
                     text: "停留"
-                    font.bold: true
+                    color: "#4D4D4D"
                     Layout.preferredWidth: 48
                     horizontalAlignment: Text.AlignHCenter
                 }
@@ -115,12 +115,12 @@ Item {
             }
         }
 
-        // 表头下的分割线
-        Rectangle {
-            width: parent.width
-            height: 1
-            color: "#cce5ff"
-        }
+        // // 表头下的分割线
+        // Rectangle {
+        //     width: parent.width
+        //     height: 1
+        //     color: "#cce5ff"
+        // }
 
 
         //表格背景
@@ -155,6 +155,7 @@ Item {
                         ColumnLayout{
                             Layout.fillWidth: true
                             RowLayout {
+                                Layout.topMargin: -5
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: 40
 
@@ -256,11 +257,14 @@ Item {
 
                             // 行分割线
                             Rectangle {
+                                Layout.topMargin: -10
+                                Layout.leftMargin: 30
+                                Layout.rightMargin: 30
                                 Layout.fillWidth: true
-                                Layout.preferredHeight: 1
+                                height: 1
                                 // Layout.leftMargin: 36
-                                Layout.columnSpan: 6
-                                color: "#e0e0e0"
+                                // Layout.columnSpan: 6
+                                color: "#b3b3b3"
                             }
                         }
                     }
