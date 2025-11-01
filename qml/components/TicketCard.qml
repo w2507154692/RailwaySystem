@@ -3,15 +3,15 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Item {
-    width: 920
+    // width: 690
     // Layout.fillWidth: True
-    height: 140
+    height: 105
 
     Rectangle {
         anchors.fill: parent
         // width: parent.width - 40
         // height: 140
-        radius: 20
+        radius: 15
         // 使用渐变背景
         gradient: Gradient {
             GradientStop { position: 0.0; color: "#ffffff" }
@@ -28,8 +28,8 @@ Item {
             anchors.fill: parent
             anchors.topMargin: 5
             anchors.bottomMargin: 5
-            anchors.leftMargin: 40
-            anchors.rightMargin: 20
+            anchors.leftMargin: 30
+            anchors.rightMargin: 15
             height: parent.height - 20
 
             // 发车时间、车次号、时刻表、到达时间 + 票价
@@ -38,7 +38,7 @@ Item {
                 // 发车时间 + 车次号 + 时刻表 + 到达时间
                 RowLayout {
                     Layout.fillHeight: true
-                    spacing: 40
+                    spacing: 30
                     // 出发时间
                     ColumnLayout {
                         // anchors.top: parent.top
@@ -46,18 +46,18 @@ Item {
 
                         // 间隔
                         Item {
-                            Layout.preferredHeight: 5
+                            Layout.preferredHeight: 4
                         }
 
                         Text {
                             anchors.left: parent.left
                             text: "09:10"; font.bold: true;
-                            font.pixelSize: 28; color: "#222";
+                            font.pixelSize: 21; color: "#222";
                         }
                         Text {
                             anchors.left: parent.left
                             text: "北京南（始）";
-                            font.pixelSize: 14; color: "#222";
+                            font.pixelSize: 11; color: "#222";
                         }
                     }
                     // 车次、箭头、时刻表
@@ -66,25 +66,25 @@ Item {
                         Text {
                             Layout.alignment: Qt.AlignHCenter
                             text: "G115"; font.bold: true;
-                            font.pixelSize: 30; color: "#222";
+                            font.pixelSize: 23; color: "#222";
                         }
                         Image {
-                            Layout.topMargin: -5
+                            Layout.topMargin: -4
                             source: "qrc:/resources/icon/arrow.svg"
-                            Layout.preferredWidth: 150
-                            height: 20
+                            Layout.preferredWidth: 113
+                            height: 15
                             fillMode: Image.Stretch
                         }
                         Text {
                             Layout.alignment: Qt.AlignHCenter
                             text: "6小时7分";
-                            font.pixelSize: 10; color: "#888"; }
+                            font.pixelSize: 8; color: "#888"; }
                         CustomButton {
                             text: "时刻表"
                             Layout.alignment: Qt.AlignHCenter
-                            Layout.preferredWidth: 60
-                            Layout.preferredHeight: 28
-                            fontSize: 14
+                            Layout.preferredWidth: 45
+                            Layout.preferredHeight: 21
+                            fontSize: 11
                             customColor: "#e0e8f8"
                             pressedColor: "#b3d1ff"
                             textColor: "#888"
@@ -101,20 +101,20 @@ Item {
 
                         // 间隔
                         Item {
-                            Layout.preferredHeight: 5
+                            Layout.preferredHeight: 4
                         }
 
                         Text {
                             // anchors.right: parent.right
                             Layout.alignment: Qt.AlignRight
                             text: "15:17"; font.bold: true;
-                            font.pixelSize: 28; color: "#222"
+                            font.pixelSize: 21; color: "#222"
                         }
                         Text {
                             // anchors.right: parent.right
                             Layout.alignment: Qt.AlignRight
                             text: "（过）上海虹桥";
-                            font.pixelSize: 14; color: "#222";
+                            font.pixelSize: 11; color: "#222";
                         }
                     }
 
@@ -122,11 +122,11 @@ Item {
                 // 票价
                 Text {
                     text: "￥708起"
-                    font.pixelSize: 28
+                    font.pixelSize: 21
                     color: "#e88a3d"
                     font.bold: true
                     anchors.right: parent.right
-                    Layout.topMargin: -25
+                    Layout.topMargin: -19
                 }
 
             }
@@ -139,8 +139,8 @@ Item {
             // 中间分隔线
             Rectangle {
                 width: 2
-                Layout.topMargin: 8
-                Layout.preferredHeight: 110
+                Layout.topMargin: 6
+                Layout.preferredHeight: 83
                 // Layout.fillHeight: true
                 color: "#ccc"
                 radius: 1
@@ -153,87 +153,87 @@ Item {
 
             // 二等 + 一等 + 商务
             RowLayout {
-                Layout.topMargin: 5
+                Layout.topMargin: 4
                 Layout.fillHeight: true
 
                 // 座位等级
                 ColumnLayout {
-                    spacing: 15
+                    spacing: 11
                     Text {
                         text: "二等";
-                        font.pixelSize: 18; color: "#222";
+                        font.pixelSize: 14; color: "#222";
                     }
                     Text {
                         text: "一等";
-                        font.pixelSize: 18; color: "#222";
+                        font.pixelSize: 14; color: "#222";
                     }
                     Text {
                         text: "商务";
-                        font.pixelSize: 18; color: "#222";
+                        font.pixelSize: 14; color: "#222";
                     }
                 }
 
                 // 间隔
                 Item {
-                    Layout.preferredWidth: 40
+                    Layout.preferredWidth: 30
                 }
 
                 // 票价
                 ColumnLayout {
-                    spacing: 15
+                    spacing: 11
                     Text {
                         text: "￥708";
-                        font.pixelSize: 18; color: "#e88a3d";
+                        font.pixelSize: 14; color: "#e88a3d";
                     }
                     Text {
                         text: "￥1134";
-                        font.pixelSize: 18; color: "#e88a3d";
+                        font.pixelSize: 14; color: "#e88a3d";
                     }
                     Text {
                         text: "￥2457";
-                        font.pixelSize: 18; color: "#e88a3d";
+                        font.pixelSize: 14; color: "#e88a3d";
                     }
                 }
 
                 // 间隔
                 Item {
-                    Layout.preferredWidth: 40
+                    Layout.preferredWidth: 30
                 }
 
                 // 余票
                 ColumnLayout {
-                    spacing: 15
+                    spacing: 11
                     Text {
                         text: "有票";
-                        font.pixelSize: 18; color: "#4ec37e";
+                        font.pixelSize: 14; color: "#4ec37e";
                     }
                     Text {
                         text: "有票";
-                        font.pixelSize: 18; color: "#4ec37e";
+                        font.pixelSize: 14; color: "#4ec37e";
                     }
                     Text {
                         text: "无票";
-                        font.pixelSize: 18; color: "#bbb";
+                        font.pixelSize: 14; color: "#bbb";
                     }
                 }
 
                 // 间隔
                 Item {
-                    Layout.preferredWidth: 40
+                    Layout.preferredWidth: 30
                 }
 
                 ColumnLayout {
-                    spacing: 10
+                    spacing: 8
                     CustomButton {
                         text: "预定"
                         customColor: "#5d7fa9"
                         pressedColor: "#3B99Fb"
                         textColor: "#fff"
                         pressedTextColor: "#fff"
-                        fontSize: 16
+                        fontSize: 12
                         fontBold: false
-                        width: 56
-                        height: 28
+                        width: 42
+                        height: 21
                         enabled: true
                         Layout.row: 0; Layout.column: 3
                         onClicked: {
@@ -246,10 +246,10 @@ Item {
                         pressedColor: "#3B99Fb"
                         textColor: "#fff"
                         pressedTextColor: "#fff"
-                        fontSize: 16
+                        fontSize: 12
                         fontBold: false
-                        width: 56
-                        height: 28
+                        width: 42
+                        height: 21
                         enabled: true
                         Layout.row: 0; Layout.column: 3
                         onClicked: {
@@ -262,10 +262,10 @@ Item {
                         pressedColor: "#3B99Fb"
                         textColor: "#fff"
                         pressedTextColor: "#fff"
-                        fontSize: 16
+                        fontSize: 12
                         fontBold: false
-                        width: 56
-                        height: 28
+                        width: 42
+                        height: 21
                         enabled: true
                         Layout.row: 0; Layout.column: 3
                         onClicked: {

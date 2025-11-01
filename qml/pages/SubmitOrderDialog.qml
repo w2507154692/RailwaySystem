@@ -6,7 +6,7 @@ import "../components"
 
 Window{
     id: mainWindow
-    width: 960; height: 720
+    width: 740; height: 640
     minimumWidth: 480; minimumHeight: 360
     maximumWidth: 1920; maximumHeight: 1440
     visible: true

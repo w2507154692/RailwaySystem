@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window {
-    width: 960; height: 720
+    width: 740; height: 640
     minimumWidth: 480; minimumHeight: 360;
     maximumWidth: 1920; maximumHeight: 1440
     visible: true
@@ -290,12 +290,12 @@ Window {
                 Layout.topMargin: 10
                 Layout.bottomMargin: 30
                 Layout.alignment: Qt.AlignHCenter
-                spacing: 80
+                spacing: 50
 
                 property int selectedIndex: 0
 
                 SelectButton {
-                    Layout.preferredWidth: 160
+                    Layout.preferredWidth: 120
                     Layout.preferredHeight: 30
                     text: "耗时最短"
                     index: 0
@@ -304,7 +304,7 @@ Window {
                     fontSize: 16
                 }
                 SelectButton {
-                    Layout.preferredWidth: 160
+                    Layout.preferredWidth: 120
                     Layout.preferredHeight: 30
                     text: "发时最早"
                     index: 1
@@ -313,7 +313,7 @@ Window {
                     fontSize: 16
                 }
                 SelectButton {
-                    Layout.preferredWidth: 160
+                    Layout.preferredWidth: 120
                     Layout.preferredHeight: 30
                     text: "到时最早"
                     index: 2
@@ -322,7 +322,7 @@ Window {
                     fontSize: 16
                 }
                 SelectButton {
-                    Layout.preferredWidth: 160
+                    Layout.preferredWidth: 120
                     Layout.preferredHeight: 30
                     text: "价格最低"
                     index: 3
