@@ -12,6 +12,8 @@ Window {
 
     property bool isAdminLogin: false  // 登录类型：false=用户登录, true=管理员登录
 
+    signal loginSuccess(string role) // 添加登录成功信号
+
     Rectangle {
         anchors.fill: parent
         color: "#f8f8f8"  // 添加背景色作为底色
@@ -271,7 +273,16 @@ Window {
                         loginButton.color = "#1f5f99"
                     }
                     onClicked: {
-                        // 登录逻辑
+                        // 登录验证逻辑
+                        if (isAdminLogin) {
+                            // 管理员登录逻辑
+                            // ...验证管理员身份的代码...
+                            loginSuccess("admin")
+                        } else {
+                            // 用户登录逻辑
+                            // ...验证用户身份的代码...
+                            loginSuccess("user")
+                        }
                     }
                 }
             }

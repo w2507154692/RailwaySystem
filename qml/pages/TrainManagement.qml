@@ -4,12 +4,11 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../components"
 
-Window {
-    width: 960; height: 720
-    minimumWidth: 480; minimumHeight: 360
-    maximumWidth: 1920; maximumHeight: 1440
+Page {
+    width: 1080; height: 720
+    id:trainManagementPage
+    objectName: "qrc:/qml/pages/TrainManagement.qml"
     visible: true
-    color: "#ffffff"
 
     property var trainList: [
         {
@@ -69,14 +68,6 @@ Window {
 
     RowLayout {
         anchors.fill: parent
-
-        // 侧边栏
-        SideBar {
-            Layout.preferredWidth: 180
-            Layout.fillHeight: true
-            showBottomLine: false
-            showBottomButton: false
-        }
 
         // 主内容区
         Rectangle {

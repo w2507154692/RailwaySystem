@@ -4,18 +4,13 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../components"
 
-Window {
-    width: 1280; height: 720
-    color: "#ffffff"
+Page {
+    id: passengerInfoPage
+    objectName:"qrc:/qml/pages/PassengerInfo.qml"
+    width: 1080; height: 720
 
     RowLayout {
         anchors.fill: parent
-
-        // 侧边栏
-        SideBar {
-            Layout.preferredWidth: 220
-            Layout.fillHeight: true
-        }
 
         // 主内容区
         Rectangle {
@@ -435,6 +430,19 @@ Window {
                         }
                     }
 
+<<<<<<< HEAD
+=======
+                    CustomButton {
+                        Layout.preferredWidth: 160
+                        Layout.preferredHeight: 44
+                        text: "新增乘车人"
+                        onClicked: {
+                            StackView.view.push({
+                                item: Qt.resolvedUrl("qrc:/qml/pages/AddUserDialog.qml")
+                            })
+                        }
+                    }
+>>>>>>> 67a93ff-feature
                 }
 
                 // 分割线
@@ -485,5 +493,13 @@ Window {
                 }
            }
         }
+    }
+
+    // 示例乘车人模型
+    ListModel {
+        id: passengerModel
+        ListElement { name: "张三"; idCard: "123456"; phone: "13800000000" }
+        ListElement { name: "李四"; idCard: "223456"; phone: "13900000000" }
+        ListElement { name: "王五"; idCard: "323456"; phone: "13700000000" }
     }
 }

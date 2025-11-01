@@ -4,22 +4,15 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../components"
 
-Window {
-    width: 1280; height: 720
-    minimumWidth: 480; minimumHeight: 360;
-    maximumWidth: 1920; maximumHeight: 1440
+Page {
+    width: 1080; height: 720
+    id:myOrdersPage
+    objectName: "qrc:/qml/pages/MyOrders.qml"
     visible: true
-    color: "#ffffff"
 
     RowLayout {
         height: parent.height
         width: parent.width
-
-        // 侧边栏
-        SideBar {
-            Layout.preferredWidth: 220
-            Layout.fillHeight: true
-        }
 
         Rectangle {
             Layout.fillWidth: true

@@ -4,21 +4,14 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../components"
 
-Window {
-    width: 1280; height: 720
-    minimumWidth: 480; minimumHeight: 360;
-    maximumWidth: 1920; maximumHeight: 1440
+Page {
+    id:ticketQueryPage
+    objectName: "qrc:/qml/pages/TicketQuery.qml"
+    width: 1080; height: 720
     visible: true
-    color: "#ffffff"
 
     RowLayout {
         anchors.fill: parent
-
-        SideBar {
-            Layout.preferredWidth: 220
-            Layout.fillHeight: true   // 让SideBar自动填满高度
-        }
-
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -34,11 +27,7 @@ Window {
                 }
 
                 RowLayout {
-                    Text {
-                        text: "北京"
-                        font.pixelSize: 48
-                        color: "#222"
-                    }
+                    Text { text: page.fromCity; font.pixelSize: 48; color: "#222" }
 
                     Item {
                         Layout.fillWidth: true
@@ -54,12 +43,7 @@ Window {
                         Layout.fillWidth: true
                     }
 
-                    Text {
-                        text: "上海"
-                        font.pixelSize: 48
-                        color: "#222"
-
-                    }
+                    Text { text: page.toCity; font.pixelSize: 48; color: "#222" }
                 }
 
                 // 分割线
@@ -75,7 +59,7 @@ Window {
                     Layout.topMargin: -60
 
                     Text {
-                        text: "6月30日"
+                        text: page.currentDate
                         font.pixelSize: 25
                         color: "#222"
                     }
@@ -97,6 +81,17 @@ Window {
                     textColor: "white"
                     fontSize: 30
                     customColor: "#3B99FB"
+                    onClicked: {
+                        // 传参给结果页
+                        stackView.push({
+                            item: Qt.resolvedUrl("qrc:/qml/pages/TicketQueryResult.qml"),
+                            properties: {
+                                fromCity: page.fromCity,
+                                toCity: page.toCity,
+                                date: page.currentDate
+                            }
+                        })
+                    }
                 }
 
                 // 历史记录

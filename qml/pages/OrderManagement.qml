@@ -4,33 +4,16 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../components"
 
-Window {
-    width: 1280; height: 720
-    minimumWidth: 480; minimumHeight: 360;
-    maximumWidth: 1920; maximumHeight: 1440
+Page {
+    width: 1080; height: 720
+    id:orderManagementPage
+    objectName: "qrc:/qml/pages/OrderManagement.qml"
     visible: true
-    color: "#ffffff"
 
     RowLayout {
         height: parent.height
         width: parent.width
 
-
-        // 侧边栏
-        SideBar {
-            Layout.preferredWidth: 220
-            Layout.fillHeight: true
-
-            showBottomLine: false
-            showBottomButton: false
-
-            menuModel: [
-                   { text: "车次管理", iconSource: "qrc:/resources/icon/TrainManagement.png" },
-                   { text: "订单管理", iconSource: "qrc:/resources/icon/OrderManagement.png" },
-                   { text: "用户管理", iconSource: "qrc:/resources/icon/UserManagement.png" },
-               ]
-
-        }
 
         Rectangle {
             Layout.fillWidth: true
