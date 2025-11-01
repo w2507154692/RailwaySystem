@@ -5,7 +5,8 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Page {
-    width: 1080; height: 720
+    width: parent ? parent.width : 960
+    height: parent ? parent.height : 720
     id:trainManagementPage
     objectName: "qrc:/qml/pages/TrainManagement.qml"
     visible: true
@@ -76,14 +77,14 @@ Page {
 
             ColumnLayout {
                 anchors.fill: parent
-                anchors.leftMargin: 10
+                anchors.leftMargin: 15
                 anchors.topMargin: 20
                 spacing: 0
 
                 // 车次卡片区（ListView放在Rectangle里）
                 Rectangle {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 600
+                    Layout.preferredHeight: trainManagementPage.height - 120
 
                     ListView {
                         id: trainListView
@@ -110,7 +111,7 @@ Page {
                             ColumnLayout {
                                 width: 100
                                 spacing: 10
-                                // Layout.leftMargin: 20
+                                Layout.leftMargin: 2
                                 // verticalCenter: parent.verticalCenter
 
                                 CustomButton {
@@ -155,10 +156,10 @@ Page {
 
                                     Text {
                                         text: "北京南"
-                                        font.pixelSize: 28
+                                        font.pixelSize: 24
                                         font.bold: false
                                         color: "#222"
-                                        verticalAlignment: Text.AlignVCenter
+                                        horizontalAlignment: Text.AlignRight
                                     }
 
                                     Item { Layout.fillWidth: true }
@@ -224,11 +225,11 @@ Page {
 
                                     Text {
                                         text: "上海虹桥"
-                                        font.pixelSize: 28
+                                        font.pixelSize: 24
                                         font.bold: false
                                         color: "#222"
                                         Layout.leftMargin: 18
-                                        verticalAlignment: Text.AlignVCenter
+                                        horizontalAlignment: Text.AlignLeft
                                     }
                                 }
                             }
@@ -260,6 +261,15 @@ Page {
                             }
                         }
                     }
+                }
+
+                // 分割线
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 1
+                    Layout.rightMargin: 30
+                    Layout.topMargin: 0
+                    color: "#cce5ff"
                 }
 
                 // 搜索框和添加按钮区

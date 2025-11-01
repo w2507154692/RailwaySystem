@@ -5,7 +5,8 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Page {
-    width: 1080; height: 720
+    width: parent ? parent.width : 740
+    height: parent ? parent.height : 640
     id:userManagementPage
     objectName: "qrc:/qml/pages/UserManagement.qml"
     visible: true
@@ -26,17 +27,19 @@ Page {
 
         ColumnLayout {
             anchors.fill: parent
-            anchors.topMargin: 20
-            spacing: 0
+            anchors.leftMargin: 20
 
             // 用户列表区（改为ListView）
             Rectangle {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 600
+                Layout.preferredHeight: userManagementPage.height - 50
+                Layout.alignment: Qt.AlignTop
 
                 ListView {
                     id: userListView
                     anchors.fill: parent
+                    anchors.topMargin: 20
+                    anchors.bottomMargin: 20
                     model: userList
                     spacing: 30
                     clip: true
@@ -176,12 +179,11 @@ Page {
                 }
             }
 
-
             // 搜索框和添加按钮区
             RowLayout {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 48
-                Layout.bottomMargin: 20
+                Layout.topMargin: -15
                 spacing: 0
 
                 // 搜索框
@@ -202,7 +204,7 @@ Page {
                     Layout.topMargin: 4
 
                     Image {
-                        source: "qrc:/resources/icon/Add.png" 
+                        source: "qrc:/resources/icon/Add.png" // 换成你的加号图标资源路径
                         anchors.centerIn: parent
                         width: 50
                         height: 50
@@ -215,6 +217,10 @@ Page {
                         }
                     }
                 }
+            }
+
+            Item {
+                Layout.fillHeight: true
             }
         }
     }

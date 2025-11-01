@@ -5,205 +5,251 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Page {
-    width: 1080; height: 720
-    id:orderManagementPage
+    width: parent ? parent.width : 960
+    height: parent ? parent.height : 720
+    id: orderManagementPage
     objectName: "qrc:/qml/pages/OrderManagement.qml"
     visible: true
 
-    RowLayout {
-        height: parent.height
-        width: parent.width
+    Rectangle {
+        anchors.fill: parent
 
+        ColumnLayout {
+            anchors.fill: parent
+            anchors.leftMargin: 20
+            Rectangle{
+                Layout.fillWidth: true
+                Layout.preferredHeight: orderManagementPage.height - 70
+                Layout.alignment: Qt.AlignTop
 
-        Rectangle {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+                // 滚动卡片区
+                ScrollView {
+                    id: scrollview
+                    anchors.fill: parent
+                    anchors.topMargin: 20
+                    anchors.bottomMargin: 20
 
-            // 滚动卡片区
-            ColumnLayout{
-                anchors.fill: parent
+                    // 完全自定义滚动条样式
+                    ScrollBar.vertical: BasicScrollBar {
+                        width: 8
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        height: parent.height - 8
+                        policy: ScrollBar.AlwaysOn
+                        handleNormalColor: "#a0a0a0"
+                        handleLength: 60 // 这里设置你想要的长度
+                    }
 
-                Rectangle{
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
+                    ColumnLayout {
+                        width: scrollview.width - 30
+                        spacing: 15
 
-                    ScrollView {
-                        id: scrollview
-                        anchors.fill: parent
-                        anchors.topMargin: 20
-                        anchors.bottomMargin: 20
+                        RowLayout {
+                            Layout.fillWidth: true
 
-                        // 完全自定义滚动条样式
-                        ScrollBar.vertical: BasicScrollBar {
-                            width: 8
-                            anchors.right: parent.right
-                            anchors.verticalCenter: parent.verticalCenter
-                            height: parent.height - 8
-                            policy: ScrollBar.AlwaysOn
-                            handleNormalColor: "#a0a0a0"
-                            handleLength: 60 // 这里设置你想要的长度
+                            OrderCard {
+                                Layout.preferredWidth: 675
+                            }
+
+                            Item {
+                                Layout.fillWidth: true
+                            }
+
+                            ColumnLayout {
+                                CustomButton {
+                                    Layout.preferredWidth: 110
+                                    Layout.preferredHeight: 35
+                                    text: "改签"
+                                    activeFocusOnTab: true
+                                    onClicked: {
+                                        // 改签逻辑
+                                    }
+                                }
+                                Item{
+                                    Layout.preferredHeight: 20
+                                }
+                                CustomButton {
+                                    Layout.preferredWidth: 110
+                                    Layout.preferredHeight: 35
+                                    text: "退票"
+                                    activeFocusOnTab: true
+                                    onClicked: {
+                                        // 退票逻辑
+                                    }
+                                }
+                            }
                         }
+                        RowLayout {
+                            Layout.fillWidth: true
 
-                        ColumnLayout {
-                            width: scrollview.width - 30
-                            spacing: 15
+                            OrderCard {
+                                Layout.preferredWidth: 675
+                            }
 
-                            RowLayout {
+                            Item {
                                 Layout.fillWidth: true
+                            }
 
-                                OrderCard {
-                                }
-
-                                Item {
-                                    Layout.fillWidth: true
-                                }
-
-                                ColumnLayout {
-                                    CustomButton {
-                                        Layout.preferredWidth: 120
-                                        Layout.preferredHeight: 40
-                                        text: "改签"
-                                        activeFocusOnTab: true
-                                        onClicked: {
-                                            // 改签逻辑
-                                        }
+                            ColumnLayout {
+                                CustomButton {
+                                    Layout.preferredWidth: 110
+                                    Layout.preferredHeight: 35
+                                    text: "改签"
+                                    activeFocusOnTab: true
+                                    onClicked: {
+                                        // 改签逻辑
                                     }
-                                    CustomButton {
-                                        Layout.preferredWidth: 120
-                                        Layout.preferredHeight: 40
-                                        text: "退票"
-                                        activeFocusOnTab: true
-                                        onClicked: {
-                                            // 退票逻辑
-                                        }
+                                }
+                                Item{
+                                    Layout.preferredHeight: 20
+                                }
+                                CustomButton {
+                                    Layout.preferredWidth: 110
+                                    Layout.preferredHeight: 35
+                                    text: "退票"
+                                    activeFocusOnTab: true
+                                    onClicked: {
+                                        // 退票逻辑
                                     }
                                 }
                             }
-                            RowLayout {
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            OrderCard {
+                                Layout.preferredWidth: 675
+                            }
+
+                            Item {
                                 Layout.fillWidth: true
-                                OrderCard {
-                                }
-                                Item {
-                                    Layout.fillWidth: true
-                                }
-                                ColumnLayout {
-                                    CustomButton {
-                                        Layout.preferredWidth: 120
-                                        Layout.preferredHeight: 40
-                                        text: "改签"
-                                        activeFocusOnTab: true
-                                        onClicked: {
-                                            // 改签逻辑
-                                        }
+                            }
+
+                            ColumnLayout {
+                                CustomButton {
+                                    Layout.preferredWidth: 110
+                                    Layout.preferredHeight: 35
+                                    text: "改签"
+                                    activeFocusOnTab: true
+                                    onClicked: {
+                                        // 改签逻辑
                                     }
-                                    CustomButton {
-                                        Layout.preferredWidth: 120
-                                        Layout.preferredHeight: 40
-                                        text: "退票"
-                                        activeFocusOnTab: true
-                                        onClicked: {
-                                            // 退票逻辑
-                                        }
+                                }
+                                Item{
+                                    Layout.preferredHeight: 20
+                                }
+                                CustomButton {
+                                    Layout.preferredWidth: 110
+                                    Layout.preferredHeight: 35
+                                    text: "退票"
+                                    activeFocusOnTab: true
+                                    onClicked: {
+                                        // 退票逻辑
                                     }
                                 }
                             }
-                            RowLayout {
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            OrderCard {
+                                Layout.preferredWidth: 675
+                            }
+
+                            Item {
                                 Layout.fillWidth: true
-                                OrderCard {
-                                }
-                                Item {
-                                    Layout.fillWidth: true
-                                }
-                                ColumnLayout {
-                                    CustomButton {
-                                        Layout.preferredWidth: 120
-                                        Layout.preferredHeight: 40
-                                        text: "改签"
-                                        activeFocusOnTab: true
-                                        onClicked: {
-                                            // 改签逻辑
-                                        }
+                            }
+
+                            ColumnLayout {
+                                CustomButton {
+                                    Layout.preferredWidth: 110
+                                    Layout.preferredHeight: 35
+                                    text: "改签"
+                                    activeFocusOnTab: true
+                                    onClicked: {
+                                        // 改签逻辑
                                     }
-                                    CustomButton {
-                                        Layout.preferredWidth: 120
-                                        Layout.preferredHeight: 40
-                                        text: "退票"
-                                        activeFocusOnTab: true
-                                        onClicked: {
-                                            // 退票逻辑
-                                        }
+                                }
+                                Item{
+                                    Layout.preferredHeight: 20
+                                }
+                                CustomButton {
+                                    Layout.preferredWidth: 110
+                                    Layout.preferredHeight: 35
+                                    text: "退票"
+                                    activeFocusOnTab: true
+                                    onClicked: {
+                                        // 退票逻辑
                                     }
                                 }
                             }
-                            RowLayout {
-                                Layout.fillWidth: true
-                                OrderCard {
-                                }
-                                Item {
-                                    Layout.fillWidth: true
-                                }
-                                ColumnLayout {
-                                    CustomButton {
-                                        Layout.preferredWidth: 120
-                                        Layout.preferredHeight: 40
-                                        text: "改签"
-                                        activeFocusOnTab: true
-                                        onClicked: {
-                                            // 改签逻辑
-                                        }
-                                    }
-                                    CustomButton {
-                                        Layout.preferredWidth: 120
-                                        Layout.preferredHeight: 40
-                                        text: "退票"
-                                        activeFocusOnTab: true
-                                        onClicked: {
-                                            // 退票逻辑
-                                        }
-                                    }
-                                }
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            OrderCard {
+                                Layout.preferredWidth: 675
                             }
-                            RowLayout {
+
+                            Item {
                                 Layout.fillWidth: true
-                                OrderCard {
-                                }
-                                Item {
-                                    Layout.fillWidth: true
-                                }
-                                ColumnLayout {
-                                    CustomButton {
-                                        Layout.preferredWidth: 120
-                                        Layout.preferredHeight: 40
-                                        text: "改签"
-                                        activeFocusOnTab: true
-                                        onClicked: {
-                                            // 改签逻辑
-                                        }
+                            }
+
+                            ColumnLayout {
+                                CustomButton {
+                                    Layout.preferredWidth: 110
+                                    Layout.preferredHeight: 35
+                                    text: "改签"
+                                    activeFocusOnTab: true
+                                    onClicked: {
+                                        // 改签逻辑
                                     }
-                                    CustomButton {
-                                        Layout.preferredWidth: 120
-                                        Layout.preferredHeight: 40
-                                        text: "退票"
-                                        activeFocusOnTab: true
-                                        onClicked: {
-                                            // 退票逻辑
-                                        }
+                                }
+                                Item{
+                                    Layout.preferredHeight: 20
+                                }
+                                CustomButton {
+                                    Layout.preferredWidth: 110
+                                    Layout.preferredHeight: 35
+                                    text: "退票"
+                                    activeFocusOnTab: true
+                                    onClicked: {
+                                        // 退票逻辑
                                     }
                                 }
                             }
                         }
                     }
-
-                }
-
-                SearchBar{
-                    Layout.bottomMargin: 20
                 }
 
             }
 
+            // 分割线
+            Rectangle {
+                id: rectangle
+                Layout.fillWidth: true
+                Layout.preferredHeight: 1
+                Layout.rightMargin: 30
+                Layout.topMargin: -20
+                color: "#cce5ff"
+            }
 
+            // 搜索框
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 48
+                Layout.bottomMargin: 20
+                spacing: 0
 
+                // 搜索框
+                SearchBar{
+                    inputHeight: 30
+                    width: 300
+                    fontSize: 14
+                }
+
+                Item { Layout.fillWidth: true }
+            }
         }
     }
 }

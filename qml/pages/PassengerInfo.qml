@@ -7,8 +7,8 @@ import "../components"
 Page {
     id: passengerInfoPage
     objectName:"qrc:/qml/pages/PassengerInfo.qml"
-    width: parent ? parent.width : 400
-    height: parent ? parent.height : 640
+    width: parent ? parent.width :640
+    height: parent ? parent.height : 400
 
     // 主内容区
     Rectangle {
@@ -346,6 +346,50 @@ Page {
                                 }
                             }
                         }
+                        RowLayout{
+                            Layout.fillWidth: true
+                            // 删除按钮
+                            Rectangle {
+                                Layout.rightMargin: 15
+                                Layout.preferredWidth: 30
+                                Layout.preferredHeight: 30
+                                radius: 18
+                                color: "transparent"
+                                border.color: "transparent"
+                                MouseArea {
+                                    anchors.fill: parent
+                                    cursorShape: Qt.PointingHandCursor
+                                    onClicked: {
+                                        trainList.splice(index, 1)
+                                    }
+                                    Image {
+                                        source: "qrc:/resources/icon/Delete.png"
+                                        anchors.centerIn: parent
+                                        width: 70
+                                        height: 70
+                                    }
+                                }
+                            }
+
+                            PassengerCard { Layout.fillWidth: true }
+                            // 按钮
+                            Rectangle {
+                                Layout.preferredWidth: 60
+                                Layout.preferredHeight: 60
+                                radius: 16
+                                color: "#fff"
+                                // x: mainContent.cardWidth - 60
+                                // y: (parent.height - height) / 2
+                                // z: 1
+                                Image {
+                                    anchors.centerIn: parent
+                                    source: "qrc:/resources/icon/Edit.png"
+                                    width: 60
+                                    height: 60
+                                }
+                            }
+                        }
+
                         // ...更多卡片
                     }
                 }
