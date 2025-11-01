@@ -4,20 +4,14 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../components"
 
-Window{
-    width: 1280; height: 720
-    minimumWidth: 480; minimumHeight: 360
-    maximumWidth: 1920; maximumHeight: 1440
+Page{
+    width: 1080; height: 720
+    id:profilePage
+    objectName: "qrc:/qml/pages/Profile.qml"
     visible: true
-    color: "#ffffff"
 
     RowLayout {
         anchors.fill: parent
-
-        SideBar {
-            Layout.preferredWidth: 220
-            Layout.fillHeight: true
-        }
 
         Rectangle{
             Layout.fillWidth: true

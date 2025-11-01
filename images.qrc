@@ -3,7 +3,9 @@
         <file>resources/images/logbackground.png</file>
     </qresource>
     <qresource prefix="/">
+        <file>main.qml</file>
         <file>qml/components/SideBar.qml</file>
+        <file>qml/pages/Login.qml</file>
         <file>qml/pages/PassengerInfo.qml</file>
         <file>qml/pages/TicketQuery.qml</file>
         <file>qml/pages/Profile.qml</file>

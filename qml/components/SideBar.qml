@@ -3,86 +3,103 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../components"
 
-
-Item {
+Rectangle {
+    color:"#fff"
     id: root
+    width: 200
+    height: 720
+    property string role: "user"          // "user" / "admin" / "passenger" 等
+    property string currentUrl: ""        // 由外部 StackView 设置
+    signal navigate(string pageUrl)
 
-    property int selectedIndex: 0
+    property var menuList: []
+    property var profileItem: ({ text: "个人中心",
+                                 icon: "qrc:/resources/icon/Profile.png",
+                                 url: "qrc:/qml/pages/Profile.qml" })
 
-    // 支持外部传递菜单数据
-    property var menuModel: [
-        {index: 0, text: "车票查询", iconSource: "qrc:/resources/icon/TicketQuery.png" },
-        {index: 1, text: "乘车人信息", iconSource: "qrc:/resources/icon/OrderManagement.png" },
-        {index: 2, text: "我的订单", iconSource: "qrc:/resources/icon/MyOrders.png" },
-        {index: 3, text: "个人中心", iconSource: "qrc:/resources/icon/Profile.png" }
-    ]
-
-    property bool showBottomLine: true    // 控制分隔线显示
-    property bool showBottomButton: true  // 控制底部按钮显示
-
-    width: 180
-    height: 600 // 如果有父级就跟随父级高度，否则默认600
-
-    Rectangle {
-        width: 180
-        height: parent.height
-        Rectangle {
-            width: 2
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.topMargin: 20
-            anchors.bottomMargin: 20
-            anchors.right: parent.right
-            color: "#cccccc"
+    function rebuildMenus() {
+        if (role === "admin") {
+            menuList = [
+                { text: "车次管理", icon: "qrc:/resources/icon/TrainManagement.png", url: "qrc:/qml/pages/TrainManagement.qml" },
+                { text: "订单管理", icon: "qrc:/resources/icon/OrderManagement.png", url: "qrc:/qml/pages/OrderManagement.qml" },
+                { text: "用户管理", icon: "qrc:/resources/icon/UserManagement.png", url: "qrc:/qml/pages/UserManagement.qml" }
+            ]
+        } else {
+            // 普通用户或乘车人共用前三项
+            menuList = [
+                { text: "车票查询",   icon: "qrc:/resources/icon/TicketQuery.png",       url: "qrc:/qml/pages/TicketQuery.qml" },
+                { text: "乘车人信息", icon: "qrc:/resources/icon/OrderManagement.png",   url: "qrc:/qml/pages/PassengerInfo.qml" },
+                { text: "我的订单",   icon: "qrc:/resources/icon/MyOrders.png",          url: "qrc:/qml/pages/MyOrders.qml" }
+            ]
         }
+        // 检查 currentUrl 是否仍有效
+        var all = menuList.map(m => m.url)
+        if (role === "user") all.push(profileItem.url)
+        if (currentUrl.length && all.indexOf(currentUrl) === -1) {
+            currentUrl = menuList.length ? menuList[0].url : ""
+            if (currentUrl) navigate(currentUrl)
+        }
+    }
 
-        ColumnLayout {
-            anchors.fill: parent
-            anchors.topMargin: 20
-            anchors.leftMargin: 15
-            anchors.rightMargin: 25
-            spacing: 10
+    onRoleChanged: rebuildMenus()
+    Component.onCompleted: rebuildMenus()
 
-            // 顶部三个菜单按钮
-            Repeater {
-                model: menuModel.length > 3 ? menuModel.slice(0, 3) : menuModel
-                MenuButton {
-                    // Layout.rightMargin: 15
-                    Layout.fillWidth: true
-                    text: modelData.text
-                    iconSource: modelData.iconSource
-                    // iconWidth: 40
-                    // iconHeight: 40
-                    selected: root.selectedIndex == modelData.index
-                    onClicked: root.selectedIndex = modelData.index
+    function isSelected(u) { return currentUrl === u }
+
+    ColumnLayout {
+        anchors.fill: parent
+        anchors.margins: 14
+        spacing: 16
+
+        Repeater {
+            model: menuList
+            delegate: MenuButton {
+                Layout.fillWidth: true
+                height: 80
+                text: modelData.text
+                iconSource: modelData.icon
+                selected: isSelected(modelData.url)
+                onClicked: {
+                    if (!selected) {
+                        root.currentUrl = modelData.url
+                        root.navigate(modelData.url)
+                    }
                 }
             }
+        }
 
-            Item { Layout.fillHeight: true } // 占位弹性空间
+        Item { Layout.fillHeight: true }
 
-            // 分隔线
-            Rectangle {
-                width: parent.width
-                height: 2
-                color: "#CCE5FF"
-                Layout.margins: 10
-                Layout.fillWidth: true
-                visible: showBottomLine   // 控制显示
-            }
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 2
+            color: "#CCE5FF"
+            visible: role === "user"
+        }
 
-            // 底部一个菜单按钮
-            MenuButton {
-                Layout.fillWidth: true
-                Layout.topMargin: -5
-                Layout.bottomMargin: 30
-                Layout.leftMargin: 10
-                Layout.rightMargin: 10
-                text: menuModel.length > 3 ? menuModel[3].text : ""
-                iconSource: menuModel.length > 3 ? menuModel[3].iconSource : ""
-                visible: showBottomButton // 控制显示
-                selected: root.selectedIndex == (menuModel.length > 3 ? menuModel[3].index : -1)
-                onClicked: root.selectedIndex = (menuModel.length > 3 ? menuModel[3].index : -1)
+        MenuButton {
+            visible: role === "user"
+            Layout.fillWidth: true
+            height: 80
+            text: profileItem.text
+            iconSource: profileItem.icon
+            selected: isSelected(profileItem.url)
+            onClicked: {
+                if (!selected) {
+                    root.currentUrl = profileItem.url
+                    root.navigate(profileItem.url)
+                }
             }
         }
+    }
+
+    Rectangle {
+        width: 2
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.topMargin: 20
+        anchors.bottomMargin: 20
+        color: "#cccccc"
     }
 }
