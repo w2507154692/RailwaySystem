@@ -430,8 +430,6 @@ Page {
                         }
                     }
 
-<<<<<<< HEAD
-=======
                     CustomButton {
                         Layout.preferredWidth: 160
                         Layout.preferredHeight: 44
@@ -442,7 +440,6 @@ Page {
                             })
                         }
                     }
->>>>>>> 67a93ff-feature
                 }
 
                 // 分割线
