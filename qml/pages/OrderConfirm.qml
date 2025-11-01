@@ -227,8 +227,9 @@ Window {
 
             //选择乘车人
             Text{
+                Layout.leftMargin: 22
                 text: "选择乘车人"
-                font.pixelSize: 15
+                font.pixelSize: 18
             }
 
             //间距
