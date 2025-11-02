@@ -8,7 +8,7 @@ Window {
     id: mainWindow
     width: 400; height: 260
     minimumWidth: 400; minimumHeight: 260;
-    maximumWidth: 1920; maximumHeight: 1440
+    maximumWidth: 1920; maximumHeight: 1440;
     visible: true
     color: "transparent"
     flags: Qt.FramelessWindowHint

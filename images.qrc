@@ -53,5 +53,7 @@
         <file>qml/pages/RegisterDialog.qml</file>
         <file>qml/pages/StationListDialog.qml</file>
         <file>qml/components/StationListView.qml</file>
+        <file>qml/pages/EditPassengerInfoDialog.qml</file>
+        <file>qml/pages/AddPassengerDialog.qml</file>
     </qresource>
 </RCC>

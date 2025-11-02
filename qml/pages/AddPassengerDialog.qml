@@ -5,7 +5,7 @@ import "../components"
 
 Window {
     id: mainWindow
-    width: 640; height: 380
+    width: 640; height: 400
     minimumWidth: 480; minimumHeight: 360
     maximumWidth: 1920; maximumHeight: 1440
     visible: true
@@ -39,7 +39,7 @@ Window {
         Header {
             id: header
             width: parent.width
-            title: "修改个人信息"
+            title: "添加乘车人"
             onCloseClicked: {
                 // 关闭逻辑，例如 parent.visible = false
             }
@@ -50,7 +50,7 @@ Window {
             id: column
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-            anchors.topMargin: 100
+            anchors.topMargin: 90
             spacing: 22
 
             // 姓名
@@ -133,6 +133,35 @@ Window {
                         border.color: "#999"
                         border.width: 1
                         radius: 6
+                    }
+                }
+            }
+
+            RowLayout {
+                Label {
+                    text: "优惠类型："
+                    font.pixelSize: 18
+                    color: "#666"
+                    Layout.preferredWidth: 80
+                    horizontalAlignment: Text.AlignRight
+                }
+                ComboBox {
+                    id: type
+                    Layout.preferredWidth: 150
+                    Layout.preferredHeight: 30
+                    Layout.leftMargin: 12
+
+                    model: ["--"].concat(Array.from({length: 24}, (_, i) => i.toString().padStart(2, "0")))
+                    currentIndex: 0
+                    contentItem: Text {
+                        text: parent.displayText
+
+                        // horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        font.pixelSize: 12
+                        color: "#444"
+                        anchors.fill: parent
+                        anchors.leftMargin: 6
                     }
                 }
             }

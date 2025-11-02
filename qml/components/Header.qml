@@ -33,7 +33,6 @@ Rectangle {
         anchors.leftMargin: 20
     }
 
-    // 右上角关闭按钮，使用图片
     Image {
         id: closeBtn
         source: "qrc:/resources/icon/Cancel.png"
@@ -43,17 +42,21 @@ Rectangle {
         anchors.right: parent.right
         anchors.rightMargin: 2
         anchors.verticalCenter: parent.verticalCenter
+
         MouseArea {
+            id: mouseArea
             anchors.fill: parent
             onClicked: infoHeader.closeClicked()
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
         }
+
         HueSaturation {
             anchors.fill: parent
             source: closeBtn
-            saturation: 2  // 饱和度
-            lightness: 0.01 // 亮度
+            saturation: 2
+            lightness: 0.01
+            visible: mouseArea.containsMouse  // 只在鼠标悬浮时显示效果
         }
     }
 
