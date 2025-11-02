@@ -4,16 +4,14 @@ import MyApp 1.0
 
 // 嵌入式登录页面，不再是窗口，交由外层主窗口控制显示与销毁
 Item {
-    id: loginPage
+    id: login
     width: parent ? parent.width : 960
     height: parent ? parent.height : 720
-    width: 960
-    height: 720
+    // width: 960
+    // height: 720
 
     property bool isAdminLogin: false
     signal loginSuccess(string role)
-    // 外部传入主窗口对象以便调用其方法（可选）
-    property var hostWindow: null
 
     AccountManager { id: accountManager }
 
@@ -39,6 +37,7 @@ Item {
                 font.bold: true
                 font.family: "Microsoft YaHei"
                 horizontalAlignment: Text.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
                 style: Text.Raised
                 styleColor: "#ffffff"
             }

@@ -12,9 +12,10 @@ ApplicationWindow {
     title: "铁路系统"
 
     // 定义本地的 userRole 属性，默认为 "user"
-    property string userRole: "guest" // 初始为 guest，登录后赋值 "user" 或 "admin"
-    property string startPage: (userRole === "admin") ? "qrc:/qml/pages/TrainManagement.qml" : "qrc:/qml/pages/TicketQuery.qml"
-    // 不用绑定表达式，避免自动派生的 change 信号与手动声明冲突；登录成功时手动赋值
+    property string userRole: "user"
+    property string startPage: (userRole === "admin") ?
+                                   "qrc:/qml/pages/TrainManagement.qml" :
+                                   "qrc:/qml/pages/TicketQuery.qml"
     property bool loggedIn: false
 
     // 主内容区：始终占满，内部根据登录状态显示侧边栏与内容
@@ -33,7 +34,7 @@ ApplicationWindow {
                     return
                 stackView.clear()
                 stackView.push(Qt.resolvedUrl(pageUrl))
-                        }
+            }
             // 固定宽度由组件内部 width 决定，不再伸展
         }
 
@@ -53,7 +54,7 @@ ApplicationWindow {
         id: loginLoader
         anchors.fill: parent
         active: !loggedIn
-        source: "qrc:/qml/pages/LoginPage.qml"
+        source: "qrc:/qml/pages/Login.qml"
         z: 10
         onLoaded: {
             if (item) {
@@ -67,6 +68,7 @@ ApplicationWindow {
         }
     }
 
+    // 如果根组件加载完成后已经是登录状态，则直接渲染主界面（仅方便以后做自动登录，目前没用处）
     Component.onCompleted: {
     if (loggedIn) loadStartPage()
     }

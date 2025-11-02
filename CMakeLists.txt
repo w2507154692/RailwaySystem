@@ -23,7 +23,7 @@ add_executable(appRailwaySystem
     main.cpp
     images.qrc
     accountmanager.h accountmanager.cpp
-    pageloader.h pageloader.cpp
+
 )
 
 target_link_libraries(appRailwaySystem
