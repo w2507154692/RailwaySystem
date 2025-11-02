@@ -3,7 +3,7 @@
         <file>resources/images/logbackground.png</file>
     </qresource>
     <qresource prefix="/">
-        <file>main.qml</file>
+        <file>qml/main.qml</file>
         <file>qml/components/SideBar.qml</file>
         <file>qml/pages/PassengerInfo.qml</file>
         <file>qml/pages/TicketQuery.qml</file>

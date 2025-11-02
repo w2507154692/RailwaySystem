@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<AccountManager>("MyApp", 1, 0, "AccountManager");
 
     // 直接加载主窗口（包含嵌入式登录页面）
-    const QUrl mainUrl("qrc:/main.qml");
+    const QUrl mainUrl("qrc:/qml/main.qml");
     engine.load(mainUrl);
     if (engine.rootObjects().isEmpty()) {
         qWarning() << "main.qml 加载失败";

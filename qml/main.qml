@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Layouts
-import "qml/components"
+import "../qml/components"
 
 ApplicationWindow {
     id: appWin
