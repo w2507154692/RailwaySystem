@@ -23,6 +23,11 @@ add_executable(appRailwaySystem
     main.cpp
     images.qrc
     accountmanager.h accountmanager.cpp
+    userprofile.h userprofile.cpp
+    user.h user.cpp
+    exception/accountexceptions.h exception/accountexceptions.cpp
+
+
 
 )
 

@@ -11,7 +11,10 @@ Item {
     // height: 720
 
     property bool isAdminLogin: false
-    signal loginSuccess()
+    signal loginSuccess(string role)
+    
+    // 错误提示信息
+    property string errorMessage: ""
 
     AccountManager { id: accountManager }
 
@@ -112,26 +115,23 @@ Item {
                     onReleased: loginButton.color = "#1f5f99"
                     onClicked: {
                         console.log("Login clicked, isAdminLogin:", isAdminLogin)
+                        errorMessage = "" // 清空之前的错误
+                        
+                        var result
                         if (isAdminLogin) {
-                            var ok = accountManager.login(username.text, password.text)
-                            console.log("Login result:", ok)
-                            if (ok) {
-                                SessionState.username = username.text
-                                SessionState.role = "admin"
-                                loginSuccess()
-                            } else {
-                                console.log("密码错误！")
-                            }
+                            result = accountManager.loginAdmin(username.text, password.text)
                         } else {
-                            var ok = accountManager.login(username.text, password.text)
-                            console.log("Login result:", ok)
-                            if (ok) {
-                                SessionState.username = username.text
-                                SessionState.role = "user"
-                                loginSuccess()
-                            } else {
-                                console.log("密码错误！")
-                            }
+                            result = accountManager.loginUser(username.text, password.text)
+                        }
+                        
+                        console.log("Login result:", JSON.stringify(result))
+
+                        
+                        if (result.success) {
+                            loginSuccess(isAdminLogin ? "admin" : "user")
+                        } else {
+                            errorMessage = result.message
+                            errorDialog.open()
                         }
                     }
                 }
@@ -151,6 +151,59 @@ Item {
                     onReleased: { registerButton.color = "#f8f8f8"; registerButton.border.color = "#aaa" }
                     onClicked: {
                         // TODO: 注册逻辑
+                    }
+                }
+            }
+        }
+    }
+    
+    // 错误提示对话框
+    Dialog {
+        id: errorDialog
+        title: "登录失败"
+        modal: true
+        anchors.centerIn: parent
+        width: 320
+        height: 160
+        
+        contentItem: Rectangle {
+            color: "#ffffff"
+            radius: 8
+            
+            Column {
+                anchors.fill: parent
+                anchors.margins: 20
+                spacing: 20
+                
+                Text {
+                    text: errorMessage
+                    font.pixelSize: 16
+                    font.family: "Microsoft YaHei"
+                    color: "#e74c3c"
+                    wrapMode: Text.WordWrap
+                    width: parent.width
+                    horizontalAlignment: Text.AlignHCenter
+                }
+                
+                Rectangle {
+                    width: 120
+                    height: 40
+                    radius: 6
+                    color: "#409CFC"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    
+                    Text {
+                        text: "确定"
+                        color: "white"
+                        font.pixelSize: 16
+                        font.family: "Microsoft YaHei"
+                        anchors.centerIn: parent
+                    }
+                    
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: errorDialog.close()
                     }
                 }
             }
