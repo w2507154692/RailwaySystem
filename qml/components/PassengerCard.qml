@@ -19,8 +19,8 @@ Item {
                 GradientStop { position: 0.0; color: "#cce5ff" }
                 GradientStop { position: 1.0; color: "#8ec9ff" }
             }
-            anchors.left: parent.left
-            anchors.verticalCenter: parent.verticalCenter
+            // anchors.left: parent.left
+            // anchors.verticalCenter: parent.verticalCenter
 
 
             // 一列文本 + 一列文本

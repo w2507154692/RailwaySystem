@@ -11,6 +11,19 @@ Page {
     objectName: "qrc:/qml/pages/MyOrders.qml"
     visible: true
 
+    // 添加组件生命周期管理
+    Component.onCompleted: {
+        console.log("MyOrders page loaded")
+    }
+
+    Component.onDestruction: {
+        console.log("MyOrders page destroying")
+        // 强制清理，虽然通常不需要，但可以尝试
+        if (scrollview) {
+            scrollview.contentItem = null
+        }
+    }
+
     Rectangle {
         anchors.fill: parent
 

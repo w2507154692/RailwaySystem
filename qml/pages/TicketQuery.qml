@@ -11,6 +11,15 @@ Page {
     height: parent ? parent.height : 640
     visible: true
 
+    // 定义页面数据
+    property alias page: pageData
+    QtObject {
+        id: pageData
+        property string fromCity: "北京"
+        property string toCity: "上海"
+        property string currentDate: "2025年11月2日"
+    }
+
     RowLayout {
         anchors.fill: parent
         Rectangle {

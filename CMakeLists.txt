@@ -10,6 +10,8 @@ find_package(Qt6 REQUIRED COMPONENTS
     Quick
     QuickControls2
 )
+find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -20,11 +22,15 @@ set(CMAKE_AUTOUIC ON)
 add_executable(appRailwaySystem
     main.cpp
     images.qrc
+    accountmanager.h accountmanager.cpp
+    pageloader.h pageloader.cpp
 )
 
 target_link_libraries(appRailwaySystem
     PRIVATE Qt6::Gui Qt6::Qml Qt6::Quick Qt6::QuickControls2
 )
+target_link_libraries(appRailwaySystem PRIVATE Qt6::Core)
+target_link_libraries(appRailwaySystem PRIVATE Qt6::Core)
 
 set_target_properties(appRailwaySystem PROPERTIES
     MACOSX_BUNDLE TRUE
