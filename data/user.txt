@@ -1,0 +1,10 @@
+alice 123456
+bob qwerty
+charlie password1
+dave 987654
+eve secret
+frank abcdef
+grace zxcvbn
+heidi 654321
+ivan letmein
+judy passw0rd

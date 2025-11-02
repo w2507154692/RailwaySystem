@@ -11,7 +11,7 @@ Item {
     // height: 720
 
     property bool isAdminLogin: false
-    signal loginSuccess(string role)
+    signal loginSuccess()
 
     AccountManager { id: accountManager }
 
@@ -113,12 +113,22 @@ Item {
                     onClicked: {
                         console.log("Login clicked, isAdminLogin:", isAdminLogin)
                         if (isAdminLogin) {
-                            loginSuccess("admin")
+                            var ok = accountManager.login(username.text, password.text)
+                            console.log("Login result:", ok)
+                            if (ok) {
+                                SessionState.username = username.text
+                                SessionState.role = "admin"
+                                loginSuccess()
+                            } else {
+                                console.log("密码错误！")
+                            }
                         } else {
                             var ok = accountManager.login(username.text, password.text)
                             console.log("Login result:", ok)
                             if (ok) {
-                                loginSuccess("user")
+                                SessionState.username = username.text
+                                SessionState.role = "user"
+                                loginSuccess()
                             } else {
                                 console.log("密码错误！")
                             }

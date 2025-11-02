@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Layouts
 import "../qml/components"
+import MyApp 1.0
 
 ApplicationWindow {
     id: appWin
@@ -11,9 +12,7 @@ ApplicationWindow {
     visible: true
     title: "铁路系统"
 
-    // 定义本地的 userRole 属性，默认为 "user"
-    property string userRole: "user"
-    property string startPage: (userRole === "admin") ?
+    property string startPage: (SessionState.role === "admin") ?
                                    "qrc:/qml/pages/TrainManagement.qml" :
                                    "qrc:/qml/pages/TicketQuery.qml"
     property bool loggedIn: false
@@ -27,7 +26,7 @@ ApplicationWindow {
 
         SideBar {
             id: sideBar
-            role: userRole
+            role: SessionState.role
             Layout.fillHeight: true
             onNavigate: function(pageUrl) {
                 if (stackView.currentItem && stackView.currentItem.objectName === pageUrl)
@@ -58,9 +57,7 @@ ApplicationWindow {
         z: 10
         onLoaded: {
             if (item) {
-                item.loginSuccess.connect(function(role) {
-                    console.log("Login success, role:", role)
-                    appWin.userRole = role
+                item.loginSuccess.connect(function() {
                     appWin.loggedIn = true
                     stackViewLoadTimer.restart()
                 })
@@ -76,7 +73,6 @@ ApplicationWindow {
     // 若以后支持切换账号（改变 userRole），可调用此函数
     function loadStartPage() {
         if (!loggedIn) return
-        console.log("Loading start page:", startPage, "for role:", userRole)
         try {
             stackView.clear()
             stackView.push(Qt.resolvedUrl(startPage))

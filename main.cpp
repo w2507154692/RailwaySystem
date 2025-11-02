@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;    // 创建 QML 应用程序引擎对象
 
     qmlRegisterType<AccountManager>("MyApp", 1, 0, "AccountManager");
+    qmlRegisterSingletonType(QUrl("qrc:/qml/SessionState.qml"), "MyApp", 1, 0, "SessionState");
 
     // 直接加载主窗口（包含嵌入式登录页面）
     const QUrl mainUrl("qrc:/qml/main.qml");

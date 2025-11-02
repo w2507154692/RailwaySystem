@@ -55,5 +55,6 @@
         <file>qml/pages/EditPassengerInfoDialog.qml</file>
         <file>qml/pages/AddPassengerDialog.qml</file>
         <file>qml/pages/Login.qml</file>
+        <file>qml/SessionState.qml</file>
     </qresource>
 </RCC>
