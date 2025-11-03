@@ -5,11 +5,11 @@
 #include <QDebug>
 
 StationManager::StationManager(QObject *parent)
-    : QObject(parent)
+    : QObject{parent}
 {
     readFromFile("../../data/station.txt", "../../data/city.txt");
     qDebug() << "加载车站的数量：" << stations.size();
-    qDebug() << "加载城市的数量：" << cities.size();
+    qDebug() << "加载城市的数量：" << stations.size();
 }
 
 std::vector<Station> StationManager::getStations() {
