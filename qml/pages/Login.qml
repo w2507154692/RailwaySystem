@@ -129,6 +129,8 @@ Item {
                         
                         if (result.success) {
                             loginSuccess(isAdminLogin ? "admin" : "user")
+                            SessionState.role = isAdminLogin ? "admin" : "user"
+                            SessionState.username = username.text
                         } else {
                             errorMessage = result.message
                             errorDialog.open()

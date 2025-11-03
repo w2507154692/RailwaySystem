@@ -1,5 +1,4 @@
 #include "accountmanager.h"
-#include "exception/accountexceptions.h"
 #include <fstream>
 #include <QDebug>
 #include <QDir>
@@ -17,80 +16,71 @@ AccountManager::AccountManager(QObject *parent)
 
 QVariantMap AccountManager::loginUser(const QString &username, const QString &password) {
     QVariantMap result;
-    try {
-        User &user = findUserByUsername(username);
+    auto findResult = findUserByUsername(username);
+    if (findResult) {
+        User user = findResult.value();
         if (user.isLocked()) {
-            throw AccountLockedException(username);
+            result["success"] = false;
+            result["message"] = QString("账户 %1 已被锁定！请联系管理员解锁。").arg(username);
+            return result;
         }
         if (user.getPassword() != password) {
-            throw PasswordMismatchException(username);
+            result["success"] = false;
+            result["message"] = QString("账户 %1 密码错误！请重新输入。").arg(username);
+            return result;
         }
-        result["username"] = user.getUsername();
         result["success"] = true;
-        result["message"] = "User login successful";
         return result;
-    } catch (const AccountNotFoundException &e) {
+    }
+    else {
         result["success"] = false;
-        result["message"] = e.what();
-        return result;
-    } catch (const AccountLockedException &e) {
-        result["success"] = false;
-        result["message"] = e.what();
-        return result;
-    } catch (const PasswordMismatchException &e) {
-        result["success"] = false;
-        result["message"] = e.what();
+        result["message"] = QString("账户 %1 不存在！").arg(username);
         return result;
     }
 }
 
 QVariantMap AccountManager::loginAdmin(const QString &username, const QString &password) {
     QVariantMap result;
-    try {
-        Admin &admin = findAdminByUsername(username);
+    auto findResult = findAdminByUsername(username);
+    if (findResult) {
+        Admin admin = findResult.value();
         if (admin.isLocked()) {
-            throw AccountLockedException(username);
+            result["success"] = false;
+            result["message"] = QString("账户 %1 已被锁定！请联系管理员解锁。").arg(username);
+            return result;
         }
         if (admin.getPassword() != password) {
-            throw PasswordMismatchException(username);
+            result["success"] = false;
+            result["message"] = QString("账户 %1 密码错误！请重新输入。").arg(username);
+            return result;
         }
-        result["username"] = admin.getUsername();
         result["success"] = true;
-        result["message"] = "Admin login successful";
         return result;
-    } catch (const AccountNotFoundException &e) {
+    }
+    else {
         result["success"] = false;
-        result["message"] = e.what();
-        return result;
-    } catch (const AccountLockedException &e) {
-        result["success"] = false;
-        result["message"] = e.what();
-        return result;
-    } catch (const PasswordMismatchException &e) {
-        result["success"] = false;
-        result["message"] = e.what();
+        result["message"] = QString("账户 %1 不存在！").arg(username);
         return result;
     }
 }
 
 
-
-User& AccountManager::findUserByUsername(const QString &username) {
+std::optional<User> AccountManager::findUserByUsername(const QString &username) {
     for (auto &user : users) {
         if (user.getUsername() == username) {
             return user;
         }
     }
-    throw AccountNotFoundException(username);
+    return std::nullopt;
 }
 
-Admin& AccountManager::findAdminByUsername(const QString &username) {
+std::optional<Admin> AccountManager::findAdminByUsername(const QString &username) {
     for (auto &admin : admins) {
         if (admin.getUsername() == username) {
             return admin;
         }
     }
-    throw AccountNotFoundException(username);
+    return std::nullopt;
 }
 
 void AccountManager::readFromFileUser(const char filename[]) {
