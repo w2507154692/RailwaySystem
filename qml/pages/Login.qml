@@ -179,7 +179,6 @@ Item {
                     text: errorMessage
                     font.pixelSize: 16
                     font.family: "Microsoft YaHei"
-                    color: "#e74c3c"
                     wrapMode: Text.WordWrap
                     width: parent.width
                     horizontalAlignment: Text.AlignHCenter

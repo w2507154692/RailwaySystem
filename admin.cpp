@@ -1,4 +1,5 @@
 #include "admin.h"
+#include <iostream>
 
 Admin::Admin() {}
 
@@ -53,15 +54,16 @@ bool operator!=(const Admin &a1, const Admin &a2) {
 
 std::istream& operator>>(std::istream& is, Admin& a) {
     std::string username, password;
-    bool locked;
-    is >> username >> password >> locked;
+    int locked_int;
+    is >> username >> password >> locked_int;
     a.username = QString::fromStdString(username);
     a.password = QString::fromStdString(password);
-    a.locked = locked;
+    a.locked = locked_int ? true : false;
     return is;
 }
 
 std::ostream& operator<<(std::ostream& os, const Admin& a) {
-    os << a.username.toStdString() << " " << a.password.toStdString() << " " << a.locked;
+    int locked_int = a.locked;
+    os << a.username.toStdString() << " " << a.password.toStdString() << " " << locked_int;
     return os;
 }

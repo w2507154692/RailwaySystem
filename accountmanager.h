@@ -19,7 +19,7 @@ public:
     explicit AccountManager(QObject *parent = nullptr);
 
     Q_INVOKABLE QVariantMap loginUser(const QString &username, const QString &password);
-    // Q_INVOKABLE QVariantMap loginAdmin(const QString &username, const QString &password);
+    Q_INVOKABLE QVariantMap loginAdmin(const QString &username, const QString &password);
     // Q_INVOKABLE bool lockUser(const QString &username);
     // Q_INVOKABLE bool unlockUser(const QString &username);
     // Q_INVOKABLE bool lockAdmin(const QString &username);
@@ -31,9 +31,10 @@ public:
 
 private:
     User& findUserByUsername(const QString &username);
-    // Admin& findAdminByUsername(const QString &username);
-    void readFromFile(const char filenamep[]);
-
+    Admin& findAdminByUsername(const QString &username);
+    void readFromFileUser(const char filename[]);
+    void readFromFileAdmin(const char filename[]);
+    void readFromFile(const char filenameUser[], const char filenameAdmin[]);
 
 };
 

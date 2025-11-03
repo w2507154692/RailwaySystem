@@ -64,7 +64,7 @@ bool operator!=(const User &u1, const User &u2) {
 }
 
 std::istream& operator>>(std::istream& is, User& u) {
-    std::string username, password, locked;
+    std::string username, password;
     int locked_int;
     is >> username >> password >> locked_int;
     u.username = QString::fromStdString(username);
