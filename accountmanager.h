@@ -30,8 +30,8 @@ public:
     // Q_INVOKABLE bool changePasswordAdmin(const QString &username, const QString &newPassword);
 
 private:
-    User& findUserByUsername(const QString &username);
-    Admin& findAdminByUsername(const QString &username);
+    std::optional<User> findUserByUsername(const QString &username);
+    std::optional<Admin> findAdminByUsername(const QString &username);
     void readFromFileUser(const char filename[]);
     void readFromFileAdmin(const char filename[]);
     void readFromFile(const char filenameUser[], const char filenameAdmin[]);

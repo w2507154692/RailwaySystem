@@ -26,7 +26,10 @@ add_executable(appRailwaySystem
     userprofile.h userprofile.cpp
     user.h user.cpp
     admin.h admin.cpp
-    exception/accountexceptions.h exception/accountexceptions.cpp
+
+    city.h city.cpp
+    stationmanager.h stationmanager.cpp
+    station.h station.cpp
 )
 
 target_link_libraries(appRailwaySystem

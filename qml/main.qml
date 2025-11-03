@@ -10,12 +10,16 @@ ApplicationWindow {
     width: 1040
     height: 640
     visible: true
-    title: "铁路系统"
+    title: "高铁订票系统"
 
     property string startPage: (SessionState.role === "admin") ?
                                    "qrc:/qml/pages/TrainManagement.qml" :
                                    "qrc:/qml/pages/TicketQuery.qml"
     property bool loggedIn: false
+
+    StationManager {
+        id: stationManager
+    }
 
     // 主内容区：始终占满，内部根据登录状态显示侧边栏与内容
     RowLayout {
