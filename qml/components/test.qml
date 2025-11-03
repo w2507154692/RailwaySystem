@@ -1,328 +1,175 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick
+import QtQuick.Window 2.15
+import QtQuick.Controls
 import QtQuick.Layouts 1.15
+import "../components"
 
-Item {
-    width: 960; height: 540
-    ColumnLayout{
-            width: parent.width
-            height: parent.height
-        RowLayout {
+Page {
+    id:ticketQueryPage
+    objectName: "qrc:/qml/pages/TicketQuery.qml"
+    width: parent ? parent.width : 1040
+    height: parent ? parent.height : 640
+    visible: true
+
+    // 定义页面数据
+    property alias page: pageData
+    QtObject {
+        id: pageData
+        property string fromCity: "北京"
+        property string toCity: "上海"
+        property string currentDate: "2025年11月2日"
+    }
+
+    property var cityList: [
+        "北京", "上海", "广州", "深圳", "成都", "重庆", "杭州", "南京", "武汉", "西安",
+        "天津", "苏州", "郑州", "长沙", "合肥", "青岛", "沈阳", "大连", "宁波", "厦门",
+        "福州", "济南", "哈尔滨", "长春", "石家庄", "昆明", "南昌", "贵阳", "太原", "南宁",
+        "呼和浩特", "兰州", "乌鲁木齐", "海口", "三亚", "拉萨", "银川", "西宁", "香港", "澳门", "台北"
+    ]
+
+    RowLayout {
+        anchors.fill: parent
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            clip: false   // 保证弹出菜单不被裁剪
+
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.leftMargin: 110
+                anchors.rightMargin: 130
+                spacing: 32
+
+                Item {
+                    Layout.fillHeight: true
+                }
+
+                RowLayout {
+                    // 始发地选择
+                    ComboBox {
+                        id: fromCombo
+                        model: cityList
+                        currentIndex: cityList.indexOf(page.fromCity)
+                        onCurrentIndexChanged: page.fromCity = cityList[currentIndex]
+                        Layout.preferredWidth: 160
+                        font.pixelSize: 48
+                    }
+
+                    Item { Layout.fillWidth: true }
+
+                    Image {
+                        source: "qrc:/resources/icon/TrainIcon.png"
+                        Layout.preferredWidth: 100
+                        Layout.preferredHeight: 100
+                    }
+
+                    Item { Layout.fillWidth: true }
+
+                    // 目的地选择
+                    ComboBox {
+                        id: toCombo
+                        model: cityList
+                        currentIndex: cityList.indexOf(page.toCity)
+                        onCurrentIndexChanged: page.toCity = cityList[currentIndex]
+                        Layout.preferredWidth: 160
+                        font.pixelSize: 48
+                    }
+                }
+
+                // 分割线
+                Rectangle {
                     Layout.fillWidth: true
-                    height: 100
-                    spacing: 0
+                    Layout.preferredHeight: 2
+                    Layout.topMargin: -60
+                    color: "#e6e6e6"
+                }
 
-                    // 左侧按钮区
-                    ColumnLayout {
-                        width: 100
-                        spacing: 10
-                        Layout.leftMargin: 20
-                        // verticalCenter: parent.verticalCenter
+                // 日期
+                RowLayout {
+                    Layout.topMargin: -60
 
-                        CustomButton {
-                            text: "时刻表"
-                            width: 90
-                            height: 26
-                            fontSize: 15
-                            borderRadius: 7
-                            buttonType: "confirm"
-                        }
-                        CustomButton {
-                            text: "座位模板"
-                            width: 90
-                            height: 26
-                            fontSize: 15
-                            borderRadius: 7
-                            buttonType: "confirm"
-                        }
+                    Text {
+                        text: page.currentDate
+                        font.pixelSize: 25
+                        color: "#222"
                     }
 
-                    Item{
-                        Layout.preferredWidth: 20
+                    Text {
+                        Layout.leftMargin: 50
+                        text: "今天"
+                        font.pixelSize: 25
+                        color: "#656565"
+                    }
+                }
+
+                // 按钮
+                CustomButton {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 72
+                    Layout.topMargin: -20
+                    text: "查询车票"
+                    textColor: "white"
+                    fontSize: 30
+                    customColor: "#3B99FB"
+                    onClicked: {
+                        // 传参给结果页
+                        stackView.push({
+                            item: Qt.resolvedUrl("qrc:/qml/pages/TicketQueryResult.qml"),
+                            properties: {
+                                fromCity: page.fromCity,
+                                toCity: page.toCity,
+                                date: page.currentDate
+                            }
+                        })
+                    }
+                }
+
+
+                // 历史记录
+                RowLayout {
+                    Layout.topMargin: -10
+
+                    Text {
+                        text: "北京--嘉兴南"
+                        font.pixelSize: 18
+                        color: "#ACACAC"
                     }
 
-                    // 车次卡片内容
-                    Rectangle {
+                    Item {
                         Layout.fillWidth: true
-                        height: 100
-                        radius: 16
-                        gradient: Gradient {
-                            GradientStop { position: 0.0; color: "#ffffff" }
-                            GradientStop { position: 1.0; color: "#cce5ff" }
-                        }
-                        border.color: "#b3d1f7"
-                        border.width: 1
-
-                        RowLayout {
-                            anchors.fill: parent
-                            anchors.leftMargin: 60
-                            anchors.rightMargin: 50
-                            spacing: 0
-
-                            Text {
-                                text: "北京南"
-                                font.pixelSize: 28
-                                font.bold: false
-                                color: "#222"
-                                verticalAlignment: Text.AlignVCenter
-                            }
-
-                            Item { Layout.fillWidth: true }
-
-                            Text {
-                                text: "09:10"
-                                font.pixelSize: 26
-                                font.bold: true
-                                color: "#222"
-                                Layout.leftMargin: 18
-                                verticalAlignment: Text.AlignVCenter
-                            }
-
-                            Item { Layout.fillWidth: true }
-
-                            ColumnLayout {
-
-                                Item{
-                                    Layout.fillHeight: true
-                                }
-                                Text {
-                                    Layout.alignment: Qt.AlignHCenter
-                                    text: "G115"; font.bold: true;
-                                    Layout.topMargin: -10
-                                    font.pixelSize: 20; color: "#222";
-                                }
-
-                                Image {
-                                    Layout.preferredWidth: 120
-                                    Layout.preferredHeight: 5
-                                    Layout.topMargin: -10
-                                    source: "qrc:/resources/icon/arrow.svg"
-                                    fillMode: Image.Stretch
-                                }
-                                Item{
-                                    Layout.preferredHeight: 0
-                                }
-                                Text {
-                                    Layout.alignment: Qt.AlignHCenter
-                                    Layout.topMargin: -8
-                                    text: "6小时7分";
-                                    font.pixelSize: 10; color: "#888"; }
-                                Item{
-                                    Layout.fillHeight: true
-                                }
-
-                            }
-
-                            Item { Layout.fillWidth: true }
-
-                            Text {
-                                text: "15:17"
-                                font.pixelSize: 26
-                                font.bold: true
-                                color: "#222"
-                                verticalAlignment: Text.AlignVCenter
-                            }
-
-                            Item { Layout.fillWidth: true }
-
-                            Text {
-                                text: "上海虹桥"
-                                font.pixelSize: 28
-                                font.bold: false
-                                color: "#222"
-                                Layout.leftMargin: 18
-                                verticalAlignment: Text.AlignVCenter
-                            }
-                        }
                     }
 
-                    Rectangle {
-                        width: 80
-                        height: 80
-                        radius: 18
-                        color: "transparent"
-                        border.color: "transparent"
-                        MouseArea {
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: {
-                                trainList.splice(index, 1)
-                            }
-                            Image {
-                                source: "qrc:/resources/icon/Delete.png"
-                                anchors.centerIn: parent
-                                width: 80
-                                height: 80
-                            }
-                        }
+                    Text {
+                        text: "北京--嘉兴南"
+                        font.pixelSize: 18
+                        color: "#ACACAC"
                     }
 
+                    Item {
+                        Layout.fillWidth: true
+                    }
 
-            // ListView{
-            //     anchors.fill: parent
-            //     model: Qt.fontFamilies()
-            //     delegate: Item {
-            //         height: 64
-            //         width: parent.width
-            //         Rectangle{
-            //             height: 48
-            //             width: parent.width
-            //             Text {
-            //                 id: txtShow
-            //                 anchors.centerIn: parent
-            //                 color: "black"
-            //                 text: "字体名称" + index + ": " + modelData
-            //                 font.family: modelData
-            //             }
-            //         }
-            //     }
+                    Text {
+                        text: "北京--嘉兴南"
+                        font.pixelSize: 18
+                        color: "#ACACAC"
+                    }
 
-            //     // 间隔
-            //     Item {
-            //         Layout.fillWidth: true
-            //     }
+                    Item {
+                        Layout.fillWidth: true
+                    }
 
-            //     // 中间分隔线
-            //     Rectangle {
-            //         width: 2
-            //         Layout.topMargin: 8
-            //         Layout.preferredHeight: 110
-            //         // Layout.fillHeight: true
-            //         color: "#ccc"
-            //         radius: 1
-            //     }
+                    Text {
+                        text: "清除历史"
+                        font.pixelSize: 18
+                        color: "#ACACAC"
+                    }
+                }
 
-            //     // 间隔
-            //     Item {
-            //         Layout.fillWidth: true
-            //     }
-
-            //     // 二等 + 一等 + 商务
-            //     RowLayout {
-            //         Layout.topMargin: 5
-            //         Layout.fillHeight: true
-
-            //         // 座位等级
-            //         ColumnLayout {
-            //             spacing: 15
-            //             Text {
-            //                 text: "二等";
-            //                 font.pixelSize: 18; color: "#222";
-            //             }
-            //             Text {
-            //                 text: "一等";
-            //                 font.pixelSize: 18; color: "#222";
-            //             }
-            //             Text {
-            //                 text: "商务";
-            //                 font.pixelSize: 18; color: "#222";
-            //             }
-            //         }
-
-            //         // 间隔
-            //         Item {
-            //             Layout.preferredWidth: 40
-            //         }
-
-            //         // 票价
-            //         ColumnLayout {
-            //             spacing: 15
-            //             Text {
-            //                 text: "￥708";
-            //                 font.pixelSize: 18; color: "#e88a3d";
-            //             }
-            //             Text {
-            //                 text: "￥1134";
-            //                 font.pixelSize: 18; color: "#e88a3d";
-            //             }
-            //             Text {
-            //                 text: "￥2457";
-            //                 font.pixelSize: 18; color: "#e88a3d";
-            //             }
-            //         }
-
-            //         // 间隔
-            //         Item {
-            //             Layout.preferredWidth: 40
-            //         }
-
-            //         // 余票
-            //         ColumnLayout {
-            //             spacing: 15
-            //             Text {
-            //                 text: "有票";
-            //                 font.pixelSize: 18; color: "#4ec37e";
-            //             }
-            //             Text {
-            //                 text: "有票";
-            //                 font.pixelSize: 18; color: "#4ec37e";
-            //             }
-            //             Text {
-            //                 text: "无票";
-            //                 font.pixelSize: 18; color: "#bbb";
-            //             }
-            //         }
-
-            //         // 间隔
-            //         Item {
-            //             Layout.preferredWidth: 40
-            //         }
-
-            //         ColumnLayout {
-            //             spacing: 10
-            //             CustomButton {
-            //                 text: "预定"
-            //                 customColor: "#5d7fa9"
-            //                 pressedColor: "#3B99Fb"
-            //                 textColor: "#fff"
-            //                 pressedTextColor: "#fff"
-            //                 fontSize: 16
-            //                 fontBold: false
-            //                 width: 56
-            //                 height: 28
-            //                 enabled: true
-            //                 Layout.row: 0; Layout.column: 3
-            //                 onClicked: {
-            //                     // TODO: 预定操作
-            //                 }
-            //             }
-            //             CustomButton {
-            //                 text: "预定"
-            //                 customColor: "#5d7fa9"
-            //                 pressedColor: "#3B99Fb"
-            //                 textColor: "#fff"
-            //                 pressedTextColor: "#fff"
-            //                 fontSize: 16
-            //                 fontBold: false
-            //                 width: 56
-            //                 height: 28
-            //                 enabled: true
-            //                 Layout.row: 0; Layout.column: 3
-            //                 onClicked: {
-            //                     // TODO: 预定操作
-            //                 }
-            //             }
-            //             CustomButton {
-            //                 text: "预定"
-            //                 customColor: "#5d7fa9"
-            //                 pressedColor: "#3B99Fb"
-            //                 textColor: "#fff"
-            //                 pressedTextColor: "#fff"
-            //                 fontSize: 16
-            //                 fontBold: false
-            //                 width: 56
-            //                 height: 28
-            //                 enabled: true
-            //                 Layout.row: 0; Layout.column: 3
-            //                 onClicked: {
-            //                     // TODO: 预定操作
-            //                 }
-            //             }
-            //         }
-
-            //     }
+                Item {
+                    Layout.fillHeight: true
+                }
             }
+        }
     }
-
-
-    }
+}
