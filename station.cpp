@@ -3,6 +3,9 @@
 
 Station::Station() {}
 
+Station::Station(const QString &stationName, const QString &cityName)
+    : station_name(stationName), city_name(cityName) {}
+
 QString Station::getStationName() {
     return station_name;
 }

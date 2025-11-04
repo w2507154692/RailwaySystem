@@ -23,6 +23,7 @@ Page {
         property string currentDate: "" // 今天
         property string selectedDate: "" // 用户选中的日期
         property var cityList: []
+        property var queryHistory: bookingSystem.queryHistory
     }
 
     //获取当前页面信息
@@ -192,7 +193,8 @@ Page {
                     Layout.topMargin: -10
 
                     Text {
-                        text: "北京--嘉兴南"
+                        visible: pageData.queryHistory.length >= 1
+                        text: pageData.queryHistory[0].startStation + "--" + pageData.queryHistory[0].endStation
                         font.pixelSize: 18
                         color: "#ACACAC"
                     }
@@ -202,7 +204,8 @@ Page {
                     }
 
                     Text {
-                        text: "北京--嘉兴南"
+                        visible: pageData.queryHistory.length >= 2
+                        text: pageData.queryHistory[1].startStation + "--" + pageData.queryHistory[1].endStation
                         font.pixelSize: 18
                         color: "#ACACAC"
                     }
@@ -212,7 +215,8 @@ Page {
                     }
 
                     Text {
-                        text: "北京--嘉兴南"
+                        visible: pageData.queryHistory.length >= 3
+                        text: pageData.queryHistory[2].startStation + "--" + pageData.queryHistory[2].endStation
                         font.pixelSize: 18
                         color: "#ACACAC"
                     }
@@ -255,7 +259,7 @@ Page {
         MyCalendar {
             id: myCalendar
             anchors.fill: parent
-            selectedDate: Qt.parseDate(page.currentDate, "yyyy年MM月dd日")
+            selectedDate: Qt.formatDate(page.currentDate, "yyyy年MM月dd日")
             Connections {
                 target: myCalendar
                 function onSelectedDateChanged() {

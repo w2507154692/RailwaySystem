@@ -5,6 +5,7 @@
 // 仅注册需要的类型
 #include "accountmanager.h"
 #include "stationmanager.h"
+#include "bookingsystem.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,8 +14,10 @@ int main(int argc, char *argv[])
 
     AccountManager* accountManager = new AccountManager;
     StationManager* stationManager = new StationManager;
+    BookingSystem* bookingSystem = new BookingSystem;
     engine.rootContext()->setContextProperty("accountManager", accountManager);
     engine.rootContext()->setContextProperty("stationManager", stationManager);
+    engine.rootContext()->setContextProperty("bookingSystem", bookingSystem);
     qmlRegisterSingletonType(QUrl("qrc:/qml/SessionState.qml"), "MyApp", 1, 0, "SessionState");
 
     // 直接加载主窗口（包含嵌入式登录页面）

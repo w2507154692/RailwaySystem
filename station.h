@@ -11,6 +11,7 @@ private:
 
 public:
     Station();
+    Station(const QString &stationName, const QString &cityName);
 
     QString getStationName();
     QString getCityName();
