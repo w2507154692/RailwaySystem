@@ -12,8 +12,12 @@ StationManager::StationManager(QObject *parent)
     qDebug() << "加载城市的数量：" << stations.size();
 }
 
-std::vector<Station> StationManager::getStations() {
-    return stations;
+QStringList StationManager::getStationNames() {
+    QStringList stationNames;
+    for (auto &station : stations) {
+        stationNames << station.getStationName();
+    }
+    return stationNames;
 }
 
 double StationManager::computeDistance(City &c1, City &c2) {

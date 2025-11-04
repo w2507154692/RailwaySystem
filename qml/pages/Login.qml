@@ -16,8 +16,6 @@ Item {
     // 错误提示信息
     property string errorMessage: ""
 
-    AccountManager { id: accountManager }
-
     Rectangle {
         anchors.fill: parent
         color: "#f8f8f8"

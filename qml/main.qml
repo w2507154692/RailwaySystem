@@ -17,10 +17,6 @@ ApplicationWindow {
                                    "qrc:/qml/pages/TicketQuery.qml"
     property bool loggedIn: false
 
-    StationManager {
-        id: stationManager
-    }
-
     // 主内容区：始终占满，内部根据登录状态显示侧边栏与内容
     RowLayout {
         id: contentRow

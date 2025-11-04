@@ -15,7 +15,7 @@ private:
 
 public:
     explicit StationManager(QObject *parent = nullptr);
-    std::vector<Station> getStations();
+    Q_INVOKABLE QStringList getStationNames();
     double computeDistance(City &c1, City &c2);
 
 private:

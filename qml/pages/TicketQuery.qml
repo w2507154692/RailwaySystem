@@ -5,13 +5,13 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls
 import "../components"
 
-Window {
+Page {
     id:ticketQueryPage
     objectName: "qrc:/qml/pages/TicketQuery.qml"
-    // width: parent ? parent.width : 1040
-    // height: parent ? parent.height : 640
-    width: 1040
-    height: 640
+    width: parent ? parent.width : 1040
+    height: parent ? parent.height : 640
+    // width: 1040
+    // height: 640
     visible: true
 
     // 定义页面数据
@@ -22,20 +22,22 @@ Window {
         property string toCity: "上海"
         property string currentDate: "" // 今天
         property string selectedDate: "" // 用户选中的日期
+        property var cityList: []
     }
 
-    //获取当前时间
+    //获取当前页面信息
     Component.onCompleted: {
         pageData.currentDate = Qt.formatDate(new Date(), "yyyy年MM月dd日")
         pageData.selectedDate = pageData.currentDate   // 默认选中今天
+        pageData.cityList = stationManager.getStationNames()
     }
 
-    property var cityList: [
-        "北京", "上海", "广州", "深圳", "成都", "重庆", "杭州", "南京", "武汉", "西安",
-        "天津", "苏州", "郑州", "长沙", "合肥", "青岛", "沈阳", "大连", "宁波", "厦门",
-        "福州", "济南", "哈尔滨", "长春", "石家庄", "昆明", "南昌", "贵阳", "太原", "南宁",
-        "呼和浩特", "兰州", "乌鲁木齐", "海口", "三亚", "拉萨", "银川", "西宁", "香港", "澳门", "台北"
-    ]
+    // property var cityList: [
+    //     "北京", "上海", "广州", "深圳", "成都", "重庆", "杭州", "南京", "武汉", "西安",
+    //     "天津", "苏州", "郑州", "长沙", "合肥", "青岛", "沈阳", "大连", "宁波", "厦门",
+    //     "福州", "济南", "哈尔滨", "长春", "石家庄", "昆明", "南昌", "贵阳", "太原", "南宁",
+    //     "呼和浩特", "兰州", "乌鲁木齐", "海口", "三亚", "拉萨", "银川", "西宁", "香港", "澳门", "台北"
+    // ]
 
     RowLayout {
         anchors.fill: parent
@@ -58,9 +60,9 @@ Window {
                     // 始发地选择
                     ComboBox {
                         id: fromCombo
-                        model: cityList
-                        currentIndex: cityList.indexOf(page.fromCity)
-                        onCurrentIndexChanged: page.fromCity = cityList[currentIndex]
+                        model: pageData.cityList
+                        currentIndex: pageData.cityList.indexOf(page.fromCity)
+                        onCurrentIndexChanged: page.fromCity = pageData.cityList[currentIndex]
                         Layout.preferredWidth: 160
                         font.pixelSize: 48
 
@@ -94,8 +96,8 @@ Window {
                                 page.toCity = tmp
 
                                 // 同步 ComboBox 选中项
-                                fromCombo.currentIndex = cityList.indexOf(page.fromCity)
-                                toCombo.currentIndex = cityList.indexOf(page.toCity)
+                                fromCombo.currentIndex = pageData.cityList.indexOf(page.fromCity)
+                                toCombo.currentIndex = pageData.cityList.indexOf(page.toCity)
                             }
                         }
                     }
@@ -105,9 +107,9 @@ Window {
                     // 目的地选择
                     ComboBox {
                         id: toCombo
-                        model: cityList
-                        currentIndex: cityList.indexOf(page.toCity)
-                        onCurrentIndexChanged: page.toCity = cityList[currentIndex]
+                        model: pageData.cityList
+                        currentIndex: pageData.cityList.indexOf(page.toCity)
+                        onCurrentIndexChanged: page.toCity = pageData.cityList[currentIndex]
                         Layout.preferredWidth: 160
                         font.pixelSize: 48
 

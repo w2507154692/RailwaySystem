@@ -11,8 +11,10 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);            // 创建 GUI 应用程序对象
     QQmlApplicationEngine engine;    // 创建 QML 应用程序引擎对象
 
-    qmlRegisterType<AccountManager>("MyApp", 1, 0, "AccountManager");
-    qmlRegisterType<StationManager>("MyApp", 1, 0, "StationManager");
+    AccountManager* accountManager = new AccountManager;
+    StationManager* stationManager = new StationManager;
+    engine.rootContext()->setContextProperty("accountManager", accountManager);
+    engine.rootContext()->setContextProperty("stationManager", stationManager);
     qmlRegisterSingletonType(QUrl("qrc:/qml/SessionState.qml"), "MyApp", 1, 0, "SessionState");
 
     // 直接加载主窗口（包含嵌入式登录页面）
