@@ -15,11 +15,12 @@ private:
 
 public:
     explicit StationManager(QObject *parent = nullptr);
-    Q_INVOKABLE QStringList getStationNames();
+    Q_INVOKABLE QStringList getCityNames();
     double computeDistance(City &c1, City &c2);
+    std::optional<Station> findStationByStationName(const QString &stationName);
+    std::optional<City> findCityByCityName(const QString &cityName);
 
 private:
-    std::optional<City> findCityByCityName(const QString &cityName);
     void readFromFileStations(const char filename[]);
     void readFromFileCities(const char filename[]);
     void readFromFile(const char filenameStations[], const char filenameCities[]);

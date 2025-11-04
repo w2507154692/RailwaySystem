@@ -30,15 +30,8 @@ Page {
     Component.onCompleted: {
         pageData.currentDate = Qt.formatDate(new Date(), "yyyy年MM月dd日")
         pageData.selectedDate = pageData.currentDate   // 默认选中今天
-        pageData.cityList = stationManager.getStationNames()
+        pageData.cityList = stationManager.getCityNames()
     }
-
-    // property var cityList: [
-    //     "北京", "上海", "广州", "深圳", "成都", "重庆", "杭州", "南京", "武汉", "西安",
-    //     "天津", "苏州", "郑州", "长沙", "合肥", "青岛", "沈阳", "大连", "宁波", "厦门",
-    //     "福州", "济南", "哈尔滨", "长春", "石家庄", "昆明", "南昌", "贵阳", "太原", "南宁",
-    //     "呼和浩特", "兰州", "乌鲁木齐", "海口", "三亚", "拉萨", "银川", "西宁", "香港", "澳门", "台北"
-    // ]
 
     RowLayout {
         anchors.fill: parent
@@ -176,15 +169,9 @@ Page {
                     fontSize: 30
                     customColor: "#3B99FB"
                     onClicked: {
-                        // 传参给结果页
-                        stackView.push({
-                            item: Qt.resolvedUrl("qrc:/qml/pages/TicketQueryResult.qml"),
-                            properties: {
-                                fromCity: page.fromCity,
-                                toCity: page.toCity,
-                                date: page.currentDate
-                            }
-                        })
+                        // 查询逻辑
+                        bookingSystem.addQueryHistory(pageData.fromCity, pageData.toCity)
+                        console.log("点击查询按钮！")
                     }
                 }
 
@@ -194,7 +181,7 @@ Page {
 
                     Text {
                         visible: pageData.queryHistory.length >= 1
-                        text: pageData.queryHistory[0].startStation + "--" + pageData.queryHistory[0].endStation
+                        text: pageData.queryHistory[0].startCity + "--" + pageData.queryHistory[0].endCity
                         font.pixelSize: 18
                         color: "#ACACAC"
                     }
@@ -205,7 +192,7 @@ Page {
 
                     Text {
                         visible: pageData.queryHistory.length >= 2
-                        text: pageData.queryHistory[1].startStation + "--" + pageData.queryHistory[1].endStation
+                        text: pageData.queryHistory[1].startCity + "--" + pageData.queryHistory[1].endCity
                         font.pixelSize: 18
                         color: "#ACACAC"
                     }
@@ -216,7 +203,7 @@ Page {
 
                     Text {
                         visible: pageData.queryHistory.length >= 3
-                        text: pageData.queryHistory[2].startStation + "--" + pageData.queryHistory[2].endStation
+                        text: pageData.queryHistory[2].startCity + "--" + pageData.queryHistory[2].endCity
                         font.pixelSize: 18
                         color: "#ACACAC"
                     }
@@ -229,6 +216,11 @@ Page {
                         text: "清除历史"
                         font.pixelSize: 18
                         color: "#ACACAC"
+                        MouseArea {
+                            anchors.fill: parent
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: bookingSystem.clearQueryHistory()
+                        }
                     }
                 }
 

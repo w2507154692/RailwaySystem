@@ -12,12 +12,12 @@ StationManager::StationManager(QObject *parent)
     qDebug() << "加载城市的数量：" << stations.size();
 }
 
-QStringList StationManager::getStationNames() {
-    QStringList stationNames;
-    for (auto &station : stations) {
-        stationNames << station.getStationName();
+QStringList StationManager::getCityNames() {
+    QStringList list;
+    for (auto &city : cities) {
+        list << city.getName();
     }
-    return stationNames;
+    return list;
 }
 
 double StationManager::computeDistance(City &c1, City &c2) {
@@ -26,6 +26,14 @@ double StationManager::computeDistance(City &c1, City &c2) {
     double a = sin((lat1-lat2)/2)*sin((lat1-lat2)/2) + cos(lat1)*cos(lat2)*sin((lon1-lon2)/2)*sin((lon1-lon2)/2);
     double c = 2 * atan2(sqrt(a), sqrt(1-a));
     return  c * 6371.0;
+}
+
+std::optional<Station> StationManager::findStationByStationName(const QString &stationName) {
+    for (auto &station : stations) {
+        if (station.getStationName() == stationName)
+            return station;
+    }
+    return std::nullopt;
 }
 
 std::optional<City> StationManager::findCityByCityName(const QString &cityName) {

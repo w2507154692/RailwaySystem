@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
     AccountManager* accountManager = new AccountManager;
     StationManager* stationManager = new StationManager;
-    BookingSystem* bookingSystem = new BookingSystem;
+    BookingSystem* bookingSystem = new BookingSystem(stationManager);
     engine.rootContext()->setContextProperty("accountManager", accountManager);
     engine.rootContext()->setContextProperty("stationManager", stationManager);
     engine.rootContext()->setContextProperty("bookingSystem", bookingSystem);
