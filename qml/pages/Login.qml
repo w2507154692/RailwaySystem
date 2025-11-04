@@ -83,7 +83,20 @@ Item {
                         anchors.fill: parent; anchors.margins: 16; spacing: 12
                         Text { text: isAdminLogin ? "管理员" : "用户"; anchors.verticalCenter: parent.verticalCenter; color: "#5a6c7d"; font.pixelSize: 16; font.family: "Microsoft YaHei"; width: isAdminLogin ? 56 : 40; horizontalAlignment: Text.AlignRight }
                         Rectangle { width: 1; height: 24; color: "#e0e6ed"; anchors.verticalCenter: parent.verticalCenter }
-                        TextField { id: username; anchors.verticalCenter: parent.verticalCenter; width: isAdminLogin ? 240 : 256; font.pixelSize: 16; font.family: "Microsoft YaHei"; color: "#2c3e50"; placeholderText: isAdminLogin ? "请输入管理员账号" : "请输入用户账号"; placeholderTextColor: "#95a5a6"; background: null; selectByMouse: true }
+                        TextField { 
+                            id: username
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: isAdminLogin ? 240 : 256
+                            font.pixelSize: 16
+                            font.family: "Microsoft YaHei"
+                            color: "#2c3e50"
+                            placeholderText: isAdminLogin ? "请输入管理员账号" : "请输入用户账号"
+                            placeholderTextColor: "#95a5a6"
+                            background: null
+                            selectByMouse: true
+                            Keys.onTabPressed: password.forceActiveFocus()
+                            Keys.onReturnPressed: doLogin()
+                        }
                     }
                 }
                 // 密码
@@ -94,7 +107,21 @@ Item {
                         anchors.fill: parent; anchors.margins: 16; spacing: 12
                         Text { text: "密码"; anchors.verticalCenter: parent.verticalCenter; color: "#5a6c7d"; font.pixelSize: 16; font.family: "Microsoft YaHei"; width: 40; horizontalAlignment: Text.AlignRight }
                         Rectangle { width: 1; height: 24; color: "#e0e6ed"; anchors.verticalCenter: parent.verticalCenter }
-                        TextField { id: password; anchors.verticalCenter: parent.verticalCenter; width: 256; font.pixelSize: 16; font.family: "Microsoft YaHei"; color: "#2c3e50"; placeholderText: "请输入登录密码"; placeholderTextColor: "#95a5a6"; echoMode: TextInput.Password; background: null; selectByMouse: true }
+                        TextField { 
+                            id: password
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: 256
+                            font.pixelSize: 16
+                            font.family: "Microsoft YaHei"
+                            color: "#2c3e50"
+                            placeholderText: "请输入登录密码"
+                            placeholderTextColor: "#95a5a6"
+                            echoMode: TextInput.Password
+                            background: null
+                            selectByMouse: true
+                            Keys.onTabPressed: username.forceActiveFocus()
+                            Keys.onReturnPressed: doLogin()
+                        }
                     }
                 }
             }
@@ -111,29 +138,7 @@ Item {
                     onExited: loginButton.color = "#409CFC"
                     onPressed: loginButton.color = "#174a73"
                     onReleased: loginButton.color = "#1f5f99"
-                    onClicked: {
-                        console.log("Login clicked, isAdminLogin:", isAdminLogin)
-                        errorMessage = "" // 清空之前的错误
-                        
-                        var result
-                        if (isAdminLogin) {
-                            result = accountManager.loginAdmin(username.text, password.text)
-                        } else {
-                            result = accountManager.loginUser(username.text, password.text)
-                        }
-                        
-                        console.log("Login result:", JSON.stringify(result))
-
-                        
-                        if (result.success) {
-                            loginSuccess(isAdminLogin ? "admin" : "user")
-                            SessionState.role = isAdminLogin ? "admin" : "user"
-                            SessionState.username = username.text
-                        } else {
-                            errorMessage = result.message
-                            errorDialog.open()
-                        }
-                    }
+                    onClicked: doLogin()
                 }
             }
 
@@ -203,9 +208,34 @@ Item {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onClicked: errorDialog.close()
+                        Keys.onReturnPressed: errorDialog.close() // 增加回车关闭
+                        focus: true // 让 MouseArea 能响应键盘事件
                     }
                 }
             }
+        }
+    }
+    
+    function doLogin() {
+        console.log("Login triggered, isAdminLogin:", isAdminLogin)
+        errorMessage = "" // 清空之前的错误
+
+        var result
+        if (isAdminLogin) {
+            result = accountManager.loginAdmin(username.text, password.text)
+        } else {
+            result = accountManager.loginUser(username.text, password.text)
+        }
+
+        console.log("Login result:", JSON.stringify(result))
+
+        if (result.success) {
+            loginSuccess(isAdminLogin ? "admin" : "user")
+            SessionState.role = isAdminLogin ? "admin" : "user"
+            SessionState.username = username.text
+        } else {
+            errorMessage = result.message
+            errorDialog.open()
         }
     }
 }
