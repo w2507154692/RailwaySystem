@@ -12,7 +12,7 @@ Rectangle {
 
     property alias font: month_grid.font
     property alias locale: month_grid.locale
-    property date selectDate: new Date()
+    property date selectedDate: new Date()
 
     // 自定义按钮样式
     component CalendarButton : AbstractButton {
@@ -202,7 +202,7 @@ Rectangle {
             delegate: Rectangle {
                 color: model.today
                        ? "orange"
-                       : control.selectDate.valueOf() === model.date.valueOf()
+                       : control.selectedDate.valueOf() === model.date.valueOf()
                          ? "lightBlue"
                          : "#F5F5F5"
                 border.color: "#B8B8B8"
@@ -230,7 +230,7 @@ Rectangle {
             }
             onClicked: (date) => {
                 if (date >= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())) {
-                    control.selectDate = date;
+                    control.selectedDate = date;
                     console.log('click', month_grid.title, month_grid.year, month_grid.month, "--",
                                 date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCDay())
                 }

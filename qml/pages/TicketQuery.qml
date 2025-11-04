@@ -255,12 +255,12 @@ Page {
         MyCalendar {
             id: myCalendar
             anchors.fill: parent
-            selectDate: Qt.parseDate(page.currentDate, "yyyy年MM月dd日")
+            selectedDate: Qt.parseDate(page.currentDate, "yyyy年MM月dd日")
             Connections {
                 target: myCalendar
-                onSelectDateChanged: function() {
-                    page.selectedDate = Qt.formatDate(myCalendar.selectDate, "yyyy年MM月dd日")
-                    // console.log("选中日期：", myCalendar.selectDate)
+                function onSelectedDateChanged() {
+                    page.selectedDate = Qt.formatDate(myCalendar.selectedDate, "yyyy年MM月dd日")
+                    // console.log("选中日期：", myCalendar.selectedDate)
                     calendarDialog.close()
                 }
             }
