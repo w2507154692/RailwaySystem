@@ -86,19 +86,19 @@ Item {
                         Text { text: isAdminLogin ? "管理员" : "用户"; anchors.verticalCenter: parent.verticalCenter; color: "#5a6c7d"; font.pixelSize: 16; font.family: "Microsoft YaHei"; width: isAdminLogin ? 56 : 40; horizontalAlignment: Text.AlignRight }
                         Rectangle { width: 1; height: 24; color: "#e0e6ed"; anchors.verticalCenter: parent.verticalCenter }
                         TextField { 
-    id: username
-    anchors.verticalCenter: parent.verticalCenter
-    width: isAdminLogin ? 240 : 256
-    font.pixelSize: 16
-    font.family: "Microsoft YaHei"
-    color: "#2c3e50"
-    placeholderText: isAdminLogin ? "请输入管理员账号" : "请输入用户账号"
-    placeholderTextColor: "#95a5a6"
-    background: null
-    selectByMouse: true
-    Keys.onTabPressed: password.forceActiveFocus()
-    Keys.onReturnPressed: doLogin()
-}
+                            id: username
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: isAdminLogin ? 240 : 256
+                            font.pixelSize: 16
+                            font.family: "Microsoft YaHei"
+                            color: "#2c3e50"
+                            placeholderText: isAdminLogin ? "请输入管理员账号" : "请输入用户账号"
+                            placeholderTextColor: "#95a5a6"
+                            background: null
+                            selectByMouse: true
+                            Keys.onTabPressed: password.forceActiveFocus()
+                            Keys.onReturnPressed: doLogin()
+                        }
                     }
                 }
                 // 密码
@@ -110,20 +110,20 @@ Item {
                         Text { text: "密码"; anchors.verticalCenter: parent.verticalCenter; color: "#5a6c7d"; font.pixelSize: 16; font.family: "Microsoft YaHei"; width: 40; horizontalAlignment: Text.AlignRight }
                         Rectangle { width: 1; height: 24; color: "#e0e6ed"; anchors.verticalCenter: parent.verticalCenter }
                         TextField { 
-    id: password
-    anchors.verticalCenter: parent.verticalCenter
-    width: 256
-    font.pixelSize: 16
-    font.family: "Microsoft YaHei"
-    color: "#2c3e50"
-    placeholderText: "请输入登录密码"
-    placeholderTextColor: "#95a5a6"
-    echoMode: TextInput.Password
-    background: null
-    selectByMouse: true
-    Keys.onTabPressed: username.forceActiveFocus()
-    Keys.onReturnPressed: doLogin()
-}
+                            id: password
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: 256
+                            font.pixelSize: 16
+                            font.family: "Microsoft YaHei"
+                            color: "#2c3e50"
+                            placeholderText: "请输入登录密码"
+                            placeholderTextColor: "#95a5a6"
+                            echoMode: TextInput.Password
+                            background: null
+                            selectByMouse: true
+                            Keys.onTabPressed: username.forceActiveFocus()
+                            Keys.onReturnPressed: doLogin()
+                        }
                     }
                 }
             }

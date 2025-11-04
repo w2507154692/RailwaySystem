@@ -5,13 +5,13 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls
 import "../components"
 
-Window {
+Page {
     id:ticketQueryPage
     objectName: "qrc:/qml/pages/TicketQuery.qml"
-    // width: parent ? parent.width : 1040
-    // height: parent ? parent.height : 640
-    width: 1040
-    height: 640
+    width: parent ? parent.width : 1040
+    height: parent ? parent.height : 640
+    // width: 1040
+    // height: 640
     visible: true
 
     // 定义页面数据
