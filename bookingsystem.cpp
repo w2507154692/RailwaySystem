@@ -2,6 +2,7 @@
 #include <QVariantMap>
 #include <QDebug>
 #include <iostream>
+#include <stack>
 
 BookingSystem::BookingSystem(StationManager* stationManager, QObject* parent)
     :station_manager(stationManager) , QObject{parent}
@@ -16,6 +17,18 @@ BookingSystem::BookingSystem(StationManager* stationManager, QObject* parent)
 QVariantList BookingSystem::getQueryHistory() {
     QVariantList list;
     std::queue<std::tuple<City, City>> tmp = query_history;
+    std::stack<std::tuple<City, City>> s;
+
+    // 倒置
+    while (!tmp.empty()) {
+        s.push(tmp.front());
+        tmp.pop();
+    }
+    while (!s.empty()) {
+        tmp.push(s.top());
+        s.pop();
+    }
+
     while (!tmp.empty()) {
         City startCity = std::get<0>(tmp.front());
         City endCity = std::get<1>(tmp.front());
