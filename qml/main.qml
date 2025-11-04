@@ -79,7 +79,7 @@ ApplicationWindow {
         if (!loggedIn) return
         try {
             stackView.clear()
-            stackView.push(Qt.resolvedUrl(startPage))
+            stackView.push(Qt.resolvedUrl(startPage), { mainWindow: appWin })
             sideBar.currentUrl = startPage
             console.log("Successfully loaded start page:", startPage)
         } catch (error) {

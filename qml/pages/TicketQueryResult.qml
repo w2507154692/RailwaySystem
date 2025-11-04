@@ -5,10 +5,19 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window {
+    id:resultWin
     width: 740; height: 640
     minimumWidth: 480; minimumHeight: 360;
     maximumWidth: 1920; maximumHeight: 1440
-    visible: true
+    modality: Qt.ApplicationModal
+    visible: false
+
+    Component.onCompleted: visible = false
+
+    property string fromCity: ""
+    property string toCity: ""
+    property string date: ""
+
     color: "#ffffff"
 
     //上部
