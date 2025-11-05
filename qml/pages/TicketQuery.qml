@@ -181,9 +181,19 @@ Page {
 
                     Text {
                         visible: pageData.queryHistory.length >= 1
-                        text: pageData.queryHistory[0].startCity + "--" + pageData.queryHistory[0].endCity
+                        text: pageData.queryHistory.length >= 1
+                            ? pageData.queryHistory[0].startCity + "--" + pageData.queryHistory[0].endCity
+                            : ""
                         font.pixelSize: 18
                         color: "#ACACAC"
+                        MouseArea {
+                            anchors.fill: parent
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: function() {
+                                pageData.fromCity = pageData.queryHistory[0].startCity
+                                pageData.toCity = pageData.queryHistory[0].endCity
+                            }
+                        }
                     }
 
                     Item {
@@ -192,9 +202,19 @@ Page {
 
                     Text {
                         visible: pageData.queryHistory.length >= 2
-                        text: pageData.queryHistory[1].startCity + "--" + pageData.queryHistory[1].endCity
+                        text: pageData.queryHistory.length >= 2
+                            ? pageData.queryHistory[1].startCity + "--" + pageData.queryHistory[1].endCity
+                            : ""
                         font.pixelSize: 18
                         color: "#ACACAC"
+                        MouseArea {
+                            anchors.fill: parent
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: function() {
+                                pageData.fromCity = pageData.queryHistory[1].startCity
+                                pageData.toCity = pageData.queryHistory[1].endCity
+                            }
+                        }
                     }
 
                     Item {
@@ -203,9 +223,19 @@ Page {
 
                     Text {
                         visible: pageData.queryHistory.length >= 3
-                        text: pageData.queryHistory[2].startCity + "--" + pageData.queryHistory[2].endCity
+                        text: pageData.queryHistory.length >= 3
+                            ? pageData.queryHistory[2].startCity + "--" + pageData.queryHistory[2].endCity
+                            : ""
                         font.pixelSize: 18
                         color: "#ACACAC"
+                        MouseArea {
+                            anchors.fill: parent
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: function() {
+                                pageData.fromCity = pageData.queryHistory[2].startCity
+                                pageData.toCity = pageData.queryHistory[2].endCity
+                            }
+                        }
                     }
 
                     Item {
