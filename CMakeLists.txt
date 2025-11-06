@@ -14,6 +14,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -33,12 +34,19 @@ add_executable(appRailwaySystem
     stationmanager.h stationmanager.cpp
     station.h station.cpp
     bookingsystem.h bookingsystem.cpp
+    order.h order.cpp
+    passenger.h passenger.cpp
+    time.h time.cpp
+    timetable.h timetable.cpp
+    date.h date.cpp
+    ordermanager.h ordermanager.cpp
 
 )
 
 target_link_libraries(appRailwaySystem
     PRIVATE Qt6::Gui Qt6::Qml Qt6::Quick Qt6::QuickControls2
 )
+target_link_libraries(appRailwaySystem PRIVATE Qt6::Core)
 target_link_libraries(appRailwaySystem PRIVATE Qt6::Core)
 target_link_libraries(appRailwaySystem PRIVATE Qt6::Core)
 target_link_libraries(appRailwaySystem PRIVATE Qt6::Core)

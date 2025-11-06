@@ -5,6 +5,7 @@
 // 仅注册需要的类型
 #include "accountmanager.h"
 #include "stationmanager.h"
+#include "ordermanager.h"
 #include "bookingsystem.h"
 
 int main(int argc, char *argv[])
@@ -14,9 +15,11 @@ int main(int argc, char *argv[])
 
     AccountManager* accountManager = new AccountManager;
     StationManager* stationManager = new StationManager;
+    OrderManager* orderManager = new OrderManager;
     BookingSystem* bookingSystem = new BookingSystem(stationManager);
     engine.rootContext()->setContextProperty("accountManager", accountManager);
     engine.rootContext()->setContextProperty("stationManager", stationManager);
+    engine.rootContext()->setContextProperty("orderManager", orderManager);
     engine.rootContext()->setContextProperty("bookingSystem", bookingSystem);
     qmlRegisterSingletonType(QUrl("qrc:/qml/SessionState.qml"), "MyApp", 1, 0, "SessionState");
 

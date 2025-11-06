@@ -8,6 +8,26 @@ Item {
     height: 128
     width: 675
 
+    // 定义数据
+    property var orderData: ({
+    orderNumber: "",
+    trainNumber: "",
+    date: "",
+    seatLevel: "",
+    carriageNumber: "",
+    seatRow: "",
+    seatCol: "",
+    price: 0.0,
+    status: "",
+    passengerName: "",
+    type: "",
+    startStationName: "",
+    startTime: "",
+    endStationName: "",
+    endTime: "",
+    interval: ""
+    })
+
     RowLayout {
         anchors.fill: parent
 
@@ -38,7 +58,7 @@ Item {
                     Layout.rightMargin: 11
 
                     Text{
-                        text:"订单号：00000002"
+                        text:"订单号：" + orderData.orderNumber
                         color: "#606060"
                     }
 
@@ -94,12 +114,12 @@ Item {
 
                                 Text {
                                     Layout.alignment: Qt.AlignLeft
-                                    text: "09:10"; font.bold: true;
+                                    text: orderData.startTime; font.bold: true;
                                     font.pixelSize: 21; color: "#222";
                                 }
                                 Text {
                                     Layout.alignment: Qt.AlignLeft
-                                    text: "北京南（始）";
+                                    text: orderData.startStationName;
                                     font.pixelSize: 9; color: "#222";
                                 }
                             }
@@ -107,7 +127,7 @@ Item {
                             ColumnLayout {
                                 Text {
                                     Layout.alignment: Qt.AlignHCenter
-                                    text: "G115"; font.bold: true;
+                                    text: orderData.trainNumber; font.bold: true;
                                     font.pixelSize: 18; color: "#222";
                                 }
                                 Image {
@@ -120,19 +140,19 @@ Item {
                                 Text {
                                     Layout.alignment: Qt.AlignHCenter
                                     Layout.topMargin: -2
-                                    text: "6小时7分";
+                                    text: orderData.interval;
                                     font.pixelSize: 8; color: "#888"; }
                             }
                             // 到达时间
                             ColumnLayout {
                                 Text {
                                     Layout.alignment: Qt.AlignRight
-                                    text: "15:17"; font.bold: true;
+                                    text: orderData.endTime; font.bold: true;
                                     font.pixelSize: 21; color: "#222"
                                 }
                                 Text {
                                     Layout.alignment: Qt.AlignRight
-                                    text: "（过）上海虹桥";
+                                    text: orderData.endStationName;
                                     font.pixelSize: 9; color: "#222";
                                 }
                             }
@@ -144,7 +164,7 @@ Item {
 
                             //日期
                             Text{
-                                text:"2025年6月4日"
+                                text: orderData.date
                                 font.pixelSize: 27
                                 font.bold: true
                             }
@@ -172,7 +192,7 @@ Item {
                             //票价
                             Text{
                                 Layout.leftMargin: -5
-                                text:"708"
+                                text: orderData.price
                                 font.pixelSize: 30
                                 color: "#EE8732"
                             }
@@ -184,7 +204,7 @@ Item {
 
                             //乘车人
                             Text{
-                                text: "乘车人： 王宇豪"
+                                text: "乘车人：" + orderData.passengerName
                                 font.pixelSize: 17
                             }
 
@@ -206,7 +226,7 @@ Item {
                                 Text{
                                     anchors.centerIn: parent
                                     id: textItem
-                                    text:"学生票"
+                                    text: orderData.type
                                     font.pixelSize: 11
                                     color: "#666"
                                 }
@@ -219,7 +239,7 @@ Item {
 
                             //座位号
                             Text{
-                                text: "二等座   02车  06F号"
+                                text: orderData.seatLevel + "   " + orderData.carriageNumber + orderData.seatRow + orderData.seatCol
                                 font.pixelSize: 17
                             }
 
@@ -265,9 +285,9 @@ Item {
                     ColumnLayout {
                         Layout.fillHeight: true
                         spacing: 0
-                        Text { text: "待"; color: "#00cc00"; font.pixelSize: 21 }
-                        Text { text: "乘"; color: "#00cc00"; font.pixelSize: 21 }
-                        Text { text: "坐"; color: "#00cc00"; font.pixelSize: 21 }
+                        Text { text: orderData.status[0]; color: "#00cc00"; font.pixelSize: 21 }
+                        Text { text: orderData.status[1]; color: "#00cc00"; font.pixelSize: 21 }
+                        Text { text: orderData.status[2]; color: "#00cc00"; font.pixelSize: 21 }
                     }
 
                     Item {
