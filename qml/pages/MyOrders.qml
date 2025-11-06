@@ -32,6 +32,7 @@ Page {
             id: orderListView
             model: orderList
             clip: true
+            spacing: 15
             anchors.fill: parent
             anchors.topMargin: 20
             anchors.bottomMargin: 20
@@ -50,7 +51,6 @@ Page {
 
             delegate: ColumnLayout {
                 width: orderListView.width - 30
-                spacing: 15
 
                 RowLayout {
                     Layout.fillWidth: true

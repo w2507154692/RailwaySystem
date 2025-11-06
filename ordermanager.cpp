@@ -18,15 +18,15 @@ QVariantList OrderManager::getOrders_api(const QString &username) {
         map["orderNumber"] = order.getOrderNumber();
         map["trainNumber"] = order.getTrainNumber();
         map["date"] = QString("%1年%2月%3日")
-                          .arg(order.getDate().getYear(), 4, 10, QChar('0'))
-                          .arg(order.getDate().getMonth(), 2, 10, QChar('0'))
-                          .arg(order.getDate().getDay(), 2, 10, QChar('0'));
+                          .arg(order.getDate().getYear())
+                          .arg(order.getDate().getMonth())
+                          .arg(order.getDate().getDay());
         map["seatLevel"] = order.getSeatLevel();
-        map["carriageNumber"] = QString("%1车").arg(order.getCarriageNumber());
+        map["carriageNumber"] = QString("%1车").arg(order.getCarriageNumber(), 2, 10, QChar('0'));
         map["seatRow"] = QString("%1").arg(order.getSeatRow(), 2, 10, QChar('0'));
         QChar seatLetter('A' + order.getSeatCol() - 1);
         map["seatCol"] = QString("%1号").arg(seatLetter);
-        map["price"] = QString::number(order.getPrice(), 'f', 2);
+        map["price"] = QString::number(order.getPrice());
         map["status"] = order.getStatus();
         map["passengerName"] = order.getPassenger().getPassengerName();
         map["type"] = QString("%1票").arg(order.getPassenger().getType());

@@ -145,7 +145,7 @@ Item {
                                 }
                                 Image {
                                     Layout.preferredWidth: 150
-                                    Layout.preferredHeight: 4
+                                    Layout.preferredHeight: 6
                                     Layout.topMargin: -8
                                     source: "qrc:/resources/icon/arrow.svg"
                                     fillMode: Image.Stretch
