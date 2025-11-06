@@ -7,6 +7,7 @@ import "../components"
 
 Page {
     id:ticketQueryPage
+    property var mainWindow
     objectName: "qrc:/qml/pages/TicketQuery.qml"
     width: parent ? parent.width : 1040
     height: parent ? parent.height : 640
@@ -169,9 +170,11 @@ Page {
                     fontSize: 30
                     customColor: "#3B99FB"
                     onClicked: {
-                        // 查询逻辑
-                        bookingSystem.addQueryHistory(pageData.fromCity, pageData.toCity)
-                        console.log("点击查询按钮！")
+                        ticketResultWin.fromCity = page.fromCity
+                        ticketResultWin.toCity = page.toCity
+                        ticketResultWin.date = page.selectedDate
+                        ticketResultWin.transientParent = mainWindow
+                        ticketResultWin.visible = true
                     }
                 }
 
@@ -257,12 +260,6 @@ Page {
                 Item {
                     Layout.fillHeight: true
                 }
-
-                Text {
-                    text: "调试：" + page.currentDate
-                    font.pixelSize: 18
-                    color: "red"
-                }
             }
         }
     }
@@ -281,7 +278,6 @@ Page {
         MyCalendar {
             id: myCalendar
             anchors.fill: parent
-            selectedDate: Qt.formatDate(page.currentDate, "yyyy年MM月dd日")
             Connections {
                 target: myCalendar
                 function onSelectedDateChanged() {
@@ -290,6 +286,14 @@ Page {
                     calendarDialog.close()
                 }
             }
+        }
+    }
+
+    Component {
+        id: resultLoader
+        Loader {
+            source: "qrc:/qml/pages/TicketQueryResult.qml"
+            active: false
         }
     }
 
@@ -313,5 +317,10 @@ Page {
         if (diff === 2) return "后天"
         var weekNames = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
         return weekNames[selectedYMD.getDay()]
+    }
+
+    TicketQueryResult {
+        id: ticketResultWin
+        // 这里的TicketQueryResult是你的Window类型组件
     }
 }

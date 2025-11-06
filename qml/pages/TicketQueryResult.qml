@@ -5,10 +5,20 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window {
+    id:resultWin
     width: 740; height: 640
     minimumWidth: 480; minimumHeight: 360;
     maximumWidth: 1920; maximumHeight: 1440
-    visible: true
+    flags: Qt.FramelessWindowHint
+    modality: Qt.ApplicationModal
+    visible: false
+
+    Component.onCompleted: visible = false
+
+    property string fromCity: ""
+    property string toCity: ""
+    property string date: ""
+
     color: "#ffffff"
 
     //上部
@@ -16,6 +26,21 @@ Window {
         width: parent.width
         height: 170
         color: "#3B99Fb"
+
+        MouseArea {
+            anchors.fill: parent
+            property real clickX: 0
+            property real clickY: 0
+
+            onPressed: (mouse) => {
+                clickX = mouse.x - resultWin.x;
+                clickY = mouse.y - resultWin.y;
+            }
+            onPositionChanged: (mouse) => {
+                resultWin.x = mouse.x - clickX;
+                resultWin.y = mouse.y - clickY;
+            }
+        }
 
         //取消按钮
         Image {
@@ -28,7 +53,7 @@ Window {
             anchors.rightMargin: 10
             MouseArea {
                 anchors.fill: parent
-                onClicked: infoHeader.closeClicked()
+                onClicked: resultWin.close() // 直接关闭窗口
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
             }

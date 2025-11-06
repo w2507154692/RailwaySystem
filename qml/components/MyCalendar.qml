@@ -206,7 +206,8 @@ Rectangle {
                          ? "lightBlue"
                          : "#F5F5F5"
                 border.color: "#B8B8B8"
-                enabled: model.date >= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())
+                // 只允许点击当前月份且不早于今天的日期
+                enabled: model.month === month_grid.month
                 opacity: enabled ? 1 : 0.4
                 Rectangle {
                     anchors.fill: parent
@@ -218,19 +219,26 @@ Rectangle {
                 Text {
                     anchors.centerIn: parent
                     text: model.day
-                    color: (model.month === month_grid.month) ? "#414141" : "#888888"
+                    color: enabled ? "#414141" : "#888888"
                 }
                 MouseArea {
                     id: item_mouse
                     anchors.fill: parent
                     hoverEnabled: true
-                    acceptedButtons: Qt.NoButton
                     enabled: parent.enabled
+                    onClicked: {
+                        // 只允许点击当前月的日期
+                        if (model.month === month_grid.month) {
+                            control.selectDate = model.date
+                            // 你可以加其它逻辑
+                        }
+                    }
                 }
             }
             onClicked: (date) => {
-                if (date >= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())) {
-                    control.selectedDate = date;
+                // 只允许点击当前月的日期
+                if (date.getMonth() === month_grid.month) {
+                    control.selectDate = date;
                     console.log('click', month_grid.title, month_grid.year, month_grid.month, "--",
                                 date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCDay())
                 }
