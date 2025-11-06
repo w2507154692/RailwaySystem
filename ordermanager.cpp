@@ -36,12 +36,12 @@ QVariantList OrderManager::getOrders_api(const QString &username) {
         std::tuple<Station, Time, Time, QString> endStationInfo =
             order.getTimetable().getStationInfo(order.getEndStationName());
         map["startStationName"] = std::get<0>(startStationInfo).getStationName() +
-                                    "（" + std::get<0>(startStationInfo).getCityName() + "）";
+                                    "（" + std::get<3>(startStationInfo) + "）";
         map["startTime"] = QString("%1:%2")
                                 .arg(std::get<2>(startStationInfo).getHour(), 2, 10, QChar('0'))
                                 .arg(std::get<2>(startStationInfo).getMinute(), 2, 10, QChar('0'));
         map["endStationName"] = std::get<0>(endStationInfo).getStationName() +
-                                  "（" + std::get<0>(endStationInfo).getCityName() + "）";
+                                  "（" + std::get<3>(endStationInfo) + "）";
         map["endTime"] = QString("%1:%2")
                               .arg(std::get<1>(endStationInfo).getHour(), 2, 10, QChar('0'))
                               .arg(std::get<1>(endStationInfo).getMinute(), 2, 10, QChar('0'));

@@ -49,7 +49,7 @@ Page {
             }
 
             delegate: ColumnLayout {
-                width: orderListView.width - 15
+                width: orderListView.width - 30
                 spacing: 15
 
                 RowLayout {

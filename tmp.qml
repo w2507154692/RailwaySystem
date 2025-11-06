@@ -8,26 +8,6 @@ Item {
     height: 128
     width: 675
 
-    // 定义数据
-    property var orderData: ({
-    orderNumber: "0000000003",
-    trainNumber: "G1234",
-    date: "2025年11月25日",
-    seatLevel: "二等座",
-    carriageNumber: "05车",
-    seatRow: "12",
-    seatCol: "C座",
-    price: 533.50,
-    status: "待乘坐",
-    passengerName: "张三",
-    type: "成人票",
-    startStationName: "呼和浩特北（始）",
-    startTime: "08:05",
-    endStationName: "呼和浩特北（过）",
-    endTime: "13:30",
-    interval: "4时25分"
-    })
-
     RowLayout {
         anchors.fill: parent
 
@@ -58,12 +38,8 @@ Item {
                     Layout.rightMargin: 11
 
                     Text{
-                        Layout.preferredWidth: 150
-                        text:"订单号：" + orderData.orderNumber
+                        text:"订单号：00000002"
                         color: "#606060"
-                        elide: Text.ElideRight
-                        wrapMode: Text.NoWrap
-                        clip: true
                     }
 
                     Item {
@@ -91,8 +67,12 @@ Item {
                 //下部主内容
                 RowLayout{
                     Layout.topMargin: -8
-                    Layout.leftMargin: 15
                     Layout.fillWidth: true
+
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
 
                     //左侧
                     ColumnLayout{
@@ -107,44 +87,31 @@ Item {
                             Layout.alignment: Qt.AlignLeft
                             // Layout.leftMargin: 36
                             Layout.topMargin: -2
-
+                            spacing: 30
                             // 出发时间
                             ColumnLayout {
+                                Layout.alignment: Qt.AlignTop
+
                                 Text {
                                     Layout.alignment: Qt.AlignLeft
-                                    horizontalAlignment: Text.AlignLeft
-                                    Layout.preferredWidth: 70
-                                    text: orderData.startTime; font.bold: true;
-                                    font.pixelSize: 21; color: "#222"
-                                    elide: Text.ElideRight
-                                    wrapMode: Text.NoWrap
-                                    clip: true
+                                    text: "09:10"; font.bold: true;
+                                    font.pixelSize: 21; color: "#222";
                                 }
                                 Text {
                                     Layout.alignment: Qt.AlignLeft
-                                    horizontalAlignment: Text.AlignLeft
-                                    Layout.preferredWidth: 75
-                                    text: orderData.startStationName;
+                                    text: "北京南（始）";
                                     font.pixelSize: 9; color: "#222";
-                                    elide: Text.ElideRight
-                                    wrapMode: Text.NoWrap
-                                    clip: true
                                 }
                             }
                             // 车次、箭头
                             ColumnLayout {
                                 Text {
-                                    Layout.preferredWidth: 130
                                     Layout.alignment: Qt.AlignHCenter
-                                    horizontalAlignment: Text.AlignHCenter
-                                    text: orderData.trainNumber; font.bold: true;
+                                    text: "G115"; font.bold: true;
                                     font.pixelSize: 18; color: "#222";
-                                    elide: Text.ElideMiddle
-                                    wrapMode: Text.NoWrap
-                                    clip: true
                                 }
                                 Image {
-                                    Layout.preferredWidth: 150
+                                    Layout.preferredWidth: 90
                                     Layout.preferredHeight: 4
                                     Layout.topMargin: -8
                                     source: "qrc:/resources/icon/arrow.svg"
@@ -153,52 +120,43 @@ Item {
                                 Text {
                                     Layout.alignment: Qt.AlignHCenter
                                     Layout.topMargin: -2
-                                    text: orderData.interval;
-                                    font.pixelSize: 8; color: "#888";
-                                    elide: Text.ElideRight
-                                    wrapMode: Text.NoWrap
-                                    clip: true
-                                }
+                                    text: "6小时7分";
+                                    font.pixelSize: 8; color: "#888"; }
                             }
                             // 到达时间
                             ColumnLayout {
                                 Text {
                                     Layout.alignment: Qt.AlignRight
-                                    horizontalAlignment: Text.AlignRight
-                                    Layout.preferredWidth: 70
-                                    text: orderData.endTime; font.bold: true;
+                                    text: "15:17"; font.bold: true;
                                     font.pixelSize: 21; color: "#222"
-                                    elide: Text.ElideLeft
-                                    wrapMode: Text.NoWrap
-                                    clip: true
                                 }
                                 Text {
                                     Layout.alignment: Qt.AlignRight
-                                    horizontalAlignment: Text.AlignRight
-                                    Layout.preferredWidth: 75
-                                    text: orderData.endStationName;
+                                    text: "（过）上海虹桥";
                                     font.pixelSize: 9; color: "#222";
-                                    elide: Text.ElideLeft
-                                    wrapMode: Text.NoWrap
-                                    clip: true
                                 }
+                            }
+
+                            //间隔
+                            Item{
+                                Layout.preferredWidth: 3
                             }
 
                             //日期
                             Text{
-                                Layout.leftMargin: 30
-                                Layout.preferredWidth: 230
-                                text: orderData.date
+                                text:"2025年6月4日"
                                 font.pixelSize: 27
                                 font.bold: true
-                                elide: Text.ElideRight
-                                wrapMode: Text.NoWrap
-                                clip: true
+                            }
+
+                            //间隔
+                            Item{
+                                Layout.preferredWidth: 30
                             }
                         }
 
 
-                        // 车票乘车人，车票信息
+                        //车票乘车人，车票信息
                         RowLayout{
                             // Layout.leftMargin: 42
 
@@ -213,31 +171,30 @@ Item {
 
                             //票价
                             Text{
-                                Layout.preferredWidth: 115
                                 Layout.leftMargin: -5
-                                text: orderData.price
+                                text:"708"
                                 font.pixelSize: 30
                                 color: "#EE8732"
-                                elide: Text.ElideRight
-                                wrapMode: Text.NoWrap
-                                clip: true
                             }
 
+                            //间隔
+                            Item{
+                                Layout.preferredWidth: 23
+                            }
 
                             //乘车人
                             Text{
-                                Layout.preferredWidth: 135
-                                text: "乘车人：" + orderData.passengerName
+                                text: "乘车人： 王宇豪"
                                 font.pixelSize: 17
-                                elide: Text.ElideRight
-                                wrapMode: Text.NoWrap
-                                clip: true
                             }
 
+                            //间隔
+                            Item{
+                                Layout.preferredWidth: 20
+                            }
 
                             //票价类型
                             Rectangle{
-                                Layout.leftMargin: 20
                                 Layout.preferredWidth: textItem.implicitWidth + 12   // 可加一些 padding
                                 Layout.preferredHeight: textItem.implicitHeight + 8  // 可加一些 padding
                                 color: "transparent"
@@ -249,26 +206,29 @@ Item {
                                 Text{
                                     anchors.centerIn: parent
                                     id: textItem
-                                    text: orderData.type
+                                    text:"学生票"
                                     font.pixelSize: 11
                                     color: "#666"
                                 }
                             }
 
-                            //座位号
-                            Text{
-                                Layout.preferredWidth: 145
-                                Layout.leftMargin: 15
-                                text: orderData.seatLevel + " " + orderData.carriageNumber + orderData.seatRow + orderData.seatCol
-                                font.pixelSize: 17
-                                elide: Text.ElideRight
-                                wrapMode: Text.NoWrap
-                                clip: true
+                            //间隔
+                            Item{
+                                Layout.preferredWidth: 26
                             }
 
+                            //座位号
+                            Text{
+                                text: "二等座   02车  06F号"
+                                font.pixelSize: 17
+                            }
+
+                            //间隔
+                            Item{
+                                Layout.preferredWidth: 8
+                            }
 
                             CustomButton{
-                                Layout.leftMargin: 10
                                 Layout.preferredHeight: 18
                                 Layout.preferredWidth: 53
                                 fontSize: 12
@@ -305,9 +265,9 @@ Item {
                     ColumnLayout {
                         Layout.fillHeight: true
                         spacing: 0
-                        Text { text: orderData.status[0]; color: "#00cc00"; font.pixelSize: 21 }
-                        Text { text: orderData.status[1]; color: "#00cc00"; font.pixelSize: 21 }
-                        Text { text: orderData.status[2]; color: "#00cc00"; font.pixelSize: 21 }
+                        Text { text: "待"; color: "#00cc00"; font.pixelSize: 21 }
+                        Text { text: "乘"; color: "#00cc00"; font.pixelSize: 21 }
+                        Text { text: "坐"; color: "#00cc00"; font.pixelSize: 21 }
                     }
 
                     Item {
