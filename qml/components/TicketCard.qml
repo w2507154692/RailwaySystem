@@ -3,7 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Item {
-    // width: 690
+    width: 690
     // Layout.fillWidth: True
     height: 105
 
@@ -50,19 +50,16 @@ Item {
                         }
 
                         Text {
-                            anchors.left: parent.left
                             text: "09:10"; font.bold: true;
                             font.pixelSize: 21; color: "#222";
                         }
                         Text {
-                            anchors.left: parent.left
                             text: "北京南（始）";
                             font.pixelSize: 11; color: "#222";
                         }
                     }
                     // 车次、箭头、时刻表
                     ColumnLayout {
-                        anchors.top: parent.top
                         Text {
                             Layout.alignment: Qt.AlignHCenter
                             text: "G115"; font.bold: true;
@@ -120,13 +117,20 @@ Item {
 
                 }
                 // 票价
-                Text {
-                    text: "￥708起"
-                    font.pixelSize: 21
-                    color: "#e88a3d"
-                    font.bold: true
-                    anchors.right: parent.right
-                    Layout.topMargin: -19
+
+                RowLayout{
+                    Item{
+                        Layout.fillWidth: true
+                    }
+
+                    Text {
+                        Layout.rightMargin: 40
+                        text: "￥708起"
+                        font.pixelSize: 21
+                        color: "#e88a3d"
+                        font.bold: true
+                        Layout.topMargin: -19
+                    }
                 }
 
             }

@@ -169,7 +169,8 @@ Page {
                     textColor: "white"
                     fontSize: 30
                     customColor: "#3B99FB"
-                    onClicked: {
+                    onClicked: function(){
+                        bookingSystem.addQueryHistory(pageData.fromCity, pageData.toCity)
                         ticketResultWin.fromCity = page.fromCity
                         ticketResultWin.toCity = page.toCity
                         ticketResultWin.date = page.selectedDate

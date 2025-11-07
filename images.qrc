@@ -57,5 +57,6 @@
         <file>qml/pages/Login.qml</file>
         <file>qml/SessionState.qml</file>
         <file>qml/components/MyCalendar.qml</file>
+        <file>qml/components/MyCheckBox.qml</file>
     </qresource>
 </RCC>

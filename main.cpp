@@ -10,7 +10,11 @@
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);            // 创建 GUI 应用程序对象
+    QGuiApplication app(argc, argv);
+
+    // 设置 Qt Quick Controls 2 的样式为 Basic（或 Fusion、Material）
+    qputenv("QT_QUICK_CONTROLS_STYLE", QByteArray("Basic"));
+
     QQmlApplicationEngine engine;    // 创建 QML 应用程序引擎对象
 
     AccountManager* accountManager = new AccountManager;

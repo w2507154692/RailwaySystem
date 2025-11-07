@@ -23,19 +23,21 @@ Window {
         radius: 16
 
         MouseArea {
-            anchors.fill: parent
-            property real clickX: 0
-            property real clickY: 0
+           anchors.fill: parent
+           // 定义拖动
+           property real clickX: 0
+           property real clickY: 0
 
-            onPressed: (mouse) => {
-                clickX = mouse.x - mainWindow.x;
-                clickY = mouse.y - mainWindow.y;
-            }
-            onPositionChanged: (mouse) => {
-                mainWindow.x = mouse.x - clickX;
-                mainWindow.y = mouse.y - clickY;
-            }
-        }
+           onPressed: {
+               clickX = mouse.x;
+               clickY = mouse.y;
+           }
+           onPositionChanged: {
+               // 拖动窗口
+               mainWindow.x += mouse.x - clickX;
+               mainWindow.y += mouse.y - clickY;
+           }
+       }
 
         // 顶部渐变标题栏
         Header{
