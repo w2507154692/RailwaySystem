@@ -59,19 +59,34 @@ Page {
                         currentIndex: pageData.cityList.indexOf(page.fromCity)
                         onCurrentIndexChanged: page.fromCity = pageData.cityList[currentIndex]
                         Layout.preferredWidth: 160
+                        Layout.preferredHeight: 80
                         font.pixelSize: 48
 
+                        indicator: Item {} // 隐藏右侧箭头
+
                         background: Rectangle {
-                            color: "transparent"
+                            color: fromCombo.hovered ? "#f5faff" : "transparent"         // 悬停时更浅的蓝白色
+                            border.color: fromCombo.hovered ? "#b3dfff" : "transparent"  // 悬停时更浅的边框色
+                            border.width: fromCombo.hovered ? 2 : 0
+                            radius: 6
                         }
 
-                        contentItem: Text{
-                            text: parent.displayText
-                            verticalAlignment: Text.AlignVCenter
-                            horizontalAlignment: Text.AlignLeft
-                            color: "#222"
-                            font.pixelSize: 48
+                        contentItem: MouseArea {
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: fromCombo.popup.open() // 点击弹出菜单
+
+                            Text {
+                                anchors.fill: parent
+                                text: parent.parent.displayText
+                                verticalAlignment: Text.AlignVCenter
+                                horizontalAlignment: Text.AlignLeft
+                                color: "#222"
+                                font.pixelSize: 48
+                            }
                         }
+
                     }
 
                     Item { Layout.fillWidth: true }
@@ -106,18 +121,32 @@ Page {
                         currentIndex: pageData.cityList.indexOf(page.toCity)
                         onCurrentIndexChanged: page.toCity = pageData.cityList[currentIndex]
                         Layout.preferredWidth: 160
+                        Layout.preferredHeight: 80
                         font.pixelSize: 48
 
+                        indicator: Item {} // 隐藏右侧箭头
+
                         background: Rectangle {
-                            color: "transparent"
+                            color: toCombo.hovered ? "#f5faff" : "transparent"         // 悬停时更浅的蓝白色
+                            border.color: toCombo.hovered ? "#b3dfff" : "transparent"  // 悬停时更浅的边框色
+                            border.width: toCombo.hovered ? 2 : 0
+                            radius: 6
                         }
 
-                        contentItem: Text{
-                            text: parent.displayText
-                            verticalAlignment: Text.AlignVCenter
-                            horizontalAlignment: Text.AlignRight
-                            color: "#222"
-                            font.pixelSize: 48
+                        contentItem: MouseArea {
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: toCombo.popup.open() // 点击弹出菜单
+
+                            Text {
+                                anchors.fill: parent
+                                text: parent.parent.displayText
+                                verticalAlignment: Text.AlignVCenter
+                                horizontalAlignment: Text.AlignRight
+                                color: "#222"
+                                font.pixelSize: 48
+                            }
                         }
                     }
                 }

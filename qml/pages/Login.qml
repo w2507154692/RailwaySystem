@@ -216,6 +216,10 @@ Item {
         }
     }
     
+    Component.onCompleted: {
+        username.forceActiveFocus()
+    }
+
     function doLogin() {
         console.log("Login triggered, isAdminLogin:", isAdminLogin)
         errorMessage = "" // 清空之前的错误

@@ -207,7 +207,7 @@ Rectangle {
                          : "#F5F5F5"
                 border.color: "#B8B8B8"
                 // 只允许点击当前月份且不早于今天的日期
-                enabled: model.month === month_grid.month
+                enabled: model.month === month_grid.month && model.date >= new Date().setHours(0,0,0,0)
                 opacity: enabled ? 1 : 0.4
                 Rectangle {
                     anchors.fill: parent
@@ -227,8 +227,8 @@ Rectangle {
                     hoverEnabled: true
                     enabled: parent.enabled
                     onClicked: {
-                        // 只允许点击当前月的日期
-                        if (model.month === month_grid.month) {
+                        // 只允许点击当前月且不早于今天的日期
+                        if (model.month === month_grid.month && model.date >= new Date().setHours(0,0,0,0)) {
                             control.selectDate = model.date
                             // 你可以加其它逻辑
                         }
