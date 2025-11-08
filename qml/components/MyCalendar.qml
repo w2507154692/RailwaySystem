@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-// qt6 qml日历样式自定义
 Rectangle {
     id: control
     implicitWidth: 320
@@ -128,7 +127,6 @@ Rectangle {
             topPadding: 0
             bottomPadding: 0
             font: control.font
-            // locale设置会影响显示星期数中英文
             locale: control.locale
             delegate: Rectangle {
                 border.color: "#B8B8B8"
@@ -142,7 +140,6 @@ Rectangle {
                     verticalAlignment: Text.AlignVCenter
                 }
             }
-            // 之前的版本可以在contentItem放Layout自己做布局，新版本内部做了处理会影响布局
             contentItem: Row {
                 spacing: week_row.spacing
                 Repeater {
@@ -191,8 +188,6 @@ Rectangle {
             id: month_grid
             Layout.fillWidth: true
             Layout.fillHeight: true
-            // month: Calendar.December
-            // year: 2022
             locale: Qt.locale("zh_CN")
             spacing: 1
             font{
@@ -200,23 +195,27 @@ Rectangle {
                 pixelSize: 14
             }
             delegate: Rectangle {
-                color: model.today
-                       ? "orange"
-                       : control.selectedDate.valueOf() === model.date.valueOf()
-                         ? "lightBlue"
-                         : "#F5F5F5"
+                // 始终显示格子，保持表格结构
+                color: model.month === month_grid.month
+                       ? (model.today
+                            ? "orange"
+                            : control.selectedDate.valueOf() === model.date.valueOf()
+                                ? "lightBlue"
+                                : "#F5F5F5")
+                       : "transparent"
                 border.color: "#B8B8B8"
-                // 只允许点击不早于今天且不超过30天
-                enabled: model.date >= (function() {
-                            let today = new Date();
-                            today.setHours(0,0,0,0);
-                            return today;
-                        })()
-                     && model.date <= (function() {
-                            let today = new Date();
-                            today.setHours(0,0,0,0);
-                            return new Date(today.getTime() + 29*24*3600*1000);
-                        })()
+                // 只允许点击本月且不早于今天且不超过30天
+                enabled: model.month === month_grid.month
+                         && model.date >= (function() {
+                                let today = new Date();
+                                today.setHours(0,0,0,0);
+                                return today;
+                            })()
+                         && model.date <= (function() {
+                                let today = new Date();
+                                today.setHours(0,0,0,0);
+                                return new Date(today.getTime() + 29*24*3600*1000);
+                            })()
                 opacity: enabled ? 1 : 0.4
                 Rectangle {
                     anchors.fill: parent
@@ -227,7 +226,8 @@ Rectangle {
                 }
                 Text {
                     anchors.centerIn: parent
-                    text: model.day
+                    // 只显示本月的日期，非本月格子内容为空
+                    text: model.month === month_grid.month ? model.day : ""
                     color: enabled ? "#414141" : "#888888"
                 }
                 MouseArea {
@@ -242,7 +242,6 @@ Rectangle {
                         let last = new Date(today.getTime() + 29*24*3600*1000);
                         if (model.date >= today && model.date <= last) {
                             control.selectedDate = model.date
-                            // 你可以加其它逻辑
                         }
                     }
                 }
@@ -254,8 +253,6 @@ Rectangle {
                 let last = new Date(today.getTime() + 29*24*3600*1000);
                 if (date >= today && date <= last) {
                     control.selectedDate = date; 
-                    console.log('click', month_grid.title, month_grid.year, month_grid.month, "--",
-                                date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCDay())
                 }
             }
         }
