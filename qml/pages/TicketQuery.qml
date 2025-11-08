@@ -225,6 +225,8 @@ Page {
                             onClicked: function() {
                                 pageData.fromCity = pageData.queryHistory[0].startCity
                                 pageData.toCity = pageData.queryHistory[0].endCity
+                                fromCombo.currentIndex = pageData.cityList.indexOf(page.fromCity)
+                                toCombo.currentIndex = pageData.cityList.indexOf(page.toCity)
                             }
                         }
                     }
@@ -246,6 +248,8 @@ Page {
                             onClicked: function() {
                                 pageData.fromCity = pageData.queryHistory[1].startCity
                                 pageData.toCity = pageData.queryHistory[1].endCity
+                                fromCombo.currentIndex = pageData.cityList.indexOf(page.fromCity)
+                                toCombo.currentIndex = pageData.cityList.indexOf(page.toCity)
                             }
                         }
                     }
@@ -267,6 +271,8 @@ Page {
                             onClicked: function() {
                                 pageData.fromCity = pageData.queryHistory[2].startCity
                                 pageData.toCity = pageData.queryHistory[2].endCity
+                                fromCombo.currentIndex = pageData.cityList.indexOf(page.fromCity)
+                                toCombo.currentIndex = pageData.cityList.indexOf(page.toCity)
                             }
                         }
                     }

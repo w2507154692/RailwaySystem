@@ -10,9 +10,9 @@ Window {
     minimumWidth: 480; minimumHeight: 360;
     maximumWidth: 1920; maximumHeight: 1440
     modality: Qt.ApplicationModal
-    visible: true
+    visible: false
 
-    // Component.onCompleted: visible = false
+    Component.onCompleted: visible = false
 
     property string fromCity: ""
     property string toCity: ""

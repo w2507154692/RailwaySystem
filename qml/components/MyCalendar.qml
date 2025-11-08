@@ -206,8 +206,17 @@ Rectangle {
                          ? "lightBlue"
                          : "#F5F5F5"
                 border.color: "#B8B8B8"
-                // 只允许点击当前月份且不早于今天的日期
-                enabled: model.month === month_grid.month && model.date >= new Date().setHours(0,0,0,0)
+                // 只允许点击不早于今天且不超过30天
+                enabled: model.date >= (function() {
+                            let today = new Date();
+                            today.setHours(0,0,0,0);
+                            return today;
+                        })()
+                     && model.date <= (function() {
+                            let today = new Date();
+                            today.setHours(0,0,0,0);
+                            return new Date(today.getTime() + 29*24*3600*1000);
+                        })()
                 opacity: enabled ? 1 : 0.4
                 Rectangle {
                     anchors.fill: parent
@@ -227,18 +236,24 @@ Rectangle {
                     hoverEnabled: true
                     enabled: parent.enabled
                     onClicked: {
-                        // 只允许点击当前月且不早于今天的日期
-                        if (model.month === month_grid.month && model.date >= new Date().setHours(0,0,0,0)) {
-                            control.selectDate = model.date
+                        // 只允许点击不早于今天且不超过30天
+                        let today = new Date();
+                        today.setHours(0,0,0,0);
+                        let last = new Date(today.getTime() + 29*24*3600*1000);
+                        if (model.date >= today && model.date <= last) {
+                            control.selectedDate = model.date
                             // 你可以加其它逻辑
                         }
                     }
                 }
             }
             onClicked: (date) => {
-                // 只允许点击当前月的日期
-                if (date.getMonth() === month_grid.month) {
-                    control.selectDate = date;
+                // 只允许点击不早于今天且不超过30天
+                let today = new Date();
+                today.setHours(0,0,0,0);
+                let last = new Date(today.getTime() + 29*24*3600*1000);
+                if (date >= today && date <= last) {
+                    control.selectedDate = date; 
                     console.log('click', month_grid.title, month_grid.year, month_grid.month, "--",
                                 date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCDay())
                 }
