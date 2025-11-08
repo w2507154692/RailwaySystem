@@ -17,7 +17,7 @@ Page {
     property var orderList: []
 
     Component.onCompleted: {
-        orderList = orderManager.getOrders_api(SessionState.username)
+        refreshOrders()
         var myMap = orderList[0]
         for (var k in myMap) {
             console.log(k + ": " + myMap[k])
@@ -82,13 +82,23 @@ Page {
                             Layout.preferredHeight: 35
                             text: "退票"
                             activeFocusOnTab: true
+                            mouseAreaEnabled: modelData.status === "待乘坐"
+                            customColor: modelData.status === "待乘坐" ? "#409CFC" : "#808080"
+                            pressedColor: modelData.status === "待乘坐" ? "#174a73" : "#808080"
+                            hoverColor: modelData.status === "待乘坐" ? "#1f5f99" : "#808080"
                             onClicked: {
-                                // 退票逻辑
+                                var result = orderManager.cancelOrder_api(modelData.orderNumber)
+                                console.log(result.message)
+                                refreshOrders()
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    function refreshOrders() {
+        orderList = orderManager.getOrders_api(SessionState.username)
     }
 }

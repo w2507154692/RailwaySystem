@@ -7,6 +7,8 @@ Item {
     height: 40
     width: 120
 
+    property bool mouseAreaEnabled: true
+
     // 按钮类型：confirm（确认/登录），cancel（取消/注册）
     property string buttonType: "confirm" // "confirm" 或 "cancel"
 
@@ -51,6 +53,7 @@ Item {
 
         MouseArea {
             id: mouseArea
+            enabled: mouseAreaEnabled
             anchors.fill: parent
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor

@@ -303,11 +303,12 @@ Item {
                     //右侧状态
 
                     ColumnLayout {
+                        property color textColor: orderData.status === "待乘坐" ? "#00cc00" : "#808080"
                         Layout.fillHeight: true
                         spacing: 0
-                        Text { text: orderData.status[0]; color: "#00cc00"; font.pixelSize: 21 }
-                        Text { text: orderData.status[1]; color: "#00cc00"; font.pixelSize: 21 }
-                        Text { text: orderData.status[2]; color: "#00cc00"; font.pixelSize: 21 }
+                        Text { text: orderData.status[0]; color: parent.textColor; font.pixelSize: 21 }
+                        Text { text: orderData.status[1]; color: parent.textColor; font.pixelSize: 21 }
+                        Text { text: orderData.status[2]; color: parent.textColor; font.pixelSize: 21 }
                     }
 
                     Item {

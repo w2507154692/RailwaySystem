@@ -57,6 +57,27 @@ QVariantList OrderManager::getOrders_api(const QString &username) {
     return list;
 }
 
+QVariantMap OrderManager::cancelOrder_api(const QString &orderNumber) {
+    QVariantMap result;
+    auto findResult = findOrdersByOrderNumber(orderNumber);
+    if (findResult) {
+        Order &order = findResult.value();
+        if (order.getStatus() != "待乘坐") {
+            result["success"] = false;
+            result["message"] = QString("该订单无法取消！").arg(orderNumber);
+            return result;
+        }
+        cancelOrder(orderNumber);
+        result["success"] = true;
+        result["message"] = QString("订单 %1 取消成功！").arg(orderNumber);
+        return result;
+    } else {
+        result["success"] = false;
+        result["message"] = QString("订单 %1 不存在！").arg(orderNumber);
+        return result;
+    }
+}
+
 std::vector<Order> OrderManager::findOrdersByUsername(const QString &username) {
     std::vector<Order> result;
     for (auto &order : orders) {
@@ -65,6 +86,25 @@ std::vector<Order> OrderManager::findOrdersByUsername(const QString &username) {
         }
     }
     return result;
+}
+
+std::optional<Order> OrderManager::findOrdersByOrderNumber(const QString &orderNumber) {
+    for (auto &order : orders) {
+        if (order.getOrderNumber() == orderNumber) {
+            return order;
+        }
+    }
+    return std::nullopt;
+}
+
+bool OrderManager::cancelOrder(const QString &orderNumber) {
+    for (auto &order : orders) {
+        if (order.getOrderNumber() == orderNumber) {
+            order.setStatus("已取消");
+            return true;
+        }
+    }
+    return false;
 }
 
 bool OrderManager::readFromFile(const char filename[]) {
