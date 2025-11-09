@@ -200,11 +200,12 @@ Page {
                     customColor: "#3B99FB"
                     onClicked: function(){
                         bookingSystem.addQueryHistory_api(pageData.fromCity, pageData.toCity)
-                        ticketResultWin.fromCity = page.fromCity
-                        ticketResultWin.toCity = page.toCity
-                        ticketResultWin.date = page.selectedDate
+                        ticketResultWin.fromCity = pageData.fromCity
+                        ticketResultWin.toCity = pageData.toCity
+                        ticketResultWin.date = pageData.selectedDate
                         ticketResultWin.transientParent = mainWindow
                         ticketResultWin.visible = true
+                        ticketResultWin.queryTickets()
                     }
                 }
 

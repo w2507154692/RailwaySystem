@@ -12,8 +12,6 @@ Window {
     modality: Qt.ApplicationModal
     visible: false
 
-    Component.onCompleted: visible = false
-
     property string fromCity: ""
     property string toCity: ""
     property string date: ""
@@ -21,6 +19,13 @@ Window {
     property int seatSelected: -1        // 0: 商务座, 1: 一等座, 2: 二等座, -1:未选
     property int timeSelected: -1        // 0: 上午, 1: 下午, -1:未选
     property int typeSelected: -1        // 0: 高铁, -1:未选
+
+    property var ticketList: []
+
+    Component.onCompleted: {
+        // queryTickets();
+        console.log("fromCity:", fromCity, "toCity:", toCity, "date:", date)
+    }
 
     color: "#ffffff"
 
@@ -153,8 +158,10 @@ Window {
                 anchors.leftMargin: 5
                 // anchors.rightMargin: 8
                 // 滚动卡片区
-                ScrollView {
-                    id: scrollview
+                ListView {
+                    id: ticketListView
+                    model: ticketList
+                    clip: true
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     Layout.leftMargin: 15
@@ -171,29 +178,15 @@ Window {
                         handleLength: 60 // 这里设置你想要的长度
                     }
 
-                    ColumnLayout {
-                        width: scrollview.width - 20
+                    delegate: ColumnLayout {
+                        width: ticketListView.width - 20
 
                         // 票务查询结果卡片区
                         TicketCard {
                             Layout.fillWidth: true
                             Layout.topMargin: 15
                             visible: true
-                        }
-                        TicketCard {
-                            Layout.fillWidth: true
-                            Layout.topMargin: 15
-                            visible: true
-                        }
-                        TicketCard {
-                            Layout.fillWidth: true
-                            Layout.topMargin: 15
-                            visible: true
-                        }
-                        TicketCard {
-                            Layout.fillWidth: true
-                            Layout.topMargin: 15
-                            visible: true
+                            ticketData: modelData
                         }
                     }
                 }
@@ -265,10 +258,16 @@ Window {
                     }
                 }
             }
-
         }
-
     }
 
+    function queryTickets() {
+        var dateInt = date.match(/(\d+)年(\d+)月(\d+)日/);
+        var year = parseInt(dateInt[1]);
+        var month = parseInt(dateInt[2]);
+        var day = parseInt(dateInt[3]);
+        console.log("year:", year, "month:", month, "day:", day);
+        ticketList = bookingSystem.queryTickets_api(fromCity, toCity, year, month, day);
+    }
 
 }

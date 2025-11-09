@@ -15,9 +15,9 @@ private:
 public:
     Train();
 
-    QString getNumber() const;
-    Timetable getTimetable() const;
-    std::vector<std::tuple<QString, int, int>> getCarriages() const;
+    QString getNumber();
+    Timetable getTimetable();
+    std::vector<std::tuple<QString, int, int>> getCarriages();
     int getFirstClassCount();
     int getSecondClassCount();
     int getBusinessClassCount();

@@ -24,7 +24,7 @@ std::tuple<Time, Time, QString> Timetable::getStationInfo(const Station &station
 }
 
 int Timetable::getInterval(const Station &station1, const Station &station2) {
-    int len = table.size();
+    int day = 0, len = table.size();
     Time time1, time2;
     for (int i = 0; i < len; i++) {
         Station &station = std::get<0>(table[i]);
@@ -34,8 +34,11 @@ int Timetable::getInterval(const Station &station1, const Station &station2) {
         if (station == station2) {
             time2 = std::get<1>(table[i]);
         }
+        if (i > 0 && std::get<1>(table[i]) < std::get<2>(table[i-1])) {
+            day++;
+        }
     }
-    return time2 - time1;
+    return time2 - time1 + 60 * 60 * 24 * day;
 }
 
 std::vector<std::tuple<Station, Station>> Timetable::getStationPairsBetweenCities(const QString &startCityName, const QString &endCityName) {

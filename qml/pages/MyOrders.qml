@@ -99,6 +99,6 @@ Page {
     }
 
     function refreshOrders() {
-        orderList = orderManager.getOrders_api(SessionState.username)
+        orderList = orderManager.getOrders_api(SessionState.username);
     }
 }

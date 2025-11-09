@@ -7,6 +7,26 @@ Item {
     // Layout.fillWidth: True
     height: 105
 
+    property var ticketData: ({
+        trainNumber: "G15621",
+        startStationName: "呼和浩特北",
+        startHour: 8,
+        startMinute: 30,
+        startStationStopInfo: "过",
+        endStationName: "齐齐哈尔南",
+        endHour: 13,
+        endMinute: 30,
+        endStationStopInfo: "过",
+        intervalHour: 5,
+        intervalMinute: 0,
+        firstClassPrice: 755.22,
+        secondClassPrice: 1551.35,
+        businessClassPrice: 2985.75,
+        firstClassCount: 120,
+        secondClassCount: 120,
+        businessClassCount: 0,
+    })
+
     Rectangle {
         anchors.fill: parent
         // width: parent.width - 40
@@ -28,7 +48,7 @@ Item {
             anchors.fill: parent
             anchors.topMargin: 5
             anchors.bottomMargin: 5
-            anchors.leftMargin: 30
+            anchors.leftMargin: 15
             anchors.rightMargin: 15
             height: parent.height - 20
 
@@ -38,7 +58,7 @@ Item {
                 // 发车时间 + 车次号 + 时刻表 + 到达时间
                 RowLayout {
                     Layout.fillHeight: true
-                    spacing: 30
+                    spacing: 10
                     // 出发时间
                     ColumnLayout {
                         // anchors.top: parent.top
@@ -50,32 +70,61 @@ Item {
                         }
 
                         Text {
-                            text: "09:10"; font.bold: true;
-                            font.pixelSize: 21; color: "#222";
+                            Layout.alignment: Qt.AlignLeft
+                            horizontalAlignment: Text.AlignLeft
+                            Layout.preferredWidth: 70
+                            text: ("0" + ticketData.startHour).slice(-2) + ":" + ("0" + ticketData.startMinute).slice(-2);
+                            font.bold: true;
+                            font.pixelSize: 21;
+                            color: "#222"
+                            elide: Text.ElideRight
+                            wrapMode: Text.NoWrap
+                            clip: true
                         }
                         Text {
-                            text: "北京南（始）";
-                            font.pixelSize: 11; color: "#222";
+                            Layout.alignment: Qt.AlignLeft
+                            horizontalAlignment: Text.AlignLeft
+                            Layout.preferredWidth: 90
+                            text: ticketData.startStationName +
+                                  "（" + ticketData.startStationStopInfo + "）"
+                            font.pixelSize: 11;
+                            color: "#222";
+                            elide: Text.ElideRight
+                            wrapMode: Text.NoWrap
+                            clip: true
                         }
                     }
                     // 车次、箭头、时刻表
                     ColumnLayout {
                         Text {
+                            Layout.preferredWidth: 90
                             Layout.alignment: Qt.AlignHCenter
-                            text: "G115"; font.bold: true;
+                            horizontalAlignment: Text.AlignHCenter
+                            text: ticketData.trainNumber
+                            font.bold: true;
                             font.pixelSize: 23; color: "#222";
+                            elide: Text.ElideRight
+                            wrapMode: Text.NoWrap
+                            clip: true
                         }
                         Image {
                             Layout.topMargin: -4
                             source: "qrc:/resources/icon/arrow.svg"
-                            Layout.preferredWidth: 113
+                            Layout.preferredWidth: 140
                             height: 15
                             fillMode: Image.Stretch
                         }
                         Text {
+                            Layout.preferredWidth: 50
                             Layout.alignment: Qt.AlignHCenter
-                            text: "6小时7分";
-                            font.pixelSize: 8; color: "#888"; }
+                            horizontalAlignment: Text.AlignHCenter
+                            text: ticketData.intervalHour + "时" + ticketData.intervalMinute + "分"
+                            font.pixelSize: 10;
+                            color: "#888";
+                            elide: Text.ElideRight
+                            wrapMode: Text.NoWrap
+                            clip: true
+                        }
                         CustomButton {
                             text: "时刻表"
                             Layout.alignment: Qt.AlignHCenter
@@ -93,7 +142,6 @@ Item {
                     }
                     // 到达时间
                     ColumnLayout {
-                        // anchors.top: parent.top
                         Layout.alignment: Qt.AlignTop
 
                         // 间隔
@@ -102,16 +150,28 @@ Item {
                         }
 
                         Text {
-                            // anchors.right: parent.right
                             Layout.alignment: Qt.AlignRight
-                            text: "15:17"; font.bold: true;
-                            font.pixelSize: 21; color: "#222"
+                            horizontalAlignment: Text.AlignRight
+                            Layout.preferredWidth: 70
+                            text: ("0" + ticketData.endHour).slice(-2) + ":" + ("0" + ticketData.endMinute).slice(-2);
+                            font.bold: true;
+                            font.pixelSize: 21;
+                            color: "#222"
+                            elide: Text.ElideLeft
+                            wrapMode: Text.NoWrap
+                            clip: true
                         }
                         Text {
-                            // anchors.right: parent.right
                             Layout.alignment: Qt.AlignRight
-                            text: "（过）上海虹桥";
-                            font.pixelSize: 11; color: "#222";
+                            horizontalAlignment: Text.AlignRight
+                            Layout.preferredWidth: 90
+                            text: "（" + ticketData.endStationStopInfo + "）" +
+                                  ticketData.endStationName
+                            font.pixelSize: 11;
+                            color: "#222";
+                            elide: Text.ElideLeft
+                            wrapMode: Text.NoWrap
+                            clip: true
                         }
                     }
 
@@ -124,12 +184,16 @@ Item {
                     }
 
                     Text {
-                        Layout.rightMargin: 40
-                        text: "￥708起"
+                        Layout.preferredWidth: 150
+                        horizontalAlignment: Text.AlignRight
+                        text: "￥" + ticketData.secondClassPrice + "起"
                         font.pixelSize: 21
                         color: "#e88a3d"
                         font.bold: true
-                        Layout.topMargin: -19
+                        Layout.topMargin: -20
+                        elide: Text.ElideLeft
+                        wrapMode: Text.NoWrap
+                        clip: true
                     }
                 }
 
@@ -179,61 +243,92 @@ Item {
 
                 // 间隔
                 Item {
-                    Layout.preferredWidth: 30
+                    Layout.preferredWidth: 25
                 }
 
                 // 票价
                 ColumnLayout {
                     spacing: 11
                     Text {
-                        text: "￥708";
+                        Layout.preferredWidth: 70
+                        text: "￥" + ticketData.secondClassPrice;
                         font.pixelSize: 14; color: "#e88a3d";
+                        elide: Text.ElideRight
+                        wrapMode: Text.NoWrap
+                        clip: true
                     }
                     Text {
-                        text: "￥1134";
+                        Layout.preferredWidth: 70
+                        text: "￥" + ticketData.firstClassPrice;
                         font.pixelSize: 14; color: "#e88a3d";
+                        elide: Text.ElideRight
+                        wrapMode: Text.NoWrap
+                        clip: true
                     }
                     Text {
-                        text: "￥2457";
+                        Layout.preferredWidth: 80
+                        text: "￥" + ticketData.businessClassPrice;
                         font.pixelSize: 14; color: "#e88a3d";
+                        elide: Text.ElideRight
+                        wrapMode: Text.NoWrap
+                        clip: true
                     }
                 }
 
                 // 间隔
                 Item {
-                    Layout.preferredWidth: 30
+                    Layout.preferredWidth: 20
                 }
 
                 // 余票
                 ColumnLayout {
                     spacing: 11
                     Text {
-                        text: "有票";
-                        font.pixelSize: 14; color: "#4ec37e";
+                        text: ticketData.secondClassCount > 0
+                              ? "有票"
+                              : "无票"
+                        font.pixelSize: 14;
+                        color: ticketData.secondClassCount > 0
+                               ? "#4ec67e"
+                               : "#bbb"
                     }
                     Text {
-                        text: "有票";
-                        font.pixelSize: 14; color: "#4ec37e";
+                        text: ticketData.firstClassCount > 0
+                              ? "有票"
+                              : "无票"
+                        font.pixelSize: 14;
+                        color: ticketData.firstClassCount > 0
+                               ? "#4ec67e"
+                               : "#bbb"
                     }
                     Text {
-                        text: "无票";
-                        font.pixelSize: 14; color: "#bbb";
+                        text: ticketData.businessClassCount > 0
+                              ? "有票"
+                              : "无票"
+                        font.pixelSize: 14;
+                        color: ticketData.businessClassCount > 0
+                               ? "#4ec67e"
+                               : "#bbb"
                     }
                 }
 
                 // 间隔
                 Item {
-                    Layout.preferredWidth: 30
+                    Layout.preferredWidth: 25
                 }
 
                 ColumnLayout {
                     spacing: 8
                     CustomButton {
                         text: "预定"
-                        customColor: "#5d7fa9"
-                        pressedColor: "#3B99Fb"
+                        customColor: ticketData.secondClassCount > 0
+                                     ? "#5d7fa9"
+                                     : "#808080"
+                        pressedColor: ticketData.secondClassCount > 0
+                                      ? "#3B99FB"
+                                      : "#808080"
+                        mouseAreaEnabled: ticketData.secondClassCount > 0
                         textColor: "#fff"
-                        pressedTextColor: "#fff"
                         fontSize: 12
                         fontBold: false
                         width: 42
@@ -246,10 +341,14 @@ Item {
                     }
                     CustomButton {
                         text: "预定"
-                        customColor: "#5d7fa9"
-                        pressedColor: "#3B99Fb"
+                        customColor: ticketData.firstClassCount > 0
+                                     ? "#5d7fa9"
+                                     : "#808080"
+                        pressedColor: ticketData.firstClassCount > 0
+                                      ? "#3B99FB"
+                                      : "#808080"
+                        mouseAreaEnabled: ticketData.firstClassCount > 0
                         textColor: "#fff"
-                        pressedTextColor: "#fff"
                         fontSize: 12
                         fontBold: false
                         width: 42
@@ -262,10 +361,14 @@ Item {
                     }
                     CustomButton {
                         text: "预定"
-                        customColor: "#5d7fa9"
-                        pressedColor: "#3B99Fb"
+                        customColor: ticketData.businessClassCount > 0
+                                     ? "#5d7fa9"
+                                     : "#808080"
+                        pressedColor: ticketData.businessClassCount > 0
+                                      ? "#3B99FB"
+                                      : "#808080"
+                        mouseAreaEnabled: ticketData.businessClassCount > 0
                         textColor: "#fff"
-                        pressedTextColor: "#fff"
                         fontSize: 12
                         fontBold: false
                         width: 42
@@ -277,90 +380,7 @@ Item {
                         }
                     }
                 }
-
             }
-
-            // Item{
-            //     anchors.margins: 20
-            //     visible: true
-            //     height: 100
-            //     width:100
-            //     // 右侧票种、价格、余票、预定按钮
-            //     GridLayout {
-            //         columns: 4
-            //         rowSpacing: 10
-            //         columnSpacing: 80
-            //         Layout.preferredWidth: parent.width * 0.5
-
-            //         // 第一行：二等
-            //         Text { text: "二等"; font.pixelSize: 18; color: "#222"; Layout.row: 0; Layout.column: 0 }
-            //         Text { text: "￥708"; font.pixelSize: 18; color: "#e88a3d"; Layout.row: 0; Layout.column: 1 }
-            //         Text { text: "有票"; font.pixelSize: 18; color: "#4ec37e"; Layout.row: 0; Layout.column: 2 }
-            //         CustomButton {
-            //             text: "预定"
-            //             customColor: "#5d7fa9"
-            //             pressedColor: "#3B99Fb"
-            //             textColor: "#fff"
-            //             pressedTextColor: "#fff"
-            //             fontSize: 16
-            //             fontBold: false
-            //             width: 56
-            //             height: 28
-            //             enabled: true
-            //             Layout.row: 0; Layout.column: 3
-            //             onClicked: {
-            //                 // TODO: 预定操作
-            //             }
-            //         }
-
-            //         // 第二行：一等
-            //         Text { text: "一等"; font.pixelSize: 18; color: "#222"; Layout.row: 1; Layout.column: 0 }
-            //         Text { text: "￥1134"; font.pixelSize: 18; color: "#e88a3d"; Layout.row: 1; Layout.column: 1 }
-            //         Text { text: "有票"; font.pixelSize: 18; color: "#4ec37e"; Layout.row: 1; Layout.column: 2 }
-            //         CustomButton {
-            //             text: "预定"
-            //             customColor: "#5d7fa9"
-            //             pressedColor: "#3B99Fb"
-            //             textColor: "#fff"
-            //             pressedTextColor: "#fff"
-            //             fontSize: 16
-            //             fontBold: false
-            //             width: 56
-            //             height: 28
-            //             enabled: true
-            //             Layout.row: 1; Layout.column: 3
-            //             onClicked: {
-            //                 // TODO: 预定操作
-            //             }
-            //         }
-
-            //         // 第三行：商务
-            //         Text { text: "商务"; font.pixelSize: 18; color: "#222"; Layout.row: 2; Layout.column: 0 }
-            //         Text { text: "￥2457"; font.pixelSize: 18; color: "#e88a3d"; Layout.row: 2; Layout.column: 1 }
-            //         Text { text: "无票"; font.pixelSize: 18; color: "#bbb"; Layout.row: 2; Layout.column: 2 }
-            //         CustomButton {
-            //             text: "预定"
-            //             customColor: "#bbb"
-            //             pressedColor: "#bbb"
-            //             textColor: "#fff"
-            //             pressedTextColor: "#fff"
-            //             fontSize: 16
-            //             fontBold: false
-            //             width: 56
-            //             height: 28
-            //             enabled: false
-            //             Layout.row: 2; Layout.column: 3
-            //             onClicked: {
-            //                 // TODO: 预定操作
-            //             }
-            //         }
-            //     }
-            // }
-
-
         }
-
     }
-
-
 }

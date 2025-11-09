@@ -21,11 +21,16 @@ QStringList StationManager::getCitiesName_api() {
 }
 
 double StationManager::computeDistance(City &c1, City &c2) {
-    double lon1 = c1.getLongitude(), lon2 = c2.getLongitude();
-    double lat1 = c1.getLatitude(), lat2 = c2.getLatitude();
+    const double PI = 3.14159265358979323846;
+    double lon1 = c1.getLongitude() * PI / 180.0;
+    double lon2 = c2.getLongitude() * PI / 180.0;
+    double lat1 = c1.getLatitude() * PI / 180.0;
+    double lat2 = c2.getLatitude() * PI / 180.0;
     double a = sin((lat1-lat2)/2)*sin((lat1-lat2)/2) + cos(lat1)*cos(lat2)*sin((lon1-lon2)/2)*sin((lon1-lon2)/2);
     double c = 2 * atan2(sqrt(a), sqrt(1-a));
-    return  c * 6371.0;
+    double km = std::round(c * 6371.0 * 100.0) / 100.0;
+    qWarning() << km;
+    return  km;
 }
 
 std::optional<Station> StationManager::getStationByStationName(const QString &stationName) {

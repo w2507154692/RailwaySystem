@@ -186,7 +186,8 @@ Item {
                                     Layout.alignment: Qt.AlignRight
                                     horizontalAlignment: Text.AlignRight
                                     Layout.preferredWidth: 75
-                                    text: orderData.endStationName + "（" + orderData.endStationStopInfo + "）";
+                                    text: "（" + orderData.endStationStopInfo + "）" +
+                                          orderData.endStationName
                                     font.pixelSize: 9; color: "#222";
                                     elide: Text.ElideLeft
                                     wrapMode: Text.NoWrap

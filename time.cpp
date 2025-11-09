@@ -49,6 +49,16 @@ int operator-(const Time &t1, const Time &t2) {
     return totalSeconds1 - totalSeconds2;
 }
 
+bool operator<(const Time &t1, const Time &t2) {
+    if (t1.hour != t2.hour) {
+        return t1.hour < t2.hour;
+    }
+    if (t1.minute != t2.minute) {
+        return t1.minute < t2.minute;
+    }
+    return t1.second < t2.second;
+}
+
 std::ostream &operator<<(std::ostream &os, const Time &t) {
     if (t.hour == -1 || t.minute == -1 || t.second == -1) {
         os << "---";
