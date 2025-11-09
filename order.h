@@ -13,8 +13,8 @@ private:
     Passenger passenger;
     double price = -1;
     Date date;
-    QString start_station_name = "";
-    QString end_station_name = "";
+    Station start_station;
+    Station end_station;
     Timetable timetable;
     QString seat_level = "";
     int carriage_number = -1;
@@ -27,8 +27,8 @@ public:
     Order();
     Order(const QString &orderNumber, const QString &trainNumber,
           const Passenger &passenger, double price, const Date &date,
-          const Timetable &timetable, const QString &startStationName,
-          const QString &endStationName, const QString &seatLevel,
+          const Timetable &timetable, const Station &startStation,
+          const Station &endStation, const QString &seatLevel,
           int carriageNumber, int seatRow, int seatCol,
           const QString &status, const QString &username);
 
@@ -42,10 +42,10 @@ public:
     bool setPrice(double price);
     Date getDate();
     bool setDate(const Date &date);
-    QString getStartStationName();
-    bool setStartStationName(const QString &startStationName);
-    QString getEndStationName();
-    bool setEndStationName(const QString &endStationName);
+    Station getStartStation();
+    bool setStartStation(const Station &startStation);
+    Station getEndStation();
+    bool setEndStation(const Station &endStation);
     Timetable getTimetable();
     bool setTimetable(const Timetable &timetable);
     QString getSeatLevel();

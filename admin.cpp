@@ -64,6 +64,6 @@ std::istream& operator>>(std::istream& is, Admin& a) {
 
 std::ostream& operator<<(std::ostream& os, const Admin& a) {
     int locked_int = a.locked;
-    os << a.username.toStdString() << " " << a.password.toStdString() << " " << locked_int;
+    os << a.username.toStdString() << " " << a.password.toStdString() << " " << locked_int << std::endl;
     return os;
 }

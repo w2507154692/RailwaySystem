@@ -6,7 +6,7 @@
 class Passenger
 {
 private:
-    QString passenger_name = "";
+    QString name = "";
     QString phone_number = "";
     QString id = "";
     QString type = "";
@@ -14,11 +14,11 @@ private:
 
 public:
     Passenger();
-    Passenger(const QString &passengerName, const QString &phoneNumber,
+    Passenger(const QString &name, const QString &phoneNumber,
               const QString &id, const QString &type, const QString &username);
 
-    QString getPassengerName();
-    bool setPassengerName(const QString &name);
+    QString getName();
+    bool setName(const QString &name);
     QString getPhoneNumber();
     bool setPhoneNumber(const QString &phone);
     QString getId();

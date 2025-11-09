@@ -5,8 +5,8 @@ Order::Order() {}
 
 Order::Order(const QString &orderNumber, const QString &trainNumber,
              const Passenger &passenger, double price, const Date &date,
-             const Timetable &timetable, const QString &startStationName,
-             const QString &endStationName, const QString &seatLevel,
+             const Timetable &timetable, const Station &startStation,
+             const Station &endStation, const QString &seatLevel,
              int carriageNumber, int seatRow, int seatCol,
              const QString &status, const QString &username)
     : order_number(orderNumber),
@@ -15,8 +15,8 @@ Order::Order(const QString &orderNumber, const QString &trainNumber,
       price(price),
       date(date),
       timetable(timetable),
-      start_station_name(startStationName),
-      end_station_name(endStationName),
+      start_station(startStation),
+      end_station(endStation),
       seat_level(seatLevel),
       carriage_number(carriageNumber),
       seat_row(seatRow),
@@ -69,21 +69,21 @@ bool Order::setDate(const Date &date) {
     return true;
 }
 
-QString Order::getStartStationName() {
-    return start_station_name;
+Station Order::getStartStation() {
+    return start_station;
 }
 
-bool Order::setStartStationName(const QString &startStationName) {
-    this->start_station_name = startStationName;
+bool Order::setStartStation(const Station &startStation) {
+    this->start_station = startStation;
     return true;
 }
 
-QString Order::getEndStationName() {
-    return end_station_name;
+Station Order::getEndStation() {
+    return end_station;
 }
 
-bool Order::setEndStationName(const QString &endStationName) {
-    this->end_station_name = endStationName;
+bool Order::setEndStation(const Station &endStation) {
+    this->end_station = endStation;
     return true;
 }
 
@@ -157,8 +157,8 @@ bool operator==(const Order &o1, const Order &o2) {
            o1.price == o2.price &&
            o1.date == o2.date &&
            o1.timetable == o2.timetable &&
-           o1.start_station_name == o2.start_station_name &&
-           o1.end_station_name == o2.end_station_name &&
+           o1.start_station == o2.start_station &&
+           o1.end_station == o2.end_station &&
            o1.seat_level == o2.seat_level &&
            o1.carriage_number == o2.carriage_number &&
            o1.seat_row == o2.seat_row &&
@@ -175,23 +175,22 @@ std::ostream &operator<<(std::ostream &os, const Order &o) {
     os << o.order_number.toStdString() << " " << o.train_number.toStdString() << " " << std::endl
        << o.passenger
        << std::fixed << std::setprecision(2) << o.price << " " << o.date << std::endl
-       << o.start_station_name.toStdString() << " " << o.end_station_name.toStdString() << " "<< std::endl
+       << o.start_station << std::endl
+       << o.end_station << std::endl
        << o.timetable
        << o.seat_level.toStdString() << " " << o.carriage_number << " " << o.seat_row << " " << o.seat_col << " "
-       << o.status.toStdString() << " " << o.username.toStdString();
+       << o.status.toStdString() << " " << o.username.toStdString() << std::endl;
     return os;
 }
 
 std::istream &operator>>(std::istream &is, Order &o) {
-    std::string orderNumber, trainNumber, startStationName, endStationName, seat_level, status, username;
+    std::string orderNumber, trainNumber, seat_level, status, username;
     is >> orderNumber >> trainNumber >> o.passenger >> o.price
-       >> o.date >> startStationName >> endStationName 
+       >> o.date >> o.start_station >> o.end_station 
        >> o.timetable >> seat_level >> o.carriage_number
        >> o.seat_row >> o.seat_col >> status >> username;
     o.setOrderNumber(QString::fromStdString(orderNumber));
     o.setTrainNumber(QString::fromStdString(trainNumber));
-    o.setStartStationName(QString::fromStdString(startStationName));
-    o.setEndStationName(QString::fromStdString(endStationName));
     o.setSeatLevel(QString::fromStdString(seat_level));
     o.setStatus(QString::fromStdString(status));
     o.setUsername(QString::fromStdString(username));

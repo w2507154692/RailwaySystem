@@ -50,14 +50,27 @@ int operator-(const Time &t1, const Time &t2) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Time &t) {
-    os << std::setw(2) << std::setfill('0') << t.hour << ":"
-       << std::setw(2) << std::setfill('0') << t.minute << ":"
-       << std::setw(2) << std::setfill('0') << t.second;
+    if (t.hour == -1 || t.minute == -1 || t.second == -1) {
+        os << "---";
+    }
+    else {
+        os << std::setw(2) << std::setfill('0') << t.hour << ":"
+           << std::setw(2) << std::setfill('0') << t.minute << ":"
+           << std::setw(2) << std::setfill('0') << t.second;
+    }
+
     return os;
 }
 
 std::istream &operator>>(std::istream &is, Time &t) {
-    char delimiter1, delimiter2;
-    is >> t.hour >> delimiter1 >> t.minute >> delimiter2 >> t.second;
+    std::string input;
+    is >> input;
+    if (input == "---") {
+        t.hour = t.minute = t.second = -1;
+    } else {
+        std::istringstream ss(input);
+        char delimiter1, delimiter2;
+        ss >> t.hour >> delimiter1 >> t.minute >> delimiter2 >> t.second;
+    }
     return is;
 }

@@ -226,9 +226,9 @@ Item {
 
         var result
         if (isAdminLogin) {
-            result = accountManager.loginAdmin(username.text, password.text)
+            result = accountManager.loginAdmin_api(username.text, password.text)
         } else {
-            result = accountManager.loginUser(username.text, password.text)
+            result = accountManager.loginUser_api(username.text, password.text)
         }
 
         console.log("Login result:", JSON.stringify(result))

@@ -7,6 +7,7 @@
 #include "stationmanager.h"
 #include "ordermanager.h"
 #include "bookingsystem.h"
+#include "trainmanager.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,14 +18,16 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;    // 创建 QML 应用程序引擎对象
 
-    AccountManager* accountManager = new AccountManager;
     StationManager* stationManager = new StationManager;
     OrderManager* orderManager = new OrderManager;
-    BookingSystem* bookingSystem = new BookingSystem(stationManager);
-    engine.rootContext()->setContextProperty("accountManager", accountManager);
+    TrainManager* trainManager = new TrainManager;
+    AccountManager* accountManager = new AccountManager;
+    BookingSystem* bookingSystem = new BookingSystem(stationManager, orderManager, trainManager, accountManager);
     engine.rootContext()->setContextProperty("stationManager", stationManager);
     engine.rootContext()->setContextProperty("orderManager", orderManager);
+    engine.rootContext()->setContextProperty("trainManager", trainManager);
     engine.rootContext()->setContextProperty("bookingSystem", bookingSystem);
+    engine.rootContext()->setContextProperty("accountManager", accountManager);
     qmlRegisterSingletonType(QUrl("qrc:/qml/SessionState.qml"), "MyApp", 1, 0, "SessionState");
 
     // 直接加载主窗口（包含嵌入式登录页面）

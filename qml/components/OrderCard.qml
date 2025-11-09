@@ -12,20 +12,27 @@ Item {
     property var orderData: ({
     orderNumber: "0000000003",
     trainNumber: "G1234",
-    date: "2025年11月25日",
+    year: 2025,
+    month: 11,
+    day: 25,
     seatLevel: "二等座",
-    carriageNumber: "05车",
-    seatRow: "12",
-    seatCol: "C座",
+    carriageNumber: 5,
+    seatRow: 12,
+    seatCol: 3,
     price: 533.50,
     status: "待乘坐",
     passengerName: "张三",
-    type: "成人票",
-    startStationName: "呼和浩特北（始）",
-    startTime: "08:05",
-    endStationName: "呼和浩特北（过）",
-    endTime: "13:30",
-    interval: "4时25分"
+    type: "成人",
+    startStationName: "呼和浩特北",
+    startStationStopInfo: "始",
+    startHour: 8,
+    startMinute: 5,
+    endStationName: "呼和浩特北",
+    endStationStopInfo: "过",
+    endHour: 13,
+    endMinute: 30,
+    intervalHour: 5,
+    intervalMinute: 25,
     })
 
     RowLayout {
@@ -114,7 +121,8 @@ Item {
                                     Layout.alignment: Qt.AlignLeft
                                     horizontalAlignment: Text.AlignLeft
                                     Layout.preferredWidth: 70
-                                    text: orderData.startTime; font.bold: true;
+                                    text: ("0" + orderData.startHour).slice(-2) + ":" + ("0" + orderData.startMinute).slice(-2)
+                                    font.bold: true;
                                     font.pixelSize: 21; color: "#222"
                                     elide: Text.ElideRight
                                     wrapMode: Text.NoWrap
@@ -124,7 +132,7 @@ Item {
                                     Layout.alignment: Qt.AlignLeft
                                     horizontalAlignment: Text.AlignLeft
                                     Layout.preferredWidth: 75
-                                    text: orderData.startStationName;
+                                    text: orderData.startStationName + "（" + orderData.startStationStopInfo + "）";
                                     font.pixelSize: 9; color: "#222";
                                     elide: Text.ElideRight
                                     wrapMode: Text.NoWrap
@@ -137,7 +145,8 @@ Item {
                                     Layout.preferredWidth: 130
                                     Layout.alignment: Qt.AlignHCenter
                                     horizontalAlignment: Text.AlignHCenter
-                                    text: orderData.trainNumber; font.bold: true;
+                                    text: orderData.trainNumber;
+                                    font.bold: true;
                                     font.pixelSize: 18; color: "#222";
                                     elide: Text.ElideMiddle
                                     wrapMode: Text.NoWrap
@@ -153,7 +162,7 @@ Item {
                                 Text {
                                     Layout.alignment: Qt.AlignHCenter
                                     Layout.topMargin: -2
-                                    text: orderData.interval;
+                                    text: orderData.intervalHour + "时" + orderData.intervalMinute + "分"
                                     font.pixelSize: 8; color: "#888";
                                     elide: Text.ElideRight
                                     wrapMode: Text.NoWrap
@@ -166,7 +175,8 @@ Item {
                                     Layout.alignment: Qt.AlignRight
                                     horizontalAlignment: Text.AlignRight
                                     Layout.preferredWidth: 70
-                                    text: orderData.endTime; font.bold: true;
+                                    text: ("0" + orderData.endHour).slice(-2) + ":" + ("0" + orderData.endMinute).slice(-2);
+                                    font.bold: true;
                                     font.pixelSize: 21; color: "#222"
                                     elide: Text.ElideLeft
                                     wrapMode: Text.NoWrap
@@ -176,7 +186,7 @@ Item {
                                     Layout.alignment: Qt.AlignRight
                                     horizontalAlignment: Text.AlignRight
                                     Layout.preferredWidth: 75
-                                    text: orderData.endStationName;
+                                    text: orderData.endStationName + "（" + orderData.endStationStopInfo + "）";
                                     font.pixelSize: 9; color: "#222";
                                     elide: Text.ElideLeft
                                     wrapMode: Text.NoWrap
@@ -188,7 +198,7 @@ Item {
                             Text{
                                 Layout.leftMargin: 30
                                 Layout.preferredWidth: 230
-                                text: orderData.date
+                                text: orderData.year + "年" + orderData.month + "月" + orderData.day + "日"
                                 font.pixelSize: 27
                                 font.bold: true
                                 elide: Text.ElideRight
@@ -249,7 +259,7 @@ Item {
                                 Text{
                                     anchors.centerIn: parent
                                     id: textItem
-                                    text: orderData.type
+                                    text: orderData.type + "票"
                                     font.pixelSize: 11
                                     color: "#666"
                                 }
@@ -259,7 +269,10 @@ Item {
                             Text{
                                 Layout.preferredWidth: 145
                                 Layout.leftMargin: 15
-                                text: orderData.seatLevel + " " + orderData.carriageNumber + orderData.seatRow + orderData.seatCol
+                                text: orderData.seatLevel + " " +
+                                      ("0" + orderData.carriageNumber).slice(-2) + "车" +
+                                      ("0" + orderData.seatRow).slice(-2) +
+                                      String.fromCharCode(65 + orderData.seatCol - 1) + "座"
                                 font.pixelSize: 17
                                 elide: Text.ElideRight
                                 wrapMode: Text.NoWrap

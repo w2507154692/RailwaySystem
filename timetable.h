@@ -15,8 +15,11 @@ public:
     Timetable();
 
     // 从时刻表中查找某个车站的信息（到时、发时，始/过/终）
-    std::tuple<Station, Time, Time, QString> getStationInfo(const QString &stationName);
-    int getInterval(const QString &stationName1, const QString &stationName2);
+    std::tuple<Time, Time, QString> getStationInfo(const Station &station);
+    int getInterval(const Station &station1, const Station &station2);
+    std::vector<std::tuple<Station, Station>> getStationPairsBetweenCities(const QString &startCityName, const QString &endCityName);
+    int getIndexByStation(const Station &station);
+    std::vector<Station> getStationsBetweenStations(const Station &startStation, const Station &endStation);
 
     friend bool operator==(const Timetable &t1, const Timetable &t2);
     friend bool operator!=(const Timetable &t1, const Timetable &t2);

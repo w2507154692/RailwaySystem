@@ -18,8 +18,8 @@ public:
 public:
     explicit AccountManager(QObject *parent = nullptr);
 
-    Q_INVOKABLE QVariantMap loginUser(const QString &username, const QString &password);
-    Q_INVOKABLE QVariantMap loginAdmin(const QString &username, const QString &password);
+    Q_INVOKABLE QVariantMap loginUser_api(const QString &username, const QString &password);
+    Q_INVOKABLE QVariantMap loginAdmin_api(const QString &username, const QString &password);
     // Q_INVOKABLE bool lockUser(const QString &username);
     // Q_INVOKABLE bool unlockUser(const QString &username);
     // Q_INVOKABLE bool lockAdmin(const QString &username);

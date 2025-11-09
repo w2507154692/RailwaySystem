@@ -2,13 +2,13 @@
 
 Timetable::Timetable() {}
 
-std::tuple<Station, Time, Time, QString> Timetable::getStationInfo(const QString &stationName) {
+std::tuple<Time, Time, QString> Timetable::getStationInfo(const Station &station) {
     int len = table.size();
     for (int i = 0; i < len; i++) {
-        Station &station = std::get<0>(table[i]);
-        if (station.getStationName() == stationName) {
-            Time &arrival = std::get<1>(table[i]);
-            Time &departure = std::get<2>(table[i]);
+        Station &s = std::get<0>(table[i]);
+        if (s == station) {
+            Time &arrivalTime = std::get<1>(table[i]);
+            Time &departureTime = std::get<2>(table[i]);
             QString passInfo;
             if (i == 0) {
                 passInfo = "始";
@@ -17,25 +17,72 @@ std::tuple<Station, Time, Time, QString> Timetable::getStationInfo(const QString
             } else {
                 passInfo = "过";
             }
-            return std::make_tuple(station, arrival, departure, passInfo);
+            return std::make_tuple(arrivalTime, departureTime, passInfo);
         }
     }
-    return std::make_tuple(Station(), Time(), Time(), QString("Not Found"));
+    return std::make_tuple(Time(), Time(), QString("Not Found"));
 }
 
-int Timetable::getInterval(const QString &stationName1, const QString &stationName2) {
+int Timetable::getInterval(const Station &station1, const Station &station2) {
     int len = table.size();
     Time time1, time2;
     for (int i = 0; i < len; i++) {
         Station &station = std::get<0>(table[i]);
-        if (station.getStationName() == stationName1) {
+        if (station == station1) {
             time1 = std::get<2>(table[i]);
         }
-        if (station.getStationName() == stationName2) {
+        if (station == station2) {
             time2 = std::get<1>(table[i]);
         }
     }
     return time2 - time1;
+}
+
+std::vector<std::tuple<Station, Station>> Timetable::getStationPairsBetweenCities(const QString &startCityName, const QString &endCityName) {
+    std::vector<std::tuple<Station, Station>> result;
+    int len = table.size();
+    for (int i = 0; i < len - 1; i++) {
+        Station s1 = std::get<0>(table[i]);
+        if (s1.getCityName() == startCityName) {
+            for (int j = i + 1; j < len; j++) {
+                Station s2 = std::get<0>(table[j]);
+                if (s2.getCityName() == endCityName) {
+                    std::tuple<Station, Station> t = std::make_tuple(s1, s2);
+                    result.push_back(t);
+                }
+            }
+        }
+    }
+    return result;
+}
+
+int Timetable::getIndexByStation(const Station &station) {
+    int len = table.size();
+    for (int i = 0; i < len; i++) {
+        if (std::get<0>(table[i]) == station) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+std::vector<Station> Timetable::getStationsBetweenStations(const Station &startStation, const Station &endStation) {
+    std::vector<Station> result;
+    bool flag = false;
+    for (auto &stop : table) {
+        Station station = std::get<0>(stop);
+        if (station == startStation) {
+            flag = true;
+        }
+        if (flag) {
+            result.push_back(station);
+        }
+        if (station == endStation) {
+            flag = false;
+            break;
+        }
+    }
+    return result;
 }
 
 bool operator==(const Timetable &t1, const Timetable &t2) {

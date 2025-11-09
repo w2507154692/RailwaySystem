@@ -31,7 +31,7 @@ Page {
     Component.onCompleted: {
         pageData.currentDate = Qt.formatDate(new Date(), "yyyy年MM月dd日")
         pageData.selectedDate = pageData.currentDate   // 默认选中今天
-        pageData.cityList = stationManager.getCityNames()
+        pageData.cityList = stationManager.getCitiesName_api()
     }
 
     RowLayout {
@@ -199,7 +199,7 @@ Page {
                     fontSize: 30
                     customColor: "#3B99FB"
                     onClicked: function(){
-                        bookingSystem.addQueryHistory(pageData.fromCity, pageData.toCity)
+                        bookingSystem.addQueryHistory_api(pageData.fromCity, pageData.toCity)
                         ticketResultWin.fromCity = page.fromCity
                         ticketResultWin.toCity = page.toCity
                         ticketResultWin.date = page.selectedDate
@@ -288,7 +288,7 @@ Page {
                         MouseArea {
                             anchors.fill: parent
                             cursorShape: Qt.PointingHandCursor
-                            onClicked: bookingSystem.clearQueryHistory()
+                            onClicked: bookingSystem.clearQueryHistory_api()
                         }
                     }
                 }

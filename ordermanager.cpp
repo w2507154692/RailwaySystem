@@ -12,44 +12,42 @@ OrderManager::OrderManager(QObject *parent)
 
 QVariantList OrderManager::getOrders_api(const QString &username) {
     QVariantList list;
-    std::vector<Order> findResult = findOrdersByUsername(username);
+    std::vector<Order> findResult = getOrdersByUsername(username);
     for (auto &order : findResult) {
         QVariantMap map;
         map["orderNumber"] = order.getOrderNumber();
         map["trainNumber"] = order.getTrainNumber();
-        map["date"] = QString("%1年%2月%3日")
-                          .arg(order.getDate().getYear())
-                          .arg(order.getDate().getMonth())
-                          .arg(order.getDate().getDay());
+        map["year"] = order.getDate().getYear();
+        map["month"] = order.getDate().getMonth();
+        map["day"] = order.getDate().getDay();
         map["seatLevel"] = order.getSeatLevel();
-        map["carriageNumber"] = QString("%1车").arg(order.getCarriageNumber(), 2, 10, QChar('0'));
-        map["seatRow"] = QString("%1").arg(order.getSeatRow(), 2, 10, QChar('0'));
-        QChar seatLetter('A' + order.getSeatCol() - 1);
-        map["seatCol"] = QString("%1号").arg(seatLetter);
-        map["price"] = QString::number(order.getPrice());
+        map["carriageNumber"] = order.getCarriageNumber();
+        map["seatRow"] = order.getSeatRow();
+        map["seatCol"] = order.getSeatCol();
+        map["price"] = order.getPrice();
         map["status"] = order.getStatus();
-        map["passengerName"] = order.getPassenger().getPassengerName();
-        map["type"] = QString("%1票").arg(order.getPassenger().getType());
+        map["passengerName"] = order.getPassenger().getName();
+        map["type"] = order.getPassenger().getType();
+
+        Station startSation = order.getStartStation();
+        Station endStation = order.getEndStation();
+        std::tuple<Time, Time, QString> startStationInfo =
+            order.getTimetable().getStationInfo(startSation);
+        std::tuple<Time, Time, QString> endStationInfo =
+            order.getTimetable().getStationInfo(endStation);
+        map["startStationName"] = startSation.getStationName();
+        map["startStationStopInfo"] = std::get<2>(startStationInfo);
+        map["startHour"] = std::get<1>(startStationInfo).getHour();
+        map["startMinute"] = std::get<1>(startStationInfo).getMinute(), 2, 10, QChar('0');
+        map["endStationName"] = endStation.getStationName();
+        map["endStationStopInfo"] = std::get<2>(endStationInfo);
+        map["endHour"] = std::get<0>(endStationInfo).getHour(), 2, 10, QChar('0');
+        map["endMinute"] = std::get<0>(endStationInfo).getMinute(), 2, 10, QChar('0');
         
-        std::tuple<Station, Time, Time, QString> startStationInfo =
-            order.getTimetable().getStationInfo(order.getStartStationName());
-        std::tuple<Station, Time, Time, QString> endStationInfo =
-            order.getTimetable().getStationInfo(order.getEndStationName());
-        map["startStationName"] = std::get<0>(startStationInfo).getStationName() +
-                                    "（" + std::get<3>(startStationInfo) + "）";
-        map["startTime"] = QString("%1:%2")
-                                .arg(std::get<2>(startStationInfo).getHour(), 2, 10, QChar('0'))
-                                .arg(std::get<2>(startStationInfo).getMinute(), 2, 10, QChar('0'));
-        map["endStationName"] = std::get<0>(endStationInfo).getStationName() +
-                                  "（" + std::get<3>(endStationInfo) + "）";
-        map["endTime"] = QString("%1:%2")
-                              .arg(std::get<1>(endStationInfo).getHour(), 2, 10, QChar('0'))
-                              .arg(std::get<1>(endStationInfo).getMinute(), 2, 10, QChar('0'));
-        
-        int intervalSeconds = order.getTimetable().getInterval(
-            order.getStartStationName(), order.getEndStationName());
+        int intervalSeconds = order.getTimetable().getInterval(startSation, endStation);
         int hours = intervalSeconds / 3600, minutes = (intervalSeconds % 3600) / 60;
-        map["interval"] = QString("%1时%2分").arg(hours).arg(minutes);
+        map["intervalHour"] = hours;
+        map["intervalMinute"] = minutes;
 
         list << map;
     }
@@ -59,7 +57,7 @@ QVariantList OrderManager::getOrders_api(const QString &username) {
 
 QVariantMap OrderManager::cancelOrder_api(const QString &orderNumber) {
     QVariantMap result;
-    auto findResult = findOrdersByOrderNumber(orderNumber);
+    auto findResult = getOrderByOrderNumber(orderNumber);
     if (findResult) {
         Order &order = findResult.value();
         if (order.getStatus() != "待乘坐") {
@@ -78,7 +76,18 @@ QVariantMap OrderManager::cancelOrder_api(const QString &orderNumber) {
     }
 }
 
-std::vector<Order> OrderManager::findOrdersByUsername(const QString &username) {
+std::vector<Order> OrderManager::getOrdersByTrainNumberAndDate(const QString &trainNumber, const Date &date) {
+    std::vector<Order> result;
+    for (auto &order : orders) {
+        if (order.getStatus() == "待乘坐" && order.getTrainNumber() == trainNumber && order.getDate() == date) {
+            result.push_back(order);
+        }
+    }
+    return result;
+}
+
+
+std::vector<Order> OrderManager::getOrdersByUsername(const QString &username) {
     std::vector<Order> result;
     for (auto &order : orders) {
         if (order.getUsername() == username) {
@@ -88,7 +97,7 @@ std::vector<Order> OrderManager::findOrdersByUsername(const QString &username) {
     return result;
 }
 
-std::optional<Order> OrderManager::findOrdersByOrderNumber(const QString &orderNumber) {
+std::optional<Order> OrderManager::getOrderByOrderNumber(const QString &orderNumber) {
     for (auto &order : orders) {
         if (order.getOrderNumber() == orderNumber) {
             return order;
@@ -96,6 +105,7 @@ std::optional<Order> OrderManager::findOrdersByOrderNumber(const QString &orderN
     }
     return std::nullopt;
 }
+
 
 bool OrderManager::cancelOrder(const QString &orderNumber) {
     for (auto &order : orders) {
@@ -127,7 +137,7 @@ bool OrderManager::writeToFile(const char filename[]) {
         return false;
     }
     for (const auto &order : orders) {
-        fos << order << std::endl << std::endl;
+        fos << order << std::endl;
     }
     return true;
 }

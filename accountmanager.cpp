@@ -14,7 +14,7 @@ AccountManager::AccountManager(QObject *parent)
     std::cout << admins[0];
 }
 
-QVariantMap AccountManager::loginUser(const QString &username, const QString &password) {
+QVariantMap AccountManager::loginUser_api(const QString &username, const QString &password) {
     QVariantMap result;
     auto findResult = findUserByUsername(username);
     if (findResult) {
@@ -39,7 +39,7 @@ QVariantMap AccountManager::loginUser(const QString &username, const QString &pa
     }
 }
 
-QVariantMap AccountManager::loginAdmin(const QString &username, const QString &password) {
+QVariantMap AccountManager::loginAdmin_api(const QString &username, const QString &password) {
     QVariantMap result;
     auto findResult = findAdminByUsername(username);
     if (findResult) {

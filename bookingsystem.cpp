@@ -3,18 +3,31 @@
 #include <QDebug>
 #include <iostream>
 #include <stack>
+#include <ctime>
+#include <QDebug>
+#include <QVariantMap>
 
-BookingSystem::BookingSystem(StationManager* stationManager, QObject* parent)
-    :station_manager(stationManager) , QObject{parent}
+BookingSystem::BookingSystem(StationManager* stationManager, 
+                                OrderManager* orderManager,
+                                TrainManager* trainManager,
+                                AccountManager* accountManager,
+                                QObject* parent)
+    :station_manager(stationManager), order_manager(orderManager), train_manager(trainManager), account_manager(accountManager), QObject{parent}
 {
-    // for (int i = 0; i < 2; i ++) {
-    //     Station tmp("测试", "测试");
-    //     std::tuple<Station, Station> t = std::make_tuple(tmp, tmp);
-    //     query_history.push(t);
-    // }
+    // 获取当前时间戳
+    std::time_t t = std::time(nullptr);
+    std::tm* now = std::localtime(&t);
+    // 分别获取年、月、日
+    int year = now->tm_year + 1900;
+    int month = now->tm_mon + 1;
+    int day = now->tm_mday;
+    // 存储今天日期
+    today.setYear(year);
+    today.setMonth(month);
+    today.setDay(day);
 }
 
-QVariantList BookingSystem::getQueryHistory() {
+QVariantList BookingSystem::getQueryHistory_api() {
     QVariantList list;
     std::queue<std::tuple<City, City>> tmp = query_history;
     std::stack<std::tuple<City, City>> s;
@@ -41,12 +54,12 @@ QVariantList BookingSystem::getQueryHistory() {
     return list;
 }
 
-bool BookingSystem::addQueryHistory(const QString &startCityName, const QString &endCityName) {
+bool BookingSystem::addQueryHistory_api(const QString &startCityName, const QString &endCityName) {
     if (!station_manager) {
         return false;
     }
-    auto startCityFindResult = station_manager->findCityByCityName(startCityName);
-    auto endCityFindResult = station_manager->findCityByCityName(endCityName);
+    auto startCityFindResult = station_manager->getCityByCityName(startCityName);
+    auto endCityFindResult = station_manager->getCityByCityName(endCityName);
     if (!startCityFindResult or !endCityFindResult) {
         return false;
     }
@@ -60,11 +73,124 @@ bool BookingSystem::addQueryHistory(const QString &startCityName, const QString 
     return true;
 }
 
-bool BookingSystem::clearQueryHistory() {
+bool BookingSystem::clearQueryHistory_api() {
     while (!query_history.empty()) {
         query_history.pop();
     }
     emit queryHistoryChanged();
     return true;
+}
+
+QVariantList BookingSystem::queryTickets_api(const QString &startCityName,
+                                             const QString &endCityName,
+                                             int year, int month, int day) {
+    QVariantList list;
+    if (!station_manager || !order_manager || ! train_manager || !account_manager) {
+        qWarning() << "管理类为空！";
+        return list;
+    }
+
+    // 查询满足能从起始城市开到终点城市的所有车次和车站安排
+    std::vector<std::tuple<Train, Station, Station>> routes = train_manager->getRoutesByCities(startCityName, endCityName);
+    // 实例化要查询的日期
+    Date queryDate(year, month, day);
+    // 遍历每趟车次，计算其在那一天的余票
+    for (auto &route : routes) {
+        // 获得该车次的各等级座位数量，如果座位数减为0，代表没票了
+        Train train = std::get<0>(route);
+        int firstClassCount = train.getFirstClassCount();
+        int secondClassCount = train.getSecondClassCount();
+        int businessClassCount = train.getBusinessClassCount();
+        // 获得该安排的车站在时刻表中的区间
+        Station startStation = std::get<1>(route), endStation = std::get<2>(route);
+        Timetable timetable = train.getTimetable();
+        int a = timetable.getIndexByStation(startStation);
+        int b= timetable.getIndexByStation(endStation);
+        std::vector<Order> ordersWithTrainNumberAndDate = order_manager->getOrdersByTrainNumberAndDate(train.getNumber(), queryDate);
+        for (auto &order : ordersWithTrainNumberAndDate) {
+            if (order.getStatus() == "待乘坐") {
+                int c = timetable.getIndexByStation(order.getStartStation());
+                int d = timetable.getIndexByStation(order.getEndStation());
+                // 如果 [a,b] 区间和 [c,d] 区间重合
+                if (!(b <= c || a >= d)) {
+                    if (order.getStatus() == "一等座") {
+                        firstClassCount--;
+                    } else if (order.getStatus() == "二等座") {
+                        secondClassCount--;
+                    } else if (order.getStatus() == "商务座") {
+                        businessClassCount--;
+                    }
+                }
+            }
+        }
+        // 如果遍历完所有订单后，发现该车次当天仍然有余票
+        QVariantMap map;
+        map["trainNumber"] = train.getNumber();
+        std::tuple<Time, Time, QString> startStationInfo =
+            timetable.getStationInfo(startStation);
+        std::tuple<Time, Time, QString> endStationInfo =
+            timetable.getStationInfo(endStation);
+        map["startStationName"] = startStation.getStationName();
+        map["startStationHour"] = std::get<1>(startStationInfo).getHour();
+        map["startStationMinute"] = std::get<1>(startStationInfo).getMinute();
+        map["startStationStopInfo"] = std::get<2>(startStationInfo);
+        map["endStationName"] = startStation.getStationName();
+        map["endStationHour"] = std::get<1>(endStationInfo).getHour();
+        map["endStationMinute"] = std::get<1>(endStationInfo).getMinute();
+        map["endStationStopInfo"] = std::get<2>(endStationInfo);
+
+        // 计算历时
+        int intervalSeconds = timetable.getInterval(startStation, endStation);
+        int hours = intervalSeconds / 3600, minutes = (intervalSeconds % 3600) / 60;
+        map["intervalHour"] = hours;
+        map["intervalMinutes"] = minutes;
+
+        // 计算票价
+        std::vector<Station> passStations = timetable.getStationsBetweenStations(startStation, endStation);
+        std::tuple<double, double, double> prices = computePrice(train.getNumber(), passStations);
+        map["firstClassPrice"] = std::get<0>(prices);
+        map["secondClassPrice"] = std::get<1>(prices);
+        map["businessClassPrice"] = std::get<2>(prices);
+
+        map["firstClassCount"] = firstClassCount;
+        map["secondClassCount"] = secondClassCount;
+        map["businessClassCount"] = businessClassCount;
+
+        list << map;
+    }
+    return list;
+}
+
+std::tuple<double, double, double> BookingSystem::computePrice(const QString &trainNumber, std::vector<Station> &stations) {
+    QChar trainType = trainNumber[0];
+    double times;
+    if (trainType == 'G') {
+        times = 1.75;
+    } else if (trainType == 'D') {
+        times = 1.5;
+    } else if (trainType == 'C') {
+        times = 1.6;
+    } else if (trainType == 'T') {
+        times = 1.2;
+    } else if (trainType == 'K') {
+        times = 1.2;
+    } else {
+        times = 1.0;
+    }
+
+    double price = 0;
+    int len = stations.size();
+    for (int i = 0; i < len - 1; i++) {
+        auto result1 = station_manager->getCityByCityName(stations[i].getCityName());
+        auto result2 = station_manager->getCityByCityName(stations[i+1].getCityName());
+        if (!result1 || !result2) {
+            return std::make_tuple(0.0, 0.0, 0.0);
+        }
+        City city1 = result1.value(), city2 = result2.value();
+        double distance = station_manager->computeDistance(city1, city2);
+        price += distance * times;
+    }
+
+    return std::make_tuple(price, price * 1.5, price * 2.0);
 }
 

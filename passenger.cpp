@@ -2,20 +2,20 @@
 
 Passenger::Passenger() {}
 
-Passenger::Passenger(const QString &passengerName, const QString &phoneNumber,
+Passenger::Passenger(const QString &name, const QString &phoneNumber,
                      const QString &id, const QString &type, const QString &username)
-    : passenger_name(passengerName),
+    : name(name),
       phone_number(phoneNumber),
       id(id),
       type(type),
       username(username) {}
 
-QString Passenger::getPassengerName() {
-    return passenger_name;
+QString Passenger::getName() {
+    return name;
 }
 
-bool Passenger::setPassengerName(const QString &name) {
-    passenger_name = name;
+bool Passenger::setName(const QString &name) {
+    this->name = name;
     return true;
 }
 
@@ -56,7 +56,7 @@ bool Passenger::setUsername(const QString &username) {
 }
 
 bool operator==(const Passenger &p1, const Passenger &p2) {
-    return p1.passenger_name == p2.passenger_name &&
+    return p1.name == p2.name &&
            p1.phone_number == p2.phone_number &&
            p1.id == p2.id &&
            p1.type == p2.type &&
@@ -68,7 +68,7 @@ bool operator!=(const Passenger &p1, const Passenger &p2) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Passenger &p) {
-    os << p.passenger_name.toStdString() << std::endl;
+    os << p.name.toStdString() << std::endl;
     os << p.id.toStdString() << std::endl;
     os << p.phone_number.toStdString() << std::endl;
     os << p.type.toStdString() << std::endl;
@@ -87,7 +87,7 @@ std::istream &operator>>(std::istream &is, Passenger &p) {
     is >> phoneNumber;
     is >> type;
     is >> username;
-    p.passenger_name = QString::fromStdString(passengerName);
+    p.name = QString::fromStdString(passengerName);
     p.phone_number = QString::fromStdString(phoneNumber);
     p.id = QString::fromStdString(id);
     p.type = QString::fromStdString(type);
