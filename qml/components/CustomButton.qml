@@ -9,6 +9,9 @@ Item {
 
     property bool mouseAreaEnabled: true
 
+    // 新增：开放鼠标形状属性，默认手型
+    property int cursorType: Qt.PointingHandCursor
+
     // 按钮类型：confirm（确认/登录），cancel（取消/注册）
     property string buttonType: "confirm" // "confirm" 或 "cancel"
 
@@ -56,7 +59,8 @@ Item {
             enabled: mouseAreaEnabled
             anchors.fill: parent
             hoverEnabled: true
-            cursorShape: Qt.PointingHandCursor
+            // 绑定到外部可控的 cursorType
+            cursorShape: root.cursorType
             onClicked: root.clicked()
         }
 

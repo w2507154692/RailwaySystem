@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import MyApp 1.0
+import "../components"
 
 // 嵌入式登录页面，不再是窗口，交由外层主窗口控制显示与销毁
 Item {
@@ -162,62 +163,27 @@ Item {
         }
     }
     
-    // 错误提示对话框
-    Dialog {
-        id: errorDialog
-        title: "登录失败"
-        modal: true
-        anchors.centerIn: parent
-        width: 320
-        height: 160
-        
-        contentItem: Rectangle {
-            color: "#ffffff"
-            radius: 8
-            
-            Column {
-                anchors.fill: parent
-                anchors.margins: 20
-                spacing: 20
-                
-                Text {
-                    text: errorMessage
-                    font.pixelSize: 16
-                    font.family: "Microsoft YaHei"
-                    wrapMode: Text.WordWrap
-                    width: parent.width
-                    horizontalAlignment: Text.AlignHCenter
-                }
-                
-                Rectangle {
-                    width: 120
-                    height: 40
-                    radius: 6
-                    color: "#409CFC"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    
-                    Text {
-                        text: "确定"
-                        color: "white"
-                        font.pixelSize: 16
-                        font.family: "Microsoft YaHei"
-                        anchors.centerIn: parent
-                    }
-                    
-                    MouseArea {
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: errorDialog.close()
-                        Keys.onReturnPressed: errorDialog.close() // 增加回车关闭
-                        focus: true // 让 MouseArea 能响应键盘事件
-                    }
-                }
-            }
-        }
-    }
-    
+
     Component.onCompleted: {
         username.forceActiveFocus()
+    }
+
+    Loader {
+        id: warning 
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    // console.log("!!!!!!!!!!!!!!!!!!!!!!")
+                    warning.active = false
+                })
+                // 初始化参数
+                item.contentText = errorMessage
+                item.visible = true
+            }
+        }
     }
 
     function doLogin() {
@@ -239,7 +205,8 @@ Item {
             SessionState.username = username.text
         } else {
             errorMessage = result.message
-            errorDialog.open()
+            warning.source = "qrc:/qml/components/ConfirmDialog.qml"
+            warning.active = true
         }
     }
 }

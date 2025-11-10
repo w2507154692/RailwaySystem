@@ -58,5 +58,7 @@
         <file>qml/SessionState.qml</file>
         <file>qml/components/MyCalendar.qml</file>
         <file>qml/components/MyCheckBox.qml</file>
+        <file>qml/components/ConfirmCancelDialog.qml</file>
+        <file>qml/components/ConfirmDialog.qml</file>
     </qresource>
 </RCC>
