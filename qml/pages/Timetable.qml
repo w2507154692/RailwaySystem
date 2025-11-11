@@ -16,6 +16,4 @@ Window {
         height: parent.height
         showButtons: false
     }
-
-
 }

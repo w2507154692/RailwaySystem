@@ -33,6 +33,20 @@ bool Time::setSecond(int second) {
     return true;
 }
 
+bool Time::isNull() {
+    if (hour == -1 || minute == -1 || second == -1) {
+        return true;
+    }
+    return false;
+}
+
+bool Time::setNull() {
+    hour = -1;
+    minute = -1;
+    second = -1;
+    return true;
+}
+
 bool operator==(const Time &t1, const Time &t2) {
     return t1.hour == t2.hour &&
            t1.minute == t2.minute &&
@@ -60,7 +74,7 @@ bool operator<(const Time &t1, const Time &t2) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Time &t) {
-    if (t.hour == -1 || t.minute == -1 || t.second == -1) {
+    if (t.isNull()) {
         os << "---";
     }
     else {
@@ -76,7 +90,7 @@ std::istream &operator>>(std::istream &is, Time &t) {
     std::string input;
     is >> input;
     if (input == "---") {
-        t.hour = t.minute = t.second = -1;
+        t.setNull();
     } else {
         std::istringstream ss(input);
         char delimiter1, delimiter2;

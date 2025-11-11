@@ -76,6 +76,33 @@ QVariantMap OrderManager::cancelOrder_api(const QString &orderNumber) {
     }
 }
 
+QVariantList OrderManager::getTimetableInfo_api(const QString &orderNumber) {
+    QVariantList list;
+    auto &findResult = getOrderByOrderNumber(orderNumber);
+    if (!findResult) {
+        return list;
+    }
+    Order &order = findResult.value();
+    std::vector<std::tuple<Station, Time, Time, int, QStirng>> info = order.getTimetableInfo();
+    for (auto &t : info) {
+        QVariantMap map;
+        Station station = std::get<0>(t);
+        Time arriveTime = std::get<1>(t);
+        Time departureTime = std::get<2>(t);
+        int stopInterval = std::get<3>(t);
+        QString passInfo = std::get<4>(t);
+        map["stationName"] = station.getStationName();
+        map["arriveHour"] = arriveTime.getHour();
+        map["arriveMinute"] = arriveTime.getMinute();
+        map["departureHour"] = departureTime.getHour();
+        map["departureMinute"] = departureTime.getMinute();
+        map["stopInterval"] = stopInterval;
+        map["passInfo"] = passInfo;
+        list << map;
+    }
+    return list;
+}
+
 std::vector<Order> OrderManager::getOrdersByTrainNumberAndDate(const QString &trainNumber, const Date &date) {
     std::vector<Order> result;
     for (auto &order : orders) {

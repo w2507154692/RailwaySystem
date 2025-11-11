@@ -20,6 +20,7 @@ public:
     std::vector<std::tuple<Station, Station>> getStationPairsBetweenCities(const QString &startCityName, const QString &endCityName);
     int getIndexByStation(const Station &station);
     std::vector<Station> getStationsBetweenStations(const Station &startStation, const Station &endStation);
+    std::vector<std::tuple<Station, Time, Time, int, QString>> getInfo(const Station &startStation, const Station &endStation);
 
     friend bool operator==(const Timetable &t1, const Timetable &t2);
     friend bool operator!=(const Timetable &t1, const Timetable &t2);
