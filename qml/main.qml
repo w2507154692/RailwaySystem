@@ -32,7 +32,7 @@ ApplicationWindow {
                 if (stackView.currentItem && stackView.currentItem.objectName === pageUrl)
                     return
                 stackView.clear()
-                stackView.push(Qt.resolvedUrl(pageUrl))
+                stackView.push(Qt.resolvedUrl(pageUrl), { mainWindow: appWin })
             }
             // 固定宽度由组件内部 width 决定，不再伸展
         }
