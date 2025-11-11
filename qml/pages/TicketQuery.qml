@@ -200,12 +200,8 @@ Page {
                     customColor: "#3B99FB"
                     onClicked: function(){
                         bookingSystem.addQueryHistory_api(pageData.fromCity, pageData.toCity)
-                        ticketResultWin.fromCity = pageData.fromCity
-                        ticketResultWin.toCity = pageData.toCity
-                        ticketResultWin.date = pageData.selectedDate
-                        ticketResultWin.transientParent = mainWindow
-                        ticketResultWin.visible = true
-                        ticketResultWin.queryTickets()
+                        ticketResultLoader.source = "qrc:/qml/pages/TicketQueryResult.qml"
+                        ticketResultLoader.active = true
                     }
                 }
 
@@ -326,11 +322,26 @@ Page {
         }
     }
 
-    Component {
-        id: resultLoader
-        Loader {
-            source: "qrc:/qml/pages/TicketQueryResult.qml"
-            active: false
+    Loader {
+        id: ticketResultLoader
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    // console.log("!!!!!!!!!!!!!!!!!!!!")
+                    ticketResultLoader.active = false
+                })
+                // 初始化参数
+                item.resultData.fromCity = pageData.fromCity
+                item.resultData.toCity = pageData.toCity
+                item.resultData.date = pageData.selectedDate
+                item.transientParent = mainWindow
+                item.queryTickets()
+                item.visible = true
+                console.log("fromCity:", item.resultData.fromCity, "toCity:", item.resultData.toCity, "date:", item.resultData.date)
+            }
         }
     }
 
@@ -341,7 +352,6 @@ Page {
     }
 
     function getDateLabel(selectedDateStr) {
-        // console.log("getDateLabel参数：", selectedDateStr)
         if (!selectedDateStr || selectedDateStr === "") return "111"
         var selected = parseChineseDate(selectedDateStr)
         if (!selected || isNaN(selected.getTime())) return ""
@@ -356,8 +366,4 @@ Page {
         return weekNames[selectedYMD.getDay()]
     }
 
-    TicketQueryResult {
-        id: ticketResultWin
-        // 这里的TicketQueryResult是你的Window类型组件
-    }
 }

@@ -5,16 +5,25 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window {
-    id:resultWin
+    id: resultWin
+    signal closed()
+    onVisibleChanged: if (!visible) closed()
+
     width: 740; height: 640
     minimumWidth: 480; minimumHeight: 360;
     maximumWidth: 1920; maximumHeight: 1440
-    modality: Qt.ApplicationModal
-    visible: false
+    // modality: Qt.ApplicationModal
+    modality: Qt.WindowModal
 
-    property string fromCity: ""
-    property string toCity: ""
-    property string date: ""
+    property alias resultData: resultData
+    QtObject {
+        id: resultData
+        property string fromCity: ""
+        property string toCity: ""
+        property string date: ""
+        property string selectedDate: date
+    }
+
     // 三组互斥：座位、时间、高铁
     property int seatSelected: -1        // 0: 商务座, 1: 一等座, 2: 二等座, -1:未选
     property int timeSelected: -1        // 0: 上午, 1: 下午, -1:未选
@@ -23,8 +32,7 @@ Window {
     property var ticketList: []
 
     Component.onCompleted: {
-        // queryTickets();
-        console.log("fromCity:", fromCity, "toCity:", toCity, "date:", date)
+
     }
 
     color: "#ffffff"
@@ -48,9 +56,25 @@ Window {
                     Layout.preferredHeight: 35
                     Layout.alignment: Qt.AlignHCenter
                     spacing: 40
-                    Text { color: "#ffffff"; text: "北京"; font.bold: false; font.pointSize: 20 }
-                    Text { color: "#ffffff"; text: "<>"; horizontalAlignment: Text.AlignLeft; font.bold: true; font.pointSize: 20 }
-                    Text { color: "#ffffff"; text: "上海"; font.bold: false; font.pointSize: 20 }
+                    Text { color: "#ffffff"; text: resultData.fromCity; font.bold: false; font.pointSize: 20 }
+                    Text { color: "#ffffff"; 
+                    text: "<>"; 
+                    horizontalAlignment: Text.AlignLeft;
+                    font.bold: true;
+                    font.pointSize: 20 
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            // 交换始发地和目的地
+                            var tmp = resultData.fromCity
+                            resultData.fromCity = resultData.toCity
+                            resultData.toCity = tmp
+                            queryTickets()
+                        }
+                    }
+                    }
+                    Text { color: "#ffffff"; text: resultData.toCity; font.bold: false; font.pointSize: 20 }
                 }
 
                 //下部
@@ -63,7 +87,13 @@ Window {
                         Layout.leftMargin: 30
 
                         Text {
-                            text: "日期：2025年6月4日"
+                            text: "日期："
+                            color: "#fff"
+                            font.pixelSize: 18
+
+                        }
+                        Text {
+                            text: resultData.selectedDate
                             color: "#fff"
                             font.pixelSize: 18
 
@@ -73,6 +103,11 @@ Window {
                             Layout.preferredWidth: 60
                             Layout.preferredHeight: 60
                             fillMode: Image.PreserveAspectFit
+                            MouseArea {
+                            anchors.fill: parent
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: calendarDialog.open()
+                        }
                         }
                     }
 
@@ -261,13 +296,40 @@ Window {
         }
     }
 
+        // 日历弹窗（放在Window顶层）
+    Dialog {
+        id: calendarDialog
+        modal: true
+        width: 340
+        height: 370
+
+        // 居中显示
+        x: (ticketQueryPage.width - width) / 2
+        y: (ticketQueryPage.height - height) / 2
+
+        MyCalendar {
+            id: myCalendar
+            anchors.fill: parent
+            Connections {
+                target: myCalendar
+                function onSelectedDateChanged() {
+                    resultData.selectedDate = Qt.formatDate(myCalendar.selectedDate, "yyyy年MM月dd日")
+                    // console.log("选中日期：", myCalendar.selectedDate)
+                    queryTickets()
+                    calendarDialog.close()
+                }
+            }
+        }
+
+    }
+
     function queryTickets() {
-        var dateInt = date.match(/(\d+)年(\d+)月(\d+)日/);
+        var dateInt = resultData.selectedDate.match(/(\d+)年(\d+)月(\d+)日/);
         var year = parseInt(dateInt[1]);
         var month = parseInt(dateInt[2]);
         var day = parseInt(dateInt[3]);
         console.log("year:", year, "month:", month, "day:", day);
-        ticketList = bookingSystem.queryTickets_api(fromCity, toCity, year, month, day);
+        ticketList = bookingSystem.queryTickets_api(resultData.fromCity, resultData.toCity, year, month, day);
     }
 
 }

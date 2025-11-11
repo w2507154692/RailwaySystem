@@ -334,6 +334,7 @@ Item {
                         width: 42
                         height: 21
                         enabled: true
+                        cursorType: ticketData.secondClassCount > 0 ? Qt.PointingHandCursor : Qt.ArrowCursor
                         Layout.row: 0; Layout.column: 3
                         onClicked: {
                             // TODO: 预定操作
@@ -354,6 +355,7 @@ Item {
                         width: 42
                         height: 21
                         enabled: true
+                        cursorType: ticketData.firstClassCount > 0 ? Qt.PointingHandCursor : Qt.ArrowCursor
                         Layout.row: 0; Layout.column: 3
                         onClicked: {
                             // TODO: 预定操作
@@ -374,6 +376,7 @@ Item {
                         width: 42
                         height: 21
                         enabled: true
+                        cursorType: ticketData.businessClassCount > 0 ? Qt.PointingHandCursor : Qt.ArrowCursor
                         Layout.row: 0; Layout.column: 3
                         onClicked: {
                             // TODO: 预定操作
