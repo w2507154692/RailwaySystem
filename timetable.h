@@ -21,6 +21,8 @@ public:
     int getIndexByStation(const Station &station);
     std::vector<Station> getStationsBetweenStations(const Station &startStation, const Station &endStation);
     std::vector<std::tuple<Station, Time, Time, int, QString>> getInfo(const Station &startStation, const Station &endStation);
+    std::tuple<Station, Time, Time> getStartStationInfo();
+    std::tuple<Station, Time, Time> getEndStationInfo();
 
     friend bool operator==(const Timetable &t1, const Timetable &t2);
     friend bool operator!=(const Timetable &t1, const Timetable &t2);

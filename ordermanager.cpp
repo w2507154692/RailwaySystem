@@ -10,7 +10,7 @@ OrderManager::OrderManager(QObject *parent)
     readFromFile("../../data/order.txt");
 }
 
-QVariantList OrderManager::getOrders_api(const QString &username) {
+QVariantList OrderManager::getOrdersByUsername_api(const QString &username) {
     QVariantList list;
     std::vector<Order> findResult = getOrdersByUsername(username);
     for (auto &order : findResult) {
@@ -62,7 +62,7 @@ QVariantMap OrderManager::cancelOrder_api(const QString &orderNumber) {
         Order &order = findResult.value();
         if (order.getStatus() != "待乘坐") {
             result["success"] = false;
-            result["message"] = QString("该订单无法取消！").arg(orderNumber);
+            result["message"] = QString("订单 %1 无法取消！").arg(orderNumber);
             return result;
         }
         cancelOrder(orderNumber);
@@ -100,6 +100,50 @@ QVariantList OrderManager::getTimetableInfo_api(const QString &orderNumber) {
         map["passInfo"] = passInfo;
         list << map;
     }
+    return list;
+}
+
+QVariantList OrderManager::getOrders_api() {
+    QVariantList list;
+    for (auto &order : orders) {
+        QVariantMap map;
+        map["orderNumber"] = order.getOrderNumber();
+        map["trainNumber"] = order.getTrainNumber();
+        map["year"] = order.getDate().getYear();
+        map["month"] = order.getDate().getMonth();
+        map["day"] = order.getDate().getDay();
+        map["seatLevel"] = order.getSeatLevel();
+        map["carriageNumber"] = order.getCarriageNumber();
+        map["seatRow"] = order.getSeatRow();
+        map["seatCol"] = order.getSeatCol();
+        map["price"] = order.getPrice();
+        map["status"] = order.getStatus();
+        map["passengerName"] = order.getPassenger().getName();
+        map["type"] = order.getPassenger().getType();
+
+        Station startSation = order.getStartStation();
+        Station endStation = order.getEndStation();
+        std::tuple<Time, Time, QString> startStationInfo =
+            order.getTimetable().getStationInfo(startSation);
+        std::tuple<Time, Time, QString> endStationInfo =
+            order.getTimetable().getStationInfo(endStation);
+        map["startStationName"] = startSation.getStationName();
+        map["startStationStopInfo"] = std::get<2>(startStationInfo);
+        map["startHour"] = std::get<1>(startStationInfo).getHour();
+        map["startMinute"] = std::get<1>(startStationInfo).getMinute(), 2, 10, QChar('0');
+        map["endStationName"] = endStation.getStationName();
+        map["endStationStopInfo"] = std::get<2>(endStationInfo);
+        map["endHour"] = std::get<0>(endStationInfo).getHour(), 2, 10, QChar('0');
+        map["endMinute"] = std::get<0>(endStationInfo).getMinute(), 2, 10, QChar('0');
+
+        int intervalSeconds = order.getTimetable().getInterval(startSation, endStation);
+        int hours = intervalSeconds / 3600, minutes = (intervalSeconds % 3600) / 60;
+        map["intervalHour"] = hours;
+        map["intervalMinute"] = minutes;
+
+        list << map;
+    }
+
     return list;
 }
 

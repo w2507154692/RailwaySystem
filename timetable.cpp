@@ -123,6 +123,19 @@ std::vector<std::tuple<Station, Time, Time, int, QString>> Timetable::getInfo(co
     return result;
 }
 
+std::tuple<Station, Time> Timetable::getStartStationInfo() {
+    Station startStation = std::get<0>(table[0]);
+    Time departureTime = std::get<2>(table[0]);
+    return std::make_tuple<startStation, departureTime>
+}
+
+std::tuple<Station, Time> Timetable::getEndStationInfo() {
+    int len = table.size();
+    Station endStation = std::get<0>(table[len-1]);
+    Time arriveTime = std::get<2>(table[len-1]);
+    return std::make_tuple<endStation, arriveTime>
+}
+
 bool operator==(const Timetable &t1, const Timetable &t2) {
     return t1.table == t2.table;
 }

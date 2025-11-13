@@ -10,6 +10,35 @@ TrainManager::TrainManager(QObject *parent)
     writeToFile("../../data/train1.txt");
 }
 
+QVariantList TrainManager::getTrains_api() {
+    QVariantList list;
+    for (auto &train : trains) {
+        QVariantMap map;
+        map["trainNumber"] = train.getNumber();
+
+        std::tuple<Station, Time> startStationInfo = train.getTimetable().getStartStationInfo();
+        std::tuple<Station, Time> endStationInfo = train.getTimetable().getEndStationInfo();
+        Station startStation = std::get<0>(startStationInfo);
+        Time startTime = std::get<1>(startStationInfo);
+        Station endStation = std::get<0>(endStationInfo);
+        Time endTime = std::get<1>(endStationInfo);
+        map["startStationName"] = startStation.getStationName();
+        map["startHour"] = startTime.getHour();
+        map["startMinute"] = startTime.getMinute();
+        map["endStationName"] = endStation.getStationName();
+        map["endHour"] = endTime.getHour();
+        map["endMinute"] = endTime.getMinute();
+
+        int intervalSeconds = train.getTimetable().getInterval(startStation, endStation);
+        int hours = intervalSeconds / 3600, minutes = (intervalSeconds % 3600) / 60;
+        map["intervalHour"] = hours;
+        map["intervalMinute"] = minutes;
+
+        list << map;
+    }
+    return list;
+}
+
 std::vector<std::tuple<Train, Station, Station>> TrainManager::getRoutesByCities(const QString &startCityName, const QString &endCityName) {
     std::vector<std::tuple<Train, Station, Station>> result;
     for (auto &train : trains) {

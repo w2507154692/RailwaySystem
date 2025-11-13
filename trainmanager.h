@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <vector>
+#include <QVariantList>
+#include <QVariantMap>
 #include "train.h"
 
 class TrainManager : public QObject
@@ -14,6 +16,7 @@ private:
 
 public:
     explicit TrainManager(QObject *parent = nullptr);
+    Q_INVOKABLE QVariantList getTrains_api();
     std::vector<std::tuple<Train, Station, Station>> getRoutesByCities(const QString &startCityName, const QString &endCityName);
 
 private:

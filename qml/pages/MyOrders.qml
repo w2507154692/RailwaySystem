@@ -179,7 +179,7 @@ Page {
     }
 
     function refreshOrders() {
-        orderList = orderManager.getOrders_api(SessionState.username);
+        orderList = orderManager.getOrdersByUsername_api(SessionState.username);
     }
 
     function cancelOrder(orderNumber) {

@@ -16,9 +16,10 @@ private:
 
 public:
     explicit OrderManager(QObject *parent = nullptr);
-    Q_INVOKABLE QVariantList getOrders_api(const QString &username);
+    Q_INVOKABLE QVariantList getOrdersByUsername_api(const QString &username);
     Q_INVOKABLE QVariantMap cancelOrder_api(const QString &orderNumber);
     Q_INVOKABLE QVariantList getTimetableInfo_api(const QString &orderNumber);
+    Q_INVOKABLE QVariantList getOrders_api();
     std::vector<Order> getOrdersByTrainNumberAndDate(const QString &trainNumber, const Date &date);
 
 private:
