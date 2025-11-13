@@ -3,12 +3,22 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../components"
+import MyApp 1.0
 
 Page {
     id: passengerInfoPage
     objectName:"qrc:/qml/pages/PassengerInfo.qml"
     width: parent ? parent.width :640
     height: parent ? parent.height : 400
+
+    property var passengerList: []
+    property string warningMessage: ""
+    property string notificationMessage: ""
+    property string pendingDeletePassengerId: ""
+
+    Component.onCompleted: {
+        refreshPassengers(SessionState.username)
+    }
 
     // 主内容区
     Rectangle {
@@ -24,8 +34,11 @@ Page {
                 Layout.alignment: Qt.AlignTop
 
                 // 滚动卡片区
-                ScrollView {
-                    id: scrollView
+                ListView {
+                    id: passengerListView
+                    model: passengerList
+                    clip: true
+                    spacing: 15
                     anchors.fill: parent
                     anchors.topMargin: 20
                     anchors.bottomMargin: 20
@@ -41,8 +54,8 @@ Page {
                         handleLength: 60 // 这里设置你想要的长度
                     }
 
-                    ColumnLayout {
-                        width: scrollView.width - 15
+                    delegate: ColumnLayout {
+                        width: passengerListView.width - 15
 
                         // 卡片列表
                         RowLayout{
@@ -53,33 +66,43 @@ Page {
                                 Layout.preferredWidth: 30
                                 Layout.preferredHeight: 30
                                 radius: 18
-                                color: "transparent"
                                 border.color: "transparent"
                                 MouseArea {
+                                    id: mouseAreaDelete
                                     anchors.fill: parent
                                     cursorShape: Qt.PointingHandCursor
                                     onClicked: {
-                                        trainList.splice(index, 1)
+                                        pendingDeletePassengerId = modelData.id
+                                        warningMessage = "确认删除该乘车人？"
+                                        warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
+                                        warning.active = true
                                     }
-                                    Image {
-                                        source: "qrc:/resources/icon/Delete.png"
-                                        anchors.centerIn: parent
-                                        width: 70
-                                        height: 70
-                                    }
+                                }
+                                Image {
+                                    source: "qrc:/resources/icon/Delete.png"
+                                    anchors.centerIn: parent
+                                    width: 70
+                                    height: 70
                                 }
                             }
 
-                            PassengerCard { Layout.fillWidth: true }
+                            PassengerCard {
+                                Layout.fillWidth: true
+                                passengerData: modelData
+                            }
                             // 按钮
                             Rectangle {
                                 Layout.preferredWidth: 60
                                 Layout.preferredHeight: 60
                                 radius: 16
                                 color: "#fff"
-                                // x: mainContent.cardWidth - 60
-                                // y: (parent.height - height) / 2
-                                // z: 1
+                                MouseArea {
+                                    anchors.fill: parent
+                                    cursorShape: Qt.PointingHandCursor
+                                    onClicked: {
+                                        trainList.splice(index, 1)
+                                    }
+                                }
                                 Image {
                                     anchors.centerIn: parent
                                     source: "qrc:/resources/icon/Edit.png"
@@ -88,309 +111,6 @@ Page {
                                 }
                             }
                         }
-                        RowLayout{
-                            Layout.fillWidth: true
-                            // 删除按钮
-                            Rectangle {
-                                Layout.rightMargin: 15
-                                Layout.preferredWidth: 30
-                                Layout.preferredHeight: 30
-                                radius: 18
-                                color: "transparent"
-                                border.color: "transparent"
-                                MouseArea {
-                                    anchors.fill: parent
-                                    cursorShape: Qt.PointingHandCursor
-                                    onClicked: {
-                                        trainList.splice(index, 1)
-                                    }
-                                    Image {
-                                        source: "qrc:/resources/icon/Delete.png"
-                                        anchors.centerIn: parent
-                                        width: 70
-                                        height: 70
-                                    }
-                                }
-                            }
-
-                            PassengerCard { Layout.fillWidth: true }
-                            // 按钮
-                            Rectangle {
-                                Layout.preferredWidth: 60
-                                Layout.preferredHeight: 60
-                                radius: 16
-                                color: "#fff"
-                                // x: mainContent.cardWidth - 60
-                                // y: (parent.height - height) / 2
-                                // z: 1
-                                Image {
-                                    anchors.centerIn: parent
-                                    source: "qrc:/resources/icon/Edit.png"
-                                    width: 60
-                                    height: 60
-                                }
-                            }
-                        }
-                        RowLayout{
-                            Layout.fillWidth: true
-                            // 删除按钮
-                            Rectangle {
-                                Layout.rightMargin: 15
-                                Layout.preferredWidth: 30
-                                Layout.preferredHeight: 30
-                                radius: 18
-                                color: "transparent"
-                                border.color: "transparent"
-                                MouseArea {
-                                    anchors.fill: parent
-                                    cursorShape: Qt.PointingHandCursor
-                                    onClicked: {
-                                        trainList.splice(index, 1)
-                                    }
-                                    Image {
-                                        source: "qrc:/resources/icon/Delete.png"
-                                        anchors.centerIn: parent
-                                        width: 70
-                                        height: 70
-                                    }
-                                }
-                            }
-
-                            PassengerCard { Layout.fillWidth: true }
-                            // 按钮
-                            Rectangle {
-                                Layout.preferredWidth: 60
-                                Layout.preferredHeight: 60
-                                radius: 16
-                                color: "#fff"
-                                // x: mainContent.cardWidth - 60
-                                // y: (parent.height - height) / 2
-                                // z: 1
-                                Image {
-                                    anchors.centerIn: parent
-                                    source: "qrc:/resources/icon/Edit.png"
-                                    width: 60
-                                    height: 60
-                                }
-                            }
-                        }
-                        RowLayout{
-                            Layout.fillWidth: true
-                            // 删除按钮
-                            Rectangle {
-                                Layout.rightMargin: 15
-                                Layout.preferredWidth: 30
-                                Layout.preferredHeight: 30
-                                radius: 18
-                                color: "transparent"
-                                border.color: "transparent"
-                                MouseArea {
-                                    anchors.fill: parent
-                                    cursorShape: Qt.PointingHandCursor
-                                    onClicked: {
-                                        trainList.splice(index, 1)
-                                    }
-                                    Image {
-                                        source: "qrc:/resources/icon/Delete.png"
-                                        anchors.centerIn: parent
-                                        width: 70
-                                        height: 70
-                                    }
-                                }
-                            }
-
-                            PassengerCard { Layout.fillWidth: true }
-                            // 按钮
-                            Rectangle {
-                                Layout.preferredWidth: 60
-                                Layout.preferredHeight: 60
-                                radius: 16
-                                color: "#fff"
-                                // x: mainContent.cardWidth - 60
-                                // y: (parent.height - height) / 2
-                                // z: 1
-                                Image {
-                                    anchors.centerIn: parent
-                                    source: "qrc:/resources/icon/Edit.png"
-                                    width: 60
-                                    height: 60
-                                }
-                            }
-                        }
-                        RowLayout{
-                            Layout.fillWidth: true
-                            // 删除按钮
-                            Rectangle {
-                                Layout.rightMargin: 15
-                                Layout.preferredWidth: 30
-                                Layout.preferredHeight: 30
-                                radius: 18
-                                color: "transparent"
-                                border.color: "transparent"
-                                MouseArea {
-                                    anchors.fill: parent
-                                    cursorShape: Qt.PointingHandCursor
-                                    onClicked: {
-                                        trainList.splice(index, 1)
-                                    }
-                                    Image {
-                                        source: "qrc:/resources/icon/Delete.png"
-                                        anchors.centerIn: parent
-                                        width: 70
-                                        height: 70
-                                    }
-                                }
-                            }
-
-                            PassengerCard { Layout.fillWidth: true }
-                            // 按钮
-                            Rectangle {
-                                Layout.preferredWidth: 60
-                                Layout.preferredHeight: 60
-                                radius: 16
-                                color: "#fff"
-                                // x: mainContent.cardWidth - 60
-                                // y: (parent.height - height) / 2
-                                // z: 1
-                                Image {
-                                    anchors.centerIn: parent
-                                    source: "qrc:/resources/icon/Edit.png"
-                                    width: 60
-                                    height: 60
-                                }
-                            }
-                        }
-                        RowLayout{
-                            Layout.fillWidth: true
-                            // 删除按钮
-                            Rectangle {
-                                Layout.rightMargin: 15
-                                Layout.preferredWidth: 30
-                                Layout.preferredHeight: 30
-                                radius: 18
-                                color: "transparent"
-                                border.color: "transparent"
-                                MouseArea {
-                                    anchors.fill: parent
-                                    cursorShape: Qt.PointingHandCursor
-                                    onClicked: {
-                                        trainList.splice(index, 1)
-                                    }
-                                    Image {
-                                        source: "qrc:/resources/icon/Delete.png"
-                                        anchors.centerIn: parent
-                                        width: 70
-                                        height: 70
-                                    }
-                                }
-                            }
-
-                            PassengerCard { Layout.fillWidth: true }
-                            // 按钮
-                            Rectangle {
-                                Layout.preferredWidth: 60
-                                Layout.preferredHeight: 60
-                                radius: 16
-                                color: "#fff"
-                                // x: mainContent.cardWidth - 60
-                                // y: (parent.height - height) / 2
-                                // z: 1
-                                Image {
-                                    anchors.centerIn: parent
-                                    source: "qrc:/resources/icon/Edit.png"
-                                    width: 60
-                                    height: 60
-                                }
-                            }
-                        }
-                        RowLayout{
-                            Layout.fillWidth: true
-                            // 删除按钮
-                            Rectangle {
-                                Layout.rightMargin: 15
-                                Layout.preferredWidth: 30
-                                Layout.preferredHeight: 30
-                                radius: 18
-                                color: "transparent"
-                                border.color: "transparent"
-                                MouseArea {
-                                    anchors.fill: parent
-                                    cursorShape: Qt.PointingHandCursor
-                                    onClicked: {
-                                        trainList.splice(index, 1)
-                                    }
-                                    Image {
-                                        source: "qrc:/resources/icon/Delete.png"
-                                        anchors.centerIn: parent
-                                        width: 70
-                                        height: 70
-                                    }
-                                }
-                            }
-
-                            PassengerCard { Layout.fillWidth: true }
-                            // 按钮
-                            Rectangle {
-                                Layout.preferredWidth: 60
-                                Layout.preferredHeight: 60
-                                radius: 16
-                                color: "#fff"
-                                // x: mainContent.cardWidth - 60
-                                // y: (parent.height - height) / 2
-                                // z: 1
-                                Image {
-                                    anchors.centerIn: parent
-                                    source: "qrc:/resources/icon/Edit.png"
-                                    width: 60
-                                    height: 60
-                                }
-                            }
-                        }
-                        RowLayout{
-                            Layout.fillWidth: true
-                            // 删除按钮
-                            Rectangle {
-                                Layout.rightMargin: 15
-                                Layout.preferredWidth: 30
-                                Layout.preferredHeight: 30
-                                radius: 18
-                                color: "transparent"
-                                border.color: "transparent"
-                                MouseArea {
-                                    anchors.fill: parent
-                                    cursorShape: Qt.PointingHandCursor
-                                    onClicked: {
-                                        trainList.splice(index, 1)
-                                    }
-                                    Image {
-                                        source: "qrc:/resources/icon/Delete.png"
-                                        anchors.centerIn: parent
-                                        width: 70
-                                        height: 70
-                                    }
-                                }
-                            }
-
-                            PassengerCard { Layout.fillWidth: true }
-                            // 按钮
-                            Rectangle {
-                                Layout.preferredWidth: 60
-                                Layout.preferredHeight: 60
-                                radius: 16
-                                color: "#fff"
-                                // x: mainContent.cardWidth - 60
-                                // y: (parent.height - height) / 2
-                                // z: 1
-                                Image {
-                                    anchors.centerIn: parent
-                                    source: "qrc:/resources/icon/Edit.png"
-                                    width: 60
-                                    height: 60
-                                }
-                            }
-                        }
-
-                        // ...更多卡片
                     }
                 }
             }
@@ -438,7 +158,6 @@ Page {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-
                         }
                     }
                 }
@@ -446,11 +165,54 @@ Page {
        }
     }
 
-    // 示例乘车人模型
-    ListModel {
-        id: passengerModel
-        ListElement { name: "张三"; idCard: "123456"; phone: "13800000000" }
-        ListElement { name: "李四"; idCard: "223456"; phone: "13900000000" }
-        ListElement { name: "王五"; idCard: "323456"; phone: "13700000000" }
+    Loader {
+        id: warning
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.canceled.connect(function() {
+                    warning.active = false
+                })
+                // 连接确认信号
+                item.confirmed.connect(function() {
+                    warning.active = false
+                    deletePassenger(SessionState.username, pendingDeletePassengerId)
+                })
+                // 初始化参数
+                item.contentText = warningMessage
+                item.visible = true
+            }
+        }
+    }
+
+    Loader {
+            id: notification
+            source: ""
+            active: false
+            onLoaded: {
+                if (item) {
+                    // 连接关闭信号
+                    item.closed.connect(function() {
+                        notification.active = false
+                    })
+                    // 初始化参数
+                    item.contentText = notificationMessage
+                    item.visible = true
+                }
+            }
+        }
+
+    function refreshPassengers(username) {
+        passengerList = passengerManager.getPassengersByUsername_api(username)
+    }
+
+    function deletePassenger(username, id) {
+        passengerManager.deletePassenger_api(username, id)
+        refreshPassengers(username)
+        notificationMessage = "乘车人删除成功！"
+        notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+        notification.active = true
     }
 }

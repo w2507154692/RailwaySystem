@@ -3,8 +3,17 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Item {
-    // width: 800
+    // width: parent ? parent.width : 800
+    // height: parent ? parent.height : 79
+    width: 800
     height: 79
+
+    property var passengerData: ({
+        name: "张三张三三",
+        phoneNumber: "17816936112",
+        id: "412828200507112111",
+        type: "学生票"
+    })
 
     // 卡片 + 按钮
     RowLayout {
@@ -53,7 +62,7 @@ Item {
                         Text {
                             Layout.preferredWidth: 100
                             Layout.preferredHeight: 23
-                            text: "王宇豪"
+                            text: passengerData.name
                             font.pixelSize: 18
                             color: "#222"
                         }
@@ -79,7 +88,7 @@ Item {
                         Text {
                             Layout.preferredWidth: 200
                             Layout.preferredHeight: 23
-                            text: "412828200507112111"
+                            text: passengerData.id
                             font.pixelSize: 18
                             color: "#222"
                         }
@@ -93,7 +102,7 @@ Item {
                     // 第一行文本
                     RowLayout {
                         Text {
-                            Layout.preferredWidth: 70
+                            Layout.preferredWidth: 90
                             Layout.preferredHeight: 23
                             text: "联系方式："
                             font.pixelSize: 18
@@ -103,7 +112,7 @@ Item {
                         Text {
                             Layout.preferredWidth: 150
                             Layout.preferredHeight: 23
-                            text: "    17816936112"
+                            text: passengerData.phoneNumber
                             font.pixelSize: 18
                             color: "#222"
                         }
@@ -129,7 +138,7 @@ Item {
                         Text {
                             Layout.preferredWidth: 100
                             Layout.preferredHeight: 23
-                            text: "学生"
+                            text: passengerData.type
                             font.pixelSize: 18
                             color: "#222"
                         }

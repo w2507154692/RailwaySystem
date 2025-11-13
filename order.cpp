@@ -177,7 +177,7 @@ bool operator!=(const Order &o1, const Order &o2) {
 
 std::ostream &operator<<(std::ostream &os, Order &o) {
     os << o.order_number.toStdString() << " " << o.train_number.toStdString() << " " << std::endl
-       << o.passenger
+       << o.passenger << std::endl
        << std::fixed << std::setprecision(2) << o.price << " " << o.date << std::endl
        << o.start_station << std::endl
        << o.end_station << std::endl

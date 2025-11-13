@@ -68,11 +68,11 @@ bool operator!=(const Passenger &p1, const Passenger &p2) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Passenger &p) {
-    os << p.name.toStdString() << std::endl;
-    os << p.id.toStdString() << std::endl;
-    os << p.phone_number.toStdString() << std::endl;
-    os << p.type.toStdString() << std::endl;
-    os << p.username.toStdString() << std::endl;
+    os << p.name.toStdString() << " ";
+    os << p.id.toStdString() << " ";
+    os << p.phone_number.toStdString() << " ";
+    os << p.type.toStdString() << " ";
+    os << p.username.toStdString();
     return os;
 }
 

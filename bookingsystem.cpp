@@ -11,8 +11,14 @@ BookingSystem::BookingSystem(StationManager* stationManager,
                                 OrderManager* orderManager,
                                 TrainManager* trainManager,
                                 AccountManager* accountManager,
+                                PassengerManager *passengerManager,
                                 QObject* parent)
-    :station_manager(stationManager), order_manager(orderManager), train_manager(trainManager), account_manager(accountManager), QObject{parent}
+    :station_manager(stationManager),
+    order_manager(orderManager),
+    train_manager(trainManager),
+    account_manager(accountManager),
+    passenger_manager(passengerManager),
+    QObject{parent}
 {
     // 获取当前时间戳
     std::time_t t = std::time(nullptr);

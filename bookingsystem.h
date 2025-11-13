@@ -8,6 +8,7 @@
 #include "ordermanager.h"
 #include "trainmanager.h"
 #include "accountmanager.h"
+#include "passengermanager.h"
 
 class BookingSystem : public QObject
 {
@@ -19,6 +20,7 @@ private:
     OrderManager *order_manager = nullptr;
     TrainManager *train_manager = nullptr;
     AccountManager *account_manager = nullptr;
+    PassengerManager *passenger_manager = nullptr;
     Date today;
     std::queue<std::tuple<City, City>> query_history;
 public:
@@ -26,6 +28,7 @@ public:
                             OrderManager* orderManager,
                             TrainManager* trainManager,
                             AccountManager* accountManager,
+                            PassengerManager* passengerManager,
                             QObject *parent = nullptr);
     Q_INVOKABLE QVariantList getQueryHistory_api();
     Q_INVOKABLE bool addQueryHistory_api(const QString &startCityName, const QString &endCityName);

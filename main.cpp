@@ -8,6 +8,7 @@
 #include "ordermanager.h"
 #include "bookingsystem.h"
 #include "trainmanager.h"
+#include "passengermanager.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,12 +23,18 @@ int main(int argc, char *argv[])
     OrderManager* orderManager = new OrderManager;
     TrainManager* trainManager = new TrainManager;
     AccountManager* accountManager = new AccountManager;
-    BookingSystem* bookingSystem = new BookingSystem(stationManager, orderManager, trainManager, accountManager);
+    PassengerManager* passengerManager = new PassengerManager;
+    BookingSystem* bookingSystem = new BookingSystem(stationManager,
+                                                     orderManager,
+                                                     trainManager,
+                                                     accountManager,
+                                                     passengerManager);
     engine.rootContext()->setContextProperty("stationManager", stationManager);
     engine.rootContext()->setContextProperty("orderManager", orderManager);
     engine.rootContext()->setContextProperty("trainManager", trainManager);
     engine.rootContext()->setContextProperty("bookingSystem", bookingSystem);
     engine.rootContext()->setContextProperty("accountManager", accountManager);
+    engine.rootContext()->setContextProperty("passengerManager", passengerManager);
     qmlRegisterSingletonType(QUrl("qrc:/qml/SessionState.qml"), "MyApp", 1, 0, "SessionState");
 
     // 直接加载主窗口（包含嵌入式登录页面）
