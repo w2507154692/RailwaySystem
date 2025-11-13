@@ -3,6 +3,7 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../components"
+import MyApp 1.0
 
 Page{
     width: parent ? parent.width : 1080
@@ -10,6 +11,16 @@ Page{
     id:profilePage
     objectName: "qrc:/qml/pages/Profile.qml"
     visible: true
+
+    property var profileData: ({
+        name: "张三张三张三",
+        phoneNumber: "17816936112",
+        id: "412828200507112111",
+        })
+
+    Component.onCompleted: {
+        getProfile(SessionState.username)
+    }
 
     RowLayout {
         anchors.fill: parent
@@ -49,7 +60,7 @@ Page{
                                     color: "#222"
                                 }
                                 Text {
-                                    text: "王宇豪"
+                                    text: profileData.name
                                     font.pixelSize: 20
                                     color: "#222"
                                 }
@@ -60,7 +71,7 @@ Page{
                                     color: "#222"
                                 }
                                 Text {
-                                    text: "17816936112"
+                                    text: profileData.phoneNumber
                                     font.pixelSize: 20
                                     color: "#222"
                                 }
@@ -72,7 +83,7 @@ Page{
                                     color: "#222"
                                 }
                                 Text {
-                                    text: "412828200507112111"
+                                    text: profileData.id
                                     font.pixelSize: 20
                                     color: "#222"
                                 }
@@ -102,6 +113,12 @@ Page{
                                 anchors.centerIn: parent
                                 source: "qrc:/resources/icon/Edit.png"
                                 width:60; height:60
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: {
+                                }
                             }
                         }
                     }
@@ -143,5 +160,10 @@ Page{
                 }
             }
         }
+    }
+
+    function getProfile(username) {
+        var result = accountManager.getUserProfile_api(username)
+        profileData = result
     }
 }

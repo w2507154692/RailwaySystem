@@ -64,6 +64,19 @@ QVariantMap AccountManager::loginAdmin_api(const QString &username, const QStrin
     }
 }
 
+QVariantMap AccountManager::getUserProfile_api(const QString &username) {
+    QVariantMap result;
+    auto findResult = findUserByUsername(username);
+    if (findResult) {
+        User user = findResult.value();
+        result["name"] = user.getProfile().getName();
+        result["phoneNumber"] = user.getProfile().getPhoneNumber();
+        result["id"] = user.getProfile().getId();
+        return result;
+    }
+    return result;
+}
+
 
 std::optional<User> AccountManager::findUserByUsername(const QString &username) {
     for (auto &user : users) {

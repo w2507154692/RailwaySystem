@@ -30,74 +30,111 @@ Page {
     Rectangle {
         anchors.fill: parent
 
-        // 滚动卡片区
-        ListView {
-            id: orderListView
-            model: orderList
-            clip: true
-            spacing: 15
+        ColumnLayout {
             anchors.fill: parent
-            anchors.topMargin: 20
-            anchors.bottomMargin: 20
             anchors.leftMargin: 20
 
-            // 完全自定义滚动条样式
-            ScrollBar.vertical: BasicScrollBar {
-                width: 8
-                anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
-                height: parent.height - 8
-                policy: ScrollBar.AlwaysOn
-                handleNormalColor: "#a0a0a0"
-                handleLength: 60 // 这里设置你想要的长度
-            }
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.preferredHeight: myOrdersPage.height - 70
+                Layout.alignment: Qt.AlignTop
 
-            delegate: ColumnLayout {
-                width: orderListView.width - 30
+                // 滚动卡片区
+                ListView {
+                    id: orderListView
+                    model: orderList
+                    clip: true
+                    spacing: 15
+                    anchors.fill: parent
+                    anchors.topMargin: 20
+                    anchors.bottomMargin: 20
 
-                RowLayout {
-                    Layout.fillWidth: true
-
-                    OrderCard {
-                        Layout.preferredWidth: 675
-                        orderData: modelData
+                    // 完全自定义滚动条样式
+                    ScrollBar.vertical: BasicScrollBar {
+                        width: 8
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        height: parent.height - 8
+                        policy: ScrollBar.AlwaysOn
+                        handleNormalColor: "#a0a0a0"
+                        handleLength: 60 // 这里设置你想要的长度
                     }
 
-                    Item {
-                        Layout.fillWidth: true
-                    }
+                    delegate: ColumnLayout {
+                        width: orderListView.width - 30
 
-                    ColumnLayout {
-                        CustomButton {
-                            Layout.preferredWidth: 110
-                            Layout.preferredHeight: 35
-                            text: "改签"
-                            activeFocusOnTab: true
-                            onClicked: {
-                                // 改签逻辑
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            OrderCard {
+                                Layout.preferredWidth: 675
+                                orderData: modelData
                             }
-                        }
-                        Item{
-                            Layout.preferredHeight: 20
-                        }
-                        CustomButton {
-                            Layout.preferredWidth: 110
-                            Layout.preferredHeight: 35
-                            text: "退票"
-                            activeFocusOnTab: true
-                            mouseAreaEnabled: modelData.status === "待乘坐"
-                            customColor: modelData.status === "待乘坐" ? "#409CFC" : "#808080"
-                            pressedColor: modelData.status === "待乘坐" ? "#174a73" : "#808080"
-                            hoverColor: modelData.status === "待乘坐" ? "#1f5f99" : "#808080"
-                            onClicked: {
-                                pendingCancelOrderNumber = modelData.orderNumber
-                                warningMessage = "确认取消该订单？"
-                                warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
-                                warning.active = true
+
+                            Item {
+                                Layout.fillWidth: true
+                            }
+
+                            ColumnLayout {
+                                CustomButton {
+                                    Layout.preferredWidth: 110
+                                    Layout.preferredHeight: 35
+                                    text: "改签"
+                                    activeFocusOnTab: true
+                                    onClicked: {
+                                        // 改签逻辑
+                                    }
+                                }
+                                Item{
+                                    Layout.preferredHeight: 20
+                                }
+                                CustomButton {
+                                    Layout.preferredWidth: 110
+                                    Layout.preferredHeight: 35
+                                    text: "退票"
+                                    activeFocusOnTab: true
+                                    mouseAreaEnabled: modelData.status === "待乘坐"
+                                    customColor: modelData.status === "待乘坐" ? "#409CFC" : "#808080"
+                                    pressedColor: modelData.status === "待乘坐" ? "#174a73" : "#808080"
+                                    hoverColor: modelData.status === "待乘坐" ? "#1f5f99" : "#808080"
+                                    onClicked: {
+                                        pendingCancelOrderNumber = modelData.orderNumber
+                                        warningMessage = "确认取消该订单？"
+                                        warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
+                                        warning.active = true
+                                    }
+                                }
                             }
                         }
                     }
                 }
+            }
+
+            // 分割线
+            Rectangle {
+                id: rectangle
+                Layout.fillWidth: true
+                Layout.preferredHeight: 1
+                Layout.rightMargin: 30
+                Layout.topMargin: -20
+                color: "#cce5ff"
+            }
+
+            // 搜索框
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 48
+                Layout.bottomMargin: 20
+                spacing: 0
+
+                // 搜索框
+                SearchBar{
+                    inputHeight: 30
+                    width: 300
+                    fontSize: 14
+                }
+
+                Item { Layout.fillWidth: true }
             }
         }
     }
