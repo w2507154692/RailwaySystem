@@ -111,10 +111,10 @@ std::vector<std::tuple<Station, Time, Time, int, QString>> Timetable::getInfo(co
             stopInterval = -1;
         }
         else if (departureTime < arriveTime) {
-            stopInterval = (arriveTime - stopInterval + 24 * 60 * 60) / 60;
+            stopInterval = (departureTime - arriveTime + 24 * 60 * 60) / 60;
         }
         else {
-            stopInterval = (arriveTime - stopInterval) / 60;
+            stopInterval = (departureTime - arriveTime) / 60;
         }
 
         std::tuple<Station, Time, Time, int, QString> t = std::make_tuple(std::get<0>(table[i]), arriveTime, departureTime, stopInterval, info);
@@ -131,12 +131,12 @@ bool operator!=(const Timetable &t1, const Timetable &t2) {
     return !(t1 == t2);
 }
 
-std::ostream &operator<<(std::ostream &os, const Timetable &timetable) {
+std::ostream &operator<<(std::ostream &os, Timetable &timetable) {
     os << timetable.table.size() << std::endl;
-    for (const auto &entry : timetable.table) {
-        const Station &station = std::get<0>(entry);
-        const Time &arrival = std::get<1>(entry);
-        const Time &departure = std::get<2>(entry);
+    for (auto &entry : timetable.table) {
+        Station &station = std::get<0>(entry);
+        Time &arrival = std::get<1>(entry);
+        Time &departure = std::get<2>(entry);
         os << station << " " << arrival << " " << departure << std::endl;
     }
     return os;

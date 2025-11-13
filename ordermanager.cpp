@@ -78,12 +78,12 @@ QVariantMap OrderManager::cancelOrder_api(const QString &orderNumber) {
 
 QVariantList OrderManager::getTimetableInfo_api(const QString &orderNumber) {
     QVariantList list;
-    auto &findResult = getOrderByOrderNumber(orderNumber);
+    auto findResult = getOrderByOrderNumber(orderNumber);
     if (!findResult) {
         return list;
     }
     Order &order = findResult.value();
-    std::vector<std::tuple<Station, Time, Time, int, QStirng>> info = order.getTimetableInfo();
+    std::vector<std::tuple<Station, Time, Time, int, QString>> info = order.getTimetableInfo();
     for (auto &t : info) {
         QVariantMap map;
         Station station = std::get<0>(t);
@@ -163,7 +163,7 @@ bool OrderManager::writeToFile(const char filename[]) {
         qWarning() << "无法打开订单文件进行写入！";
         return false;
     }
-    for (const auto &order : orders) {
+    for (auto &order : orders) {
         fos << order << std::endl;
     }
     return true;

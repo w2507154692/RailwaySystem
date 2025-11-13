@@ -26,7 +26,7 @@ public:
     friend bool operator!=(const Time &t1, const Time &t2);
     friend int operator-(const Time &t1, const Time &t2);
     friend bool operator<(const Time &t1, const Time &t2);
-    friend std::ostream &operator<<(std::ostream &os, const Time &t);
+    friend std::ostream &operator<<(std::ostream &os, Time &t);
     friend std::istream &operator>>(std::istream &is, Time &t);
 };
 

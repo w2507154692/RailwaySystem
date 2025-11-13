@@ -80,11 +80,11 @@ std::istream &operator>>(std::istream &is, Train &train) {
     return is;
 }
 
-std::ostream &operator<<(std::ostream &os, const Train &train) {
+std::ostream &operator<<(std::ostream &os, Train &train) {
     os << train.number.toStdString() << std::endl;
     os << train.timetable;
     os << train.carriages.size() << std::endl;
-    for (const auto &carriage : train.carriages) {
+    for (auto &carriage : train.carriages) {
         os << std::get<0>(carriage).toStdString() << " "
            << std::get<1>(carriage) << " "
            << std::get<2>(carriage) << std::endl;

@@ -15,6 +15,9 @@ Page {
     visible: true
 
     property var orderList: []
+    property string warningMessage: ""
+    property string notificationMessage: ""
+    property string pendingCancelOrderNumber: ""
 
     Component.onCompleted: {
         refreshOrders()
@@ -87,9 +90,10 @@ Page {
                             pressedColor: modelData.status === "待乘坐" ? "#174a73" : "#808080"
                             hoverColor: modelData.status === "待乘坐" ? "#1f5f99" : "#808080"
                             onClicked: {
-                                var result = orderManager.cancelOrder_api(modelData.orderNumber)
-                                console.log(result.message)
-                                refreshOrders()
+                                pendingCancelOrderNumber = modelData.orderNumber
+                                warningMessage = "确认取消该订单？"
+                                warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
+                                warning.active = true
                             }
                         }
                     }
@@ -98,7 +102,54 @@ Page {
         }
     }
 
+    Loader {
+        id: warning
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.canceled.connect(function() {
+                    warning.active = false
+                })
+                // 连接确认信号
+                item.confirmed.connect(function() {
+                    warning.active = false
+                    cancelOrder(pendingCancelOrderNumber)
+                })
+                // 初始化参数
+                item.contentText = warningMessage
+                item.visible = true
+            }
+        }
+    }
+
+    Loader {
+        id: notification
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    notification.active = false
+                })
+                // 初始化参数
+                item.contentText = notificationMessage
+                item.visible = true
+            }
+        }
+    }
+
     function refreshOrders() {
         orderList = orderManager.getOrders_api(SessionState.username);
+    }
+
+    function cancelOrder(orderNumber) {
+        orderManager.cancelOrder_api(orderNumber)
+        refreshOrders()
+        notificationMessage = "订单取消成功！"
+        notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+        notification.active = true
     }
 }

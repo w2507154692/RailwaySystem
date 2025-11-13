@@ -24,7 +24,7 @@ public:
 
     friend bool operator==(const Timetable &t1, const Timetable &t2);
     friend bool operator!=(const Timetable &t1, const Timetable &t2);
-    friend std::ostream &operator<<(std::ostream &os, const Timetable &timetable);
+    friend std::ostream &operator<<(std::ostream &os, Timetable &timetable);
     friend std::istream &operator>>(std::istream &is, Timetable &timetable);
 };
 

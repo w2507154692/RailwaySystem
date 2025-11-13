@@ -133,7 +133,7 @@ Item {
                                     horizontalAlignment: Text.AlignLeft
                                     Layout.preferredWidth: 75
                                     text: orderData.startStationName + "（" + orderData.startStationStopInfo + "）";
-                                    font.pixelSize: 9; color: "#222";
+                                    font.pixelSize: 11; color: "#222";
                                     elide: Text.ElideRight
                                     wrapMode: Text.NoWrap
                                     clip: true
@@ -188,7 +188,7 @@ Item {
                                     Layout.preferredWidth: 75
                                     text: "（" + orderData.endStationStopInfo + "）" +
                                           orderData.endStationName
-                                    font.pixelSize: 9; color: "#222";
+                                    font.pixelSize: 11; color: "#222";
                                     elide: Text.ElideLeft
                                     wrapMode: Text.NoWrap
                                     clip: true

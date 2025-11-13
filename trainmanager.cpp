@@ -43,7 +43,7 @@ bool TrainManager::writeToFile(const char filename[]) {
         qWarning() << "无法打开列车文件进行写入！";
         return false;
     }
-    for (const auto &train : trains) {
+    for (auto &train : trains) {
         fos << train << std::endl;
     }
     return true;

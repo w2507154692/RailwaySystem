@@ -73,7 +73,7 @@ bool operator<(const Time &t1, const Time &t2) {
     return t1.second < t2.second;
 }
 
-std::ostream &operator<<(std::ostream &os, const Time &t) {
+std::ostream &operator<<(std::ostream &os, Time &t) {
     if (t.isNull()) {
         os << "---";
     }

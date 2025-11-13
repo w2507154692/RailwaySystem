@@ -8,8 +8,7 @@ Window {
     property string contentText: "主内容iahfahfahfafhoiashfdoaosigfasu;dg;oihf;HF;AOSIHF;Oaifh;ohi"
     signal confirmed()
     signal canceled()
-    signal closed()
-    onVisibleChanged: if (!visible) closed()
+    onVisibleChanged: if (!visible) canceled()
 
     width: 320
     height: 180
@@ -40,11 +39,6 @@ Window {
                 color: "#1a252f"
                 horizontalAlignment: Text.AlignHCenter
                 Layout.alignment: Qt.AlignHCenter
-
-                onClicked: {
-                    confirmed()
-                    closed()
-                }
             }
 
             Item {
@@ -62,6 +56,10 @@ Window {
                     buttonType: "confirm"
                     width: 100
                     text: "确认"
+
+                    onClicked: {
+                        confirmed()
+                    }
                 }
 
                 Item{
@@ -75,7 +73,6 @@ Window {
 
                     onClicked:{
                         canceled()
-                        closed()
                     }
                 }
             }

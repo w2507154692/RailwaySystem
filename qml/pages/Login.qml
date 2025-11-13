@@ -176,7 +176,6 @@ Item {
             if (item) {
                 // 连接关闭信号
                 item.closed.connect(function() {
-                    // console.log("!!!!!!!!!!!!!!!!!!!!!!")
                     warning.active = false
                 })
                 // 初始化参数

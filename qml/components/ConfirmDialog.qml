@@ -6,8 +6,6 @@ Window {
     id: confirmWin
     title: "确认"
     property string contentText: "主内容iahfahfahfafhoiashfdoaosigfasu;dg;oihf;HF;AOSIHF;Oaifh;ohi"
-    signal confirmed()
-    signal canceled()
     signal closed()
     onVisibleChanged: if (!visible) closed()
 
@@ -56,7 +54,6 @@ Window {
                 text: "确认"
 
                 onClicked: {
-                    confirmed()
                     closed()
                 }
             }

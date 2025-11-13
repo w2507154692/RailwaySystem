@@ -26,7 +26,7 @@ public:
     friend bool operator!=(const Train &t1, const Train &t2);
 
     friend std::istream &operator>>(std::istream &is, Train &train);
-    friend std::ostream &operator<<(std::ostream &os, const Train &train);
+    friend std::ostream &operator<<(std::ostream &os, Train &train);
 };
 
 #endif // TRAIN_H

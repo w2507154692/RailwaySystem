@@ -65,7 +65,7 @@ public:
 
     friend bool operator==(const Order &o1, const Order &o2);
     friend bool operator!=(const Order &o1, const Order &o2);
-    friend std::ostream &operator<<(std::ostream &os, const Order &o);
+    friend std::ostream &operator<<(std::ostream &os, Order &o);
     friend std::istream &operator>>(std::istream &is, Order &o);
 };
 
