@@ -150,9 +150,6 @@ bool Order::setUsername(const QString &username) {
     return true;
 }
 
-std::vector<std::tuple<Station, Time, Time, int, QString>> Order::getTimetableInfo() {
-    return timetable.getInfo(start_station, end_station);
-}
 
 bool operator==(const Order &o1, const Order &o2) {
     return o1.order_number == o2.order_number &&

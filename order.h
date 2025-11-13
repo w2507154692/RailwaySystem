@@ -61,8 +61,6 @@ public:
     QString getUsername();
     bool setUsername(const QString &username);
 
-    std::vector<std::tuple<Station, Time, Time, int, QString>> getTimetableInfo();
-
     friend bool operator==(const Order &o1, const Order &o2);
     friend bool operator!=(const Order &o1, const Order &o2);
     friend std::ostream &operator<<(std::ostream &os, Order &o);
