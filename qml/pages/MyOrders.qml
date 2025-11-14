@@ -61,6 +61,12 @@ Page {
                     OrderCard {
                         Layout.preferredWidth: 675
                         orderData: modelData
+                        context: "myOrders"
+                        orderData: modelData
+                        onShowTimetable: function(param) {
+                             // param.orderNumber
+                             showTimetableByOrderNumber(param.orderNumber)
+                      }
                     }
 
                     Item {
