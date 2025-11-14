@@ -74,6 +74,9 @@ Page {
                                     fontSize: 15
                                     borderRadius: 7
                                     buttonType: "confirm"
+                                    onClicked: {
+                                        showTimetable(trainNo)
+                                    }
                                 }
                                 CustomButton {
                                     text: "座位模板"

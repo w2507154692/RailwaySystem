@@ -222,6 +222,9 @@ Window {
                             Layout.topMargin: 15
                             visible: true
                             ticketData: modelData
+                            onShowTimetable: function(trainNumber, startStation, endStation) {
+                                // 打开时刻表窗口
+                            }
                         }
                     }
                 }

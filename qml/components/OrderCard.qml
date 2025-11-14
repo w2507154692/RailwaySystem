@@ -35,6 +35,10 @@ Item {
         intervalMinute: 25,
     })
 
+    signal showTimetable(var param)                 //时刻表信号
+    
+    property string context: ""                     // "submitOrder" 或 "myOrders"告诉其在哪个页面
+
     RowLayout {
         anchors.fill: parent
 
@@ -294,6 +298,19 @@ Item {
                                 borderRadius: 5
                                 borderColor: "#666"
                                 borderWidth: 2
+                                onClicked: {
+                                    if (context === "submitOrder") {
+                                        showTimetable({
+                                            trainNumber: orderData.trainNumber,
+                                            startStation: orderData.startStationName,
+                                            endStation: orderData.endStationName
+                                        })
+                                    } else if (context === "myOrders") {
+                                        showTimetable({
+                                            orderNumber: orderData.orderNumber
+                                        })
+                                    }
+                                }
                             }
                         }
                     }

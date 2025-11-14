@@ -95,18 +95,42 @@ Window{
                         OrderCard {
                             Layout.fillWidth: true
                             visible: true
+                            context: "submitOrder"
+                            orderData: modelData
+                            onShowTimetable: function(param) {
+                                // param.trainNumber, param.startStation, param.endStation
+                                showTimetableByTrainAndStations(param.trainNumber, param.startStation, param.endStation)
+                            }
                         }
                         OrderCard {
                             Layout.fillWidth: true
                             visible: true
+                            context: "submitOrder"
+                            orderData: modelData
+                            onShowTimetable: function(param) {
+                                // param.trainNumber, param.startStation, param.endStation
+                                showTimetableByTrainAndStations(param.trainNumber, param.startStation, param.endStation)
+                            }
                         }
                         OrderCard {
                             Layout.fillWidth: true
                             visible: true
+                            context: "submitOrder"
+                            orderData: modelData
+                            onShowTimetable: function(param) {
+                                // param.trainNumber, param.startStation, param.endStation
+                                showTimetableByTrainAndStations(param.trainNumber, param.startStation, param.endStation)
+                            }
                         }
                         OrderCard {
                             Layout.fillWidth: true
                             visible: true
+                            context: "submitOrder"
+                            orderData: modelData
+                            onShowTimetable: function(param) {
+                                // param.trainNumber, param.startStation, param.endStation
+                                showTimetableByTrainAndStations(param.trainNumber, param.startStation, param.endStation)
+                            }
                         }
                     }
                 }

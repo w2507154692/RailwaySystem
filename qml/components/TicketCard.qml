@@ -27,6 +27,8 @@ Item {
         businessClassCount: 0,
     })
 
+    signal showTimetable(string trainNumber, string startStation, string endStation)
+
     Rectangle {
         anchors.fill: parent
         // width: parent.width - 40
@@ -135,9 +137,7 @@ Item {
                             pressedColor: "#b3d1ff"
                             textColor: "#888"
                             pressedTextColor: "#222"
-                            onClicked: {
-                                // TODO: 打开时刻表
-                            }
+                            onClicked: showTimetable(ticketData.trainNumber, ticketData.startStationName, ticketData.endStationName)
                         }
                     }
                     // 到达时间
