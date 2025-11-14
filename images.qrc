@@ -60,5 +60,6 @@
         <file>qml/components/MyCheckBox.qml</file>
         <file>qml/components/ConfirmCancelDialog.qml</file>
         <file>qml/components/ConfirmDialog.qml</file>
+        <file>qml/components/TrainCard.qml</file>
     </qresource>
 </RCC>

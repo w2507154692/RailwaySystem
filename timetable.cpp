@@ -132,7 +132,7 @@ std::tuple<Station, Time> Timetable::getStartStationInfo() {
 std::tuple<Station, Time> Timetable::getEndStationInfo() {
     int len = table.size();
     Station endStation = std::get<0>(table[len-1]);
-    Time arriveTime = std::get<2>(table[len-1]);
+    Time arriveTime = std::get<1>(table[len-1]);
     return std::make_tuple(endStation, arriveTime);
 }
 

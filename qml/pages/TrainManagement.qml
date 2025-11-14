@@ -11,61 +11,14 @@ Page {
     objectName: "qrc:/qml/pages/TrainManagement.qml"
     visible: true
 
-    property var trainList: [
-        {
-            from: "北京南",
-            to: "上海虹桥",
-            depart: "09:10",
-            arrive: "15:17",
-            trainNo: "G115",
-            duration: "6小时7分"
-        },
-        {
-            from: "北京南",
-            to: "上海虹桥",
-            depart: "09:10",
-            arrive: "15:17",
-            trainNo: "G115",
-            duration: "6小时7分"
-        },
-        {
-            from: "北京南",
-            to: "上海虹桥",
-            depart: "09:10",
-            arrive: "15:17",
-            trainNo: "G115",
-            duration: "6小时7分"
-        },        {
-            from: "北京南",
-            to: "上海虹桥",
-            depart: "09:10",
-            arrive: "15:17",
-            trainNo: "G115",
-            duration: "6小时7分"
-        },        {
-            from: "北京南",
-            to: "上海虹桥",
-            depart: "09:10",
-            arrive: "15:17",
-            trainNo: "G115",
-            duration: "6小时7分"
-        },        {
-            from: "北京南",
-            to: "上海虹桥",
-            depart: "09:10",
-            arrive: "15:17",
-            trainNo: "G115",
-            duration: "6小时7分"
-        },        {
-            from: "北京南",
-            to: "上海虹桥",
-            depart: "09:10",
-            arrive: "15:17",
-            trainNo: "G115",
-            duration: "6小时7分"
-        },
+    property var trainList: []
+    property string warningMessage: ""
+    property string notificationMessage: ""
+    property string pendingCancelOrderNumber: ""
 
-    ]
+    Component.onCompleted: {
+        refreshTrains()
+    }
 
     RowLayout {
         anchors.fill: parent
@@ -90,7 +43,7 @@ Page {
                         id: trainListView
                         anchors.fill: parent
                         model: trainList
-                        spacing: 10
+                        spacing: 15
                         clip: true
 
                         // 完全自定义滚动条样式
@@ -137,101 +90,9 @@ Page {
                             }
 
                             // 车次卡片内容
-                            Rectangle {
+                            TrainCard {
                                 Layout.fillWidth: true
-                                height: 90
-                                radius: 16
-                                gradient: Gradient {
-                                    GradientStop { position: 0.0; color: "#ffffff" }
-                                    GradientStop { position: 1.0; color: "#cce5ff" }
-                                }
-                                border.color: "#b3d1f7"
-                                border.width: 1
-
-                                RowLayout {
-                                    anchors.fill: parent
-                                    anchors.leftMargin: 30
-                                    anchors.rightMargin: 20
-                                    spacing: 0
-
-                                    Text {
-                                        text: "北京南"
-                                        font.pixelSize: 24
-                                        font.bold: false
-                                        color: "#222"
-                                        horizontalAlignment: Text.AlignRight
-                                    }
-
-                                    Item { Layout.fillWidth: true }
-
-                                    Text {
-                                        text: "09:10"
-                                        font.pixelSize: 26
-                                        font.bold: true
-                                        color: "#222"
-                                        Layout.leftMargin: 18
-                                        verticalAlignment: Text.AlignVCenter
-                                    }
-
-                                    Item { Layout.fillWidth: true }
-
-                                    ColumnLayout {
-
-                                        Item{
-                                            Layout.fillHeight: true
-                                        }
-                                        Text {
-                                            Layout.alignment: Qt.AlignHCenter
-                                            text: "G115"; font.bold: true;
-                                            Layout.topMargin: -10
-                                            font.pixelSize: 20; color: "#222";
-                                        }
-                                        Item{
-                                            Layout.preferredHeight: 0
-                                        }
-
-                                        Image {
-                                            Layout.preferredWidth: 120
-                                            Layout.preferredHeight: 5
-                                            Layout.topMargin: -20
-                                            source: "qrc:/resources/icon/arrow.svg"
-                                            fillMode: Image.Stretch
-                                        }
-                                        Item{
-                                            Layout.preferredHeight: 0
-                                        }
-                                        Text {
-                                            Layout.alignment: Qt.AlignHCenter
-                                            Layout.topMargin: -18
-                                            text: "6小时7分";
-                                            font.pixelSize: 10; color: "#888"; }
-                                        Item{
-                                            Layout.fillHeight: true
-                                        }
-
-                                    }
-
-                                    Item { Layout.fillWidth: true }
-
-                                    Text {
-                                        text: "15:17"
-                                        font.pixelSize: 26
-                                        font.bold: true
-                                        color: "#222"
-                                        verticalAlignment: Text.AlignVCenter
-                                    }
-
-                                    Item { Layout.fillWidth: true }
-
-                                    Text {
-                                        text: "上海虹桥"
-                                        font.pixelSize: 24
-                                        font.bold: false
-                                        color: "#222"
-                                        Layout.leftMargin: 18
-                                        horizontalAlignment: Text.AlignLeft
-                                    }
-                                }
+                                trainData: modelData
                             }
 
                             Item{
@@ -254,8 +115,8 @@ Page {
                                     Image {
                                         source: "qrc:/resources/icon/Delete.png"
                                         anchors.centerIn: parent
-                                        width: 80
-                                        height: 80
+                                        width: 60
+                                        height: 60
                                     }
                                 }
                             }
@@ -314,4 +175,15 @@ Page {
             }
         }
     }
+
+    function refreshTrains() {
+        trainList = trainManager.getTrains_api();
+    }
+
+    // function cancelOrder(orderNumber) {
+    //     refreshOrders()
+    //     notificationMessage = "订单取消成功！"
+    //     notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+    //     notification.active = true
+    // }
 }
