@@ -15,7 +15,7 @@ ApplicationWindow {
     property string startPage: (SessionState.role === "admin") ?
                                    "qrc:/qml/pages/TrainManagement.qml" :
                                    "qrc:/qml/pages/TicketQuery.qml"
-    property bool loggedIn: false
+    property bool loggedIn: SessionState.isLoggedIn
 
     // 主内容区：始终占满，内部根据登录状态显示侧边栏与内容
     RowLayout {
@@ -58,7 +58,8 @@ ApplicationWindow {
         onLoaded: {
             if (item) {
                 item.loginSuccess.connect(function() {
-                    appWin.loggedIn = true
+                    SessionState.isLoggedIn = true
+                    // appWin.loggedIn = true
                     stackViewLoadTimer.restart()
                 })
             }
@@ -67,7 +68,11 @@ ApplicationWindow {
 
     // 如果根组件加载完成后已经是登录状态，则直接渲染主界面（仅方便以后做自动登录，目前没用处）
     Component.onCompleted: {
-    if (loggedIn) loadStartPage()
+        if (loggedIn) loadStartPage()
+        SessionState.isLoggedInChanged.connect(function() {
+        appWin.loggedIn = SessionState.isLoggedIn
+        console.log("appWin loggedIn changed:", appWin.loggedIn)
+        })
     }
 
     // 若以后支持切换账号（改变 userRole），可调用此函数

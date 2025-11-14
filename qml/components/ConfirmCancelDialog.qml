@@ -60,12 +60,10 @@ Window {
 
                     Keys.onReturnPressed: {
                         confirmed()
-                        closed()
                     }
 
                     onClicked: {
                         confirmed()
-                        closed()
                     }
                 }
 
@@ -80,7 +78,6 @@ Window {
 
                     onClicked:{
                         canceled()
-                        closed()
                     }
                 }
             }
