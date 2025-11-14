@@ -3,6 +3,7 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../components"
+import MyApp 1.0
 
 Page {
     width: parent ? parent.width : 740
@@ -90,6 +91,13 @@ Page {
                                 buttonType: modelData.isLocked ? "cancel" : "confirm"
                                 enabled: !modelData.isLocked
                                 onClicked: {
+                                    if (SessionState.username === modelData.username) {
+                                        notificationMessage = "管理员不能锁定自身！"
+                                        notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+                                        notification.active = true
+                                        return
+                                    }
+
                                     onWarningConfirmed = function() {
                                         warning.active = false
                                         if (modelData.type === "user")
