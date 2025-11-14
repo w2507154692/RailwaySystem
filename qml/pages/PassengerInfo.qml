@@ -206,7 +206,9 @@ Page {
         }
 
     function refreshPassengers(username) {
+        var savedContentY = passengerListView.contentY
         passengerList = passengerManager.getPassengersByUsername_api(username)
+        passengerListView.contentY = savedContentY
     }
 
     function deletePassenger(username, id) {

@@ -12,9 +12,12 @@ Page {
     visible: true
 
     property var accountList: []
+    property var onWarningConfirmed: null
+    property string warningMessage: ""
+    property string notificationMessage: ""
 
     Component.onCompleted: {
-        refreshAccountList()
+        refreshAccounts()
     }
 
     // 主内容区
@@ -86,6 +89,15 @@ Page {
                                 borderRadius: 7
                                 buttonType: modelData.isLocked ? "cancel" : "confirm"
                                 enabled: !modelData.isLocked
+                                onClicked: {
+                                    onWarningConfirmed = function() {
+                                        warning.active = false
+                                        lockAccount(modelData.username, modelData.type)
+                                    }
+                                    warningMessage = "确认锁定该账户？"
+                                    warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
+                                    warning.active = true
+                                }
                             }
                             CustomButton {
                                 text: "解锁"
@@ -95,6 +107,15 @@ Page {
                                 borderRadius: 7
                                 buttonType: modelData.isLocked ? "confirm" : "cancel"
                                 enabled: modelData.isLocked
+                                onClicked: {
+                                    onWarningConfirmed = function() {
+                                        warning.active = false
+                                        unlockAccount(modelData.username, modelData.type)
+                                    }
+                                    warningMessage = "确认解锁该账户？"
+                                    warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
+                                    warning.active = true
+                                }
                             }
 
                                 Item { Layout.fillWidth: true } // 占位，按钮靠右
@@ -159,7 +180,63 @@ Page {
         }
     }
 
-    function refreshAccountList() {
-        accountList = accountManager.getAccounts_api()
+    Loader {
+        id: warning
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.canceled.connect(function() {
+                    warning.active = false
+                })
+                // 连接确认信号
+                if (item && typeof onWarningConfirmed === "function")
+                    item.confirmed.connect(onWarningConfirmed)
+                // 初始化参数
+                item.contentText = warningMessage
+                item.visible = true
+            }
+        }
     }
+
+    Loader {
+        id: notification
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    notification.active = false
+                })
+                // 初始化参数
+                item.contentText = notificationMessage
+                item.visible = true
+            }
+        }
+    }
+
+    function refreshAccounts() {
+        var savedContentY = accountListView.contentY
+        accountList = accountManager.getAccounts_api()
+        accountListView.contentY = savedContentY
+    }
+
+    function lockAccount(username, type) {
+        var result = accountManager.lockAccount_api(username, type)
+        refreshAccounts()
+        notificationMessage = result["success"] ? "账户锁定成功！" : "账户锁定失败！"
+        notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+        notification.active = true
+    }
+
+    function unlockAccount(username, type) {
+        var result = accountManager.unlockAccount_api(username, type)
+        refreshAccounts()
+        notificationMessage = result["success"] ? "账户解锁成功！" : "账户解锁失败！"
+        notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+        notification.active = true
+    }
+
 }

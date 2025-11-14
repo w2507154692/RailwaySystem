@@ -22,7 +22,7 @@ Rectangle {
             menuList = [
                 { text: "车次管理", icon: "qrc:/resources/icon/TrainManagement.png", url: "qrc:/qml/pages/TrainManagement.qml" },
                 { text: "订单管理", icon: "qrc:/resources/icon/OrderManagement.png", url: "qrc:/qml/pages/OrderManagement.qml" },
-                { text: "用户管理", icon: "qrc:/resources/icon/UserManagement.png", url: "qrc:/qml/pages/UserManagement.qml" }
+                { text: "账户管理", icon: "qrc:/resources/icon/UserManagement.png", url: "qrc:/qml/pages/UserManagement.qml" }
             ]
         } else {
             // 普通用户或乘车人共用前三项

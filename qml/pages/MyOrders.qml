@@ -185,7 +185,9 @@ Page {
     }
 
     function refreshOrders() {
+        var savedContentY = orderListView.contentY
         orderList = orderManager.getOrdersByUsername_api(SessionState.username);
+        orderListView.contentY = savedContentY
     }
 
     function cancelOrder(orderNumber) {

@@ -23,18 +23,18 @@ public:
     Q_INVOKABLE QVariantMap loginAdmin_api(const QString &username, const QString &password);
     Q_INVOKABLE QVariantMap getUserProfile_api(const QString &username);
     Q_INVOKABLE QVariantList getAccounts_api();
-    // Q_INVOKABLE bool lockUser(const QString &username);
-    // Q_INVOKABLE bool unlockUser(const QString &username);
-    // Q_INVOKABLE bool lockAdmin(const QString &username);
-    // Q_INVOKABLE bool unlockAdmin(const QString &username);
-    // Q_INVOKABLE bool unregisterUser(const QString &username);
-    // Q_INVOKABLE bool unregisterAdmin(const QString &username);
-    // Q_INVOKABLE bool changePasswordUser(const QString &username, const QString &newPassword);
-    // Q_INVOKABLE bool changePasswordAdmin(const QString &username, const QString &newPassword);
+    // 对某个账户加锁，传入用户名和账户类型（用户 or 管理员）
+    Q_INVOKABLE QVariantMap lockAccount_api(const QString &username, const QString &type);
+    // 对某个账户解锁，传入用户名和账户类型（用户 or 管理员）
+    Q_INVOKABLE QVariantMap unlockAccount_api(const QString &username, const QString &type);
 
 private:
     std::optional<User> findUserByUsername(const QString &username);
     std::optional<Admin> findAdminByUsername(const QString &username);
+    bool lockUser(const QString &username);
+    bool lockAdmin(const QString &username);
+    bool unlockUser(const QString &username);
+    bool unlockAdmin(const QString &username);
     void readFromFileUser(const char filename[]);
     void readFromFileAdmin(const char filename[]);
     void readFromFile(const char filenameUser[], const char filenameAdmin[]);

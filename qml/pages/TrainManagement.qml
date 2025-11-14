@@ -224,7 +224,9 @@ Page {
     }
 
     function refreshTrains() {
-        trainList = trainManager.getTrains_api();
+        var savedContentY = trainListView.contentY
+        trainList = trainManager.getTrains_api()
+        trainListView.contentY = savedContentY
     }
 
     function deleteTrain(trainNumber) {
