@@ -45,17 +45,16 @@ Window {
                 Layout.fillWidth: true
             }
 
-            CustomButton{
+            CustomButton {
                 Layout.topMargin: 10
                 Layout.bottomMargin: 20
                 Layout.alignment: Qt.AlignCenter
                 buttonType: "confirm"
                 width: 120
                 text: "确认"
-
-                onClicked: {
-                    closed()
-                }
+                focus: true
+                Keys.onReturnPressed: closed()
+                onClicked: closed()
             }
         }
     }
