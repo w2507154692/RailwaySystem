@@ -73,50 +73,50 @@ Page {
                         onShowTimetable: function(param) {
                              // param.orderNumber
                              showTimetableByOrderNumber(param.orderNumber)
-                      }
+                        }
                     }
 
-                            Item {
-                                Layout.fillWidth: true
-                            }
+                    Item {
+                        Layout.fillWidth: true
+                    }
 
-                            ColumnLayout {
-                                CustomButton {
-                                    Layout.preferredWidth: 110
-                                    Layout.preferredHeight: 35
-                                    text: "改签"
-                                    activeFocusOnTab: true
-                                    onClicked: {
-                                        // 改签逻辑
-                                    }
+                    ColumnLayout {
+                        CustomButton {
+                            Layout.preferredWidth: 110
+                            Layout.preferredHeight: 35
+                            text: "改签"
+                            activeFocusOnTab: true
+                            onClicked: {
+                                // 改签逻辑
+                            }
+                        }
+                        Item{
+                            Layout.preferredHeight: 20
+                        }
+                        CustomButton {
+                            Layout.preferredWidth: 110
+                            Layout.preferredHeight: 35
+                            text: "退票"
+                            activeFocusOnTab: true
+                            mouseAreaEnabled: modelData.status === "待乘坐"
+                            customColor: modelData.status === "待乘坐" ? "#409CFC" : "#808080"
+                            pressedColor: modelData.status === "待乘坐" ? "#174a73" : "#808080"
+                            hoverColor: modelData.status === "待乘坐" ? "#1f5f99" : "#808080"
+                            onClicked: {
+                                onWarningConfirmed = function() {
+                                    warning.active = false
+                                    cancelOrder(modelData.orderNumber)
                                 }
-                                Item{
-                                    Layout.preferredHeight: 20
-                                }
-                                CustomButton {
-                                    Layout.preferredWidth: 110
-                                    Layout.preferredHeight: 35
-                                    text: "退票"
-                                    activeFocusOnTab: true
-                                    mouseAreaEnabled: modelData.status === "待乘坐"
-                                    customColor: modelData.status === "待乘坐" ? "#409CFC" : "#808080"
-                                    pressedColor: modelData.status === "待乘坐" ? "#174a73" : "#808080"
-                                    hoverColor: modelData.status === "待乘坐" ? "#1f5f99" : "#808080"
-                                    onClicked: {
-                                        onWarningConfirmed = function() {
-                                            warning.active = false
-                                            cancelOrder(modelData.orderNumber)
-                                        }
-                                        warningMessage = "确认取消该订单？"
-                                        warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
-                                        warning.active = true
-                                    }
-                                }
+                                warningMessage = "确认取消该订单？"
+                                warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
+                                warning.active = true
                             }
                         }
                     }
                 }
             }
+        }
+    }
 
             // 分割线
             Rectangle {

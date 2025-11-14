@@ -61,5 +61,6 @@
         <file>qml/components/ConfirmCancelDialog.qml</file>
         <file>qml/components/ConfirmDialog.qml</file>
         <file>qml/components/TrainCard.qml</file>
+        <file>qml/components/AccountCard.qml</file>
     </qresource>
 </RCC>

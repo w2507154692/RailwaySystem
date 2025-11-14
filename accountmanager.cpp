@@ -77,6 +77,26 @@ QVariantMap AccountManager::getUserProfile_api(const QString &username) {
     return result;
 }
 
+QVariantList AccountManager::getAccounts_api() {
+    QVariantList list;
+    for (auto &user : users) {
+        QVariantMap map;
+        map["type"] = "user";
+        map["username"] = user.getUsername();
+        map["password"] = user.getPassword();
+        map["isLocked"] = user.isLocked();
+        list << map;
+    }
+    for (auto &admin : admins) {
+        QVariantMap map;
+        map["type"] = "admin";
+        map["username"] = admin.getUsername();
+        map["password"] = admin.getPassword();
+        map["isLocked"] = admin.isLocked();
+        list << map;
+    }
+    return list;
+}
 
 std::optional<User> AccountManager::findUserByUsername(const QString &username) {
     for (auto &user : users) {

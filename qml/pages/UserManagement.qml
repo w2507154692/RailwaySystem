@@ -11,15 +11,11 @@ Page {
     objectName: "qrc:/qml/pages/UserManagement.qml"
     visible: true
 
-    property var userList: [
-        { username: "17816936112", password: "12345678987654321", isAdmin: true, locked: false },
-        { username: "17816936112", password: "12345678987654321", isAdmin: true, locked: false },
-        { username: "17816936112", password: "12345678987654321", isAdmin: true, locked: false },
-        { username: "17816936112", password: "12345678987654321", isAdmin: false, locked: false },
-        { username: "17816936112", password: "12345678987654321", isAdmin: true, locked: false },
-        { username: "17816936112", password: "12345678987654321", isAdmin: false, locked: false },
-        { username: "17816936112", password: "12345678987654321", isAdmin: true, locked: false }
-    ]
+    property var accountList: []
+
+    Component.onCompleted: {
+        refreshAccountList()
+    }
 
     // 主内容区
     Rectangle {
@@ -36,12 +32,12 @@ Page {
                 Layout.alignment: Qt.AlignTop
 
                 ListView {
-                    id: userListView
+                    id: accountListView
                     anchors.fill: parent
                     anchors.topMargin: 20
                     anchors.bottomMargin: 20
-                    model: userList
-                    spacing: 30
+                    model: accountList
+                    spacing: 15
                     clip: true
 
                     // 完全自定义滚动条样式
@@ -56,81 +52,19 @@ Page {
                     }
 
                     delegate: ColumnLayout {
-                        width: userListView.width - 20
-                        height: userList.height
-
+                        width: accountListView.width - 20
 
                         // 用户卡片
-                        Rectangle {
-                            id: card
-                            width: parent.width
-                            height: 79
-                            radius: 16
-                            gradient: Gradient {
-                                GradientStop { position: 0.0; color: "#cce5ff" }
-                                GradientStop { position: 1.0; color: "#8ec9ff" }
-                            }
-
-                            //卡片区
-                            RowLayout {
-                                anchors.fill: parent
-                                anchors.leftMargin: 20
-                                anchors.rightMargin: 40
-
-                                // 左侧信息
-                                ColumnLayout {
-                                    spacing: 0
-
-                                    // 第一行
-                                    RowLayout {
-                                        Layout.topMargin: 12
-                                        Text {
-                                            text: "用户名：" + modelData.username
-                                            font.pixelSize: 18
-                                            color: "#222"
-                                        }
-                                    }
-
-                                    // 间隔
-                                    Item { Layout.fillHeight: true }
-
-                                    // 第二行
-                                    RowLayout {
-                                        Layout.bottomMargin: 12
-                                        Text {
-                                            text: "密码：" + modelData.password
-                                            font.pixelSize: 18
-                                            color: "#222"
-                                        }
-                                    }
-                                }
-
-                                Item{
-                                    Layout.fillWidth: true
-                                }
-
-                                Rectangle{
-                                    width: 70
-                                    height: 30
-                                    radius: 4
-                                    border.color: "green"
-                                    color: "transparent"
-                                    visible: modelData.isAdmin   // 只在 isAdmin 为 true 时显示
-                                    Text {
-                                        text: "管理员"
-                                        font.pixelSize: 16
-                                        color: "green"
-                                        anchors.horizontalCenter: parent.horizontalCenter
-                                        anchors.verticalCenter: parent.verticalCenter
-                                    }
-                                }
-                            }
+                        AccountCard {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 60
+                            accountData: modelData
                         }
 
                         // 操作按钮区
                         RowLayout {
-                            Layout.topMargin: 10
-                            Layout.leftMargin: 20
+                            Layout.topMargin: 25
+                            Layout.leftMargin: 5
                             id: buttonRow
                             Layout.fillWidth: true
                             height: 40
@@ -150,8 +84,8 @@ Page {
                                 height:24
                                 fontSize: 15
                                 borderRadius: 7
-                                buttonType: "confirm"
-                                enabled: !model.locked
+                                buttonType: modelData.isLocked ? "cancel" : "confirm"
+                                enabled: !modelData.isLocked
                             }
                             CustomButton {
                                 text: "解锁"
@@ -159,8 +93,8 @@ Page {
                                 height:24
                                 fontSize: 15
                                 borderRadius: 7
-                                buttonType: "cancel"
-                                enabled: model.locked
+                                buttonType: modelData.isLocked ? "confirm" : "cancel"
+                                enabled: modelData.isLocked
                             }
 
                                 Item { Layout.fillWidth: true } // 占位，按钮靠右
@@ -223,5 +157,9 @@ Page {
                 Layout.fillHeight: true
             }
         }
+    }
+
+    function refreshAccountList() {
+        accountList = accountManager.getAccounts_api()
     }
 }
