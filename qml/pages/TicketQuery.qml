@@ -349,7 +349,7 @@ Page {
         }
     }
 
-        //回车默认查询
+    //回车默认查询
     Shortcut {
         sequence: "Return"
         onActivated: {

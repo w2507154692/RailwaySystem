@@ -156,8 +156,12 @@ Page{
                                     //清空参数
                                     SessionState.clear()
                                     // 清空主内容区
+                                    console.log("mainWindow:", mainWindow)
+                                    console.log("mainWindow.stackView:", mainWindow.stackView)
                                     if (mainWindow && mainWindow.stackView) {
                                         mainWindow.stackView.clear()
+                                        console.log("mainWindow.stackView cleared")
+
                                     }
                                     console.log("已退出登录")
                                     console.log("appWin.loggedIn:", appWin.loggedIn)

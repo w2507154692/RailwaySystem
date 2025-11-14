@@ -17,6 +17,9 @@ ApplicationWindow {
                                    "qrc:/qml/pages/TicketQuery.qml"
     property bool loggedIn: SessionState.isLoggedIn
 
+    // 定义属性
+    property var stackView
+
     // 主内容区：始终占满，内部根据登录状态显示侧边栏与内容
     RowLayout {
         id: contentRow
@@ -38,7 +41,7 @@ ApplicationWindow {
         }
 
         StackView {
-            id: stackView
+            id: mainStackView
             Layout.fillWidth: true
             Layout.fillHeight: true
             onCurrentItemChanged: {
@@ -73,6 +76,7 @@ ApplicationWindow {
         appWin.loggedIn = SessionState.isLoggedIn
         console.log("appWin loggedIn changed:", appWin.loggedIn)
         })
+        appWin.stackView = mainStackView
     }
 
     // 若以后支持切换账号（改变 userRole），可调用此函数
