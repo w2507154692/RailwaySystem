@@ -39,6 +39,21 @@ QVariantList TrainManager::getTrains_api() {
     return list;
 }
 
+QVariantMap TrainManager::deleteTrain_api(const QString &trainNumber) {
+    QVariantMap result;
+    for (auto it = trains.begin(); it != trains.end(); it++) {
+        if (it->getNumber() == trainNumber) {
+            result["success"] = true;
+            result["message"] = QString("车次 %1 删除成功！").arg(trainNumber);
+            trains.erase(it);
+            return result;
+        }
+    }
+    result["success"] = false;
+    result["message"] = QString("未找到车次 %1").arg(trainNumber);
+    return result;
+}
+
 std::vector<std::tuple<Train, Station, Station>> TrainManager::getRoutesByCities(const QString &startCityName, const QString &endCityName) {
     std::vector<std::tuple<Train, Station, Station>> result;
     for (auto &train : trains) {

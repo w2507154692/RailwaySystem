@@ -12,9 +12,9 @@ Page {
     visible: true
 
     property var trainList: []
+    property var onWarningConfirmed: null
     property string warningMessage: ""
     property string notificationMessage: ""
-    property string pendingCancelOrderNumber: ""
 
     Component.onCompleted: {
         refreshTrains()
@@ -99,6 +99,7 @@ Page {
                                 Layout.preferredWidth: 10
                             }
 
+                            // 右侧删除按钮
                             Rectangle {
                                 Layout.rightMargin: 30
                                 width: 30
@@ -106,17 +107,23 @@ Page {
                                 radius: 18
                                 color: "transparent"
                                 border.color: "transparent"
+                                Image {
+                                    source: "qrc:/resources/icon/Delete.png"
+                                    anchors.centerIn: parent
+                                    width: 60
+                                    height: 60
+                                }
                                 MouseArea {
                                     anchors.fill: parent
                                     cursorShape: Qt.PointingHandCursor
                                     onClicked: {
-                                        trainList.splice(index, 1)
-                                    }
-                                    Image {
-                                        source: "qrc:/resources/icon/Delete.png"
-                                        anchors.centerIn: parent
-                                        width: 60
-                                        height: 60
+                                        onWarningConfirmed = function() {
+                                            warning.active = false
+                                            deleteTrain(modelData.trainNumber);
+                                        }
+                                        warningMessage = "确认删除该车次？"
+                                        warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
+                                        warning.active = true
                                     }
                                 }
                             }
@@ -176,14 +183,52 @@ Page {
         }
     }
 
+    Loader {
+        id: warning
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.canceled.connect(function() {
+                    warning.active = false
+                })
+                // 连接确认信号
+                if (item && typeof onWarningConfirmed === "function")
+                    item.confirmed.connect(onWarningConfirmed)
+                // 初始化参数
+                item.contentText = warningMessage
+                item.visible = true
+            }
+        }
+    }
+
+    Loader {
+        id: notification
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    notification.active = false
+                })
+                // 初始化参数
+                item.contentText = notificationMessage
+                item.visible = true
+            }
+        }
+    }
+
     function refreshTrains() {
         trainList = trainManager.getTrains_api();
     }
 
-    // function cancelOrder(orderNumber) {
-    //     refreshOrders()
-    //     notificationMessage = "订单取消成功！"
-    //     notification.source = "qrc:/qml/components/ConfirmDialog.qml"
-    //     notification.active = true
-    // }
+    function deleteTrain(trainNumber) {
+        var result = trainManager.deleteTrain_api(trainNumber)
+        refreshTrains()
+        notificationMessage = result["success"] === true ? "车次删除成功!" : "车次删除失败！"
+        notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+        notification.active = true
+    }
 }

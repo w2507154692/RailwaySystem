@@ -17,6 +17,7 @@ private:
 public:
     explicit TrainManager(QObject *parent = nullptr);
     Q_INVOKABLE QVariantList getTrains_api();
+    Q_INVOKABLE QVariantMap deleteTrain_api(const QString &trainNumber);
     std::vector<std::tuple<Train, Station, Station>> getRoutesByCities(const QString &startCityName, const QString &endCityName);
 
 private:
