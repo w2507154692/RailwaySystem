@@ -13,7 +13,7 @@ Page {
     id: myOrdersPage
     objectName: "qrc:/qml/pages/MyOrders.qml"
     visible: true
-    
+
     property var mainWindow
     property var orderList: []
     property var onWarningConfirmed: null
@@ -67,15 +67,17 @@ Page {
                         RowLayout {
                             Layout.fillWidth: true
 
-                    OrderCard {
-                        Layout.preferredWidth: 675
-                        orderData: modelData
-                        context: "myOrders"
-                        onShowTimetable: function(param) {
-                             // param.orderNumber
-                             showTimetableByOrderNumber(param.orderNumber)
-                      }
-                    }
+                        OrderCard {
+                            Layout.preferredWidth: 675
+                            orderData: modelData
+                            context: "myOrders"
+                            onShowTimetable: function(param) {
+                                // param.orderNumber
+                                //  showTimetableByOrderNumber(param.orderNumber)
+                                timetableLoader.source = "Timetable.qml"
+                                timetableLoader.active = true
+                            } 
+                        }
 
                             Item {
                                 Layout.fillWidth: true
@@ -148,6 +150,7 @@ Page {
         }
     }
 
+    //警告
     Loader {
         id: warning
         source: ""
@@ -168,6 +171,7 @@ Page {
         }
     }
 
+    //通知
     Loader {
         id: notification
         source: ""
@@ -180,6 +184,26 @@ Page {
                 })
                 // 初始化参数
                 item.contentText = notificationMessage
+                item.visible = true
+            }
+        }
+    }
+
+
+    //时刻表页面
+    Loader {
+        id: timetableLoader
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    console.log("!!!!!!!!!!!!!!!!!!!!")
+                    timetableLoader.active = false
+                })
+                // 初始化参数
+                item.transientParent = mainWindow
                 item.visible = true
             }
         }

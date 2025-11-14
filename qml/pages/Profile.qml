@@ -12,6 +12,7 @@ Page{
     objectName: "qrc:/qml/pages/Profile.qml"
     visible: true
 
+    property var mainWindow
     property var profileData: ({
         name: "张三张三张三",
         phoneNumber: "17816936112",

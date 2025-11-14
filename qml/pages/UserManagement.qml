@@ -11,6 +11,7 @@ Page {
     objectName: "qrc:/qml/pages/UserManagement.qml"
     visible: true
 
+    property var mainWindow
     property var userList: [
         { username: "17816936112", password: "12345678987654321", isAdmin: true, locked: false },
         { username: "17816936112", password: "12345678987654321", isAdmin: true, locked: false },

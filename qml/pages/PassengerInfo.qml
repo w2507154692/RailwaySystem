@@ -104,7 +104,7 @@ Page {
                                     anchors.fill: parent
                                     cursorShape: Qt.PointingHandCursor
                                     onClicked: {
-                                        trainList.splice(index, 1)
+                                        // trainList.splice(index, 1)
                                     }
                                 }
                                 Image {
@@ -204,7 +204,8 @@ Page {
                     item.visible = true
                 }
             }
-        }
+    }
+
 
     function refreshPassengers(username) {
         passengerList = passengerManager.getPassengersByUsername_api(username)
