@@ -23,10 +23,15 @@ public:
     Q_INVOKABLE QVariantMap loginAdmin_api(const QString &username, const QString &password);
     Q_INVOKABLE QVariantMap getUserProfile_api(const QString &username);
     Q_INVOKABLE QVariantList getAccounts_api();
-    // 对某个账户加锁，传入用户名和账户类型（用户 or 管理员）
-    Q_INVOKABLE QVariantMap lockAccount_api(const QString &username, const QString &type);
-    // 对某个账户解锁，传入用户名和账户类型（用户 or 管理员）
-    Q_INVOKABLE QVariantMap unlockAccount_api(const QString &username, const QString &type);
+    // 对某个用户加锁，传入用户名
+    Q_INVOKABLE QVariantMap lockUser_api(const QString &username);
+    // 对某个管理员加锁，传入用户名
+    Q_INVOKABLE QVariantMap lockAdmin_api(const QString &username);
+    // 对某个用户解锁，传入用户名
+    Q_INVOKABLE QVariantMap unlockUser_api(const QString &username);
+    // 对某个管理员解锁，传入用户名
+    Q_INVOKABLE QVariantMap unlockAdmin_api(const QString &username);
+    // 注销账户，传入用户名
 
 private:
     std::optional<User> findUserByUsername(const QString &username);

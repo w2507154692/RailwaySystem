@@ -185,8 +185,10 @@ Page {
     }
 
     function refreshOrders() {
+        // 记录当前滚动条位置
         var savedContentY = orderListView.contentY
         orderList = orderManager.getOrdersByUsername_api(SessionState.username);
+        // 回到之前记录的位置
         orderListView.contentY = savedContentY
     }
 
