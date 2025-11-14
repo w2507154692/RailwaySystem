@@ -32,6 +32,10 @@ Page {
         pageData.currentDate = Qt.formatDate(new Date(), "yyyy年MM月dd日")
         pageData.selectedDate = pageData.currentDate   // 默认选中今天
         pageData.cityList = stationManager.getCitiesName_api()
+        pageData.fromCity = "北京"                            //在此处初始化fromCity和toCity避免获取cityList时覆盖
+        pageData.toCity = "上海"
+        console.log("fromCity:", pageData.fromCity, "toCity:", pageData.toCity)
+        console.log("currentIndex", pageData.cityList.indexOf(pageData.fromCity))
     }
 
     RowLayout {
