@@ -150,8 +150,6 @@ Page{
                             Layout.preferredWidth: 180
                             Layout.preferredHeight: 42
                             text: "退出登录"
-                            activeFocusOnTab: true
-                            focus: true
                             onClicked: {
                                 onWarningConfirmed = function() {               // 退出登录逻辑
                                     warning.active = false
@@ -175,7 +173,6 @@ Page{
                             Layout.preferredWidth: 180
                             Layout.preferredHeight: 42
                             text: "注销账号"
-                            activeFocusOnTab: true
                             onClicked: {
                                 onWarningConfirmed = function() {               // 退出登录逻辑
                                     warning.active = false

@@ -349,6 +349,17 @@ Page {
         }
     }
 
+        //回车默认查询
+    Shortcut {
+        sequence: "Return"
+        onActivated: {
+            bookingSystem.addQueryHistory_api(pageData.fromCity, pageData.toCity)
+            ticketResultLoader.source = "qrc:/qml/pages/TicketQueryResult.qml"
+            ticketResultLoader.active = true
+        }
+    }
+
+
     function parseChineseDate(str) {
         var m = str.match(/^(\d{4})年(\d{1,2})月(\d{1,2})日$/)
         if (!m) return null
