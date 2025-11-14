@@ -13,7 +13,8 @@ Page {
     id: myOrdersPage
     objectName: "qrc:/qml/pages/MyOrders.qml"
     visible: true
-
+    
+    property var mainWindow
     property var orderList: []
     property var onWarningConfirmed: null
     property string warningMessage: ""
