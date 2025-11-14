@@ -15,9 +15,9 @@ Page {
     visible: true
 
     property var orderList: []
+    property var onWarningConfirmed: null
     property string warningMessage: ""
     property string notificationMessage: ""
-    property string pendingCancelOrderNumber: ""
 
     Component.onCompleted: {
         refreshOrders()
@@ -98,7 +98,10 @@ Page {
                                     pressedColor: modelData.status === "待乘坐" ? "#174a73" : "#808080"
                                     hoverColor: modelData.status === "待乘坐" ? "#1f5f99" : "#808080"
                                     onClicked: {
-                                        pendingCancelOrderNumber = modelData.orderNumber
+                                        onWarningConfirmed = function() {
+                                            warning.active = false
+                                            cancelOrder(modelData.orderNumber)
+                                        }
                                         warningMessage = "确认取消该订单？"
                                         warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
                                         warning.active = true
@@ -150,10 +153,8 @@ Page {
                     warning.active = false
                 })
                 // 连接确认信号
-                item.confirmed.connect(function() {
-                    warning.active = false
-                    cancelOrder(pendingCancelOrderNumber)
-                })
+                if (item && typeof onWarningConfirmed === "function")
+                    item.confirmed.connect(onWarningConfirmed)
                 // 初始化参数
                 item.contentText = warningMessage
                 item.visible = true

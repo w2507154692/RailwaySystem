@@ -12,9 +12,9 @@ Page {
     height: parent ? parent.height : 400
 
     property var passengerList: []
+    property var onWarningConfirmed: null
     property string warningMessage: ""
     property string notificationMessage: ""
-    property string pendingDeletePassengerId: ""
 
     Component.onCompleted: {
         refreshPassengers(SessionState.username)
@@ -72,7 +72,10 @@ Page {
                                     anchors.fill: parent
                                     cursorShape: Qt.PointingHandCursor
                                     onClicked: {
-                                        pendingDeletePassengerId = modelData.id
+                                        onWarningConfirmed = function() {
+                                            warning.active = false
+                                            deletePassenger(SessionState.username, modelData.id)
+                                        }
                                         warningMessage = "确认删除该乘车人？"
                                         warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
                                         warning.active = true
@@ -176,10 +179,8 @@ Page {
                     warning.active = false
                 })
                 // 连接确认信号
-                item.confirmed.connect(function() {
-                    warning.active = false
-                    deletePassenger(SessionState.username, pendingDeletePassengerId)
-                })
+                if (item && typeof onWarningConfirmed === "function")
+                    item.confirmed.connect(onWarningConfirmed)
                 // 初始化参数
                 item.contentText = warningMessage
                 item.visible = true
