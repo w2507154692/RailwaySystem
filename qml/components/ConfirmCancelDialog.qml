@@ -56,6 +56,11 @@ Window {
                     buttonType: "confirm"
                     width: 100
                     text: "确认"
+                    focus: true
+
+                    Keys.onReturnPressed: {
+                        confirmed()
+                    }
 
                     onClicked: {
                         confirmed()

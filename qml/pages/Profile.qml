@@ -12,6 +12,9 @@ Page{
     objectName: "qrc:/qml/pages/Profile.qml"
     visible: true
 
+    property string warningMessage: ""
+    property var onWarningConfirmed: null
+    property var mainWindow
     property var profileData: ({
         name: "张三张三张三",
         phoneNumber: "17816936112",
@@ -147,17 +150,75 @@ Page{
                             Layout.preferredWidth: 180
                             Layout.preferredHeight: 42
                             text: "退出登录"
-                            activeFocusOnTab: true
-                            focus: true
+                            onClicked: {
+                                onWarningConfirmed = function() {               // 退出登录逻辑
+                                    warning.active = false
+                                    //清空参数
+                                    SessionState.clear()
+                                    // 清空主内容区
+                                    console.log("mainWindow:", mainWindow)
+                                    console.log("mainWindow.stackView:", mainWindow.stackView)
+                                    if (mainWindow && mainWindow.stackView) {
+                                        mainWindow.stackView.clear()
+                                        console.log("mainWindow.stackView cleared")
+
+                                    }
+                                    console.log("已退出登录")
+                                    console.log("appWin.loggedIn:", appWin.loggedIn)
+                                    console.log("SessionState.isLoggedIn:", SessionState.isLoggedIn)
+                                }
+                                warningMessage = "确认退出登录？"
+                                warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
+                                warning.active = true
+                            }
                         }
 
                         CustomButton{
                             Layout.preferredWidth: 180
                             Layout.preferredHeight: 42
                             text: "注销账号"
+                            onClicked: {
+                                onWarningConfirmed = function() {               // 退出登录逻辑
+                                    warning.active = false
+                                    //清空参数
+                                    SessionState.clear()
+                                    // 清空主内容区
+                                    if (mainWindow && mainWindow.stackView) {
+                                        mainWindow.stackView.clear()
+                                    }
+                                    console.log("已注销")
+                                    console.log("appWin.loggedIn:", appWin.loggedIn)
+                                    console.log("SessionState.isLoggedIn:", SessionState.isLoggedIn)
+
+                                }
+                                warningMessage = "确认注销账户？"
+                                warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
+                                warning.active = true
+                            }
                         }
                     }
                 }
+            }
+        }
+    }
+
+    //警告
+    Loader {
+        id: warning
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.canceled.connect(function() {
+                    warning.active = false
+                })
+                // 连接确认信号
+                if (item && typeof onWarningConfirmed === "function")
+                    item.confirmed.connect(onWarningConfirmed)
+                // 初始化参数
+                item.contentText = warningMessage
+                item.visible = true
             }
         }
     }

@@ -7,6 +7,7 @@ import MyApp 1.0
 
 Page {
     id: passengerInfoPage
+    property var mainWindow
     objectName:"qrc:/qml/pages/PassengerInfo.qml"
     width: parent ? parent.width :640
     height: parent ? parent.height : 400
@@ -103,7 +104,7 @@ Page {
                                     anchors.fill: parent
                                     cursorShape: Qt.PointingHandCursor
                                     onClicked: {
-                                        trainList.splice(index, 1)
+                                        // trainList.splice(index, 1)
                                     }
                                 }
                                 Image {
@@ -203,7 +204,8 @@ Page {
                     item.visible = true
                 }
             }
-        }
+    }
+
 
     function refreshPassengers(username) {
         var savedContentY = passengerListView.contentY

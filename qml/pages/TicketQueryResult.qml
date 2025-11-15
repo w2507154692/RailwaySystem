@@ -224,6 +224,8 @@ Window {
                             ticketData: modelData
                             onShowTimetable: function(trainNumber, startStation, endStation) {
                                 // 打开时刻表窗口
+                                timetableLoader.source = "Timetable.qml"
+                                timetableLoader.active = true
                             }
                         }
                     }
@@ -299,7 +301,7 @@ Window {
         }
     }
 
-        // 日历弹窗（放在Window顶层）
+    // 日历弹窗（放在Window顶层）
     Dialog {
         id: calendarDialog
         modal: true
@@ -324,6 +326,25 @@ Window {
             }
         }
 
+    }
+
+    //时刻表页面
+        Loader {
+        id: timetableLoader
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    console.log("!!!!!!!!!!!!!!!!!!!!")
+                    timetableLoader.active = false
+                })
+                // 初始化参数
+                item.transientParent = resultWin
+                item.visible = true
+            }
+        }
     }
 
     function queryTickets() {

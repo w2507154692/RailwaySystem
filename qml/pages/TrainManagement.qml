@@ -11,6 +11,7 @@ Page {
     objectName: "qrc:/qml/pages/TrainManagement.qml"
     visible: true
 
+    property var mainWindow
     property var trainList: []
     property var onWarningConfirmed: null
     property string warningMessage: ""
@@ -75,7 +76,10 @@ Page {
                                     borderRadius: 7
                                     buttonType: "confirm"
                                     onClicked: {
-                                        showTimetable(trainNo)
+                                        // showTimetable(trainNo)
+                                        // 打开时刻表窗口
+                                        timetableLoader.source = "Timetable.qml"
+                                        timetableLoader.active = true
                                     }
                                 }
                                 CustomButton {
@@ -218,6 +222,25 @@ Page {
                 })
                 // 初始化参数
                 item.contentText = notificationMessage
+                item.visible = true
+            }
+        }
+    }
+
+    //时刻表页面
+    Loader {
+        id: timetableLoader
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    console.log("!!!!!!!!!!!!!!!!!!!!")
+                    timetableLoader.active = false
+                })
+                // 初始化参数
+                item.transientParent = mainWindow
                 item.visible = true
             }
         }
