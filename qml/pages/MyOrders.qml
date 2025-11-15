@@ -16,6 +16,7 @@ Page {
 
     property var mainWindow
     property var orderList: []
+    property var timetable: []
     property var onWarningConfirmed: null
     property string warningMessage: ""
     property string notificationMessage: ""
@@ -70,12 +71,11 @@ Page {
                         OrderCard {
                             Layout.preferredWidth: 675
                             orderData: modelData
-                            context: "myOrders"
-                            onShowTimetable: function(param) {
-                                // param.orderNumber
-                                //  showTimetableByOrderNumber(param.orderNumber)
+                            onShowTimetable: function() {
+                                timetable = orderManager.getTimetableInfo_api(modelData.orderNumber)
                                 timetableLoader.source = "Timetable.qml"
                                 timetableLoader.active = true
+                                console.log(timetable[0]["stationName"])
                             } 
                         }
 
@@ -189,7 +189,6 @@ Page {
         }
     }
 
-
     //时刻表页面
     Loader {
         id: timetableLoader
@@ -204,6 +203,7 @@ Page {
                 })
                 // 初始化参数
                 item.transientParent = mainWindow
+                item.timetable = timetable
                 item.visible = true
             }
         }

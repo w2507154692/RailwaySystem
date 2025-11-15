@@ -7,16 +7,21 @@ Item {
     width: 370
     height: 320
 
-    property var stations: [
-        { name: "北京南", arrive: "----", depart: "9:10", stop: "---" },
-        { name: "沧州西", arrive: "10:03", depart: "10:05", stop: "2分" },
-        { name: "济南西", arrive: "10:51", depart: "11:01", stop: "10分" },
-        { name: "定远", arrive: "11:46", depart: "11:50", stop: "4分" },
-        { name: "南京南", arrive: "14:23", depart: "14:25", stop: "2分" },
-        { name: "上海虹桥", arrive: "15:57", depart: "16:00", stop: "3分" },
-        { name: "杭州东", arrive: "16:40", depart: "---", stop: "---" },
-        { name: "杭州东", arrive: "16:40", depart: "---", stop: "---" },
-        { name: "杭州东", arrive: "16:40", depart: "---", stop: "---" }
+    property var stationList: [
+        { stationName: "乌鲁木齐北", arriveHour: -1, arriveMinute: -1, departureHour: 9, departureMinute: 30, stopInterval: -1, passInfo: "起末站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "呼和浩特北", arriveHour: 19, arriveMinute: 30, departureHour: -1, departureMinute: -1, stopInterval: -1, passInfo: "起末站" },
+        { stationName: "其他站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "其他站" },
+        { stationName: "其他站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "其他站" },
+        { stationName: "其他站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "其他站" },
+        { stationName: "其他站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "其他站" },
     ]
 
     property bool showButtons: true
@@ -151,13 +156,19 @@ Item {
                     width: scrollview.width
                     height: scrollview.height
                     Repeater {
-                        model: timetable.stations
+                        model: timetable.stationList
                         ColumnLayout{
                             Layout.fillWidth: true
                             RowLayout {
                                 Layout.topMargin: -5
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: 40
+
+                                property color textColor: modelData.passInfo === "起末站"
+                                                          ? "#0080FF"
+                                                          : (modelData.passInfo === "其他站"
+                                                             ? "#808080"
+                                                             : "#000")
 
                                 // 编辑按钮
                                 Item {
@@ -181,7 +192,8 @@ Item {
                                 }
 
                                 Text {
-                                    text: modelData.name
+                                    text: modelData.stationName
+                                    color: parent.textColor
                                     Layout.preferredWidth: 60
                                     Layout.preferredHeight: 40
                                     verticalAlignment: Text.AlignVCenter
@@ -195,7 +207,10 @@ Item {
                                 }
 
                                 Text {
-                                    text: modelData.arrive
+                                    text: (modelData.arriveHour === -1 || modelData.arriveMinute === -1)
+                                          ? "---"
+                                          : ("0" + modelData.arriveHour).slice(-2) + ":" + ("0" + modelData.arriveMinute).slice(-2)
+                                    color: parent.textColor
                                     Layout.preferredWidth: 55
                                     Layout.preferredHeight: 40
                                     verticalAlignment: Text.AlignVCenter
@@ -209,7 +224,10 @@ Item {
                                 }
 
                                 Text {
-                                    text: modelData.depart
+                                    text: (modelData.departureHour === -1 || modelData.departureMinute === -1)
+                                          ? "---"
+                                          : ("0" + modelData.departureHour).slice(-2) + ":" + ("0" + modelData.departureMinute).slice(-2)
+                                    color: parent.textColor
                                     Layout.preferredWidth: 55
                                     Layout.preferredHeight: 40
                                     verticalAlignment: Text.AlignVCenter
@@ -223,7 +241,10 @@ Item {
                                 }
 
                                 Text {
-                                    text: modelData.stop
+                                    text: modelData.stopInterval === -1
+                                          ? "---"
+                                          : modelData.stopInterval + "分"
+                                    color: parent.textColor
                                     Layout.preferredWidth: 48
                                     Layout.preferredHeight: 40
                                     verticalAlignment: Text.AlignVCenter
@@ -251,8 +272,6 @@ Item {
                                         }
                                     }
                                 }
-
-
                             }
 
                             // 行分割线

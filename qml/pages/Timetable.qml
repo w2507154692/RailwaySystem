@@ -13,24 +13,16 @@ Window {
     color: "#ffffff"
 
     signal closed()
+    property var timetable: []
 
-    onVisibleChanged: {
-        if (visible && transientParent) {
-            // 居中到父窗口
-            x = transientParent.x + (transientParent.width - width) / 2
-            y = transientParent.y + (transientParent.height - height) / 2
-        } else if (visible) {
-            // 居中到屏幕
-            x = (Screen.width - width) / 2
-            y = (Screen.height - height) / 2
-        } else {
-            closed()
-        }
+    onClosing: {
+        closed()
     }
 
     TimetableView{
         width: parent.width
         height: parent.height
         showButtons: false
+        stationList: timetable
     }
 }

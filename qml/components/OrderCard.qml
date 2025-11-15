@@ -35,9 +35,7 @@ Item {
         intervalMinute: 25,
     })
 
-    signal showTimetable(var param)                 //时刻表信号
-    
-    property string context: ""                     // "submitOrder" 或 "myOrders"告诉其在哪个页面
+    signal showTimetable()
 
     RowLayout {
         anchors.fill: parent
@@ -284,7 +282,7 @@ Item {
                                 clip: true
                             }
 
-
+                            // 时刻表
                             CustomButton{
                                 Layout.leftMargin: 10
                                 Layout.preferredHeight: 18
@@ -299,17 +297,7 @@ Item {
                                 borderColor: "#666"
                                 borderWidth: 2
                                 onClicked: {
-                                    if (context === "submitOrder") {
-                                        showTimetable({
-                                            trainNumber: orderData.trainNumber,
-                                            startStation: orderData.startStationName,
-                                            endStation: orderData.endStationName
-                                        })
-                                    } else if (context === "myOrders") {
-                                        showTimetable({
-                                            orderNumber: orderData.orderNumber
-                                        })
-                                    }
+                                    showTimetable()
                                 }
                             }
                         }
