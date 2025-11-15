@@ -32,14 +32,11 @@ public:
     // 对某个管理员解锁，传入用户名
     Q_INVOKABLE QVariantMap unlockAdmin_api(const QString &username);
     // 注销账户，传入用户名
+    Q_INVOKABLE QVariantMap deleteUser_api(const QString &username);
 
 private:
     std::optional<User> findUserByUsername(const QString &username);
     std::optional<Admin> findAdminByUsername(const QString &username);
-    bool lockUser(const QString &username);
-    bool lockAdmin(const QString &username);
-    bool unlockUser(const QString &username);
-    bool unlockAdmin(const QString &username);
     void readFromFileUser(const char filename[]);
     void readFromFileAdmin(const char filename[]);
     void readFromFile(const char filenameUser[], const char filenameAdmin[]);

@@ -33,7 +33,7 @@ QVariantList PassengerManager::getPassengersByUsername_api(const QString &userna
     return list;
 }
 
-QVariantMap PassengerManager::deletePassenger_api(const QString &username, const QString &id) {
+QVariantMap PassengerManager::deletePassengerByUsernameAndId_api(const QString &username, const QString &id) {
     QVariantMap result;
     for (auto it = passengers.begin(); it != passengers.end(); it++) {
         if (it->getUsername() == username && it->getId() == id) {
@@ -45,6 +45,18 @@ QVariantMap PassengerManager::deletePassenger_api(const QString &username, const
     }
     result["success"] = false;
     result["message"] = QString("未找到用户 %1 下的乘车人 %2 ！").arg(username, id);
+    return result;
+}
+
+QVariantMap PassengerManager::deletePassengersByUsername_api(const QString &username) {
+    QVariantMap result;
+    for (auto it = passengers.begin(); it != passengers.end(); it++) {
+        if (it->getUsername() == username) {
+            passengers.erase(it);
+        }
+    }
+    result["success"] = true;
+    result["message"] = QString("用户 %1 下的所有乘车人成功删除！").arg(username);
     return result;
 }
 

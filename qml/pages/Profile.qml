@@ -178,7 +178,8 @@ Page{
                             Layout.preferredHeight: 42
                             text: "注销账号"
                             onClicked: {
-                                onWarningConfirmed = function() {               // 退出登录逻辑
+                                onWarningConfirmed = function() {
+                                    deleteUser(SessionState.username)
                                     warning.active = false
                                     //清空参数
                                     SessionState.clear()
@@ -186,10 +187,6 @@ Page{
                                     if (mainWindow && mainWindow.stackView) {
                                         mainWindow.stackView.clear()
                                     }
-                                    console.log("已注销")
-                                    console.log("appWin.loggedIn:", appWin.loggedIn)
-                                    console.log("SessionState.isLoggedIn:", SessionState.isLoggedIn)
-
                                 }
                                 warningMessage = "确认注销账户？"
                                 warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
@@ -226,5 +223,11 @@ Page{
     function getProfile(username) {
         var result = accountManager.getUserProfile_api(username)
         profileData = result
+    }
+
+    function deleteUser(username) {
+        accountManager.deleteUser_api(username)
+        passengerManager.deletePassengersByUsername_api(username)
+        SessionState.clear()
     }
 }

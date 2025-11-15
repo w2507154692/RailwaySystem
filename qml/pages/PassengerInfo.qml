@@ -214,7 +214,7 @@ Page {
     }
 
     function deletePassenger(username, id) {
-        passengerManager.deletePassenger_api(username, id)
+        passengerManager.deletePassengerByUsernameAndId_api(username, id)
         refreshPassengers(username)
         notificationMessage = "乘车人删除成功！"
         notification.source = "qrc:/qml/components/ConfirmDialog.qml"

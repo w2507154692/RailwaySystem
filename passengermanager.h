@@ -17,7 +17,8 @@ private:
 public:
     explicit PassengerManager(QObject *parent = nullptr);
     Q_INVOKABLE QVariantList getPassengersByUsername_api(const QString &username);
-    Q_INVOKABLE QVariantMap deletePassenger_api(const QString &username, const QString &id);
+    Q_INVOKABLE QVariantMap deletePassengerByUsernameAndId_api(const QString &username, const QString &id);
+    Q_INVOKABLE QVariantMap deletePassengersByUsername_api(const QString &username);
 
 private:
     std::optional<Passenger> getPassengerById(const QString &id);

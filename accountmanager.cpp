@@ -100,82 +100,97 @@ QVariantList AccountManager::getAccounts_api() {
 
 QVariantMap AccountManager::lockUser_api(const QString &username) {
     QVariantMap result;
-    auto findResult = findUserByUsername(username);
-    if (!findResult) {
-        result["success"] = false;
-        result["message"] = QString("用户 %1 不存在！").arg(username);
-        return result;
+    for (auto it = users.begin(); it != users.end(); it++) {
+        if (it->getUsername() == username) {
+            if (it->isLocked()) {
+                result["success"] = false;
+                result["message"] = QString("用户 %1 已被锁定！").arg(username);
+                return result;
+            }
+            it->lock();
+            result["success"] = true;
+            result["message"] = QString("用户 %1 成功锁定！").arg(username);
+            return result;
+        }
     }
-    User user = findResult.value();
-    if (user.isLocked()) {
-        result["success"] = false;
-        result["message"] = QString("用户 %1 已被锁定！").arg(username);
-        return result;
-    }
-    lockUser(user.getUsername());
-    result["success"] = true;
-    result["message"] = QString("用户 %1 成功锁定！").arg(username);
+    result["success"] = false;
+    result["message"] = QString("用户 %1 不存在！").arg(username);
     return result;
 }
 
 QVariantMap AccountManager::lockAdmin_api(const QString &username) {
     QVariantMap result;
-    auto findResult = findAdminByUsername(username);
-    if (!findResult) {
-        result["success"] = false;
-        result["message"] = QString("管理员 %1 不存在！").arg(username);
-        return result;
+    for (auto it = admins.begin(); it != admins.end(); it++) {
+        if (it->getUsername() == username) {
+            if (it->isLocked()) {
+                result["success"] = false;
+                result["message"] = QString("管理员 %1 已被锁定！").arg(username);
+                return result;
+            }
+            it->lock();
+            result["success"] = true;
+            result["message"] = QString("管理员 %1 成功锁定！").arg(username);
+            return result;
+        }
     }
-    Admin admin = findResult.value();
-    if (admin.isLocked()) {
-        result["success"] = false;
-        result["message"] = QString("管理员 %1 已被锁定！").arg(username);
-        return result;
-    }
-    lockAdmin(admin.getUsername());
-    result["success"] = true;
-    result["message"] = QString("管理员 %1 成功锁定！").arg(username);
+    result["success"] = false;
+    result["message"] = QString("管理员 %1 不存在！").arg(username);
     return result;
 }
 
 
 QVariantMap AccountManager::unlockUser_api(const QString &username) {
     QVariantMap result;
-    auto findResult = findUserByUsername(username);
-    if (!findResult) {
-        result["success"] = false;
-        result["message"] = QString("用户 %1 不存在！").arg(username);
-        return result;
+    for (auto it = users.begin(); it != users.end(); it++) {
+        if (it->getUsername() == username) {
+            if (!it->isLocked()) {
+                result["success"] = false;
+                result["message"] = QString("用户 %1 已被解锁！").arg(username);
+                return result;
+            }
+            it->unlock();
+            result["success"] = true;
+            result["message"] = QString("用户 %1 成功解锁！").arg(username);
+            return result;
+        }
     }
-    User user = findResult.value();
-    if (!user.isLocked()) {
-        result["success"] = false;
-        result["message"] = QString("用户 %1 已被解锁！").arg(username);
-        return result;
-    }
-    unlockUser(user.getUsername());
-    result["success"] = true;
-    result["message"] = QString("用户 %1 成功解锁！").arg(username);
+    result["success"] = false;
+    result["message"] = QString("用户 %1 不存在！").arg(username);
     return result;
 }
 
 QVariantMap AccountManager::unlockAdmin_api(const QString &username) {
     QVariantMap result;
-    auto findResult = findAdminByUsername(username);
-    if (!findResult) {
-        result["success"] = false;
-        result["message"] = QString("管理员 %1 不存在！").arg(username);
-        return result;
+    for (auto it = admins.begin(); it != admins.end(); it++) {
+        if (it->getUsername() == username) {
+            if (!it->isLocked()) {
+                result["success"] = false;
+                result["message"] = QString("管理员 %1 已被解锁！").arg(username);
+                return result;
+            }
+            it->unlock();
+            result["success"] = true;
+            result["message"] = QString("管理员 %1 成功解锁！").arg(username);
+            return result;
+        }
     }
-    Admin admin = findResult.value();
-    if (!admin.isLocked()) {
-        result["success"] = false;
-        result["message"] = QString("管理员 %1 已被解锁！").arg(username);
-        return result;
+    result["success"] = false;
+    result["message"] = QString("管理员 %1 不存在！").arg(username);
+    return result;
+}
+
+QVariantMap AccountManager::deleteUser_api(const QString &username) {
+    QVariantMap result;
+    for (auto it = users.begin(); it != users.end(); it++) {
+        if (it->getUsername() == username) {
+            users.erase(it);
+            result["success"] = true;
+            result["message"] = QString("用户 %1 成功注销！").arg(username);
+            return result;
+        }
     }
-    unlockAdmin(admin.getUsername());
-    result["success"] = true;
-    result["message"] = QString("管理员 %1 成功解锁！").arg(username);
+    result["success"] = false;
+    result["message"] = QString("用户 %1 不存在！").arg(username);
     return result;
 }
 
@@ -196,48 +211,6 @@ std::optional<Admin> AccountManager::findAdminByUsername(const QString &username
     }
     return std::nullopt;
 }
-
-bool AccountManager::lockUser(const QString &username) {
-    for (auto it = users.begin(); it != users.end(); it++) {
-        if (it->getUsername() == username) {
-            it->lock();
-            return true;
-        }
-    }
-    return false;
-}
-
-bool AccountManager::lockAdmin(const QString &username) {
-    for (auto it = admins.begin(); it != admins.end(); it++) {
-        if (it->getUsername() == username) {
-            it->lock();
-            return true;
-        }
-    }
-    return false;
-}
-
-bool AccountManager::unlockUser(const QString &username) {
-    for (auto it = users.begin(); it != users.end(); it++) {
-        if (it->getUsername() == username) {
-            it->unlock();
-            return true;
-        }
-    }
-    return false;
-}
-
-bool AccountManager::unlockAdmin(const QString &username) {
-    for (auto it = admins.begin(); it != admins.end(); it++) {
-        if (it->getUsername() == username) {
-            it->unlock();
-            return true;
-        }
-    }
-    return false;
-}
-
-
 
 void AccountManager::readFromFileUser(const char filename[]) {
     std::fstream fis(filename, std::ios::in);
