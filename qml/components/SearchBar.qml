@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.15
 Item {
     id: root
     property alias text: searchField.text
+    property string placeholderText: "查找"
     property int fontSize: 18         // 可外部设置文字大小
     property int inputHeight: 40      // 可外部设置输入框高度
     property int radius: 6            // 新增：可外部设置圆角
@@ -36,9 +37,10 @@ Item {
             TextField {
                 id: searchField
                 Layout.fillWidth: true
+                Layout.leftMargin: -20
                 font.pixelSize: root.fontSize
                 height: root.inputHeight
-                placeholderText: "查找"
+                placeholderText: root.placeholderText
                 background: null
                 verticalAlignment: Text.AlignVCenter
             }

@@ -15,6 +15,7 @@ Page {
     visible: true
 
     property var mainWindow
+    property var rawOrderList: []
     property var orderList: []
     property var timetable: []
     property var onWarningConfirmed: null
@@ -23,10 +24,6 @@ Page {
 
     Component.onCompleted: {
         refreshOrders()
-        var myMap = orderList[0]
-        for (var k in myMap) {
-            console.log(k + ": " + myMap[k])
-        }
     }
 
     Rectangle {
@@ -68,58 +65,58 @@ Page {
                         RowLayout {
                             Layout.fillWidth: true
 
-                        OrderCard {
-                            Layout.preferredWidth: 675
-                            orderData: modelData
-                            onShowTimetable: function() {
-                                timetable = orderManager.getTimetableInfo_api(modelData.orderNumber)
-                                timetableLoader.source = "Timetable.qml"
-                                timetableLoader.active = true
-                                console.log(timetable[0]["stationName"])
-                            } 
-                        }
-
-                    Item {
-                        Layout.fillWidth: true
-                    }
-
-                    ColumnLayout {
-                        CustomButton {
-                            Layout.preferredWidth: 110
-                            Layout.preferredHeight: 35
-                            text: "改签"
-                            activeFocusOnTab: true
-                            onClicked: {
-                                // 改签逻辑
-                            }
-                        }
-                        Item{
-                            Layout.preferredHeight: 20
-                        }
-                        CustomButton {
-                            Layout.preferredWidth: 110
-                            Layout.preferredHeight: 35
-                            text: "退票"
-                            activeFocusOnTab: true
-                            mouseAreaEnabled: modelData.status === "待乘坐"
-                            customColor: modelData.status === "待乘坐" ? "#409CFC" : "#808080"
-                            pressedColor: modelData.status === "待乘坐" ? "#174a73" : "#808080"
-                            hoverColor: modelData.status === "待乘坐" ? "#1f5f99" : "#808080"
-                            onClicked: {
-                                onWarningConfirmed = function() {
-                                    warning.active = false
-                                    cancelOrder(modelData.orderNumber)
+                            OrderCard {
+                                Layout.preferredWidth: 675
+                                orderData: modelData
+                                onShowTimetable: function() {
+                                    timetable = orderManager.getTimetableInfo_api(modelData.orderNumber)
+                                    timetableLoader.source = "Timetable.qml"
+                                    timetableLoader.active = true
+                                    console.log(timetable[0]["stationName"])
                                 }
-                                warningMessage = "确认取消该订单？"
-                                warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
-                                warning.active = true
+                            }
+
+                            Item {
+                                Layout.fillWidth: true
+                            }
+
+                            ColumnLayout {
+                                CustomButton {
+                                    Layout.preferredWidth: 110
+                                    Layout.preferredHeight: 35
+                                    text: "改签"
+                                    activeFocusOnTab: true
+                                    onClicked: {
+                                        // 改签逻辑
+                                    }
+                                }
+                                Item{
+                                    Layout.preferredHeight: 20
+                                }
+                                CustomButton {
+                                    Layout.preferredWidth: 110
+                                    Layout.preferredHeight: 35
+                                    text: "退票"
+                                    activeFocusOnTab: true
+                                    mouseAreaEnabled: modelData.status === "待乘坐"
+                                    customColor: modelData.status === "待乘坐" ? "#409CFC" : "#808080"
+                                    pressedColor: modelData.status === "待乘坐" ? "#174a73" : "#808080"
+                                    hoverColor: modelData.status === "待乘坐" ? "#1f5f99" : "#808080"
+                                    onClicked: {
+                                        onWarningConfirmed = function() {
+                                            warning.active = false
+                                            cancelOrder(modelData.orderNumber)
+                                        }
+                                        warningMessage = "确认取消该订单？"
+                                        warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
+                                        warning.active = true
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-    }
 
             // 分割线
             Rectangle {
@@ -136,13 +133,40 @@ Page {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 48
                 Layout.bottomMargin: 20
-                spacing: 0
+                spacing: 15
 
                 // 搜索框
                 SearchBar{
+                    id: searchOrderNumber
                     inputHeight: 30
-                    width: 300
+                    width: 185
                     fontSize: 14
+                    placeholderText: "查找订单号"
+                    onTextChanged: filterOrderList()
+                }
+                SearchBar{
+                    id: searchTrainNumber
+                    inputHeight: 30
+                    width: 185
+                    fontSize: 14
+                    placeholderText: "查找车次"
+                    onTextChanged: filterOrderList()
+                }
+                SearchBar{
+                    id: searchDate
+                    inputHeight: 30
+                    width: 185
+                    fontSize: 14
+                    placeholderText: "查找日期（yyyymmdd)"
+                    onTextChanged: filterOrderList()
+                }
+                SearchBar{
+                    id: searchPassengerName
+                    inputHeight: 30
+                    width: 185
+                    fontSize: 14
+                    placeholderText: "查找乘车人"
+                    onTextChanged: filterOrderList()
                 }
 
                 Item { Layout.fillWidth: true }
@@ -212,7 +236,8 @@ Page {
     function refreshOrders() {
         // 记录当前滚动条位置
         var savedContentY = orderListView.contentY
-        orderList = orderManager.getOrdersByUsername_api(SessionState.username);
+        rawOrderList = orderManager.getOrdersByUsername_api(SessionState.username);
+        filterOrderList()
         // 回到之前记录的位置
         orderListView.contentY = savedContentY
     }
@@ -223,5 +248,22 @@ Page {
         notificationMessage = "订单取消成功！"
         notification.source = "qrc:/qml/components/ConfirmDialog.qml"
         notification.active = true
+    }
+
+    function filterOrderList() {
+        orderList = rawOrderList.filter(function(order) {
+            // 日期判断，yyyyMMdd格式
+            var dateOk = true;
+            if (searchDate.text !== "") {
+                var mm = order.month < 10 ? "0" + order.month : "" + order.month;
+                var dd = order.day < 10 ? "0" + order.day : "" + order.day;
+                var orderDateStr = "" + order.year + mm + dd;
+                dateOk = (orderDateStr === searchDate.text);
+            }
+            return (searchOrderNumber.text === "" || (order.orderNumber && order.orderNumber.indexOf(searchOrderNumber.text) !== -1))
+                && (searchTrainNumber.text === "" || (order.trainNumber && order.trainNumber.indexOf(searchTrainNumber.text) !== -1))
+                && (searchPassengerName.text === "" || (order.passengerName && order.passengerName.indexOf(searchPassengerName.text) !== -1))
+                && dateOk;
+        });
     }
 }
