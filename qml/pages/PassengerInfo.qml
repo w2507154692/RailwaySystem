@@ -12,6 +12,7 @@ Page {
     width: parent ? parent.width :640
     height: parent ? parent.height : 400
 
+    property var rawPassengerList: []
     property var passengerList: []
     property var onWarningConfirmed: null
     property string warningMessage: ""
@@ -133,13 +134,32 @@ Page {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 48
                 Layout.bottomMargin: 20
-                spacing: 0
+                spacing: 15
 
                 // 搜索框
                 SearchBar{
+                    id: searchName
                     inputHeight: 30
-                    width: 300
+                    width: 185
                     fontSize: 14
+                    placeholderText: "查找姓名"
+                    onTextChanged: filterPassengerList()
+                }
+                SearchBar{
+                    id: searchPhoneNumber
+                    inputHeight: 30
+                    width: 185
+                    fontSize: 14
+                    placeholderText: "查找联系方式"
+                    onTextChanged: filterPassengerList()
+                }
+                SearchBar{
+                    id: searchId
+                    inputHeight: 30
+                    width: 185
+                    fontSize: 14
+                    placeholderText: "查找身份证号"
+                    onTextChanged: filterPassengerList()
                 }
 
                 Item { Layout.fillWidth: true }
@@ -209,7 +229,8 @@ Page {
 
     function refreshPassengers(username) {
         var savedContentY = passengerListView.contentY
-        passengerList = passengerManager.getPassengersByUsername_api(username)
+        rawPassengerList = passengerManager.getPassengersByUsername_api(username)
+        filterPassengerList()
         passengerListView.contentY = savedContentY
     }
 
@@ -219,5 +240,13 @@ Page {
         notificationMessage = "乘车人删除成功！"
         notification.source = "qrc:/qml/components/ConfirmDialog.qml"
         notification.active = true
+    }
+
+    function filterPassengerList() {
+        passengerList = rawPassengerList.filter(function(passenger) {
+            return (searchName.text === "" || (passenger.name && passenger.name.indexOf(searchName.text) !== -1))
+                && (searchPhoneNumber.text === "" || (passenger.phoneNumber && passenger.phoneNumber.indexOf(searchPhoneNumber.text) !== -1))
+                && (searchId.text === "" || (passenger.id && passenger.id.indexOf(searchId.text) !== -1))
+        });
     }
 }
