@@ -137,9 +137,11 @@ Item {
             Layout.bottomMargin: 2
             radius:8
             // 表格内容
-            ScrollView {
-                id:scrollview
-                anchors.fill:parent
+            ListView {
+                id: stationListView
+                clip: true
+                model: stationList
+                anchors.fill: parent
 
                 // 完全自定义滚动条样式
                 ScrollBar.vertical: BasicScrollBar {
@@ -152,139 +154,135 @@ Item {
                     handleLength: 60 // 这里设置你想要的长度
                 }
 
-                ColumnLayout {
-                    width: scrollview.width
-                    height: scrollview.height
-                    Repeater {
-                        model: timetable.stationList
-                        ColumnLayout{
+                delegate: ColumnLayout {
+                    width: stationListView.width
+                    ColumnLayout{
+                        Layout.fillWidth: true
+                        RowLayout {
+                            Layout.topMargin: -5
                             Layout.fillWidth: true
-                            RowLayout {
-                                Layout.topMargin: -5
-                                Layout.fillWidth: true
+                            Layout.preferredHeight: 40
+
+                            property color textColor: modelData.passInfo === "起末站"
+                                                      ? "#0080FF"
+                                                      : (modelData.passInfo === "其他站"
+                                                         ? "#808080"
+                                                         : "#000")
+
+                            // 编辑按钮
+                            Item {
+                                Layout.preferredWidth: 36
                                 Layout.preferredHeight: 40
-
-                                property color textColor: modelData.passInfo === "起末站"
-                                                          ? "#0080FF"
-                                                          : (modelData.passInfo === "其他站"
-                                                             ? "#808080"
-                                                             : "#000")
-
-                                // 编辑按钮
-                                Item {
-                                    Layout.preferredWidth: 36
-                                    Layout.preferredHeight: 40
-                                    visible: showButtons
-                                    Button {
-                                        anchors.centerIn: parent
-                                        width: 24; height: 24
-                                        icon.source: "qrc:/resources/icon/Edit.png"
-                                        background: Rectangle { color: "transparent" }
-                                        onClicked: {
-                                            // 编辑逻辑
-                                        }
-                                    }
-                                }
-
-                                //间隔
-                                Item{
-                                    Layout.fillWidth: true
-                                }
-
-                                Text {
-                                    text: modelData.stationName
-                                    color: parent.textColor
-                                    Layout.preferredWidth: 60
-                                    Layout.preferredHeight: 40
-                                    verticalAlignment: Text.AlignVCenter
-                                    // font.pixelSize: 16
-                                    horizontalAlignment: Text.AlignHCenter
-                                }
-
-                                //间隔
-                                Item{
-                                    Layout.fillWidth: true
-                                }
-
-                                Text {
-                                    text: (modelData.arriveHour === -1 || modelData.arriveMinute === -1)
-                                          ? "---"
-                                          : ("0" + modelData.arriveHour).slice(-2) + ":" + ("0" + modelData.arriveMinute).slice(-2)
-                                    color: parent.textColor
-                                    Layout.preferredWidth: 55
-                                    Layout.preferredHeight: 40
-                                    verticalAlignment: Text.AlignVCenter
-                                    // font.pixelSize: 16
-                                    horizontalAlignment: Text.AlignHCenter
-                                }
-
-                                //间隔
-                                Item{
-                                    Layout.fillWidth: true
-                                }
-
-                                Text {
-                                    text: (modelData.departureHour === -1 || modelData.departureMinute === -1)
-                                          ? "---"
-                                          : ("0" + modelData.departureHour).slice(-2) + ":" + ("0" + modelData.departureMinute).slice(-2)
-                                    color: parent.textColor
-                                    Layout.preferredWidth: 55
-                                    Layout.preferredHeight: 40
-                                    verticalAlignment: Text.AlignVCenter
-                                    // font.pixelSize: 16
-                                    horizontalAlignment: Text.AlignHCenter
-                                }
-
-                                //间隔
-                                Item{
-                                    Layout.fillWidth: true
-                                }
-
-                                Text {
-                                    text: modelData.stopInterval === -1
-                                          ? "---"
-                                          : modelData.stopInterval + "分"
-                                    color: parent.textColor
-                                    Layout.preferredWidth: 48
-                                    Layout.preferredHeight: 40
-                                    verticalAlignment: Text.AlignVCenter
-                                    // font.pixelSize: 16
-                                    horizontalAlignment: Text.AlignHCenter
-                                }
-
-                                //间隔
-                                Item{
-                                    Layout.fillWidth: true
-                                }
-
-                                // 删除按钮
-                                Item {
-                                    Layout.preferredWidth: 36
-                                    Layout.preferredHeight: 40
-                                    visible: showButtons
-                                    Button {
-                                        anchors.centerIn: parent
-                                        width: 36; height: 36
-                                        icon.source: "qrc:/resources/icon/Delete.png"
-                                        background: Rectangle { color: "transparent" }
-                                        onClicked: {
-                                            timetable.stations.splice(index, 1)
-                                        }
+                                visible: showButtons
+                                Button {
+                                    anchors.centerIn: parent
+                                    width: 24; height: 24
+                                    icon.source: "qrc:/resources/icon/Edit.png"
+                                    background: Rectangle { color: "transparent" }
+                                    onClicked: {
+                                        // 编辑逻辑
                                     }
                                 }
                             }
 
-                            // 行分割线
-                            Rectangle {
-                                Layout.topMargin: -10
-                                Layout.leftMargin: 30
-                                Layout.rightMargin: 30
+                            //间隔
+                            Item{
                                 Layout.fillWidth: true
-                                Layout.preferredHeight: 2
-                                // Layout.leftMargin: 36
-                                // Layout.columnSpan: 6
-                                color: "#b3b3b3"
                             }
+
+                            Text {
+                                text: modelData.stationName
+                                color: parent.textColor
+                                Layout.preferredWidth: 60
+                                Layout.preferredHeight: 40
+                                verticalAlignment: Text.AlignVCenter
+                                // font.pixelSize: 16
+                                horizontalAlignment: Text.AlignHCenter
+                            }
+
+                            //间隔
+                            Item{
+                                Layout.fillWidth: true
+                            }
+
+                            Text {
+                                text: (modelData.arriveHour === -1 || modelData.arriveMinute === -1)
+                                      ? "---"
+                                      : ("0" + modelData.arriveHour).slice(-2) + ":" + ("0" + modelData.arriveMinute).slice(-2)
+                                color: parent.textColor
+                                Layout.preferredWidth: 55
+                                Layout.preferredHeight: 40
+                                verticalAlignment: Text.AlignVCenter
+                                // font.pixelSize: 16
+                                horizontalAlignment: Text.AlignHCenter
+                            }
+
+                            //间隔
+                            Item{
+                                Layout.fillWidth: true
+                            }
+
+                            Text {
+                                text: (modelData.departureHour === -1 || modelData.departureMinute === -1)
+                                      ? "---"
+                                      : ("0" + modelData.departureHour).slice(-2) + ":" + ("0" + modelData.departureMinute).slice(-2)
+                                color: parent.textColor
+                                Layout.preferredWidth: 55
+                                Layout.preferredHeight: 40
+                                verticalAlignment: Text.AlignVCenter
+                                // font.pixelSize: 16
+                                horizontalAlignment: Text.AlignHCenter
+                            }
+
+                            //间隔
+                            Item{
+                                Layout.fillWidth: true
+                            }
+
+                            Text {
+                                text: modelData.stopInterval === -1
+                                      ? "---"
+                                      : modelData.stopInterval + "分"
+                                color: parent.textColor
+                                Layout.preferredWidth: 48
+                                Layout.preferredHeight: 40
+                                verticalAlignment: Text.AlignVCenter
+                                // font.pixelSize: 16
+                                horizontalAlignment: Text.AlignHCenter
+                            }
+
+                            //间隔
+                            Item{
+                                Layout.fillWidth: true
+                            }
+
+                            // 删除按钮
+                            Item {
+                                Layout.preferredWidth: 36
+                                Layout.preferredHeight: 40
+                                visible: showButtons
+                                Button {
+                                    anchors.centerIn: parent
+                                    width: 36; height: 36
+                                    icon.source: "qrc:/resources/icon/Delete.png"
+                                    background: Rectangle { color: "transparent" }
+                                    onClicked: {
+                                        timetable.stations.splice(index, 1)
+                                    }
+                                }
+                            }
+                        }
+
+                        // 行分割线
+                        Rectangle {
+                            Layout.topMargin: -10
+                            Layout.leftMargin: 30
+                            Layout.rightMargin: 30
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 2
+                            // Layout.leftMargin: 36
+                            // Layout.columnSpan: 6
+                            color: "#b3b3b3"
                         }
                     }
                 }
