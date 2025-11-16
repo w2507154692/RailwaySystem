@@ -30,12 +30,14 @@ Page {
         anchors.fill: parent
 
         ColumnLayout {
-            anchors.fill: parent
+            anchors.left: parent.left
+            anchors.right: parent.right
             anchors.leftMargin: 20
+            spacing: 0
 
             Rectangle {
                 Layout.fillWidth: true
-                Layout.preferredHeight: myOrdersPage.height - 70
+                Layout.preferredHeight: myOrdersPage.height - 110
                 Layout.alignment: Qt.AlignTop
 
                 // 滚动卡片区
@@ -122,17 +124,16 @@ Page {
             Rectangle {
                 id: rectangle
                 Layout.fillWidth: true
-                Layout.preferredHeight: 1
+                Layout.preferredHeight: 2
                 Layout.rightMargin: 30
-                Layout.topMargin: -20
                 color: "#cce5ff"
             }
 
             // 搜索框
             RowLayout {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 48
-                Layout.bottomMargin: 20
+                Layout.preferredHeight: 40
+                Layout.topMargin: 10
                 spacing: 15
 
                 // 搜索框
@@ -169,6 +170,32 @@ Page {
                     onTextChanged: filterOrderList()
                 }
 
+                Item { Layout.fillWidth: true }
+            }
+
+            // 搜索框
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 40
+                spacing: 15
+
+                // 搜索框
+                SearchBar{
+                    id: searchStartStationName
+                    inputHeight: 30
+                    width: 185
+                    fontSize: 14
+                    placeholderText: "查找出发站"
+                    onTextChanged: filterOrderList()
+                }
+                SearchBar{
+                    id: searchEndStationName
+                    inputHeight: 30
+                    width: 185
+                    fontSize: 14
+                    placeholderText: "查找终点站"
+                    onTextChanged: filterOrderList()
+                }
                 Item { Layout.fillWidth: true }
             }
         }
@@ -263,6 +290,8 @@ Page {
             return (searchOrderNumber.text === "" || (order.orderNumber && order.orderNumber.indexOf(searchOrderNumber.text) !== -1))
                 && (searchTrainNumber.text === "" || (order.trainNumber && order.trainNumber.indexOf(searchTrainNumber.text) !== -1))
                 && (searchPassengerName.text === "" || (order.passengerName && order.passengerName.indexOf(searchPassengerName.text) !== -1))
+                && (searchStartStationName.text === "" || (order.startStationName && order.startStationName.indexOf(searchStartStationName.text) !== -1))
+                && (searchEndStationName.text === "" || (order.endStationName && order.endStationName.indexOf(searchEndStationName.text) !== -1))
                 && dateOk;
         });
     }

@@ -165,7 +165,7 @@ Item {
                                     Layout.alignment: Qt.AlignHCenter
                                     Layout.topMargin: -2
                                     text: orderData.intervalHour + "时" + orderData.intervalMinute + "分"
-                                    font.pixelSize: 8; color: "#888";
+                                    font.pixelSize: 11; color: "#888";
                                     elide: Text.ElideRight
                                     wrapMode: Text.NoWrap
                                     clip: true
