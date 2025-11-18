@@ -30,7 +30,13 @@ Window {
     property int typeSelected: -1        // 0: 高铁, -1:未选
 
     property var ticketList: []
+    property var rawTicketList: []
+    
+    // 用于传递给提交订单页面的数据
+    property var pendingOrderInfo: null
+    property int pendingSeatType: -1
 
+    //先初始化再onCompleted加载数据再onloaded
     Component.onCompleted: {
 
     }
@@ -127,14 +133,22 @@ Window {
                         MyCheckBox {
                             text: "只看商务座"
                             checked: seatSelected === 0
-                            onClicked: seatSelected = checked ? 0 : -1
+                            onClicked: {
+                                seatSelected = seatSelected === 0 ? -1 : 0
+                                console.log("商务座选择状态:", seatSelected === 0)
+                                filterTickets()
+                            }
                             Layout.row: 0
                             Layout.column: 0
                         }
                         MyCheckBox {
                             text: "上午出发"
                             checked: timeSelected === 0
-                            onClicked: timeSelected = checked ? 0 : -1
+                            onClicked: {
+                                timeSelected = timeSelected === 0 ? -1 : 0
+                                console.log("上午出发选择状态:", timeSelected === 0)
+                                filterTickets()
+                            }
                             Layout.row: 1
                             Layout.column: 0
                         }
@@ -142,14 +156,22 @@ Window {
                         MyCheckBox {
                             text: "只看一等座"
                             checked: seatSelected === 1
-                            onClicked: seatSelected = checked ? 1 : -1
+                            onClicked: {
+                                seatSelected = seatSelected === 1 ? -1 : 1
+                                console.log("一等座选择状态:", seatSelected === 1)
+                                filterTickets()
+                            }
                             Layout.row: 0
                             Layout.column: 1
                         }
                         MyCheckBox {
                             text: "下午出发"
                             checked: timeSelected === 1
-                            onClicked: timeSelected = checked ? 1 : -1
+                            onClicked: {
+                                timeSelected = timeSelected === 1 ? -1 : 1
+                                console.log("下午出发选择状态:", timeSelected === 1)
+                                filterTickets()
+                            }
                             Layout.row: 1
                             Layout.column: 1
                         }
@@ -157,14 +179,22 @@ Window {
                         MyCheckBox {
                             text: "只看二等座"
                             checked: seatSelected === 2
-                            onClicked: seatSelected = checked ? 2 : -1
+                            onClicked: {
+                                seatSelected = seatSelected === 2 ? -1 : 2
+                                console.log("二等座选择状态:", seatSelected === 2)
+                                filterTickets()
+                            }
                             Layout.row: 0
                             Layout.column: 2
                         }
                         MyCheckBox {
                             text: "只看高铁"
                             checked: typeSelected === 0
-                            onClicked: typeSelected = checked ? 0 : -1
+                            onClicked: {
+                                typeSelected = typeSelected === 0 ? -1 : 0
+                                console.log("高铁选择状态:", typeSelected === 0)
+                                filterTickets()
+                            }
                             Layout.row: 1
                             Layout.column: 2
                         }
@@ -227,6 +257,10 @@ Window {
                                 timetableLoader.source = "Timetable.qml"
                                 timetableLoader.active = true
                             }
+                            onBookTicket: function(ticketInfo, seatType) {
+                                // 打开提交订单窗口
+                                openSubmitOrder(ticketInfo, seatType)
+                            }
                         }
                     }
                 }
@@ -266,7 +300,10 @@ Window {
                         text: "耗时最短"
                         index: 0
                         selected: parent.selectedIndex == index
-                        onClicked: parent.selectedIndex = index
+                        onClicked: {
+                            parent.selectedIndex = index
+                            sortTickets(0)
+                        }
                         fontSize: 16
                     }
                     SelectButton {
@@ -275,7 +312,10 @@ Window {
                         text: "发时最早"
                         index: 1
                         selected: parent.selectedIndex == index
-                        onClicked: parent.selectedIndex = index
+                        onClicked: {
+                            parent.selectedIndex = index
+                            sortTickets(1)
+                        }
                         fontSize: 16
                     }
                     SelectButton {
@@ -284,7 +324,10 @@ Window {
                         text: "到时最早"
                         index: 2
                         selected: parent.selectedIndex == index
-                        onClicked: parent.selectedIndex = index
+                        onClicked: {
+                            parent.selectedIndex = index
+                            sortTickets(2)
+                        }
                         fontSize: 16
                     }
                     SelectButton {
@@ -293,7 +336,10 @@ Window {
                         text: "价格最低"
                         index: 3
                         selected: parent.selectedIndex == index
-                        onClicked: parent.selectedIndex = index
+                        onClicked: {
+                            parent.selectedIndex = index
+                            sortTickets(3)
+                        }
                         fontSize: 16
                     }
                 }
@@ -329,7 +375,7 @@ Window {
     }
 
     //时刻表页面
-        Loader {
+    Loader {
         id: timetableLoader
         source: ""
         active: false
@@ -346,14 +392,167 @@ Window {
             }
         }
     }
-
-    function queryTickets() {
-        var dateInt = resultData.selectedDate.match(/(\d+)年(\d+)月(\d+)日/);
-        var year = parseInt(dateInt[1]);
-        var month = parseInt(dateInt[2]);
-        var day = parseInt(dateInt[3]);
-        console.log("year:", year, "month:", month, "day:", day);
-        ticketList = bookingSystem.queryTickets_api(resultData.fromCity, resultData.toCity, year, month, day);
+    
+    Loader {
+        id: submitLoader
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    console.log("关闭订单提交页面")
+                    submitLoader.active = false
+                    pendingOrderInfo = null
+                    pendingSeatType = -1
+                })
+                
+                // 如果有待处理的订单信息，则设置数据
+                if (pendingOrderInfo && pendingSeatType !== -1) {
+                    var seatTypeName = ["二等座", "一等座", "商务座"][pendingSeatType];
+                    var price = [pendingOrderInfo.secondClassPrice, pendingOrderInfo.firstClassPrice, pendingOrderInfo.businessClassPrice][pendingSeatType];
+                    
+                    // 设置订单信息（根据 SubmitOrderDialog 的实际属性调整）
+                    if (item.orderData) {
+                        item.orderData.trainNumber = pendingOrderInfo.trainNumber
+                        item.orderData.fromStation = pendingOrderInfo.startStationName
+                        item.orderData.toStation = pendingOrderInfo.endStationName
+                        item.orderData.departureDate = resultData.selectedDate
+                        item.orderData.departureTime = ("0" + pendingOrderInfo.startHour).slice(-2) + ":" + ("0" + pendingOrderInfo.startMinute).slice(-2)
+                        item.orderData.arrivalTime = ("0" + pendingOrderInfo.endHour).slice(-2) + ":" + ("0" + pendingOrderInfo.endMinute).slice(-2)
+                        item.orderData.seatType = seatTypeName
+                        item.orderData.price = price
+                    }
+                }
+                
+                item.visible = true
+            }
+        }
     }
 
+    //查询车票
+    function queryTickets() {
+    var dateInt = resultData.selectedDate.match(/(\d+)年(\d+)月(\d+)日/);
+    if (!dateInt) {
+        console.log("selectedDate 格式不正确:", resultData.selectedDate);
+        return;
+    }
+    var year = parseInt(dateInt[1]);
+    var month = parseInt(dateInt[2]);
+    var day = parseInt(dateInt[3]);
+    console.log("year:", year, "month:", month, "day:", day);
+    rawTicketList = bookingSystem.queryTickets_api(resultData.fromCity, resultData.toCity, year, month, day);
+    ticketList = rawTicketList;
+    }
+
+
+    //筛选车票
+    function filterTickets() {
+        ticketList = rawTicketList.filter(function(ticket, idx) {
+
+                // if (!rawTicketList || rawTicketList.length === 0) {
+                //     console.log("原始筛选数据 rawTicketList 为空！");
+                // } else {
+                //     console.log("原始筛选数据数量：", rawTicketList.length, rawTicketList);
+                // }
+            // 座位类型筛选
+            if (seatSelected !== -1) {
+                // console.log('座位选择');
+                if (seatSelected === 0 && ticket.businessClassCount <= 0) {
+                    // console.log(`[${idx}] filtered by businessClassCount:`, ticket);
+                    return false;
+                }
+                if (seatSelected === 1 && ticket.firstClassCount <= 0) {
+                    // console.log(`[${idx}] filtered by firstClassCount:`, ticket);
+                    return false;
+                }
+                if (seatSelected === 2 && ticket.secondClassCount <= 0) {
+                    // console.log(`[${idx}] filtered by secondClassCount:`, ticket);
+                    return false;
+                }
+            }
+            // 出发时间筛选
+            if (timeSelected !== -1) {
+                // console.log('时间选择');
+                if (timeSelected === 0 && ticket.startHour >= 12) {
+                    // console.log(`[${idx}] filtered by startHour >= 12:`, ticket);
+                    return false;
+                }
+                if (timeSelected === 1 && ticket.startHour < 12) {
+                    // console.log(`[${idx}] filtered by startHour < 12:`, ticket);
+                    return false;
+                }
+            }
+            // 列车类型筛选
+            if (typeSelected !== -1) {
+                // console.log('类型选择');
+                if (typeSelected === 0 && !ticket.trainNumber.startsWith("G")) {
+                    // console.log(`[${idx}] filtered by trainNumber not G:`, ticket);
+                    return false;
+                }
+            }
+            // 通过所有条件
+            return true;
+        });
+
+        // console.log("filter result:", ticketList);
+    }
+
+    //排序车票
+    function sortTickets(sortType) {
+        var tempList = ticketList.slice(); // 复制数组
+        
+        switch(sortType) {
+            case 0: // 耗时最短
+                tempList.sort(function(a, b) {
+                    // 将时间转换为分钟进行比较
+                    var durationA = a.intervalHour * 60 + a.intervalMinute;
+                    var durationB = b.intervalHour * 60 + b.intervalMinute;
+                    return durationA - durationB;
+                });
+                break;
+            case 1: // 发时最早
+                tempList.sort(function(a, b) {
+                    // 先比较小时，再比较分钟
+                    if (a.startHour !== b.startHour) {
+                        return a.startHour - b.startHour;
+                    }
+                    return a.startMinute - b.startMinute;
+                });
+                break;
+            case 2: // 到时最早
+                tempList.sort(function(a, b) {
+                    // 先比较小时，再比较分钟
+                    if (a.endHour !== b.endHour) {
+                        return a.endHour - b.endHour;
+                    }
+                    return a.endMinute - b.endMinute;
+                });
+                break;
+            case 3: // 价格最低
+                tempList.sort(function(a, b) {
+                    // 获取最低价格（二等座 < 一等座 < 商务座）
+                    var priceA = a.secondClassPrice || a.firstClassPrice || a.businessClassPrice || 0;
+                    var priceB = b.secondClassPrice || b.firstClassPrice || b.businessClassPrice || 0;
+                    return priceA - priceB;
+                });
+                break;
+        }
+        
+        ticketList = tempList;
+        console.log("排序完成，类型:", sortType);
+    }
+
+    // 打开提交订单页面
+    function openSubmitOrder(ticketInfo, seatType) {
+        console.log("打开订单提交页面，车次：", ticketInfo.trainNumber, "座位类型：", seatType);
+        
+        // 保存待处理的订单信息
+        pendingOrderInfo = ticketInfo
+        pendingSeatType = seatType
+        
+        // 加载提交订单页面
+        submitLoader.source = "SubmitOrderDialog.qml"
+        submitLoader.active = true
+    }
 }

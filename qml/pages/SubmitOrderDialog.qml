@@ -95,7 +95,7 @@ Window{
                         OrderCard {
                             Layout.fillWidth: true
                             visible: true
-                            context: "submitOrder"
+                            // context: "submitOrder"
                             orderData: modelData
                             onShowTimetable: function(param) {
                                 // param.trainNumber, param.startStation, param.endStation
@@ -105,7 +105,7 @@ Window{
                         OrderCard {
                             Layout.fillWidth: true
                             visible: true
-                            context: "submitOrder"
+                            // context: "submitOrder"
                             orderData: modelData
                             onShowTimetable: function(param) {
                                 // param.trainNumber, param.startStation, param.endStation
@@ -115,7 +115,7 @@ Window{
                         OrderCard {
                             Layout.fillWidth: true
                             visible: true
-                            context: "submitOrder"
+                            // context: "submitOrder"
                             orderData: modelData
                             onShowTimetable: function(param) {
                                 // param.trainNumber, param.startStation, param.endStation
@@ -125,7 +125,7 @@ Window{
                         OrderCard {
                             Layout.fillWidth: true
                             visible: true
-                            context: "submitOrder"
+                            // context: "submitOrder"
                             orderData: modelData
                             onShowTimetable: function(param) {
                                 // param.trainNumber, param.startStation, param.endStation
