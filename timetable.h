@@ -21,11 +21,11 @@ public:
     // 输入城市A和城市B，输出这个时刻表从A到B的所有车站组合
     std::vector<std::tuple<Station, Station>> getStationPairsBetweenCities(const QString &startCityName, const QString &endCityName);
     // 获得某个车站的索引（第几个停靠站）
-    int getIndexByStation(const Station &station);
+    int getIndexByStationName(const QString &stationName);
     // 输出车站A和车站B，输出A到B经过的所有车站（包括A和B）
     std::vector<Station> getStationsBetweenStations(const Station &startStation, const Station &endStation);
     // 获得从起始站到终点站，中间每一站的信息（站，到时，发时，停留时间，起末站/中间站/其他站）
-    std::vector<std::tuple<Station, Time, Time, int, QString>> getInfo(const Station &startStation, const Station &endStation);
+    std::vector<std::tuple<Station, Time, Time, int, QString>> getInfo(const QString &startStationName, const QString &endStationName);
     // 获得从起始站到终点站，中间每一站的信息（站，到时，发时，停留时间，起末站/中间站/其他站）重载函数
     std::vector<std::tuple<Station, Time, Time, int, QString>> getInfo();
     // 获得时刻表第一个车站的信息（站，发时）

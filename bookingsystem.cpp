@@ -112,14 +112,14 @@ QVariantList BookingSystem::queryTickets_api(const QString &startCityName,
         // 获得该安排的车站在时刻表中的区间
         Station startStation = std::get<1>(route), endStation = std::get<2>(route);
         Timetable timetable = train.getTimetable();
-        int a = timetable.getIndexByStation(startStation);
-        int b= timetable.getIndexByStation(endStation);
+        int a = timetable.getIndexByStationName(startStation.getStationName());
+        int b= timetable.getIndexByStationName(endStation.getStationName());
         std::vector<Order> ordersWithTrainNumberAndDate = order_manager->getOrdersByTrainNumberAndDate(train.getNumber(), queryDate);
         // 遍历每个订单，检查该订单的坐车区间是否和目标区间重叠
         for (auto &order : ordersWithTrainNumberAndDate) {
             if (order.getStatus() == "待乘坐") {
-                int c = timetable.getIndexByStation(order.getStartStation());
-                int d = timetable.getIndexByStation(order.getEndStation());
+                int c = timetable.getIndexByStationName(order.getStartStation().getStationName());
+                int d = timetable.getIndexByStationName(order.getEndStation().getStationName());
                 qWarning() << a << b << "and" << c << d;
                 // 如果 [a,b] 区间和 [c,d] 区间重叠，则对应座位数量减1
                 if (!(b <= c || a >= d)) {

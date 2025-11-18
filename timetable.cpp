@@ -59,10 +59,10 @@ std::vector<std::tuple<Station, Station>> Timetable::getStationPairsBetweenCitie
     return result;
 }
 
-int Timetable::getIndexByStation(const Station &station) {
+int Timetable::getIndexByStationName(const QString &stationName) {
     int len = table.size();
     for (int i = 0; i < len; i++) {
-        if (std::get<0>(table[i]) == station) {
+        if (std::get<0>(table[i]).getStationName() == stationName) {
             return i;
         }
     }
@@ -88,10 +88,10 @@ std::vector<Station> Timetable::getStationsBetweenStations(const Station &startS
     return result;
 }
 
-std::vector<std::tuple<Station, Time, Time, int, QString>> Timetable::getInfo(const Station &startStation, const Station &endStation) {
+std::vector<std::tuple<Station, Time, Time, int, QString>> Timetable::getInfo(const QString &startStationName, const QString &endStationName) {
     std::vector<std::tuple<Station, Time, Time, int, QString>> result;
-    int startStationIndex = getIndexByStation(startStation);
-    int endStationIndex = getIndexByStation(endStation);
+    int startStationIndex = getIndexByStationName(startStationName);
+    int endStationIndex = getIndexByStationName(endStationName);
     int len =table.size();
     for (int i = 0; i < len; i++) {
         QString info;

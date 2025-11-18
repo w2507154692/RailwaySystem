@@ -19,7 +19,10 @@ public:
     explicit TrainManager(QObject *parent = nullptr);
     Q_INVOKABLE QVariantList getTrains_api();
     Q_INVOKABLE QVariantMap deleteTrain_api(const QString &trainNumber);
+    // 通过车次号获得该车次的时刻表信息（默认第一个起始站，最后一个终点站）
     Q_INVOKABLE QVariantList getTimetableInfo_api(const QString &trainNumber);
+    // 通过车次号和起末站获得该车次的时刻表信息
+    Q_INVOKABLE QVariantList getTimetableInfo_api(const QString &trainNumber, const QString &startStationName, const QString &endStationName);
     std::vector<std::tuple<Train, Station, Station>> getRoutesByCities(const QString &startCityName, const QString &endCityName);
 
 private:

@@ -30,6 +30,7 @@ Window {
     property int typeSelected: -1        // 0: 高铁, -1:未选
 
     property var ticketList: []
+    property var timetable: []
 
     Component.onCompleted: {
 
@@ -222,8 +223,9 @@ Window {
                             Layout.topMargin: 15
                             visible: true
                             ticketData: modelData
-                            onShowTimetable: function(trainNumber, startStation, endStation) {
+                            onShowTimetable: function() {
                                 // 打开时刻表窗口
+                                timetable = trainManager.getTimetableInfo_api(modelData.trainNumber, modelData.startStationName, modelData.endStationName)
                                 timetableLoader.source = "Timetable.qml"
                                 timetableLoader.active = true
                             }
@@ -337,11 +339,11 @@ Window {
             if (item) {
                 // 连接关闭信号
                 item.closed.connect(function() {
-                    console.log("!!!!!!!!!!!!!!!!!!!!")
                     timetableLoader.active = false
                 })
                 // 初始化参数
                 item.transientParent = resultWin
+                item.timetable = timetable
                 item.visible = true
             }
         }
