@@ -12,6 +12,7 @@ Page {
     visible: true
 
     property var mainWindow
+    property var rawTrainList: []
     property var trainList: []
     property var onWarningConfirmed: null
     property string warningMessage: ""
@@ -152,13 +153,32 @@ Page {
                     Layout.fillWidth: true
                     Layout.preferredHeight: 48
                     Layout.bottomMargin: 20
-                    spacing: 0
+                    spacing: 15
 
                     // 搜索框
                     SearchBar{
+                        id: searchTrainNumber
                         inputHeight: 30
-                        width: 300
+                        width: 185
                         fontSize: 14
+                        placeholderText: "查找车次号"
+                        onTextChanged: filterTrainList()
+                    }
+                    SearchBar{
+                        id: searchStartStationName
+                        inputHeight: 30
+                        width: 185
+                        fontSize: 14
+                        placeholderText: "查找起始站"
+                        onTextChanged: filterTrainList()
+                    }
+                    SearchBar{
+                        id: searchEndStationName
+                        inputHeight: 30
+                        width: 185
+                        fontSize: 14
+                        placeholderText: "查找终点站"
+                        onTextChanged: filterTrainList()
                     }
 
                     Item { Layout.fillWidth: true }
@@ -248,7 +268,8 @@ Page {
 
     function refreshTrains() {
         var savedContentY = trainListView.contentY
-        trainList = trainManager.getTrains_api()
+        rawTrainList = trainManager.getTrains_api()
+        filterTrainList()
         trainListView.contentY = savedContentY
     }
 
@@ -259,4 +280,13 @@ Page {
         notification.source = "qrc:/qml/components/ConfirmDialog.qml"
         notification.active = true
     }
+
+    function filterTrainList() {
+        trainList = rawTrainList.filter(function(train) {
+            return (searchTrainNumber.text === "" || (train.trainNumber && train.trainNumber.indexOf(searchTrainNumber.text) !== -1))
+                && (searchStartStationName.text === "" || (train.startStationName && train.startStationName.indexOf(searchStartStationName.text) !== -1))
+                && (searchEndStationName.text === "" || (train.endStationName && train.endStationName.indexOf(searchEndStationName.text) !== -1))
+        });
+    }
+
 }

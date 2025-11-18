@@ -12,6 +12,7 @@ Page {
     objectName: "qrc:/qml/pages/UserManagement.qml"
     visible: true
 
+    property var rawAccountList: []
     property var accountList: []
     property var onWarningConfirmed: null
     property string warningMessage: ""
@@ -153,13 +154,16 @@ Page {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 48
                 Layout.topMargin: -15
-                spacing: 0
+                spacing: 15
 
                 // 搜索框
                 SearchBar{
+                    id: searchUsername
                     inputHeight: 30
-                    width: 300
+                    width: 185
                     fontSize: 14
+                    placeholderText: "查找用户名"
+                    onTextChanged: filterAccountList()
                 }
 
                 Item { Layout.fillWidth: true }
@@ -233,7 +237,8 @@ Page {
 
     function refreshAccounts() {
         var savedContentY = accountListView.contentY
-        accountList = accountManager.getAccounts_api()
+        rawAccountList = accountManager.getAccounts_api()
+        filterAccountList()
         accountListView.contentY = savedContentY
     }
 
@@ -267,6 +272,12 @@ Page {
         notificationMessage = result["success"] ? "管理员解锁成功！" : "管理员解锁失败！"
         notification.source = "qrc:/qml/components/ConfirmDialog.qml"
         notification.active = true
+    }
+
+    function filterAccountList() {
+        accountList = rawAccountList.filter(function(account) {
+            return (searchUsername.text === "" || (account.username && account.username.indexOf(searchUsername.text) !== -1))
+        });
     }
 
 }
