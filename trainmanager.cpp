@@ -54,6 +54,33 @@ QVariantMap TrainManager::deleteTrain_api(const QString &trainNumber) {
     return result;
 }
 
+QVariantList TrainManager::getTimetableInfo_api(const QString &trainNumber) {
+    QVariantList list;
+    auto findResult = getTrainByTrainNumber(trainNumber);
+    if (!findResult) {
+        return list;
+    }
+    Train &train = findResult.value();
+    std::vector<std::tuple<Station, Time, Time, int, QString>> info = train.getTimetable().getInfo();
+    for (auto &t : info) {
+        QVariantMap map;
+        Station station = std::get<0>(t);
+        Time arriveTime = std::get<1>(t);
+        Time departureTime = std::get<2>(t);
+        int stopInterval = std::get<3>(t);
+        QString passInfo = std::get<4>(t);
+        map["stationName"] = station.getStationName();
+        map["arriveHour"] = arriveTime.getHour();
+        map["arriveMinute"] = arriveTime.getMinute();
+        map["departureHour"] = departureTime.getHour();
+        map["departureMinute"] = departureTime.getMinute();
+        map["stopInterval"] = stopInterval;
+        map["passInfo"] = passInfo;
+        list << map;
+    }
+    return list;
+}
+
 std::vector<std::tuple<Train, Station, Station>> TrainManager::getRoutesByCities(const QString &startCityName, const QString &endCityName) {
     std::vector<std::tuple<Train, Station, Station>> result;
     for (auto &train : trains) {
@@ -67,6 +94,16 @@ std::vector<std::tuple<Train, Station, Station>> TrainManager::getRoutesByCities
     }
     return result;
 }
+
+std::optional<Train> TrainManager::getTrainByTrainNumber(const QString &trainNumber) {
+    for (auto &train : trains) {
+        if (train.getNumber() == trainNumber) {
+            return train;
+        }
+    }
+    return std::nullopt;
+}
+
 
 bool TrainManager::readFromFile(const char filename[]) {
     std::fstream fis(filename, std::ios::in);

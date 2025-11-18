@@ -123,6 +123,41 @@ std::vector<std::tuple<Station, Time, Time, int, QString>> Timetable::getInfo(co
     return result;
 }
 
+std::vector<std::tuple<Station, Time, Time, int, QString>> Timetable::getInfo() {
+    std::vector<std::tuple<Station, Time, Time, int, QString>> result;
+    int startStationIndex = 0;
+    int endStationIndex = table.size() - 1;
+    int len =table.size();
+    for (int i = 0; i < len; i++) {
+        QString info;
+        if (i < startStationIndex || i > endStationIndex) {
+            info = "其他站";
+        }
+        else if (i == startStationIndex || i == endStationIndex) {
+            info = "起末站";
+        }
+        else {
+            info = "中间站";
+        }
+        Time arriveTime = std::get<1>(table[i]);
+        Time departureTime = std::get<2>(table[i]);
+        int stopInterval;
+        if (arriveTime.isNull() || departureTime.isNull()) {
+            stopInterval = -1;
+        }
+        else if (departureTime < arriveTime) {
+            stopInterval = (departureTime - arriveTime + 24 * 60 * 60) / 60;
+        }
+        else {
+            stopInterval = (departureTime - arriveTime) / 60;
+        }
+
+        std::tuple<Station, Time, Time, int, QString> t = std::make_tuple(std::get<0>(table[i]), arriveTime, departureTime, stopInterval, info);
+        result.push_back(t);
+    }
+    return result;
+}
+
 std::tuple<Station, Time> Timetable::getStartStationInfo() {
     Station startStation = std::get<0>(table[0]);
     Time departureTime = std::get<2>(table[0]);

@@ -47,7 +47,7 @@
         <file>qml/components/SelectButton.qml</file>
         <file>qml/pages/AddPassingStationDialog.qml</file>
         <file>qml/pages/EditPassingStationDialog.qml</file>
-        <file>qml/pages/TrainTimetableDialog.qml</file>
+        <file>qml/pages/TimetableManagement.qml</file>
         <file>qml/pages/EditSeatTemplateDialog.qml</file>
         <file>qml/pages/RegisterDialog.qml</file>
         <file>qml/pages/StationListDialog.qml</file>

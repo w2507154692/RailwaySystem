@@ -24,8 +24,10 @@ public:
     int getIndexByStation(const Station &station);
     // 输出车站A和车站B，输出A到B经过的所有车站（包括A和B）
     std::vector<Station> getStationsBetweenStations(const Station &startStation, const Station &endStation);
-    // 获得从起始站到终点站，中间每一站的信息（站，到时，发时，停留时间，起末站/中间站/其他站
+    // 获得从起始站到终点站，中间每一站的信息（站，到时，发时，停留时间，起末站/中间站/其他站）
     std::vector<std::tuple<Station, Time, Time, int, QString>> getInfo(const Station &startStation, const Station &endStation);
+    // 获得从起始站到终点站，中间每一站的信息（站，到时，发时，停留时间，起末站/中间站/其他站）重载函数
+    std::vector<std::tuple<Station, Time, Time, int, QString>> getInfo();
     // 获得时刻表第一个车站的信息（站，发时）
     std::tuple<Station, Time> getStartStationInfo();
     // 获得时刻表最后一个车站的信息（站，到时）

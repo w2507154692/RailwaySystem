@@ -5,14 +5,18 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window {
-    width: 400; height: 600
-    minimumWidth: 400; minimumHeight: 260;
-    maximumWidth: 1920; maximumHeight: 1440
+    width: 400; height: 500
     visible: true
     color: "#ffffff"
 
+    signal closed()
+    property var timetable: []
+
+    onClosing: {
+        closed()
+    }
+
     Rectangle {
-        id: dialog
         anchors.fill: parent
         radius: 16
         color: "#ffffff"
@@ -64,13 +68,17 @@ Window {
             //时刻表
             TimetableView{
                 Layout.fillWidth: true
-                height: 450
-                borderWidth:0
+                Layout.preferredHeight: 350
+                borderWidth: 0
                 Layout.leftMargin: 2
                 Layout.rightMargin: 2
                 Layout.topMargin: 4
+                stationList: timetable
             }
 
+            Item {
+                Layout.fillHeight: true
+            }
 
             // 新增按钮
             Rectangle {
@@ -100,7 +108,11 @@ Window {
             RowLayout {
                 Layout.fillWidth: true
                 Layout.topMargin: 10
-                Item { Layout.preferredWidth: 30}
+                Layout.bottomMargin: 20
+
+                Item {
+                    Layout.preferredWidth: 30
+                }
                 // 确认按钮
                 CustomButton{
                     buttonType: "confirm"
@@ -125,13 +137,6 @@ Window {
 
                 Item { Layout.preferredWidth: 30}
             }
-
-            Item{
-                Layout.fillHeight: true
-            }
-
         }
-
     }
-
 }

@@ -14,6 +14,7 @@ Page {
     property var mainWindow
     property var rawTrainList: []
     property var trainList: []
+    property var timetable: []
     property var onWarningConfirmed: null
     property string warningMessage: ""
     property string notificationMessage: ""
@@ -77,9 +78,8 @@ Page {
                                     borderRadius: 7
                                     buttonType: "confirm"
                                     onClicked: {
-                                        // showTimetable(trainNo)
-                                        // 打开时刻表窗口
-                                        timetableLoader.source = "Timetable.qml"
+                                        timetable = trainManager.getTimetableInfo_api(modelData.trainNumber)
+                                        timetableLoader.source = "TimetableManagement.qml"
                                         timetableLoader.active = true
                                     }
                                 }
@@ -256,11 +256,11 @@ Page {
             if (item) {
                 // 连接关闭信号
                 item.closed.connect(function() {
-                    console.log("!!!!!!!!!!!!!!!!!!!!")
                     timetableLoader.active = false
                 })
                 // 初始化参数
                 item.transientParent = mainWindow
+                item.timetable = timetable
                 item.visible = true
             }
         }
