@@ -4,6 +4,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../components"
 import Qt5Compat.GraphicalEffects
+import MyApp 1.0
 
 Window {
     id:confirmWin
@@ -18,6 +19,9 @@ Window {
 
     // visible: true
     // color: "#ffffff"
+
+    property var rawPassengerList: []
+    property var passengerList: []
 
     property alias ticketData: ticketData
     QtObject {
@@ -36,6 +40,10 @@ Window {
         property string seatType: ""
         property real price: 0
         property int count: 0  // 购票数量,默认为0
+    }
+
+    Component.onCompleted: {
+        refreshPassengers()
     }
 
     //头部
@@ -267,13 +275,16 @@ Window {
                 }
 
                 //滚动卡片区
-                ScrollView {
-                    id: scrollView
+                ListView {
+                    id: selectPassengerList
                     anchors.top: topSpacing.bottom
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.bottom: bottomSpacing.top
                     anchors.rightMargin: 2
+                    model: passengerList
+                    clip: true
+                    spacing: 15
 
                     // 完全自定义滚动条样式
                     ScrollBar.vertical: BasicScrollBar {
@@ -286,18 +297,23 @@ Window {
                         handleLength: 48 // 这里设置你想要的长度
                     }
 
-                    ColumnLayout {
-                        width: scrollView.width - 40
+                    delegate: ColumnLayout {
+                        width: selectPassengerList.width - 40
 
                         RowLayout{
+                            Layout.fillWidth: true
                             PassengerCard{
                                 Layout.leftMargin: 15
                                 Layout.fillWidth: true
+                                passengerData: modelData
                             }
 
                             //按钮
                             CheckButton{
                                 Layout.leftMargin: 15
+                                onToggled: function(checked) {
+                                    updateSelectedCount()
+                                }
                             }
                         }
                     }
@@ -323,5 +339,26 @@ Window {
                 text: "确认订单"
             }
         }
+    }
+
+    // 刷新乘车人列表
+    function refreshPassengers() {
+        rawPassengerList = passengerManager.getPassengersByUsername_api(SessionState.username)
+        passengerList = rawPassengerList
+    }
+
+    // 更新选中的乘车人数量
+    function updateSelectedCount() {
+        var count = 0
+        for (var i = 0; i < selectPassengerList.count; i++) {
+            var item = selectPassengerList.itemAtIndex(i)
+            if (item && item.children[0] && item.children[0].children[1]) {
+                var checkButton = item.children[0].children[1]
+                if (checkButton.checked) {
+                    count++
+                }
+            }
+        }
+        ticketData.count = count
     }
 }
