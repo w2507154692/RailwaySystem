@@ -198,8 +198,8 @@ QVariantMap AccountManager::editUserProfile_api(const QString &username, const Q
     QVariantMap result;
     for (auto it = users.begin(); it != users.end(); it++) {
         if (it->getUsername() == username) {
-            UserProfile UserProfile(name, phoneNumber, id);
-            it->setProfile(UserProfile);
+            UserProfile userProfile(name, phoneNumber, id);
+            it->setProfile(userProfile);
             result["success"] = true;
             result["message"] = QString("用户 %1 个人信息成功修改！").arg(username);
             return result;

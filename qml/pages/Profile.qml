@@ -23,7 +23,7 @@ Page{
         })
 
     Component.onCompleted: {
-        getProfile(SessionState.username)
+        getProfile()
     }
 
     RowLayout {
@@ -182,7 +182,7 @@ Page{
                             text: "注销账号"
                             onClicked: {
                                 onWarningConfirmed = function() {
-                                    deleteUser(SessionState.username)
+                                    deleteUser()
                                     warning.active = false
                                     //清空参数
                                     SessionState.clear()
@@ -260,14 +260,13 @@ Page{
         }
     }
 
-    function getProfile(username) {
-        var result = accountManager.getUserProfile_api(username)
-        profileData = result
+    function getProfile() {
+        profileData = accountManager.getUserProfile_api(SessionState.username)
     }
 
-    function deleteUser(username) {
-        accountManager.deleteUser_api(username)
-        passengerManager.deletePassengersByUsername_api(username)
+    function deleteUser() {
+        accountManager.deleteUser_api(SessionState.username)
+        passengerManager.deletePassengersByUsername_api(SessionState.username)
         SessionState.clear()
     }
 
@@ -284,8 +283,20 @@ Page{
             notification.active = true
             return
         }
+        if (phoneNumber.length !== 11) {
+            notificationMessage = "联系方式不合法！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
         if (id === "") {
             notificationMessage = "身份证号不能为空！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (id.length !== 18) {
+            notificationMessage = "身份证号不合法！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             return
@@ -297,6 +308,7 @@ Page{
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             editPassengerInfoDialog.active = false
+            getProfile()
         }
     }
 }

@@ -105,6 +105,7 @@ Window {
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     placeholderText: "请输入联系方式"
+                    validator: RegularExpressionValidator { regularExpression:  /^[0-9]{0,11}$/ }
                     padding: 5
                     background: Rectangle {
                         color: "transparent"
@@ -133,6 +134,7 @@ Window {
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     placeholderText: "请输入身份证号"
+                    validator: RegularExpressionValidator { regularExpression: /^[0-9x]{0,18}$/ }
                     padding: 5
                     background: Rectangle {
                         color: "transparent"
