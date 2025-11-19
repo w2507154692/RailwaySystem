@@ -5,17 +5,21 @@ import "../components"
 
 Window {
     id: mainWindow
-    width: 640; height: 380
+    width: 640; height: 360
     minimumWidth: 480; minimumHeight: 360
     maximumWidth: 1920; maximumHeight: 1440
     visible: true
     color: "transparent"
     flags: Qt.FramelessWindowHint
+    modality: Qt.ApplicationModal
+
+    signal confirmed(string name, string phoneNumber, string id)
+    signal canceled()
 
     Rectangle {
-        width: parent.width
-        height: parent.height
+        anchors.fill: parent
         radius: 16
+        border.color: "#808080"
         // color: "pink"
 
         MouseArea {
@@ -38,10 +42,12 @@ Window {
         // 头部组件
         Header {
             id: header
-            width: parent.width
+            anchors.top: parent.top
+            anchors.topMargin: 1
+            width: parent.width - 5
             title: "修改个人信息"
             onCloseClicked: {
-                // 关闭逻辑，例如 parent.visible = false
+                canceled()
             }
         }
 
@@ -149,7 +155,7 @@ Window {
                     text: "确认"
                     activeFocusOnTab: true
                     onClicked: {
-                        // 提交逻辑
+                        confirmed(nameField.text, phoneNumberField.text, idField.text)
                     }
                 }
 
@@ -163,7 +169,7 @@ Window {
                     textColor: "#666"
                     pressedTextColor: "#000"
                     onClicked: {
-                        // 取消逻辑
+                        canceled()
                     }
                 }
             }

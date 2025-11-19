@@ -194,6 +194,22 @@ QVariantMap AccountManager::deleteUser_api(const QString &username) {
     return result;
 }
 
+QVariantMap AccountManager::editUserProfile_api(const QString &username, const QString &name, const QString &phoneNumber, const QString &id) {
+    QVariantMap result;
+    for (auto it = users.begin(); it != users.end(); it++) {
+        if (it->getUsername() == username) {
+            UserProfile UserProfile(name, phoneNumber, id);
+            it->setProfile(UserProfile);
+            result["success"] = true;
+            result["message"] = QString("用户 %1 个人信息成功修改！").arg(username);
+            return result;
+        }
+    }
+    result["success"] = false;
+    result["message"] = QString("用户 %1 不存在！").arg(username);
+    return result;
+}
+
 std::optional<User> AccountManager::findUserByUsername(const QString &username) {
     for (auto &user : users) {
         if (user.getUsername() == username) {

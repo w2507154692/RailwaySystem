@@ -13,6 +13,7 @@ Page{
     visible: true
 
     property string warningMessage: ""
+    property string notificationMessage: ""
     property var onWarningConfirmed: null
     property var mainWindow
     property var profileData: ({
@@ -121,6 +122,8 @@ Page{
                                 anchors.fill: parent
                                 cursorShape: Qt.PointingHandCursor
                                 onClicked: {
+                                    editPassengerInfoDialog.source = "qrc:/qml/pages/PersonalInfoDialog.qml"
+                                    editPassengerInfoDialog.active = true
                                 }
                             }
                         }
@@ -199,7 +202,7 @@ Page{
         }
     }
 
-    //警告
+    // 警告
     Loader {
         id: warning
         source: ""
@@ -220,6 +223,43 @@ Page{
         }
     }
 
+    //通知
+    Loader {
+        id: notification
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    notification.active = false
+                })
+                // 初始化参数
+                item.contentText = notificationMessage
+                item.visible = true
+            }
+        }
+    }
+
+    // 修改
+    Loader {
+        id: editPassengerInfoDialog
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接取消信号
+                item.canceled.connect(function() {
+                    editPassengerInfoDialog.active = false
+                })
+                // 连接确认信号
+                item.confirmed.connect(editPassengerInfo)
+                //初始化参数
+                item.visible = true
+            }
+        }
+    }
+
     function getProfile(username) {
         var result = accountManager.getUserProfile_api(username)
         profileData = result
@@ -229,5 +269,34 @@ Page{
         accountManager.deleteUser_api(username)
         passengerManager.deletePassengersByUsername_api(username)
         SessionState.clear()
+    }
+
+    function editPassengerInfo(name, phoneNumber, id) {
+        if (name === "") {
+            notificationMessage = "姓名不能为空！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (phoneNumber === "") {
+            notificationMessage = "联系方式不能为空！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (id === "") {
+            notificationMessage = "身份证号不能为空！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+
+        var result = accountManager.editUserProfile_api(SessionState.username, name, phoneNumber, id);
+        if (result.success) {
+            notificationMessage = result.message
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            editPassengerInfoDialog.active = false
+        }
     }
 }

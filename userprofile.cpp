@@ -3,6 +3,14 @@
 
 UserProfile::UserProfile() {}
 
+UserProfile::UserProfile(const QString &name,
+                         const QString &phone_number,
+                         const QString &id) {
+    this->name = name;
+    this->phone_number = phone_number;
+    this->id = id;
+}
+
 QString UserProfile::getName() {
     return name;
 }
@@ -28,13 +36,6 @@ QString UserProfile::getId() {
 bool UserProfile::setId(const QString &id) {
     this->id = id;
     return true;
-}
-
-UserProfile& UserProfile::operator()(const QString &name, const QString &phone_number, const QString &id) {
-    this->name = name;
-    this->phone_number = phone_number;
-    this->id = id;
-    return *this;
 }
 
 bool operator==(const UserProfile &up1, const UserProfile &up2) {

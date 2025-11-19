@@ -33,6 +33,8 @@ public:
     Q_INVOKABLE QVariantMap unlockAdmin_api(const QString &username);
     // 注销账户，传入用户名
     Q_INVOKABLE QVariantMap deleteUser_api(const QString &username);
+    // 修改用户个人信息，传入用户名，以及修改后的姓名、联系方式和身份证号
+    Q_INVOKABLE QVariantMap editUserProfile_api(const QString &username, const QString &name, const QString &phoneNumber, const QString &id);
 
 private:
     std::optional<User> findUserByUsername(const QString &username);

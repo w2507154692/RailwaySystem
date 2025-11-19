@@ -9,7 +9,7 @@ Rectangle {
     property int titleFontSize: 28 // 标题字体大小，默认28
     signal closeClicked         // 关闭按钮点击信号
 
-    width: parent ? parent.width : 600
+    width: parent ? parent.width : 570
     height: 60
     radius: 14
     // 渐变背景（蓝色调优化，从深蓝到浅蓝）
