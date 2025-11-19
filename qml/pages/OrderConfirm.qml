@@ -6,11 +6,37 @@ import "../components"
 import Qt5Compat.GraphicalEffects
 
 Window {
+    id:confirmWin
+    signal closed()
+    onVisibleChanged: if (!visible) closed()
+
     width: 740; height: 640
     minimumWidth: 370; minimumHeight: 320;
     maximumWidth: 1480; maximumHeight: 1280
-    visible: true
-    color: "#ffffff"
+
+    modality: Qt.WindowModal
+
+    // visible: true
+    // color: "#ffffff"
+
+    property alias ticketData: ticketData
+    QtObject {
+        id: ticketData
+        property string trainNumber: ""
+        property string startStationName: ""
+        property string startStationStopInfo: ""
+        property int startHour: 0
+        property int startMinute: 0
+        property string endStationName: ""
+        property string endStationStopInfo: ""
+        property int endHour: 0
+        property int endMinute: 0
+        property int intervalHour: 0
+        property int intervalMinute: 0
+        property string seatType: ""
+        property real price: 0
+        property int count: 0  // 购票数量,默认为0
+    }
 
     //头部
     Rectangle{
@@ -25,24 +51,6 @@ Window {
             text: "确定订单"
             font.pixelSize: 24
             color: "#fff"
-        }
-        //取消按钮
-        Image {
-            id: closeBtn
-            source: "qrc:/resources/icon/Cancel.png"
-            width: 48
-            height: 48
-            fillMode: Image.PreserveAspectFit
-            anchors.top: parent.top
-            anchors.topMargin: 8
-            anchors.right: parent.right
-            anchors.rightMargin: 12
-            MouseArea {
-                anchors.fill: parent
-                onClicked: infoHeader.closeClicked()
-                hoverEnabled: true
-                cursorShape: Qt.PointingHandCursor
-            }
         }
     }
 
@@ -84,13 +92,15 @@ Window {
                         Layout.preferredWidth: 80
                         Text {
                             width: 80; height: 30;
-                            text: "09:10"; font.bold: false; font.pixelSize: 24; color: "#222";
+                            text: ("0" + ticketData.startHour).slice(-2) + ":" + ("0" + ticketData.startMinute).slice(-2)
+                            font.bold: false; font.pixelSize: 24; color: "#222";
                             horizontalAlignment: Text.AlignLeft
                             Layout.alignment: Qt.AlignLeft
                         }
                         Text {
                             width: 80; height: 12;
-                            text: "北京南（始）"; font.pixelSize: 8; color: "#222";
+                            text: ticketData.startStationName + "（" + ticketData.startStationStopInfo + "）"
+                            font.pixelSize: 8; color: "#222";
                             horizontalAlignment: Text.AlignLeft
                             Layout.alignment: Qt.AlignLeft
                         }
@@ -108,7 +118,8 @@ Window {
                         Layout.preferredWidth: 56
                         Text {
                             width: 56; height: 18;
-                            text: "G115"; font.bold: false;
+                            text: ticketData.trainNumber
+                            font.bold: false;
                             font.pixelSize: 18; color: "#222";
                             horizontalAlignment: Text.AlignHCenter
                             Layout.alignment: Qt.AlignHCenter
@@ -121,7 +132,8 @@ Window {
                         }
                         Text {
                             width: 48; height: 12;
-                            text: "6小时7分"; font.pixelSize: 8;
+                            text: ticketData.intervalHour + "小时" + ticketData.intervalMinute + "分"
+                            font.pixelSize: 8;
                             color: "#888";
                             horizontalAlignment: Text.AlignHCenter
                             Layout.alignment: Qt.AlignHCenter
@@ -140,13 +152,15 @@ Window {
                         Layout.preferredWidth: 80
                         Text {
                             width: 80; height: 30;
-                            text: "15:17"; font.bold: false; font.pixelSize: 24; color: "#222";
+                            text: ("0" + ticketData.endHour).slice(-2) + ":" + ("0" + ticketData.endMinute).slice(-2)
+                            font.bold: false; font.pixelSize: 24; color: "#222";
                             horizontalAlignment: Text.AlignRight
                             Layout.alignment: Qt.AlignRight
                         }
                         Text {
                             width: 80; height: 12;
-                            text: "上海虹桥（终）"; font.pixelSize: 8; color: "#222";
+                            text: "（" + ticketData.endStationStopInfo + "）" + ticketData.endStationName
+                            font.pixelSize: 8; color: "#222";
                             horizontalAlignment: Text.AlignRight
                             Layout.alignment: Qt.AlignRight
                         }
@@ -160,7 +174,7 @@ Window {
 
                     Text {
                         width: 70; height: 20;
-                        text: "二等座 × "
+                        text: ticketData.seatType + " × "
                         font.pixelSize: 16
                         horizontalAlignment: Text.AlignHCenter
                         Layout.alignment: Qt.AlignVCenter
@@ -168,7 +182,7 @@ Window {
 
                     Text {
                         width: 20; height: 32;
-                        text: "1"
+                        text: ticketData.count
                         font.pixelSize: 24
                         horizontalAlignment: Text.AlignHCenter
                         Layout.alignment: Qt.AlignVCenter
@@ -199,7 +213,7 @@ Window {
 
                     Text {
                         width: 160; height: 48;
-                        text: "780"
+                        text: (ticketData.price * ticketData.count).toFixed(2)
                         font.pixelSize: 32
                         color: "#ee8732"
                         horizontalAlignment: Text.AlignLeft

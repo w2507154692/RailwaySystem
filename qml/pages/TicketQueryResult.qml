@@ -32,7 +32,7 @@ Window {
     property var ticketList: []
     property var rawTicketList: []
     
-    // 用于传递给提交订单页面的数据
+    // 用于传递给确认订单页面的数据
     property var pendingOrderInfo: null
     property int pendingSeatType: -1
 
@@ -258,8 +258,8 @@ Window {
                                 timetableLoader.active = true
                             }
                             onBookTicket: function(ticketInfo, seatType) {
-                                // 打开提交订单窗口
-                                openSubmitOrder(ticketInfo, seatType)
+                                // 打开确认订单窗口
+                                openConfirmOrder(ticketInfo, seatType)
                             }
                         }
                     }
@@ -401,27 +401,32 @@ Window {
             if (item) {
                 // 连接关闭信号
                 item.closed.connect(function() {
-                    console.log("关闭订单提交页面")
+                    console.log("关闭确认订单页面")
                     submitLoader.active = false
                     pendingOrderInfo = null
                     pendingSeatType = -1
                 })
                 
-                // 如果有待处理的订单信息，则设置数据
+                // 如果有待处理的订单信息,则设置数据
                 if (pendingOrderInfo && pendingSeatType !== -1) {
                     var seatTypeName = ["二等座", "一等座", "商务座"][pendingSeatType];
                     var price = [pendingOrderInfo.secondClassPrice, pendingOrderInfo.firstClassPrice, pendingOrderInfo.businessClassPrice][pendingSeatType];
                     
-                    // 设置订单信息（根据 SubmitOrderDialog 的实际属性调整）
-                    if (item.orderData) {
-                        item.orderData.trainNumber = pendingOrderInfo.trainNumber
-                        item.orderData.fromStation = pendingOrderInfo.startStationName
-                        item.orderData.toStation = pendingOrderInfo.endStationName
-                        item.orderData.departureDate = resultData.selectedDate
-                        item.orderData.departureTime = ("0" + pendingOrderInfo.startHour).slice(-2) + ":" + ("0" + pendingOrderInfo.startMinute).slice(-2)
-                        item.orderData.arrivalTime = ("0" + pendingOrderInfo.endHour).slice(-2) + ":" + ("0" + pendingOrderInfo.endMinute).slice(-2)
-                        item.orderData.seatType = seatTypeName
-                        item.orderData.price = price
+                    // 设置订单信息到 ticketData
+                    if (item.ticketData) {
+                        item.ticketData.trainNumber = pendingOrderInfo.trainNumber
+                        item.ticketData.startStationName = pendingOrderInfo.startStationName
+                        item.ticketData.startStationStopInfo = pendingOrderInfo.startStationStopInfo
+                        item.ticketData.startHour = pendingOrderInfo.startHour
+                        item.ticketData.startMinute = pendingOrderInfo.startMinute
+                        item.ticketData.endStationName = pendingOrderInfo.endStationName
+                        item.ticketData.endStationStopInfo = pendingOrderInfo.endStationStopInfo
+                        item.ticketData.endHour = pendingOrderInfo.endHour
+                        item.ticketData.endMinute = pendingOrderInfo.endMinute
+                        item.ticketData.intervalHour = pendingOrderInfo.intervalHour
+                        item.ticketData.intervalMinute = pendingOrderInfo.intervalMinute
+                        item.ticketData.seatType = seatTypeName
+                        item.ticketData.price = price
                     }
                 }
                 
@@ -543,16 +548,16 @@ Window {
         console.log("排序完成，类型:", sortType);
     }
 
-    // 打开提交订单页面
-    function openSubmitOrder(ticketInfo, seatType) {
-        console.log("打开订单提交页面，车次：", ticketInfo.trainNumber, "座位类型：", seatType);
+    // 打开确认订单页面
+    function openConfirmOrder(ticketInfo, seatType) {
+        console.log("打开订单确认页面，车次：", ticketInfo.trainNumber, "座位类型：", seatType);
         
         // 保存待处理的订单信息
         pendingOrderInfo = ticketInfo
         pendingSeatType = seatType
         
-        // 加载提交订单页面
-        submitLoader.source = "SubmitOrderDialog.qml"
+        // 加载确认订单页面
+        submitLoader.source = "OrderConfirm.qml"
         submitLoader.active = true
     }
 }

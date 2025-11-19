@@ -13,6 +13,8 @@ Window{
     color: "transparent"
     flags: Qt.FramelessWindowHint
 
+    property var submitList: []
+
     Rectangle {
         id:root
         width: parent.width
@@ -67,8 +69,11 @@ Window{
                 // anchors.leftMargin: 5
                 // anchors.rightMargin: 8
                 // 滚动卡片区
-                ScrollView {
-                    id: scrollview
+                ListView {
+                    id: submitListView
+                    model: submitList
+                    clip: true
+                    spacing: 15
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     Layout.leftMargin: 20
@@ -87,49 +92,21 @@ Window{
                         handleLength: 60 // 这里设置你想要的长度
                     }
 
-                    ColumnLayout {
-                        width: scrollview.width - 20
-                        spacing: 15
+                    delegate: ColumnLayout {
+                    width: orderListView.width - 30
 
-                        // 票务查询结果卡片区
-                        OrderCard {
+                        RowLayout {
                             Layout.fillWidth: true
-                            visible: true
-                            // context: "submitOrder"
-                            orderData: modelData
-                            onShowTimetable: function(param) {
-                                // param.trainNumber, param.startStation, param.endStation
-                                showTimetableByTrainAndStations(param.trainNumber, param.startStation, param.endStation)
-                            }
-                        }
-                        OrderCard {
-                            Layout.fillWidth: true
-                            visible: true
-                            // context: "submitOrder"
-                            orderData: modelData
-                            onShowTimetable: function(param) {
-                                // param.trainNumber, param.startStation, param.endStation
-                                showTimetableByTrainAndStations(param.trainNumber, param.startStation, param.endStation)
-                            }
-                        }
-                        OrderCard {
-                            Layout.fillWidth: true
-                            visible: true
-                            // context: "submitOrder"
-                            orderData: modelData
-                            onShowTimetable: function(param) {
-                                // param.trainNumber, param.startStation, param.endStation
-                                showTimetableByTrainAndStations(param.trainNumber, param.startStation, param.endStation)
-                            }
-                        }
-                        OrderCard {
-                            Layout.fillWidth: true
-                            visible: true
-                            // context: "submitOrder"
-                            orderData: modelData
-                            onShowTimetable: function(param) {
-                                // param.trainNumber, param.startStation, param.endStation
-                                showTimetableByTrainAndStations(param.trainNumber, param.startStation, param.endStation)
+
+                            OrderCard {
+                                Layout.preferredWidth: 675
+                                orderData: modelData
+                                onShowTimetable: function() {
+                                    timetable = orderManager.getTimetableInfo_api(modelData.orderNumber)
+                                    timetableLoader.source = "Timetable.qml"
+                                    timetableLoader.active = true
+                                    console.log(timetable[0]["stationName"])
+                                }
                             }
                         }
                     }
