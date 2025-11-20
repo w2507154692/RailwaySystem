@@ -341,8 +341,10 @@ Page {
                 item.resultData.fromCity = pageData.fromCity
                 item.resultData.toCity = pageData.toCity
                 item.resultData.date = pageData.selectedDate
+                item.resultData.selectedDate = pageData.selectedDate
                 item.transientParent = mainWindow
                 item.queryTickets()
+                item.rawTicketList = item.ticketList
                 item.visible = true
                 console.log("fromCity:", item.resultData.fromCity, "toCity:", item.resultData.toCity, "date:", item.resultData.date)
             }

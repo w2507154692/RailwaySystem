@@ -4,13 +4,48 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../components"
 import Qt5Compat.GraphicalEffects
+import MyApp 1.0
 
 Window {
+    id:confirmWin
+    signal closed()
+    onVisibleChanged: if (!visible) closed()
+
     width: 740; height: 640
     minimumWidth: 370; minimumHeight: 320;
     maximumWidth: 1480; maximumHeight: 1280
-    visible: true
-    color: "#ffffff"
+
+    modality: Qt.WindowModal
+
+    // visible: true
+    // color: "#ffffff"
+
+    property var rawPassengerList: []
+    property var passengerList: []
+    property var pendingSubmitList: []  // 用于传递给提交订单页面的数据
+
+    property alias ticketData: ticketData
+    QtObject {
+        id: ticketData
+        property string trainNumber: ""
+        property string startStationName: ""
+        property string startStationStopInfo: ""
+        property int startHour: 0
+        property int startMinute: 0
+        property string endStationName: ""
+        property string endStationStopInfo: ""
+        property int endHour: 0
+        property int endMinute: 0
+        property int intervalHour: 0
+        property int intervalMinute: 0
+        property string seatType: ""
+        property real price: 0
+        property int count: 0  // 购票数量,默认为0
+    }
+
+    Component.onCompleted: {
+        refreshPassengers()
+    }
 
     //头部
     Rectangle{
@@ -25,24 +60,6 @@ Window {
             text: "确定订单"
             font.pixelSize: 24
             color: "#fff"
-        }
-        //取消按钮
-        Image {
-            id: closeBtn
-            source: "qrc:/resources/icon/Cancel.png"
-            width: 48
-            height: 48
-            fillMode: Image.PreserveAspectFit
-            anchors.top: parent.top
-            anchors.topMargin: 8
-            anchors.right: parent.right
-            anchors.rightMargin: 12
-            MouseArea {
-                anchors.fill: parent
-                onClicked: infoHeader.closeClicked()
-                hoverEnabled: true
-                cursorShape: Qt.PointingHandCursor
-            }
         }
     }
 
@@ -84,13 +101,15 @@ Window {
                         Layout.preferredWidth: 80
                         Text {
                             width: 80; height: 30;
-                            text: "09:10"; font.bold: false; font.pixelSize: 24; color: "#222";
+                            text: ("0" + ticketData.startHour).slice(-2) + ":" + ("0" + ticketData.startMinute).slice(-2)
+                            font.bold: false; font.pixelSize: 24; color: "#222";
                             horizontalAlignment: Text.AlignLeft
                             Layout.alignment: Qt.AlignLeft
                         }
                         Text {
                             width: 80; height: 12;
-                            text: "北京南（始）"; font.pixelSize: 8; color: "#222";
+                            text: ticketData.startStationName + "（" + ticketData.startStationStopInfo + "）"
+                            font.pixelSize: 8; color: "#222";
                             horizontalAlignment: Text.AlignLeft
                             Layout.alignment: Qt.AlignLeft
                         }
@@ -108,7 +127,8 @@ Window {
                         Layout.preferredWidth: 56
                         Text {
                             width: 56; height: 18;
-                            text: "G115"; font.bold: false;
+                            text: ticketData.trainNumber
+                            font.bold: false;
                             font.pixelSize: 18; color: "#222";
                             horizontalAlignment: Text.AlignHCenter
                             Layout.alignment: Qt.AlignHCenter
@@ -121,7 +141,8 @@ Window {
                         }
                         Text {
                             width: 48; height: 12;
-                            text: "6小时7分"; font.pixelSize: 8;
+                            text: ticketData.intervalHour + "小时" + ticketData.intervalMinute + "分"
+                            font.pixelSize: 8;
                             color: "#888";
                             horizontalAlignment: Text.AlignHCenter
                             Layout.alignment: Qt.AlignHCenter
@@ -140,13 +161,15 @@ Window {
                         Layout.preferredWidth: 80
                         Text {
                             width: 80; height: 30;
-                            text: "15:17"; font.bold: false; font.pixelSize: 24; color: "#222";
+                            text: ("0" + ticketData.endHour).slice(-2) + ":" + ("0" + ticketData.endMinute).slice(-2)
+                            font.bold: false; font.pixelSize: 24; color: "#222";
                             horizontalAlignment: Text.AlignRight
                             Layout.alignment: Qt.AlignRight
                         }
                         Text {
                             width: 80; height: 12;
-                            text: "上海虹桥（终）"; font.pixelSize: 8; color: "#222";
+                            text: "（" + ticketData.endStationStopInfo + "）" + ticketData.endStationName
+                            font.pixelSize: 8; color: "#222";
                             horizontalAlignment: Text.AlignRight
                             Layout.alignment: Qt.AlignRight
                         }
@@ -160,7 +183,7 @@ Window {
 
                     Text {
                         width: 70; height: 20;
-                        text: "二等座 × "
+                        text: ticketData.seatType + " × "
                         font.pixelSize: 16
                         horizontalAlignment: Text.AlignHCenter
                         Layout.alignment: Qt.AlignVCenter
@@ -168,7 +191,7 @@ Window {
 
                     Text {
                         width: 20; height: 32;
-                        text: "1"
+                        text: ticketData.count
                         font.pixelSize: 24
                         horizontalAlignment: Text.AlignHCenter
                         Layout.alignment: Qt.AlignVCenter
@@ -199,7 +222,7 @@ Window {
 
                     Text {
                         width: 160; height: 48;
-                        text: "780"
+                        text: (ticketData.price * ticketData.count).toFixed(2)
                         font.pixelSize: 32
                         color: "#ee8732"
                         horizontalAlignment: Text.AlignLeft
@@ -253,13 +276,16 @@ Window {
                 }
 
                 //滚动卡片区
-                ScrollView {
-                    id: scrollView
+                ListView {
+                    id: selectPassengerList
                     anchors.top: topSpacing.bottom
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.bottom: bottomSpacing.top
                     anchors.rightMargin: 2
+                    model: passengerList
+                    clip: true
+                    spacing: 15
 
                     // 完全自定义滚动条样式
                     ScrollBar.vertical: BasicScrollBar {
@@ -272,18 +298,23 @@ Window {
                         handleLength: 48 // 这里设置你想要的长度
                     }
 
-                    ColumnLayout {
-                        width: scrollView.width - 40
+                    delegate: ColumnLayout {
+                        width: selectPassengerList.width - 40
 
                         RowLayout{
+                            Layout.fillWidth: true
                             PassengerCard{
                                 Layout.leftMargin: 15
                                 Layout.fillWidth: true
+                                passengerData: modelData
                             }
 
                             //按钮
                             CheckButton{
                                 Layout.leftMargin: 15
+                                onToggled: function(checked) {
+                                    updateSelectedCount()
+                                }
                             }
                         }
                     }
@@ -305,9 +336,117 @@ Window {
             }
 
             CustomButton{
-                anchors.right: parent.right
+                Layout.alignment: Qt.AlignRight
                 text: "确认订单"
+                onClicked: {
+                    if (ticketData.count === 0) {
+                        console.log("请至少选择一位乘车人")
+                        return
+                    }
+                    openSubmitOrder()
+                }
             }
         }
+    }
+
+    // Loader 用于加载提交订单页面
+    Loader {
+        id: submitOrderLoader
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    console.log("关闭提交订单页面")
+                    submitOrderLoader.active = false
+                    pendingSubmitList = []
+                })
+                
+                // 设置提交订单列表数据
+                if (pendingSubmitList.length > 0) {
+                    item.submitList = pendingSubmitList
+                }
+                
+                item.transientParent = confirmWin
+                item.visible = true
+            }
+        }
+    }
+
+    // 刷新乘车人列表
+    function refreshPassengers() {
+        rawPassengerList = passengerManager.getPassengersByUsername_api(SessionState.username)
+        passengerList = rawPassengerList
+    }
+
+    // 更新选中的乘车人数量
+    function updateSelectedCount() {
+        var count = 0
+        for (var i = 0; i < selectPassengerList.count; i++) {
+            var item = selectPassengerList.itemAtIndex(i)
+            if (item && item.children[0] && item.children[0].children[1]) {
+                var checkButton = item.children[0].children[1]
+                if (checkButton.checked) {
+                    count++
+                }
+            }
+        }
+        ticketData.count = count
+    }
+
+    // 打开提交订单页面
+    function openSubmitOrder() {
+        // 构建订单列表数据
+        var submitOrders = []
+        
+        for (var i = 0; i < selectPassengerList.count; i++) {
+            var item = selectPassengerList.itemAtIndex(i)
+            if (item && item.children[0] && item.children[0].children[1]) {
+                var checkButton = item.children[0].children[1]
+                if (checkButton.checked) {
+                    // 获取对应的乘车人数据
+                    var passenger = passengerList[i]
+                    
+                    // 构建订单数据对象
+                    var orderData = {
+                        orderNumber: "待生成",  // 提交后才会生成订单号
+                        trainNumber: ticketData.trainNumber,
+                        year: new Date().getFullYear(),
+                        month: new Date().getMonth() + 1,
+                        day: new Date().getDate(),
+                        seatLevel: ticketData.seatType,
+                        carriageNumber: 0,  // 待分配
+                        seatRow: 0,  // 待分配
+                        seatCol: 0,  // 待分配
+                        price: ticketData.price,
+                        status: "待提交",
+                        passengerName: passenger.name,
+                        type: passenger.type || "成人",
+                        startStationName: ticketData.startStationName,
+                        startStationStopInfo: ticketData.startStationStopInfo,
+                        startHour: ticketData.startHour,
+                        startMinute: ticketData.startMinute,
+                        endStationName: ticketData.endStationName,
+                        endStationStopInfo: ticketData.endStationStopInfo,
+                        endHour: ticketData.endHour,
+                        endMinute: ticketData.endMinute,
+                        intervalHour: ticketData.intervalHour,
+                        intervalMinute: ticketData.intervalMinute
+                    }
+                    
+                    submitOrders.push(orderData)
+                }
+            }
+        }
+        
+        console.log("准备提交的订单数量:", submitOrders.length)
+        
+        // 保存待提交的订单列表
+        pendingSubmitList = submitOrders
+        
+        // 加载提交订单页面
+        submitOrderLoader.source = "SubmitOrderDialog.qml"
+        submitOrderLoader.active = true
     }
 }

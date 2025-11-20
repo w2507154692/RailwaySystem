@@ -5,13 +5,20 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window{
-    id: mainWindow
+    id: submitWin
+    signal closed()
+    onVisibleChanged: if (!visible) closed()
+    
     width: 740; height: 640
     minimumWidth: 480; minimumHeight: 360
     maximumWidth: 1920; maximumHeight: 1440
+    
     visible: true
     color: "transparent"
     flags: Qt.FramelessWindowHint
+    modality: Qt.WindowModal
+
+    property var submitList: []
 
     Rectangle {
         id:root
@@ -26,14 +33,14 @@ Window{
            property real clickX: 0
            property real clickY: 0
 
-           onPressed: {
+           onPressed: function(mouse) {
                clickX = mouse.x;
                clickY = mouse.y;
            }
-           onPositionChanged: {
+           onPositionChanged: function(mouse) {
                // 拖动窗口
-               mainWindow.x += mouse.x - clickX;
-               mainWindow.y += mouse.y - clickY;
+               submitWin.x += mouse.x - clickX;
+               submitWin.y += mouse.y - clickY;
            }
        }
 
@@ -43,7 +50,7 @@ Window{
             width: parent.width
             title: "提交订单"
             onCloseClicked: {
-                submitOrderDialog.visible = false
+                submitWin.visible = false
             }
         }
 
@@ -51,13 +58,10 @@ Window{
         Rectangle {
             width: parent.width
             height: parent.height - header.height - 20 // 可根据内容调整高度
-            anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: header.height + 20
             anchors.left: parent.left
-            // anchors.leftMargin: 30
             anchors.right: parent.right
-            // anchors.rightMargin: 30
 
 
 
@@ -67,8 +71,11 @@ Window{
                 // anchors.leftMargin: 5
                 // anchors.rightMargin: 8
                 // 滚动卡片区
-                ScrollView {
-                    id: scrollview
+                ListView {
+                    id: submitListView
+                    model: submitList
+                    clip: true
+                    spacing: 15
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     Layout.leftMargin: 20
@@ -87,49 +94,21 @@ Window{
                         handleLength: 60 // 这里设置你想要的长度
                     }
 
-                    ColumnLayout {
-                        width: scrollview.width - 20
-                        spacing: 15
+                    delegate: ColumnLayout {
+                    width: submitListView.width - 30
 
-                        // 票务查询结果卡片区
-                        OrderCard {
+                        RowLayout {
                             Layout.fillWidth: true
-                            visible: true
-                            context: "submitOrder"
-                            orderData: modelData
-                            onShowTimetable: function(param) {
-                                // param.trainNumber, param.startStation, param.endStation
-                                showTimetableByTrainAndStations(param.trainNumber, param.startStation, param.endStation)
-                            }
-                        }
-                        OrderCard {
-                            Layout.fillWidth: true
-                            visible: true
-                            context: "submitOrder"
-                            orderData: modelData
-                            onShowTimetable: function(param) {
-                                // param.trainNumber, param.startStation, param.endStation
-                                showTimetableByTrainAndStations(param.trainNumber, param.startStation, param.endStation)
-                            }
-                        }
-                        OrderCard {
-                            Layout.fillWidth: true
-                            visible: true
-                            context: "submitOrder"
-                            orderData: modelData
-                            onShowTimetable: function(param) {
-                                // param.trainNumber, param.startStation, param.endStation
-                                showTimetableByTrainAndStations(param.trainNumber, param.startStation, param.endStation)
-                            }
-                        }
-                        OrderCard {
-                            Layout.fillWidth: true
-                            visible: true
-                            context: "submitOrder"
-                            orderData: modelData
-                            onShowTimetable: function(param) {
-                                // param.trainNumber, param.startStation, param.endStation
-                                showTimetableByTrainAndStations(param.trainNumber, param.startStation, param.endStation)
+
+                            OrderCard {
+                                Layout.preferredWidth: 675
+                                orderData: modelData
+                                onShowTimetable: function() {
+                                    timetable = orderManager.getTimetableInfo_api(modelData.orderNumber)
+                                    timetableLoader.source = "Timetable.qml"
+                                    timetableLoader.active = true
+                                    console.log(timetable[0]["stationName"])
+                                }
                             }
                         }
                     }
@@ -168,7 +147,12 @@ Window{
                         text: "提交订单"
                         width: 250
                         height: 30
-
+                        onClicked: {
+                            console.log("提交订单，共", submitList.length, "张")
+                            // TODO: 调用后端API提交订单
+                            // 提交成功后关闭窗口
+                            submitWin.visible = false
+                        }
                     }
                     CustomButton {
                         text: "返回"
@@ -178,7 +162,9 @@ Window{
                         pressedTextColor: "#fff"
                         width: 250
                         height: 30
-
+                        onClicked: {
+                            submitWin.visible = false
+                        }
                     }
                 }
             }

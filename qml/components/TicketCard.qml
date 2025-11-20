@@ -28,6 +28,7 @@ Item {
     })
 
     signal showTimetable(string trainNumber, string startStation, string endStation)
+    signal bookTicket(var ticketInfo, int seatType) // seatType: 0=二等座, 1=一等座, 2=商务座
 
     Rectangle {
         anchors.fill: parent
@@ -337,7 +338,9 @@ Item {
                         cursorType: ticketData.secondClassCount > 0 ? Qt.PointingHandCursor : Qt.ArrowCursor
                         Layout.row: 0; Layout.column: 3
                         onClicked: {
-                            // TODO: 预定操作
+                            if (ticketData.secondClassCount > 0) {
+                                bookTicket(ticketData, 0) // 0 = 二等座
+                            }
                         }
                     }
                     CustomButton {
@@ -358,7 +361,9 @@ Item {
                         cursorType: ticketData.firstClassCount > 0 ? Qt.PointingHandCursor : Qt.ArrowCursor
                         Layout.row: 0; Layout.column: 3
                         onClicked: {
-                            // TODO: 预定操作
+                            if (ticketData.firstClassCount > 0) {
+                                bookTicket(ticketData, 1) // 1 = 一等座
+                            }
                         }
                     }
                     CustomButton {
@@ -379,7 +384,9 @@ Item {
                         cursorType: ticketData.businessClassCount > 0 ? Qt.PointingHandCursor : Qt.ArrowCursor
                         Layout.row: 0; Layout.column: 3
                         onClicked: {
-                            // TODO: 预定操作
+                            if (ticketData.businessClassCount > 0) {
+                                bookTicket(ticketData, 2) // 2 = 商务座
+                            }
                         }
                     }
                 }
