@@ -11,11 +11,21 @@ Window {
     visible: true
     color: "transparent"
     flags: Qt.FramelessWindowHint
+    modality: Qt.ApplicationModal
+
+    signal confirmed(string name, string phoneNumber, string id, string type)
+    signal canceled()
+
+    property string initialName: ""
+    property string initialPhoneNumber: ""
+    property string initialId: ""
+    property string initialType: ""
 
     Rectangle {
         width: parent.width
         height: parent.height
         radius: 16
+        border.color: "#808080"
         // color: "pink"
 
         MouseArea {
@@ -38,10 +48,12 @@ Window {
         // 头部组件
         Header {
             id: header
-            width: parent.width
+            anchors.top: parent.top
+            anchors.topMargin: 1
+            width: parent.width - 5
             title: "修改乘车人信息"
             onCloseClicked: {
-                // 关闭逻辑，例如 parent.visible = false
+                canceled()
             }
         }
 
@@ -71,6 +83,7 @@ Window {
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     placeholderText: "请输入姓名"
+                    validator: RegularExpressionValidator { regularExpression: /^\p{Script=Han}+$/u }
                     padding: 5
                     background: Rectangle {
                         color: "transparent"
@@ -78,6 +91,7 @@ Window {
                         border.width: 1
                         radius: 6
                     }
+                    text: initialName
                 }
             }
 
@@ -99,6 +113,7 @@ Window {
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     placeholderText: "请输入联系方式"
+                    validator: RegularExpressionValidator { regularExpression:  /^[0-9]{0,11}$/ }
                     padding: 5
                     background: Rectangle {
                         color: "transparent"
@@ -106,6 +121,7 @@ Window {
                         border.width: 1
                         radius: 6
                     }
+                    text: initialPhoneNumber
                 }
             }
 
@@ -127,6 +143,7 @@ Window {
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     placeholderText: "请输入身份证号"
+                    validator: RegularExpressionValidator { regularExpression: /^[0-9x]{0,18}$/ }
                     padding: 5
                     background: Rectangle {
                         color: "transparent"
@@ -134,6 +151,7 @@ Window {
                         border.width: 1
                         radius: 6
                     }
+                    text: initialId
                 }
             }
 
@@ -146,17 +164,15 @@ Window {
                     horizontalAlignment: Text.AlignRight
                 }
                 ComboBox {
-                    id: type
-                    Layout.preferredWidth: 150
+                    id: typeBox
+                    Layout.preferredWidth: 100
                     Layout.preferredHeight: 30
                     Layout.leftMargin: 12
 
-                    model: ["--"].concat(Array.from({length: 24}, (_, i) => i.toString().padStart(2, "0")))
-                    currentIndex: 0
+                    model: ["儿童", "成人", "学生"]
+                    currentIndex: model.indexOf(initialType)
                     contentItem: Text {
                         text: parent.displayText
-
-                        // horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         font.pixelSize: 12
                         color: "#444"
@@ -178,7 +194,7 @@ Window {
                     text: "确认"
                     activeFocusOnTab: true
                     onClicked: {
-                        // 提交逻辑
+                        confirmed(nameField.text, phoneNumberField.text, idField.text, typeBox.model[typeBox.currentIndex])
                     }
                 }
 
@@ -192,7 +208,7 @@ Window {
                     textColor: "#666"
                     pressedTextColor: "#000"
                     onClicked: {
-                        // 取消逻辑
+                        canceled()
                     }
                 }
             }

@@ -122,8 +122,8 @@ Page{
                                 anchors.fill: parent
                                 cursorShape: Qt.PointingHandCursor
                                 onClicked: {
-                                    editPassengerInfoDialog.source = "qrc:/qml/pages/PersonalInfoDialog.qml"
-                                    editPassengerInfoDialog.active = true
+                                    editProfileDialog.source = "qrc:/qml/pages/PersonalInfoDialog.qml"
+                                    editProfileDialog.active = true
                                 }
                             }
                         }
@@ -243,21 +243,21 @@ Page{
 
     // 修改
     Loader {
-        id: editPassengerInfoDialog
+        id: editProfileDialog
         source: ""
         active: false
         onLoaded: {
             if (item) {
                 // 连接取消信号
                 item.canceled.connect(function() {
-                    editPassengerInfoDialog.active = false
+                    editProfileDialog.active = false
                 })
                 // 连接确认信号
                 item.confirmed.connect(editPassengerInfo)
                 //初始化参数
-                item.nameText = profileData.name
-                item.phoneNumberText = profileData.phoneNumber
-                item.idText = profileData.id
+                item.initialName = profileData.name
+                item.initialPhoneNumber = profileData.phoneNumber
+                item.initialId = profileData.id
                 item.visible = true
             }
         }
@@ -310,7 +310,7 @@ Page{
             notificationMessage = result.message
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
-            editPassengerInfoDialog.active = false
+            editProfileDialog.active = false
             getProfile()
         }
         else {

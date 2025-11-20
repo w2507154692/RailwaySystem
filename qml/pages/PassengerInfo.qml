@@ -105,7 +105,8 @@ Page {
                                     anchors.fill: parent
                                     cursorShape: Qt.PointingHandCursor
                                     onClicked: {
-                                        // trainList.splice(index, 1)
+                                        editPassengerInfoDialog.source = "qrc:/qml/pages/EditPassengerInfoDialog.qml"
+                                        editPassengerInfoDialog.active = true
                                     }
                                 }
                                 Image {
@@ -113,6 +114,29 @@ Page {
                                     source: "qrc:/resources/icon/Edit.png"
                                     width: 60
                                     height: 60
+                                }
+                            }
+                        }
+
+                        // 修改
+                        Loader {
+                            id: editPassengerInfoDialog
+                            source: ""
+                            active: false
+                            onLoaded: {
+                                if (item) {
+                                    // 连接取消信号
+                                    item.canceled.connect(function() {
+                                        editPassengerInfoDialog.active = false
+                                    })
+                                    // 连接确认信号
+                                    item.confirmed.connect(editPassengerInfo)
+                                    //初始化参数
+                                    item.initialName = modelData.name
+                                    item.initialPhoneNumber = modelData.phoneNumber
+                                    item.initialId = modelData.id
+                                    item.initialType = modelData.type
+                                    item.visible = true
                                 }
                             }
                         }
@@ -210,20 +234,20 @@ Page {
     }
 
     Loader {
-            id: notification
-            source: ""
-            active: false
-            onLoaded: {
-                if (item) {
-                    // 连接关闭信号
-                    item.closed.connect(function() {
-                        notification.active = false
-                    })
-                    // 初始化参数
-                    item.contentText = notificationMessage
-                    item.visible = true
-                }
+        id: notification
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    notification.active = false
+                })
+                // 初始化参数
+                item.contentText = notificationMessage
+                item.visible = true
             }
+        }
     }
 
 
@@ -248,5 +272,38 @@ Page {
                 && (searchPhoneNumber.text === "" || (passenger.phoneNumber && passenger.phoneNumber.indexOf(searchPhoneNumber.text) !== -1))
                 && (searchId.text === "" || (passenger.id && passenger.id.indexOf(searchId.text) !== -1))
         });
+    }
+
+    function editPassengerInfo(name, phoneNumber, id, type) {
+        if (name === "") {
+            notificationMessage = "姓名不能为空！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (phoneNumber === "") {
+            notificationMessage = "联系方式不能为空！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (phoneNumber.length !== 11) {
+            notificationMessage = "联系方式不合法！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (id === "") {
+            notificationMessage = "身份证号不能为空！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (id.length !== 18 || !(id.indexOf('x') === -1 || id.indexOf('x') === id.length - 1)) {
+            notificationMessage = "身份证号不合法！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
     }
 }

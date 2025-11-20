@@ -201,7 +201,7 @@ QVariantMap AccountManager::editUserProfile_api(const QString &username, const Q
     auto findResult = findUserById(id);
     if (findResult && findResult.value().getUsername() != username) {
         result["success"] = false;
-        result["message"] = QString("该身份号已注册其他账号！");
+        result["message"] = QString("该身份证号已注册其他账号！");
         return result;
     }
 

@@ -16,9 +16,9 @@ Window {
     signal confirmed(string name, string phoneNumber, string id)
     signal canceled()
 
-    property alias nameText: nameField.text
-    property alias phoneNumberText: phoneNumberField.text
-    property alias idText: idField.text
+    property string initialName: ""
+    property string initialPhoneNumber: ""
+    property string initialId: ""
 
     Rectangle {
         anchors.fill: parent
@@ -89,6 +89,7 @@ Window {
                         border.width: 1
                         radius: 6
                     }
+                    text: initialName
                 }
             }
 
@@ -118,6 +119,7 @@ Window {
                         border.width: 1
                         radius: 6
                     }
+                    text: initialPhoneNumber
                 }
             }
 
@@ -147,6 +149,7 @@ Window {
                         border.width: 1
                         radius: 6
                     }
+                    text: initialId
                 }
             }
 
