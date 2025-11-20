@@ -22,6 +22,7 @@ Window {
 
     property var rawPassengerList: []
     property var passengerList: []
+    property var pendingSubmitList: []  // 用于传递给提交订单页面的数据
 
     property alias ticketData: ticketData
     QtObject {
@@ -337,6 +338,38 @@ Window {
             CustomButton{
                 Layout.alignment: Qt.AlignRight
                 text: "确认订单"
+                onClicked: {
+                    if (ticketData.count === 0) {
+                        console.log("请至少选择一位乘车人")
+                        return
+                    }
+                    openSubmitOrder()
+                }
+            }
+        }
+    }
+
+    // Loader 用于加载提交订单页面
+    Loader {
+        id: submitOrderLoader
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    console.log("关闭提交订单页面")
+                    submitOrderLoader.active = false
+                    pendingSubmitList = []
+                })
+                
+                // 设置提交订单列表数据
+                if (pendingSubmitList.length > 0) {
+                    item.submitList = pendingSubmitList
+                }
+                
+                item.transientParent = confirmWin
+                item.visible = true
             }
         }
     }
@@ -360,5 +393,60 @@ Window {
             }
         }
         ticketData.count = count
+    }
+
+    // 打开提交订单页面
+    function openSubmitOrder() {
+        // 构建订单列表数据
+        var submitOrders = []
+        
+        for (var i = 0; i < selectPassengerList.count; i++) {
+            var item = selectPassengerList.itemAtIndex(i)
+            if (item && item.children[0] && item.children[0].children[1]) {
+                var checkButton = item.children[0].children[1]
+                if (checkButton.checked) {
+                    // 获取对应的乘车人数据
+                    var passenger = passengerList[i]
+                    
+                    // 构建订单数据对象
+                    var orderData = {
+                        orderNumber: "待生成",  // 提交后才会生成订单号
+                        trainNumber: ticketData.trainNumber,
+                        year: new Date().getFullYear(),
+                        month: new Date().getMonth() + 1,
+                        day: new Date().getDate(),
+                        seatLevel: ticketData.seatType,
+                        carriageNumber: 0,  // 待分配
+                        seatRow: 0,  // 待分配
+                        seatCol: 0,  // 待分配
+                        price: ticketData.price,
+                        status: "待提交",
+                        passengerName: passenger.name,
+                        type: passenger.type || "成人",
+                        startStationName: ticketData.startStationName,
+                        startStationStopInfo: ticketData.startStationStopInfo,
+                        startHour: ticketData.startHour,
+                        startMinute: ticketData.startMinute,
+                        endStationName: ticketData.endStationName,
+                        endStationStopInfo: ticketData.endStationStopInfo,
+                        endHour: ticketData.endHour,
+                        endMinute: ticketData.endMinute,
+                        intervalHour: ticketData.intervalHour,
+                        intervalMinute: ticketData.intervalMinute
+                    }
+                    
+                    submitOrders.push(orderData)
+                }
+            }
+        }
+        
+        console.log("准备提交的订单数量:", submitOrders.length)
+        
+        // 保存待提交的订单列表
+        pendingSubmitList = submitOrders
+        
+        // 加载提交订单页面
+        submitOrderLoader.source = "SubmitOrderDialog.qml"
+        submitOrderLoader.active = true
     }
 }

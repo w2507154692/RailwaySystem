@@ -5,13 +5,18 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window{
-    id: mainWindow
+    id: submitWin
+    signal closed()
+    onVisibleChanged: if (!visible) closed()
+    
     width: 740; height: 640
     minimumWidth: 480; minimumHeight: 360
     maximumWidth: 1920; maximumHeight: 1440
+    
     visible: true
     color: "transparent"
     flags: Qt.FramelessWindowHint
+    modality: Qt.WindowModal
 
     property var submitList: []
 
@@ -28,14 +33,14 @@ Window{
            property real clickX: 0
            property real clickY: 0
 
-           onPressed: {
+           onPressed: function(mouse) {
                clickX = mouse.x;
                clickY = mouse.y;
            }
-           onPositionChanged: {
+           onPositionChanged: function(mouse) {
                // 拖动窗口
-               mainWindow.x += mouse.x - clickX;
-               mainWindow.y += mouse.y - clickY;
+               submitWin.x += mouse.x - clickX;
+               submitWin.y += mouse.y - clickY;
            }
        }
 
@@ -45,7 +50,7 @@ Window{
             width: parent.width
             title: "提交订单"
             onCloseClicked: {
-                submitOrderDialog.visible = false
+                submitWin.visible = false
             }
         }
 
@@ -53,13 +58,10 @@ Window{
         Rectangle {
             width: parent.width
             height: parent.height - header.height - 20 // 可根据内容调整高度
-            anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: header.height + 20
             anchors.left: parent.left
-            // anchors.leftMargin: 30
             anchors.right: parent.right
-            // anchors.rightMargin: 30
 
 
 
@@ -93,7 +95,7 @@ Window{
                     }
 
                     delegate: ColumnLayout {
-                    width: orderListView.width - 30
+                    width: submitListView.width - 30
 
                         RowLayout {
                             Layout.fillWidth: true
@@ -145,7 +147,12 @@ Window{
                         text: "提交订单"
                         width: 250
                         height: 30
-
+                        onClicked: {
+                            console.log("提交订单，共", submitList.length, "张")
+                            // TODO: 调用后端API提交订单
+                            // 提交成功后关闭窗口
+                            submitWin.visible = false
+                        }
                     }
                     CustomButton {
                         text: "返回"
@@ -155,7 +162,9 @@ Window{
                         pressedTextColor: "#fff"
                         width: 250
                         height: 30
-
+                        onClicked: {
+                            submitWin.visible = false
+                        }
                     }
                 }
             }
