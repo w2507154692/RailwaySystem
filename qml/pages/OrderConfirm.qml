@@ -23,6 +23,7 @@ Window {
     property var rawPassengerList: []
     property var passengerList: []
     property var pendingSubmitList: []  // 用于传递给提交订单页面的数据
+    property string notificationMessage: ""  // 通知消息
 
     property alias ticketData: ticketData
     QtObject {
@@ -340,11 +341,33 @@ Window {
                 text: "确认订单"
                 onClicked: {
                     if (ticketData.count === 0) {
-                        console.log("请至少选择一位乘车人")
+                        notificationMessage = "请至少选择一位乘车人！"
+                        notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+                        notification.active = true
                         return
                     }
                     openSubmitOrder()
                 }
+            }
+        }
+    }
+
+    // 通知弹窗
+    Loader {
+        id: notification
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 设置父窗口关系 - 使用主窗口避免模态窗口焦点竞争
+                item.transientParent = ApplicationWindow.window
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    notification.active = false
+                })
+                // 初始化参数
+                item.contentText = notificationMessage
+                item.visible = true
             }
         }
     }
