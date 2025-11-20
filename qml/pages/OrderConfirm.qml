@@ -335,7 +335,7 @@ Window {
             }
 
             CustomButton{
-                anchors.right: parent.right
+                Layout.alignment: Qt.AlignRight
                 text: "确认订单"
             }
         }
