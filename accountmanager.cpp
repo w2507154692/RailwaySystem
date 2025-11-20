@@ -196,6 +196,15 @@ QVariantMap AccountManager::deleteUser_api(const QString &username) {
 
 QVariantMap AccountManager::editUserProfile_api(const QString &username, const QString &name, const QString &phoneNumber, const QString &id) {
     QVariantMap result;
+
+    // 判断身份证号是否重复
+    auto findResult = findUserById(id);
+    if (findResult && findResult.value().getUsername() != username) {
+        result["success"] = false;
+        result["message"] = QString("该身份号已注册其他账号！");
+        return result;
+    }
+
     for (auto it = users.begin(); it != users.end(); it++) {
         if (it->getUsername() == username) {
             UserProfile userProfile(name, phoneNumber, id);
@@ -223,6 +232,15 @@ std::optional<Admin> AccountManager::findAdminByUsername(const QString &username
     for (auto &admin : admins) {
         if (admin.getUsername() == username) {
             return admin;
+        }
+    }
+    return std::nullopt;
+}
+
+std::optional<User> AccountManager::findUserById(const QString &id) {
+    for (auto &user : users) {
+        if (user.getProfile().getId() == id) {
+            return user;
         }
     }
     return std::nullopt;

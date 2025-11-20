@@ -16,6 +16,10 @@ Window {
     signal confirmed(string name, string phoneNumber, string id)
     signal canceled()
 
+    property alias nameText: nameField.text
+    property alias phoneNumberText: phoneNumberField.text
+    property alias idText: idField.text
+
     Rectangle {
         anchors.fill: parent
         radius: 16
@@ -77,6 +81,7 @@ Window {
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     placeholderText: "请输入姓名"
+                    validator: RegularExpressionValidator { regularExpression: /^\p{Script=Han}+$/u }
                     padding: 5
                     background: Rectangle {
                         color: "transparent"

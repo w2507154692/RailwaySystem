@@ -255,6 +255,9 @@ Page{
                 // 连接确认信号
                 item.confirmed.connect(editPassengerInfo)
                 //初始化参数
+                item.nameText = profileData.name
+                item.phoneNumberText = profileData.phoneNumber
+                item.idText = profileData.id
                 item.visible = true
             }
         }
@@ -295,7 +298,7 @@ Page{
             notification.active = true
             return
         }
-        if (id.length !== 18) {
+        if (id.length !== 18 || !(id.indexOf('x') === -1 || id.indexOf('x') === id.length - 1)) {
             notificationMessage = "身份证号不合法！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
@@ -309,6 +312,11 @@ Page{
             notification.active = true
             editPassengerInfoDialog.active = false
             getProfile()
+        }
+        else {
+            notificationMessage = result.message
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
         }
     }
 }

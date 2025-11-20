@@ -39,6 +39,7 @@ public:
 private:
     std::optional<User> findUserByUsername(const QString &username);
     std::optional<Admin> findAdminByUsername(const QString &username);
+    std::optional<User> findUserById(const QString &id);
     void readFromFileUser(const char filename[]);
     void readFromFileAdmin(const char filename[]);
     void readFromFile(const char filenameUser[], const char filenameAdmin[]);
