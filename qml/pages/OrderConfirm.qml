@@ -42,6 +42,7 @@ Window {
         property string seatType: ""
         property real price: 0
         property int count: 0  // 购票数量,默认为0
+        property int remainingTickets: 0  // 余票数量,默认为0
     }
 
     Component.onCompleted: {
@@ -312,7 +313,11 @@ Window {
 
                             //按钮
                             CheckButton{
+                                id: checkBtn
                                 Layout.leftMargin: 15
+                                // 如果已经选择了足够数量的乘车人(达到余票数),且当前按钮未选中,则禁用
+                                enabled: checked || ticketData.count < ticketData.remainingTickets
+                                opacity: enabled ? 1.0 : 0.5
                                 onToggled: function(checked) {
                                     updateSelectedCount()
                                 }
@@ -416,6 +421,17 @@ Window {
             }
         }
         ticketData.count = count
+        
+        // 更新所有按钮的启用状态
+        for (var j = 0; j < selectPassengerList.count; j++) {
+            var itemJ = selectPassengerList.itemAtIndex(j)
+            if (itemJ && itemJ.children[0] && itemJ.children[0].children[1]) {
+                var checkBtnJ = itemJ.children[0].children[1]
+                // 如果已经选择了足够数量的乘车人(达到余票数),且当前按钮未选中,则禁用
+                checkBtnJ.enabled = checkBtnJ.checked || count < ticketData.remainingTickets
+                checkBtnJ.opacity = checkBtnJ.enabled ? 1.0 : 0.5
+            }
+        }
     }
 
     // 打开提交订单页面

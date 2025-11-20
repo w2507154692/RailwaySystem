@@ -413,6 +413,7 @@ Window {
                 if (pendingOrderInfo && pendingSeatType !== -1) {
                     var seatTypeName = ["二等座", "一等座", "商务座"][pendingSeatType];
                     var price = [pendingOrderInfo.secondClassPrice, pendingOrderInfo.firstClassPrice, pendingOrderInfo.businessClassPrice][pendingSeatType];
+                    var remainingTickets = [pendingOrderInfo.secondClassCount, pendingOrderInfo.firstClassCount, pendingOrderInfo.businessClassCount][pendingSeatType];
                     
                     // 设置订单信息到 ticketData
                     if (item.ticketData) {
@@ -429,6 +430,7 @@ Window {
                         item.ticketData.intervalMinute = pendingOrderInfo.intervalMinute
                         item.ticketData.seatType = seatTypeName
                         item.ticketData.price = price
+                        item.ticketData.remainingTickets = remainingTickets
                     }
                 }
                 
