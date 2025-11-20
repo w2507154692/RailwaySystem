@@ -3,6 +3,7 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../components"
+import MyApp 1.0
 
 Window{
     id: submitWin
@@ -19,6 +20,7 @@ Window{
     modality: Qt.WindowModal
 
     property var submitList: []
+    property var timetable: []
 
     Rectangle {
         id:root
@@ -104,10 +106,10 @@ Window{
                                 Layout.preferredWidth: 675
                                 orderData: modelData
                                 onShowTimetable: function() {
-                                    timetable = orderManager.getTimetableInfo_api(modelData.orderNumber)
+                                    // 根据车次号、起始站和终点站查询时刻表
+                                    timetable = trainManager.getTimetableInfo_api(modelData.trainNumber, modelData.startStationName, modelData.endStationName)
                                     timetableLoader.source = "Timetable.qml"
                                     timetableLoader.active = true
-                                    console.log(timetable[0]["stationName"])
                                 }
                             }
                         }
@@ -167,6 +169,25 @@ Window{
                         }
                     }
                 }
+            }
+        }
+    }
+
+    //时刻表页面
+    Loader {
+        id: timetableLoader
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    timetableLoader.active = false
+                })
+                // 初始化参数
+                item.transientParent = submitWin
+                item.timetable = timetable
+                item.visible = true
             }
         }
     }
