@@ -272,10 +272,16 @@ Item {
                             Text{
                                 Layout.preferredWidth: 145
                                 Layout.leftMargin: 15
-                                text: orderData.seatLevel + " " +
-                                      ("0" + orderData.carriageNumber).slice(-2) + "车" +
-                                      ("0" + orderData.seatRow).slice(-2) +
-                                      String.fromCharCode(65 + orderData.seatCol - 1) + "座"
+                                text: {
+                                    if (orderData.carriageNumber === 0 || orderData.seatRow === 0 || orderData.seatCol === 0) {
+                                        return orderData.seatLevel + " --车--座"
+                                    } else {
+                                        return orderData.seatLevel + " " +
+                                               ("0" + orderData.carriageNumber).slice(-2) + "车" +
+                                               ("0" + orderData.seatRow).slice(-2) +
+                                               String.fromCharCode(65 + orderData.seatCol - 1) + "座"
+                                    }
+                                }
                                 font.pixelSize: 17
                                 elide: Text.ElideRight
                                 wrapMode: Text.NoWrap
