@@ -17,10 +17,6 @@ Page {
     property var mainWindow
     property var rawOrderList: []
     property var orderList: []
-    property var timetable: []
-    property var onWarningConfirmed: null
-    property string warningMessage: ""
-    property string notificationMessage: ""
 
     Component.onCompleted: {
         refreshOrders()
@@ -71,10 +67,10 @@ Page {
                                 Layout.preferredWidth: 675
                                 orderData: modelData
                                 onShowTimetable: function() {
-                                    timetable = orderManager.getTimetableInfo_api(modelData.orderNumber)
+                                    timetableLoader.timetable = orderManager.getTimetableInfo_api(modelData.orderNumber)
                                     timetableLoader.source = "Timetable.qml"
                                     timetableLoader.active = true
-                                    console.log(timetable[0]["stationName"])
+                                    console.log(timetableLoader.timetable[0]["stationName"])
                                 }
                             }
 
@@ -105,11 +101,11 @@ Page {
                                     pressedColor: modelData.status === "待乘坐" ? "#174a73" : "#808080"
                                     hoverColor: modelData.status === "待乘坐" ? "#1f5f99" : "#808080"
                                     onClicked: {
-                                        onWarningConfirmed = function() {
+                                        warning.onConfirmed = function() {
                                             warning.active = false
                                             cancelOrder(modelData.orderNumber)
                                         }
-                                        warningMessage = "确认取消该订单？"
+                                        warning.message = "确认取消该订单？"
                                         warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
                                         warning.active = true
                                     }
@@ -203,6 +199,8 @@ Page {
 
     //警告
     Loader {
+        property string message: ""
+        property var onConfirmed: null
         id: warning
         source: ""
         active: false
@@ -213,10 +211,9 @@ Page {
                     warning.active = false
                 })
                 // 连接确认信号
-                if (item && typeof onWarningConfirmed === "function")
-                    item.confirmed.connect(onWarningConfirmed)
+                item.confirmed.connect(warning.onConfirmed)
                 // 初始化参数
-                item.contentText = warningMessage
+                item.contentText = warning.message
                 item.visible = true
             }
         }
@@ -224,6 +221,7 @@ Page {
 
     //通知
     Loader {
+        property string message: ""
         id: notification
         source: ""
         active: false
@@ -234,7 +232,7 @@ Page {
                     notification.active = false
                 })
                 // 初始化参数
-                item.contentText = notificationMessage
+                item.contentText = notification.message
                 item.visible = true
             }
         }
@@ -242,6 +240,7 @@ Page {
 
     //时刻表页面
     Loader {
+        property var timetable: []
         id: timetableLoader
         source: ""
         active: false
@@ -271,7 +270,7 @@ Page {
     function cancelOrder(orderNumber) {
         orderManager.cancelOrder_api(orderNumber)
         refreshOrders()
-        notificationMessage = "订单取消成功！"
+        notification.message = "订单取消成功！"
         notification.source = "qrc:/qml/components/ConfirmDialog.qml"
         notification.active = true
     }

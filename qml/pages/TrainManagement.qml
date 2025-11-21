@@ -15,9 +15,6 @@ Page {
     property var rawTrainList: []
     property var trainList: []
     property var timetable: []
-    property var onWarningConfirmed: null
-    property string warningMessage: ""
-    property string notificationMessage: ""
 
     Component.onCompleted: {
         refreshTrains()
@@ -125,11 +122,11 @@ Page {
                                     anchors.fill: parent
                                     cursorShape: Qt.PointingHandCursor
                                     onClicked: {
-                                        onWarningConfirmed = function() {
+                                        warning.onConfirmed = function() {
                                             warning.active = false
                                             deleteTrain(modelData.trainNumber);
                                         }
-                                        warningMessage = "确认删除该车次？"
+                                        warning.message = "确认删除该车次？"
                                         warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
                                         warning.active = true
                                     }
@@ -211,6 +208,8 @@ Page {
     }
 
     Loader {
+        property string message: ""
+        property var onConfirmed: null
         id: warning
         source: ""
         active: false
@@ -221,16 +220,16 @@ Page {
                     warning.active = false
                 })
                 // 连接确认信号
-                if (item && typeof onWarningConfirmed === "function")
-                    item.confirmed.connect(onWarningConfirmed)
+                item.confirmed.connect(warning.onConfirmed)
                 // 初始化参数
-                item.contentText = warningMessage
+                item.contentText = warning.message
                 item.visible = true
             }
         }
     }
 
     Loader {
+        property string message: ""
         id: notification
         source: ""
         active: false
@@ -241,7 +240,7 @@ Page {
                     notification.active = false
                 })
                 // 初始化参数
-                item.contentText = notificationMessage
+                item.contentText = notification.message
                 item.visible = true
             }
         }
@@ -276,7 +275,7 @@ Page {
     function deleteTrain(trainNumber) {
         var result = trainManager.deleteTrain_api(trainNumber)
         refreshTrains()
-        notificationMessage = result["success"] === true ? "车次删除成功!" : "车次删除失败！"
+        notification.message = result["success"] === true ? "车次删除成功!" : "车次删除失败！"
         notification.source = "qrc:/qml/components/ConfirmDialog.qml"
         notification.active = true
     }

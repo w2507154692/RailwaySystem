@@ -14,9 +14,6 @@ Page {
 
     property var rawPassengerList: []
     property var passengerList: []
-    property var onWarningConfirmed: null
-    property string warningMessage: ""
-    property string notificationMessage: ""
 
     Component.onCompleted: {
         refreshPassengers()
@@ -74,11 +71,11 @@ Page {
                                     anchors.fill: parent
                                     cursorShape: Qt.PointingHandCursor
                                     onClicked: {
-                                        onWarningConfirmed = function() {
+                                        warning.onConfirmed = function() {
                                             warning.active = false
                                             deletePassenger(SessionState.username, modelData.id)
                                         }
-                                        warningMessage = "确认删除该乘车人？"
+                                        warning.message = "确认删除该乘车人？"
                                         warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
                                         warning.active = true
                                     }
@@ -199,6 +196,8 @@ Page {
     }
 
     Loader {
+        property string message: ""
+        property var onConfirmed: null
         id: warning
         source: ""
         active: false
@@ -209,16 +208,16 @@ Page {
                     warning.active = false
                 })
                 // 连接确认信号
-                if (item && typeof onWarningConfirmed === "function")
-                    item.confirmed.connect(onWarningConfirmed)
+                item.confirmed.connect(onConfirmed)
                 // 初始化参数
-                item.contentText = warningMessage
+                item.contentText = message
                 item.visible = true
             }
         }
     }
 
     Loader {
+        property string message: ""
         id: notification
         source: ""
         active: false
@@ -229,7 +228,7 @@ Page {
                     notification.active = false
                 })
                 // 初始化参数
-                item.contentText = notificationMessage
+                item.contentText = message
                 item.visible = true
             }
         }
@@ -275,7 +274,7 @@ Page {
     function deletePassenger(username, id) {
         passengerManager.deletePassengerByUsernameAndId_api(username, id)
         refreshPassengers(username)
-        notificationMessage = "乘车人删除成功！"
+        notification.message = "乘车人删除成功！"
         notification.source = "qrc:/qml/components/ConfirmDialog.qml"
         notification.active = true
     }
@@ -290,31 +289,31 @@ Page {
 
     function editPassengerInfo(id_old, name, phoneNumber, id_new, type) {
         if (name === "") {
-            notificationMessage = "姓名不能为空！"
+            notification.message = "姓名不能为空！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             return
         }
         if (phoneNumber === "") {
-            notificationMessage = "联系方式不能为空！"
+            notification.message = "联系方式不能为空！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             return
         }
         if (phoneNumber.length !== 11) {
-            notificationMessage = "联系方式不合法！"
+            notification.message = "联系方式不合法！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             return
         }
         if (id_new === "") {
-            notificationMessage = "身份证号不能为空！"
+            notification.message = "身份证号不能为空！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             return
         }
         if (id_new.length !== 18 || !(id_new.indexOf('x') === -1 || id_new.indexOf('x') === id_new.length - 1)) {
-            notificationMessage = "身份证号不合法！"
+            notification.message = "身份证号不合法！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             return
@@ -322,14 +321,14 @@ Page {
 
         var result = passengerManager.editPassenger_api(SessionState.username, id_old, name, phoneNumber, id_new, type)
         if (result.success) {
-            notificationMessage = result.message
+            notification.message = result.message
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             editPassengerInfoDialog.active = false
             refreshPassengers()
         }
         else {
-            notificationMessage = result.message
+            notification.message = result.message
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
         }

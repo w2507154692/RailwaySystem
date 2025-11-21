@@ -12,9 +12,6 @@ Page{
     objectName: "qrc:/qml/pages/Profile.qml"
     visible: true
 
-    property string warningMessage: ""
-    property string notificationMessage: ""
-    property var onWarningConfirmed: null
     property var mainWindow
     property var profileData: ({
         name: "张三张三张三",
@@ -154,7 +151,7 @@ Page{
                             Layout.preferredHeight: 42
                             text: "退出登录"
                             onClicked: {
-                                onWarningConfirmed = function() {               // 退出登录逻辑
+                                warning.onConfirmed = function() {               // 退出登录逻辑
                                     warning.active = false
                                     //清空参数
                                     SessionState.clear()
@@ -170,7 +167,7 @@ Page{
                                     console.log("appWin.loggedIn:", appWin.loggedIn)
                                     console.log("SessionState.isLoggedIn:", SessionState.isLoggedIn)
                                 }
-                                warningMessage = "确认退出登录？"
+                                warning.message = "确认退出登录？"
                                 warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
                                 warning.active = true
                             }
@@ -181,7 +178,7 @@ Page{
                             Layout.preferredHeight: 42
                             text: "注销账号"
                             onClicked: {
-                                onWarningConfirmed = function() {
+                                warning.onConfirmed = function() {
                                     deleteUser()
                                     warning.active = false
                                     //清空参数
@@ -191,7 +188,7 @@ Page{
                                         mainWindow.stackView.clear()
                                     }
                                 }
-                                warningMessage = "确认注销账户？"
+                                warning.message = "确认注销账户？"
                                 warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
                                 warning.active = true
                             }
@@ -204,6 +201,8 @@ Page{
 
     // 警告
     Loader {
+        property string message: ""
+        property var onConfirmed: null
         id: warning
         source: ""
         active: false
@@ -214,10 +213,9 @@ Page{
                     warning.active = false
                 })
                 // 连接确认信号
-                if (item && typeof onWarningConfirmed === "function")
-                    item.confirmed.connect(onWarningConfirmed)
+                item.confirmed.connect(warning.onConfirmed)
                 // 初始化参数
-                item.contentText = warningMessage
+                item.contentText = warning.message
                 item.visible = true
             }
         }
@@ -225,6 +223,7 @@ Page{
 
     //通知
     Loader {
+        property string message: ""
         id: notification
         source: ""
         active: false
@@ -235,7 +234,7 @@ Page{
                     notification.active = false
                 })
                 // 初始化参数
-                item.contentText = notificationMessage
+                item.contentText = notification.message
                 item.visible = true
             }
         }
@@ -275,31 +274,31 @@ Page{
 
     function editPassengerInfo(name, phoneNumber, id) {
         if (name === "") {
-            notificationMessage = "姓名不能为空！"
+            notification.message = "姓名不能为空！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             return
         }
         if (phoneNumber === "") {
-            notificationMessage = "联系方式不能为空！"
+            notification.message = "联系方式不能为空！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             return
         }
         if (phoneNumber.length !== 11) {
-            notificationMessage = "联系方式不合法！"
+            notification.message = "联系方式不合法！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             return
         }
         if (id === "") {
-            notificationMessage = "身份证号不能为空！"
+            notification.message = "身份证号不能为空！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             return
         }
         if (id.length !== 18 || !(id.indexOf('x') === -1 || id.indexOf('x') === id.length - 1)) {
-            notificationMessage = "身份证号不合法！"
+            notification.message = "身份证号不合法！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             return
@@ -307,14 +306,14 @@ Page{
 
         var result = accountManager.editUserProfile_api(SessionState.username, name, phoneNumber, id);
         if (result.success) {
-            notificationMessage = result.message
+            notification.message = result.message
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             editProfileDialog.active = false
             getProfile()
         }
         else {
-            notificationMessage = result.message
+            notification.message = result.message
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
         }

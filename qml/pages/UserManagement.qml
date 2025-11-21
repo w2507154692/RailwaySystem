@@ -14,9 +14,6 @@ Page {
 
     property var rawAccountList: []
     property var accountList: []
-    property var onWarningConfirmed: null
-    property string warningMessage: ""
-    property string notificationMessage: ""
 
     Component.onCompleted: {
         refreshAccounts()
@@ -93,20 +90,20 @@ Page {
                                 enabled: !modelData.isLocked
                                 onClicked: {
                                     if (SessionState.username === modelData.username) {
-                                        notificationMessage = "管理员不能锁定自身！"
+                                        notification.message = "管理员不能锁定自身！"
                                         notification.source = "qrc:/qml/components/ConfirmDialog.qml"
                                         notification.active = true
                                         return
                                     }
 
-                                    onWarningConfirmed = function() {
+                                    warning.onConfirmed = function() {
                                         warning.active = false
                                         if (modelData.type === "user")
                                             lockUser(modelData.username)
                                         else
                                             lockAdmin(modelData.username)
                                     }
-                                    warningMessage = "确认锁定该账户？"
+                                    warning.message = "确认锁定该账户？"
                                     warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
                                     warning.active = true
                                 }
@@ -120,14 +117,14 @@ Page {
                                 buttonType: modelData.isLocked ? "confirm" : "cancel"
                                 enabled: modelData.isLocked
                                 onClicked: {
-                                    onWarningConfirmed = function() {
+                                    warning.onConfirmed = function() {
                                         warning.active = false
                                         if (modelData.type === "user")
                                             unlockUser(modelData.username)
                                         else
                                             unlockAdmin(modelData.username)
                                     }
-                                    warningMessage = "确认解锁该账户？"
+                                    warning.message = "确认解锁该账户？"
                                     warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
                                     warning.active = true
                                 }
@@ -199,6 +196,8 @@ Page {
     }
 
     Loader {
+        property string message: ""
+        property var onConfirmed: null
         id: warning
         source: ""
         active: false
@@ -209,16 +208,16 @@ Page {
                     warning.active = false
                 })
                 // 连接确认信号
-                if (item && typeof onWarningConfirmed === "function")
-                    item.confirmed.connect(onWarningConfirmed)
+                item.confirmed.connect(warning.onConfirmed)
                 // 初始化参数
-                item.contentText = warningMessage
+                item.contentText = warning.message
                 item.visible = true
             }
         }
     }
 
     Loader {
+        property string message: ""
         id: notification
         source: ""
         active: false
@@ -229,7 +228,7 @@ Page {
                     notification.active = false
                 })
                 // 初始化参数
-                item.contentText = notificationMessage
+                item.contentText = notification.message
                 item.visible = true
             }
         }
@@ -245,7 +244,7 @@ Page {
     function lockUser(username) {
         var result = accountManager.lockUser_api(username)
         refreshAccounts()
-        notificationMessage = result["success"] ? "用户锁定成功！" : "用户锁定失败！"
+        notification.message = result["success"] ? "用户锁定成功！" : "用户锁定失败！"
         notification.source = "qrc:/qml/components/ConfirmDialog.qml"
         notification.active = true
     }
@@ -253,7 +252,7 @@ Page {
     function lockAdmin(username) {
         var result = accountManager.lockAdmin_api(username)
         refreshAccounts()
-        notificationMessage = result["success"] ? "管理员锁定成功！" : "管理员锁定失败！"
+        notification.message = result["success"] ? "管理员锁定成功！" : "管理员锁定失败！"
         notification.source = "qrc:/qml/components/ConfirmDialog.qml"
         notification.active = true
     }
@@ -261,7 +260,7 @@ Page {
     function unlockUser(username) {
         var result = accountManager.unlockUser_api(username)
         refreshAccounts()
-        notificationMessage = result["success"] ? "用户解锁成功！" : "用户解锁失败！"
+        notification.message = result["success"] ? "用户解锁成功！" : "用户解锁失败！"
         notification.source = "qrc:/qml/components/ConfirmDialog.qml"
         notification.active = true
     }
@@ -269,7 +268,7 @@ Page {
     function unlockAdmin(username) {
         var result = accountManager.unlockAdmin_api(username)
         refreshAccounts()
-        notificationMessage = result["success"] ? "管理员解锁成功！" : "管理员解锁失败！"
+        notification.message = result["success"] ? "管理员解锁成功！" : "管理员解锁失败！"
         notification.source = "qrc:/qml/components/ConfirmDialog.qml"
         notification.active = true
     }
