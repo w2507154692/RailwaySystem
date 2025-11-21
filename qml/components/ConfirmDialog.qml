@@ -7,7 +7,13 @@ Window {
     title: "确认"
     property string contentText: "主内容iahfahfahfafhoiashfdoaosigfasu;dg;oihf;HF;AOSIHF;Oaifh;ohi"
     signal closed()
-    onVisibleChanged: if (!visible) closed()
+    onVisibleChanged: {
+        if (!visible) closed()
+        else {
+            confirmWin.requestActivate()
+            focusTimer.restart()
+        }
+    }
 
     width: 320
     height: 180
@@ -15,9 +21,60 @@ Window {
     modality: Qt.ApplicationModal
     color: "transparent"
 
+    onActiveChanged: {
+        if (active) {
+            focusTimer.restart()
+        }
+    }
+
+    // 延迟获取焦点
+    Timer {
+        id: focusTimer
+        interval: 100
+        repeat: false
+        onTriggered: {
+            mainRect.forceActiveFocus()
+        }
+    }
+
+    // 使用 Shortcut 捕获回车键
+    Shortcut {
+        sequence: "Return"
+        enabled: confirmWin.visible
+        onActivated: {
+            confirmWin.closed()
+        }
+    }
+    
+    Shortcut {
+        sequence: "Enter"
+        enabled: confirmWin.visible
+        onActivated: {
+            confirmWin.closed()
+        }
+    }
+
     Rectangle {
+        id: mainRect
         anchors.fill: parent
+        focus: true
+        activeFocusOnTab: true
         color: "#ffffff"
+        
+        Keys.onReturnPressed: {
+            event.accepted = true
+            confirmWin.closed()
+        }
+        Keys.onEnterPressed: {
+            event.accepted = true
+            confirmWin.closed()
+        }
+        Keys.onPressed: function(event) {
+            if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                event.accepted = true
+                confirmWin.closed()
+            }
+        }
 
         ColumnLayout {
             anchors.fill: parent
@@ -52,9 +109,10 @@ Window {
                 buttonType: "confirm"
                 width: 120
                 text: "确认"
-                focus: true
-                Keys.onReturnPressed: closed()
-                onClicked: closed()
+                onClicked: {
+                    console.log("Button clicked")
+                    closed()
+                }
             }
         }
     }
