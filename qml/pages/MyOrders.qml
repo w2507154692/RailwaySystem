@@ -232,7 +232,7 @@ Page {
                     notification.active = false
                 })
                 // 初始化参数
-                item.contentText = notification.message
+                item.contentText = message
                 item.visible = true
             }
         }

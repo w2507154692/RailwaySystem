@@ -220,9 +220,9 @@ Page {
                     warning.active = false
                 })
                 // 连接确认信号
-                item.confirmed.connect(warning.onConfirmed)
+                item.confirmed.connect(onConfirmed)
                 // 初始化参数
-                item.contentText = warning.message
+                item.contentText = message
                 item.visible = true
             }
         }
@@ -240,7 +240,7 @@ Page {
                     notification.active = false
                 })
                 // 初始化参数
-                item.contentText = notification.message
+                item.contentText = message
                 item.visible = true
             }
         }

@@ -22,8 +22,6 @@ Window {
 
     property var rawPassengerList: []
     property var passengerList: []
-    property var pendingSubmitList: []  // 用于传递给提交订单页面的数据
-    property string notificationMessage: ""  // 通知消息
 
     property alias ticketData: ticketData
     QtObject {
@@ -100,80 +98,87 @@ Window {
                     // 出发时间
                     ColumnLayout {
                         spacing: 2
-                        Layout.preferredWidth: 80
                         Text {
-                            width: 80; height: 30;
+                            Layout.preferredWidth: 80
                             text: ("0" + ticketData.startHour).slice(-2) + ":" + ("0" + ticketData.startMinute).slice(-2)
                             font.bold: false; font.pixelSize: 24; color: "#222";
                             horizontalAlignment: Text.AlignLeft
-                            Layout.alignment: Qt.AlignLeft
+                            elide: Text.ElideRight
+                            wrapMode: Text.NoWrap
+                            clip: true
                         }
                         Text {
-                            width: 80; height: 12;
+                            Layout.preferredWidth: 80
                             text: ticketData.startStationName + "（" + ticketData.startStationStopInfo + "）"
                             font.pixelSize: 8; color: "#222";
-                            horizontalAlignment: Text.AlignLeft
-                            Layout.alignment: Qt.AlignLeft
+                            elide: Text.ElideRight
+                            wrapMode: Text.NoWrap
+                            clip: true
                         }
                     }
 
-                    // 间隔
-                    Item {
-                        Layout.preferredWidth: 30
-                        Layout.alignment: Qt.AlignVCenter
-                    }
+                    // // 间隔
+                    // Item {
+                    //     Layout.preferredWidth: 30
+                    //     Layout.alignment: Qt.AlignVCenter
+                    // }
 
                     // 车次、箭头、时刻表
                     ColumnLayout {
                         spacing: 2
-                        Layout.preferredWidth: 56
                         Text {
-                            width: 56; height: 18;
+                            Layout.alignment: Qt.AlignHCenter
+                            Layout.preferredWidth: 80
                             text: ticketData.trainNumber
                             font.bold: false;
                             font.pixelSize: 18; color: "#222";
                             horizontalAlignment: Text.AlignHCenter
-                            Layout.alignment: Qt.AlignHCenter
+                            elide: Text.ElideMiddle
+                            wrapMode: Text.NoWrap
+                            clip: true
                         }
                         Image {
+                            Layout.topMargin: -6
                             source: "qrc:/resources/icon/arrow.svg"
-                            width: 48; height: 8
-                            fillMode: Image.PreserveAspectFit
+                            Layout.preferredWidth: 120
+                            Layout.preferredHeight: 8
+                            fillMode: Image.Stretch
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Text {
-                            width: 48; height: 12;
+                            Layout.alignment: Qt.AlignHCenter
                             text: ticketData.intervalHour + "小时" + ticketData.intervalMinute + "分"
                             font.pixelSize: 8;
                             color: "#888";
-                            horizontalAlignment: Text.AlignHCenter
-                            Layout.alignment: Qt.AlignHCenter
                         }
                     }
 
-                    // 间隔
-                    Item {
-                        Layout.preferredWidth: 30
-                        Layout.alignment: Qt.AlignVCenter
-                    }
+                    // // 间隔
+                    // Item {
+                    //     Layout.preferredWidth: 30
+                    //     Layout.alignment: Qt.AlignVCenter
+                    // }
 
                     // 到达时间
                     ColumnLayout {
                         spacing: 2
-                        Layout.preferredWidth: 80
                         Text {
-                            width: 80; height: 30;
+                            Layout.preferredWidth: 80
                             text: ("0" + ticketData.endHour).slice(-2) + ":" + ("0" + ticketData.endMinute).slice(-2)
                             font.bold: false; font.pixelSize: 24; color: "#222";
                             horizontalAlignment: Text.AlignRight
-                            Layout.alignment: Qt.AlignRight
+                            elide: Text.ElideLeft
+                            wrapMode: Text.NoWrap
+                            clip: true
                         }
                         Text {
-                            width: 80; height: 12;
+                            Layout.preferredWidth: 80
                             text: "（" + ticketData.endStationStopInfo + "）" + ticketData.endStationName
                             font.pixelSize: 8; color: "#222";
                             horizontalAlignment: Text.AlignRight
-                            Layout.alignment: Qt.AlignRight
+                            elide: Text.ElideLeft
+                            wrapMode: Text.NoWrap
+                            clip: true
                         }
                     }
 
@@ -359,6 +364,7 @@ Window {
 
     // 通知弹窗
     Loader {
+        property string message: ""
         id: notification
         source: ""
         active: false
@@ -371,7 +377,7 @@ Window {
                     notification.active = false
                 })
                 // 初始化参数
-                item.contentText = notificationMessage
+                item.contentText = message
                 item.visible = true
             }
         }
@@ -379,6 +385,7 @@ Window {
 
     // Loader 用于加载提交订单页面
     Loader {
+        property var pendingSubmitList: []
         id: submitOrderLoader
         source: ""
         active: false
@@ -395,7 +402,6 @@ Window {
                 if (pendingSubmitList.length > 0) {
                     item.submitList = pendingSubmitList
                 }
-                
                 item.transientParent = confirmWin
                 item.visible = true
             }
@@ -482,7 +488,7 @@ Window {
         console.log("准备提交的订单数量:", submitOrders.length)
         
         // 保存待提交的订单列表
-        pendingSubmitList = submitOrders
+        submitOrderLoader.pendingSubmitList = submitOrders
         
         // 加载提交订单页面
         submitOrderLoader.source = "SubmitOrderDialog.qml"
