@@ -19,7 +19,7 @@ Page {
     property string notificationMessage: ""
 
     Component.onCompleted: {
-        refreshPassengers(SessionState.username)
+        refreshPassengers()
     }
 
     // 主内容区
@@ -95,7 +95,7 @@ Page {
                                 Layout.fillWidth: true
                                 passengerData: modelData
                             }
-                            // 按钮
+                            // 编辑按钮
                             Rectangle {
                                 Layout.preferredWidth: 60
                                 Layout.preferredHeight: 60
@@ -105,6 +105,14 @@ Page {
                                     anchors.fill: parent
                                     cursorShape: Qt.PointingHandCursor
                                     onClicked: {
+                                        editPassengerInfoDialog.initialName = modelData.name
+                                        editPassengerInfoDialog.initialPhoneNumber = modelData.phoneNumber
+                                        editPassengerInfoDialog.initialId = modelData.id
+                                        editPassengerInfoDialog.initialType = modelData.type
+                                        editPassengerInfoDialog.onConfirmed = function(name, phoneNumber, id, type) {
+                                            editPassengerInfo(modelData.id, name, phoneNumber, id, type)
+                                        }
+
                                         editPassengerInfoDialog.source = "qrc:/qml/pages/EditPassengerInfoDialog.qml"
                                         editPassengerInfoDialog.active = true
                                     }
@@ -114,29 +122,6 @@ Page {
                                     source: "qrc:/resources/icon/Edit.png"
                                     width: 60
                                     height: 60
-                                }
-                            }
-                        }
-
-                        // 修改
-                        Loader {
-                            id: editPassengerInfoDialog
-                            source: ""
-                            active: false
-                            onLoaded: {
-                                if (item) {
-                                    // 连接取消信号
-                                    item.canceled.connect(function() {
-                                        editPassengerInfoDialog.active = false
-                                    })
-                                    // 连接确认信号
-                                    item.confirmed.connect(editPassengerInfo)
-                                    //初始化参数
-                                    item.initialName = modelData.name
-                                    item.initialPhoneNumber = modelData.phoneNumber
-                                    item.initialId = modelData.id
-                                    item.initialType = modelData.type
-                                    item.visible = true
                                 }
                             }
                         }
@@ -251,9 +236,38 @@ Page {
     }
 
 
-    function refreshPassengers(username) {
+    // 修改
+    Loader {
+        property string initialName: ""
+        property string initialPhoneNumber: ""
+        property string initialId: ""
+        property string initialType: ""
+        property var onConfirmed: null
+        id: editPassengerInfoDialog
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接取消信号
+                item.canceled.connect(function() {
+                    editPassengerInfoDialog.active = false
+                })
+                // 连接确认信号
+                item.confirmed.connect(onConfirmed)
+                //初始化参数
+                item.initialName = initialName
+                item.initialPhoneNumber = initialPhoneNumber
+                item.initialId = initialId
+                item.initialType = initialType
+                item.visible = true
+            }
+        }
+    }
+
+
+    function refreshPassengers() {
         var savedContentY = passengerListView.contentY
-        rawPassengerList = passengerManager.getPassengersByUsername_api(username)
+        rawPassengerList = passengerManager.getPassengersByUsername_api(SessionState.username)
         filterPassengerList()
         passengerListView.contentY = savedContentY
     }
@@ -274,7 +288,7 @@ Page {
         });
     }
 
-    function editPassengerInfo(name, phoneNumber, id, type) {
+    function editPassengerInfo(id_old, name, phoneNumber, id_new, type) {
         if (name === "") {
             notificationMessage = "姓名不能为空！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
@@ -293,17 +307,31 @@ Page {
             notification.active = true
             return
         }
-        if (id === "") {
+        if (id_new === "") {
             notificationMessage = "身份证号不能为空！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             return
         }
-        if (id.length !== 18 || !(id.indexOf('x') === -1 || id.indexOf('x') === id.length - 1)) {
+        if (id_new.length !== 18 || !(id_new.indexOf('x') === -1 || id_new.indexOf('x') === id_new.length - 1)) {
             notificationMessage = "身份证号不合法！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
             return
+        }
+
+        var result = passengerManager.editPassenger_api(SessionState.username, id_old, name, phoneNumber, id_new, type)
+        if (result.success) {
+            notificationMessage = result.message
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            editPassengerInfoDialog.active = false
+            refreshPassengers()
+        }
+        else {
+            notificationMessage = result.message
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
         }
     }
 }

@@ -13,7 +13,7 @@ Window {
     flags: Qt.FramelessWindowHint
     modality: Qt.ApplicationModal
 
-    signal confirmed(string name, string phoneNumber, string id, string type)
+    signal confirmed(string name, string phoneNumber, string id_new, string type)
     signal canceled()
 
     property string initialName: ""
