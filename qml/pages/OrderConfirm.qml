@@ -351,7 +351,7 @@ Window {
                 text: "确认订单"
                 onClicked: {
                     if (ticketData.count === 0) {
-                        notificationMessage = "请至少选择一位乘车人！"
+                        notification.message = "请至少选择一位乘车人!"
                         notification.source = "qrc:/qml/components/ConfirmDialog.qml"
                         notification.active = true
                         return
