@@ -20,6 +20,10 @@ Window {
     // visible: true
     // color: "#ffffff"
 
+    // 来源标识: "query"(查询车票), "myOrders"(我的订单改签/订单管理改签)
+    property string sourceType: "query"
+    property string originalOrderNumber: ""  // 原订单号(改签时使用)
+
     property var rawPassengerList: []
     property var passengerList: []
 
@@ -44,7 +48,9 @@ Window {
     }
 
     Component.onCompleted: {
-        refreshPassengers()
+        // 不在这里调用 refreshPassengers()
+        // 等待 sourceType 从父窗口设置完成后再调用
+        // refreshPassengers() 会在 TicketQueryResult.qml 设置完 sourceType 后手动调用
     }
 
     //头部
@@ -402,6 +408,11 @@ Window {
                 if (pendingSubmitList.length > 0) {
                     item.submitList = pendingSubmitList
                 }
+                
+                // 设置改签相关参数
+                item.rescheduleMode = (sourceType === "myOrders")
+                item.originalOrderNumber = originalOrderNumber
+                
                 item.transientParent = confirmWin
                 item.visible = true
             }
@@ -410,8 +421,36 @@ Window {
 
     // 刷新乘车人列表
     function refreshPassengers() {
-        rawPassengerList = passengerManager.getPassengersByUsername_api(SessionState.username)
-        passengerList = rawPassengerList
+        // 根据来源类型过滤乘车人列表
+        if (sourceType === "query") {
+            // 查询车票进入:显示当前用户的所有乘车人
+            rawPassengerList = passengerManager.getPassengersByUsername_api(SessionState.username)
+            passengerList = rawPassengerList
+        } else if (sourceType === "myOrders") {
+            // 改签模式:仅显示该订单的乘车人
+            if (originalOrderNumber !== "") {
+                var originalOrder = orderManager.getOrderByOrderNumber_api(originalOrderNumber)
+                if (originalOrder && originalOrder.username) {
+                    // 获取订单所属用户的乘车人列表
+                    rawPassengerList = passengerManager.getPassengersByUsername_api(originalOrder.username)
+                    // 过滤出该订单的乘车人
+                    passengerList = rawPassengerList.filter(function(passenger) {
+                        return passenger.name === originalOrder.passengerName
+                    })
+                } else {
+                    rawPassengerList = []
+                    passengerList = []
+                }
+            } else {
+                rawPassengerList = []
+                passengerList = []
+            }
+        } else {
+            // 默认显示当前用户的所有乘车人
+            rawPassengerList = passengerManager.getPassengersByUsername_api(SessionState.username)
+            passengerList = rawPassengerList
+        }
+        console.log("sourceType:", sourceType, "passengerList length:", passengerList.length)
     }
 
     // 更新选中的乘车人数量

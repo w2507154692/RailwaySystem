@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <QDebug>
+#include <QVariantMap>
 
 StationManager::StationManager(QObject *parent)
     : QObject{parent}
@@ -18,6 +19,28 @@ QStringList StationManager::getCitiesName_api() {
         list << city.getName();
     }
     return list;
+}
+
+QVariantMap StationManager::getCitiesByStationNames_api(const QString &startStationName, const QString &endStationName) {
+    QVariantMap result;
+    
+    // 获取起始站对应的城市
+    auto startStation = getStationByStationName(startStationName);
+    if (startStation.has_value()) {
+        result["startCity"] = startStation->getCityName();
+    } else {
+        result["startCity"] = startStationName; // 如果找不到，使用车站名
+    }
+    
+    // 获取终到站对应的城市
+    auto endStation = getStationByStationName(endStationName);
+    if (endStation.has_value()) {
+        result["endCity"] = endStation->getCityName();
+    } else {
+        result["endCity"] = endStationName; // 如果找不到，使用车站名
+    }
+    
+    return result;
 }
 
 double StationManager::computeDistance(City &c1, City &c2) {

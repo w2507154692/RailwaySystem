@@ -21,6 +21,8 @@ Window{
 
     property var submitList: []
     property var timetable: []
+    property bool rescheduleMode: false
+    property string originalOrderNumber: ""
 
     Rectangle {
         id:root
@@ -150,10 +152,24 @@ Window{
                         width: 250
                         height: 30
                         onClicked: {
-                            console.log("提交订单，共", submitList.length, "张")
+                            console.log("提交订单,共", submitList.length, "张")
                             // TODO: 调用后端API提交订单
-                            // 提交成功后关闭窗口
-                            submitWin.visible = false
+                            // 这里假设提交成功
+                            var submitSuccess = true // 实际应该从后端API获取结果
+                            
+                            if (submitSuccess) {
+                                // 如果是改签模式且提交成功,删除原订单
+                                if (rescheduleMode && originalOrderNumber !== "") {
+                                    console.log("改签成功,删除原订单:", originalOrderNumber)
+                                    var cancelResult = orderManager.cancelOrder_api(originalOrderNumber)
+                                    if (cancelResult) {
+                                        console.log("原订单删除成功")
+                                    } else {
+                                        console.log("原订单删除失败")
+                                    }
+                                }
+                                submitWin.visible = false
+                            }
                         }
                     }
                     CustomButton {

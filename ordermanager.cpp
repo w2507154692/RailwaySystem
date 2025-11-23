@@ -177,6 +177,51 @@ std::optional<Order> OrderManager::getOrderByOrderNumber(const QString &orderNum
     return std::nullopt;
 }
 
+QVariantMap OrderManager::getOrderByOrderNumber_api(const QString &orderNumber) {
+    auto orderOpt = getOrderByOrderNumber(orderNumber);
+    if (orderOpt.has_value()) {
+        Order &order = orderOpt.value();
+        QVariantMap orderMap;
+        orderMap["orderNumber"] = order.getOrderNumber();
+        orderMap["trainNumber"] = order.getTrainNumber();
+        orderMap["year"] = order.getDate().getYear();
+        orderMap["month"] = order.getDate().getMonth();
+        orderMap["day"] = order.getDate().getDay();
+        orderMap["seatLevel"] = order.getSeatLevel();
+        orderMap["carriageNumber"] = order.getCarriageNumber();
+        orderMap["seatRow"] = order.getSeatRow();
+        orderMap["seatCol"] = order.getSeatCol();
+        orderMap["price"] = order.getPrice();
+        orderMap["status"] = order.getStatus();
+        orderMap["passengerName"] = order.getPassenger().getName();
+        orderMap["type"] = order.getPassenger().getType();
+        orderMap["username"] = order.getUsername();  // 添加订单所属用户名
+        
+        // 添加起止站点和时间信息
+        Station startStation = order.getStartStation();
+        Station endStation = order.getEndStation();
+        std::tuple<Time, Time, QString> startStationInfo =
+            order.getTimetable().getStationInfo(startStation);
+        std::tuple<Time, Time, QString> endStationInfo =
+            order.getTimetable().getStationInfo(endStation);
+        orderMap["startStationName"] = startStation.getStationName();
+        orderMap["startStationStopInfo"] = std::get<2>(startStationInfo);
+        orderMap["startHour"] = std::get<1>(startStationInfo).getHour();
+        orderMap["startMinute"] = std::get<1>(startStationInfo).getMinute();
+        orderMap["endStationName"] = endStation.getStationName();
+        orderMap["endStationStopInfo"] = std::get<2>(endStationInfo);
+        orderMap["endHour"] = std::get<0>(endStationInfo).getHour();
+        orderMap["endMinute"] = std::get<0>(endStationInfo).getMinute();
+
+        int intervalSeconds = order.getTimetable().getInterval(startStation, endStation);
+        int hours = intervalSeconds / 3600, minutes = (intervalSeconds % 3600) / 60;
+        orderMap["intervalHour"] = hours;
+        orderMap["intervalMinute"] = minutes;
+        
+        return orderMap;
+    }
+    return QVariantMap(); // 返回空 map
+}
 
 bool OrderManager::cancelOrder(const QString &orderNumber) {
     for (auto &order : orders) {

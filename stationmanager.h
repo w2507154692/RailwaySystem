@@ -16,6 +16,7 @@ private:
 public:
     explicit StationManager(QObject *parent = nullptr);
     Q_INVOKABLE QStringList getCitiesName_api();
+    Q_INVOKABLE QVariantMap getCitiesByStationNames_api(const QString &startStationName, const QString &endStationName);
     double computeDistance(City &c1, City &c2);
     std::optional<Station> getStationByStationName(const QString &stationName);
     std::optional<City> getCityByCityName(const QString &cityName);

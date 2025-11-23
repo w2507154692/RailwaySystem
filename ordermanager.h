@@ -20,6 +20,7 @@ public:
     Q_INVOKABLE QVariantMap cancelOrder_api(const QString &orderNumber);
     Q_INVOKABLE QVariantList getTimetableInfo_api(const QString &orderNumber);
     Q_INVOKABLE QVariantList getOrders_api();
+    Q_INVOKABLE QVariantMap getOrderByOrderNumber_api(const QString &orderNumber);
     std::vector<Order> getOrdersByTrainNumberAndDate(const QString &trainNumber, const Date &date);
 
 private:

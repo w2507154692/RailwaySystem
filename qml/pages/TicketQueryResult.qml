@@ -36,6 +36,11 @@ Window {
     // 用于传递给确认订单页面的数据
     property var pendingOrderInfo: null
     property int pendingSeatType: -1
+    
+    // 改签模式标识
+    property bool rescheduleMode: false  // 是否为改签模式
+    property string originalOrderNumber: ""  // 原订单号(改签时使用)
+    property string rescheduleSource: ""  // 改签来源: "myOrders" 或 "management"
 
     //先初始化再onCompleted加载数据再onloaded
     Component.onCompleted: {
@@ -64,22 +69,25 @@ Window {
                     Layout.alignment: Qt.AlignHCenter
                     spacing: 40
                     Text { color: "#ffffff"; text: resultData.fromCity; font.bold: false; font.pointSize: 20 }
-                    Text { color: "#ffffff"; 
-                    text: "<>"; 
-                    horizontalAlignment: Text.AlignLeft;
-                    font.bold: true;
-                    font.pointSize: 20 
-                    MouseArea {
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: {
-                            // 交换始发地和目的地
-                            var tmp = resultData.fromCity
-                            resultData.fromCity = resultData.toCity
-                            resultData.toCity = tmp
-                            queryTickets()
+                    Text { 
+                        color: "#ffffff"; 
+                        text: "<>"; 
+                        horizontalAlignment: Text.AlignLeft;
+                        font.bold: true;
+                        font.pointSize: 20
+                        opacity: rescheduleMode ? 0.5 : 1.0  // 改签模式下半透明
+                        MouseArea {
+                            anchors.fill: parent
+                            enabled: !rescheduleMode  // 改签模式下禁用
+                            cursorShape: enabled ? Qt.PointingHandCursor : Qt.ForbiddenCursor
+                            onClicked: {
+                                // 交换始发地和目的地
+                                var tmp = resultData.fromCity
+                                resultData.fromCity = resultData.toCity
+                                resultData.toCity = tmp
+                                queryTickets()
+                            }
                         }
-                    }
                     }
                     Text { color: "#ffffff"; text: resultData.toCity; font.bold: false; font.pointSize: 20 }
                 }
@@ -357,8 +365,8 @@ Window {
         height: 370
 
         // 居中显示
-        x: (ticketQueryPage.width - width) / 2
-        y: (ticketQueryPage.height - height) / 2
+    x: (resultWin.width - width) / 2
+    y: (resultWin.height - height) / 2
 
         MyCalendar {
             id: myCalendar
@@ -409,6 +417,16 @@ Window {
                     pendingSeatType = -1
                 })
                 
+                // 设置来源类型 - 必须在最前面设置,确保无论什么情况都能正确设置
+                if (rescheduleMode) {
+                    item.sourceType = rescheduleSource  // 使用传递的改签来源
+                    item.originalOrderNumber = originalOrderNumber
+                    console.log("设置改签模式 sourceType:", rescheduleSource, "originalOrderNumber:", originalOrderNumber)
+                } else {
+                    item.sourceType = "query"  // 普通查询模式
+                    console.log("设置普通查询模式 sourceType: query")
+                }
+                
                 // 如果有待处理的订单信息,则设置数据
                 if (pendingOrderInfo && pendingSeatType !== -1) {
                     var seatTypeName = ["二等座", "一等座", "商务座"][pendingSeatType];
@@ -433,6 +451,9 @@ Window {
                         item.ticketData.remainingTickets = remainingTickets
                     }
                 }
+                
+                // 在设置完所有属性后,手动调用 refreshPassengers
+                item.refreshPassengers()
                 
                 item.visible = true
             }

@@ -84,8 +84,13 @@ Page {
                                     Layout.preferredHeight: 35
                                     text: "改签"
                                     activeFocusOnTab: true
+                                    mouseAreaEnabled: modelData.status === "待乘坐"
+                                    customColor: modelData.status === "待乘坐" ? "#409CFC" : "#808080"
+                                    pressedColor: modelData.status === "待乘坐" ? "#174a73" : "#808080"
+                                    hoverColor: modelData.status === "待乘坐" ? "#1f5f99" : "#808080"
                                     onClicked: {
-                                        // 改签逻辑
+                                        // 改签逻辑:跳转到车票查询结果页面
+                                        openRescheduleTicketQuery(modelData)
                                     }
                                 }
                                 Item{
@@ -259,6 +264,43 @@ Page {
         }
     }
 
+    //车票查询结果页面(改签用)
+    Loader {
+        property var orderInfo: null
+        id: ticketResultLoader
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    ticketResultLoader.active = false
+                    orderInfo = null
+                    refreshOrders()  // 关闭时刷新订单列表
+                })
+                // 初始化参数
+                if (orderInfo) {
+                    // 通过车站名获取城市名
+                    var cityMap = stationManager.getCitiesByStationNames_api(orderInfo.startStationName, orderInfo.endStationName)
+                    item.resultData.fromCity = cityMap.startCity
+                    item.resultData.toCity = cityMap.endCity
+                    var dateStr = orderInfo.year + "年" + 
+                                  (orderInfo.month < 10 ? "0" : "") + orderInfo.month + "月" + 
+                                  (orderInfo.day < 10 ? "0" : "") + orderInfo.day + "日"
+                    item.resultData.date = dateStr
+                    item.resultData.selectedDate = dateStr
+                    item.rescheduleMode = true  // 标记为改签模式
+                    item.originalOrderNumber = orderInfo.orderNumber  // 传递原订单号
+                    item.rescheduleSource = "myOrders"  // 改签时只显示该订单的乘客
+                    item.transientParent = mainWindow
+                    item.queryTickets()
+                    item.rawTicketList = item.ticketList
+                }
+                item.visible = true
+            }
+        }
+    }
+
     function refreshOrders() {
         // 记录当前滚动条位置
         var savedContentY = orderListView.contentY
@@ -293,5 +335,13 @@ Page {
                 && (searchEndStationName.text === "" || (order.endStationName && order.endStationName.indexOf(searchEndStationName.text) !== -1))
                 && dateOk;
         });
+    }
+
+    // 打开改签车票查询页面
+    function openRescheduleTicketQuery(orderData) {
+        console.log("打开改签页面,订单号:", orderData.orderNumber)
+        ticketResultLoader.orderInfo = orderData
+        ticketResultLoader.source = "qrc:/qml/pages/TicketQueryResult.qml"
+        ticketResultLoader.active = true
     }
 }
