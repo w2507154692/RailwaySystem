@@ -323,16 +323,17 @@ Window {
                             }
 
                             //按钮
-                            CheckButton{
-                                id: checkBtn
-                                Layout.leftMargin: 15
-                                // 如果已经选择了足够数量的乘车人(达到余票数),且当前按钮未选中,则禁用
-                                enabled: checked || ticketData.count < ticketData.remainingTickets
-                                opacity: enabled ? 1.0 : 0.5
-                                onToggled: function(checked) {
-                                    updateSelectedCount()
+                                CheckButton{
+                                    id: checkBtn
+                                    Layout.leftMargin: 15
+                                    // 改签模式下默认选中且不可点击
+                                    checked: sourceType === "myOrders"
+                                    enabled: sourceType !== "myOrders" ? (checked || ticketData.count < ticketData.remainingTickets) : false
+                                    opacity: enabled ? 1.0 : 0.5
+                                    onToggled: function(checked) {
+                                        updateSelectedCount()
+                                    }
                                 }
-                            }
                         }
                     }
 
