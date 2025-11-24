@@ -21,7 +21,7 @@ public:
     bool setSecond(int second);
     bool isNull();
     bool setNull();
-
+    
     friend bool operator==(const Time &t1, const Time &t2);
     friend bool operator!=(const Time &t1, const Time &t2);
     friend int operator-(const Time &t1, const Time &t2);

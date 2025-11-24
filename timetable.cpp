@@ -2,13 +2,15 @@
 
 Timetable::Timetable() {}
 
-std::tuple<Time, Time, QString> Timetable::getStationInfo(const Station &station) {
+std::tuple<Time, Time, int, int, QString> Timetable::getStationInfo(const QString &stationName) {
     int len = table.size();
     for (int i = 0; i < len; i++) {
         Station &s = std::get<0>(table[i]);
-        if (s == station) {
+        if (s.getStationName() == stationName) {
             Time &arrivalTime = std::get<1>(table[i]);
             Time &departureTime = std::get<2>(table[i]);
+            int arriveDayOffset = std::get<3>(table[i]);
+            int departureDayOffset = std::get<4>(table[i]);
             QString passInfo;
             if (i == 0) {
                 passInfo = "始";
@@ -17,10 +19,10 @@ std::tuple<Time, Time, QString> Timetable::getStationInfo(const Station &station
             } else {
                 passInfo = "过";
             }
-            return std::make_tuple(arrivalTime, departureTime, passInfo);
+            return std::make_tuple(arrivalTime, departureTime, arriveDayOffset, departureDayOffset, passInfo);
         }
     }
-    return std::make_tuple(Time(), Time(), QString("Not Found"));
+    return std::make_tuple(Time(), Time(), -1, -1, QString("Not Found"));
 }
 
 int Timetable::getInterval(const Station &station1, const Station &station2) {
@@ -185,7 +187,9 @@ std::ostream &operator<<(std::ostream &os, Timetable &timetable) {
         Station &station = std::get<0>(entry);
         Time &arrival = std::get<1>(entry);
         Time &departure = std::get<2>(entry);
-        os << station << " " << arrival << " " << departure << std::endl;
+        int startDayOffset = std::get<3>(entry);
+        int endDayOffset = std::get<4>(entry);
+        os << station << " " << arrival << " " << departure << startDayOffset << endDayOffset <<std::endl;
     }
     return os;
 }
@@ -194,12 +198,13 @@ std::istream &operator>>(std::istream &is, Timetable &timetable) {
     timetable.table.clear();
     Station station;
     Time arrival, departure;
+    int startDayOffset, endDayOffset;
     int count;
     is >> count;
     timetable.table.resize(count);
     for (int i = 0; i < count; ++i) {
-        is >> station >> arrival >> departure;
-        timetable.table[i] = std::make_tuple(station, arrival, departure);
+        is >> station >> arrival >> departure >> startDayOffset >> endDayOffset;
+        timetable.table[i] = std::make_tuple(station, arrival, departure, startDayOffset, endDayOffset);
     }
     return is;
 }

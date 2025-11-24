@@ -34,6 +34,83 @@ bool Date::setDay(int day) {
     return true;
 }
 
+// 判断是否闰年
+bool isLeapYear(int year) {
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+        return true;
+    return false;
+}
+
+// 获取某年某月的天数
+int getDaysInMonth(int year, int month) {
+    int daysInMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (month == 2 && isLeapYear(year))
+        return 29;
+    return daysInMonth[month];
+}
+
+Date operator+(const Date &d, int days) {
+    Date result = d;
+    result.day += days;
+    while (true) {
+        int daysInCurrentMonth = getDaysInMonth(result.year, result.month);
+        if (result.day <= daysInCurrentMonth)
+            break;
+        result.day -= daysInCurrentMonth;
+        result.month++;
+        if (result.month > 12) {
+            result.month = 1;
+            result.year++;
+        }
+    }
+    return result;
+}
+
+Date operator-(const Date &d, int days) {
+    Date result = d;
+    result.day -= days;
+    while (result.day <= 0) {
+        result.month--;
+        if (result.month < 1) {
+            result.month = 12;
+            result.year--;
+        }
+        result.day += getDaysInMonth(result.year, result.month);
+    }
+    return result;
+}
+
+int operator-(const Date &d1, const Date &d2) {
+    Date start = d2;
+    Date end = d1;
+    int days = 0;
+    while (start.year < end.year || start.month < end.month || start.day < end.day) {
+        days++;
+        start = start + 1;
+    }
+    return days;
+}
+
+bool operator<(const Date &d1, const Date &d2) {
+    if (d1.year != d2.year)
+        return d1.year < d2.year;
+    if (d1.month != d2.month)
+        return d1.month < d2.month;
+    return d1.day < d2.day;
+}
+
+bool operator>(const Date &d1, const Date &d2) {
+    return !(d1 < d2) && (d1 != d2);
+}
+
+bool operator>=(const Date &d1, const Date &d2) {
+    return (d1 > d2) || (d1 == d2);
+}
+
+bool operator<=(const Date &d1, const Date &d2) {
+    return (d1 < d2) || (d1 == d2);
+}
+
 bool operator==(const Date &d1, const Date &d2) {
     return d1.year == d2.year &&
            d1.month == d2.month &&

@@ -9,13 +9,13 @@
 class Timetable
 {
 private:
-    std::vector<std::tuple<Station, Time, Time>> table;
+    std::vector<std::tuple<Station, Time, Time, int, int>> table;
 
 public:
     Timetable();
 
-    // 输入某个车站，输出这个车站的信息（到时、发时、始/终/过）
-    std::tuple<Time, Time, QString> getStationInfo(const Station &station);
+    // 输入某个车站，输出这个车站的信息（到时、发时、到天、发天、始/终/过、）
+    std::tuple<Time, Time, int, int, QString> getStationInfo(const QString &stationName);
     // 获得两个车站的时间间隔
     int getInterval(const Station &station1, const Station &station2);
     // 输入城市A和城市B，输出这个时刻表从A到B的所有车站组合

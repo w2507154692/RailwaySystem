@@ -21,7 +21,8 @@ public:
     Q_INVOKABLE QVariantList getTimetableInfo_api(const QString &orderNumber);
     Q_INVOKABLE QVariantList getOrders_api();
     Q_INVOKABLE QVariantMap getOrderByOrderNumber_api(const QString &orderNumber);
-    std::vector<Order> getOrdersByTrainNumberAndDate(const QString &trainNumber, const Date &date);
+    // 根据车次查找所有未乘坐的订单
+    std::vector<Order> getOrderByTrainNumberAndUnused(const QString &trainNumber);
 
 private:
     std::vector<Order> getOrdersByUsername(const QString &username);

@@ -114,35 +114,37 @@ QVariantList BookingSystem::queryTickets_api(const QString &startCityName,
         Timetable timetable = train.getTimetable();
         int a = timetable.getIndexByStationName(startStation.getStationName());
         int b= timetable.getIndexByStationName(endStation.getStationName());
-        std::vector<Order> ordersWithTrainNumberAndDate = order_manager->getOrdersByTrainNumberAndDate(train.getNumber(), queryDate);
+        std::vector<Order> ordersWithTrainNumberAndUnused = order_manager->getOrderByTrainNumberAndUnused(train.getNumber());
         // 遍历每个订单，检查该订单的坐车区间是否和目标区间重叠
-        for (auto &order : ordersWithTrainNumberAndDate) {
-            if (order.getStatus() == "待乘坐") {
-                int c = timetable.getIndexByStationName(order.getStartStation().getStationName());
-                int d = timetable.getIndexByStationName(order.getEndStation().getStationName());
-                qWarning() << a << b << "and" << c << d;
-                // 如果 [a,b] 区间和 [c,d] 区间重叠，则对应座位数量减1
-                if (!(b <= c || a >= d)) {
-                    if (order.getSeatLevel() == "一等座") {
-                        firstClassCount--;
-                        qWarning() << "检测到一等座被占用！";
-                    } else if (order.getSeatLevel() == "二等座") {
-                        secondClassCount--;
-                        qWarning() << "检测到二等座被占用！";
-                    } else if (order.getSeatLevel() == "商务座") {
-                        businessClassCount--;
-                        qWarning() << "检测到商务座被占用！";
-                    }
+        for (auto order : ordersWithTrainNumberAndUnused) {
+            // 获得该订单对应列车安排的出发日期
+            Date date1 = order.getDate() - std::get<3>(order.getTimetable().getStationInfo(order.getStartStation().getStationName()));
+            // 获得该安排对应列车安排的出发日期
+            Date date2 = queryDate - std::get<3>(train.getTimetable().getStationInfo(startStation.getStationName()));
+            int c = timetable.getIndexByStationName(order.getStartStation().getStationName());
+            int d = timetable.getIndexByStationName(order.getEndStation().getStationName());
+            qWarning() << a << b << "and" << c << d;
+            // 如果前面两个日期相等并且 [a,b] 区间和 [c,d] 区间重叠，则对应座位数量减1
+            if (date1 == date2 && !(b <= c || a >= d)) {
+                if (order.getSeatLevel() == "一等座") {
+                    firstClassCount--;
+                    qWarning() << "检测到一等座被占用！";
+                } else if (order.getSeatLevel() == "二等座") {
+                    secondClassCount--;
+                    qWarning() << "检测到二等座被占用！";
+                } else if (order.getSeatLevel() == "商务座") {
+                    businessClassCount--;
+                    qWarning() << "检测到商务座被占用！";
                 }
             }
         }
         // 如果遍历完所有订单后，发现该车次当天仍然有余票，则向前端返回该安排
         QVariantMap map;
         map["trainNumber"] = train.getNumber();
-        std::tuple<Time, Time, QString> startStationInfo =
-            timetable.getStationInfo(startStation);
-        std::tuple<Time, Time, QString> endStationInfo =
-            timetable.getStationInfo(endStation);
+        std::tuple<Time, Time, int, int, QString> startStationInfo =
+            timetable.getStationInfo(startStation.getStationName());
+        std::tuple<Time, Time, int, int, QString> endStationInfo =
+            timetable.getStationInfo(endStation.getStationName());
         map["startStationName"] = startStation.getStationName();
         map["startHour"] = std::get<1>(startStationInfo).getHour();
         map["startMinute"] = std::get<1>(startStationInfo).getMinute();

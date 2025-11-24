@@ -19,6 +19,13 @@ public:
     int getDay();
     bool setDay(int day);
 
+    friend Date operator+(const Date &d, int days);
+    friend Date operator-(const Date &d, int days);
+    friend int operator-(const Date &d1, const Date &d2);
+    friend bool operator<(const Date &d1, const Date &d2);
+    friend bool operator>(const Date &d1, const Date &d2);
+    friend bool operator>=(const Date &d1, const Date &d2);
+    friend bool operator<=(const Date &d1, const Date &d2);
     friend bool operator==(const Date &d1, const Date &d2);
     friend bool operator!=(const Date &d1, const Date &d2);
     friend std::ostream &operator<<(std::ostream &os, const Date &d);
