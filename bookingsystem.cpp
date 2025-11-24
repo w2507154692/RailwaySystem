@@ -101,7 +101,7 @@ QVariantList BookingSystem::queryTickets_api(const QString &startCityName,
     // 查询满足能从起始城市开到终点城市的所有车次和车站安排
     std::vector<std::tuple<Train, Station, Station>> routes = train_manager->getRoutesByCities(startCityName, endCityName);
     // 实例化要查询的日期
-    Date queryDate(year, month, day);
+    Date queryStartDate(year, month, day);
     // 遍历每趟车次，计算其在那一天的余票
     for (auto &route : routes) {
         // 获得该车次的各等级座位数量，如果座位数减为0，代表没票了
@@ -109,50 +109,42 @@ QVariantList BookingSystem::queryTickets_api(const QString &startCityName,
         int firstClassCount = train.getFirstClassCount();
         int secondClassCount = train.getSecondClassCount();
         int businessClassCount = train.getBusinessClassCount();
-        // 获得该安排的车站在时刻表中的区间
+        // 获得该安排的车站的出发和终点日期时间
         Station startStation = std::get<1>(route), endStation = std::get<2>(route);
         Timetable timetable = train.getTimetable();
-        int a = timetable.getIndexByStationName(startStation.getStationName());
-        int b= timetable.getIndexByStationName(endStation.getStationName());
-        std::vector<Order> ordersWithTrainNumberAndUnused = order_manager->getOrderByTrainNumberAndUnused(train.getNumber());
-        // 遍历每个订单，检查该订单的坐车区间是否和目标区间重叠
-        for (auto order : ordersWithTrainNumberAndUnused) {
-            // 获得该订单对应列车安排的出发日期
-            Date date1 = order.getDate() - std::get<3>(order.getTimetable().getStationInfo(order.getStartStation().getStationName()));
-            // 获得该安排对应列车安排的出发日期
-            Date date2 = queryDate - std::get<3>(train.getTimetable().getStationInfo(startStation.getStationName()));
-            int c = timetable.getIndexByStationName(order.getStartStation().getStationName());
-            int d = timetable.getIndexByStationName(order.getEndStation().getStationName());
-            qWarning() << a << b << "and" << c << d;
-            // 如果前面两个日期相等并且 [a,b] 区间和 [c,d] 区间重叠，则对应座位数量减1
-            if (date1 == date2 && !(b <= c || a >= d)) {
-                if (order.getSeatLevel() == "一等座") {
-                    firstClassCount--;
-                    qWarning() << "检测到一等座被占用！";
-                } else if (order.getSeatLevel() == "二等座") {
-                    secondClassCount--;
-                    qWarning() << "检测到二等座被占用！";
-                } else if (order.getSeatLevel() == "商务座") {
-                    businessClassCount--;
-                    qWarning() << "检测到商务座被占用！";
-                }
+        std::tuple<Time, Time, int, int, QString> startStationInfo = timetable.getStationInfo(startStation.getStationName());
+        std::tuple<Time, Time, int, int, QString> endStationInfo = timetable.getStationInfo(endStation.getStationName());
+        Date queryEndDate = queryStartDate + std::get<2>(endStationInfo) - std::get<3>(startStationInfo);
+        Time queryStartTime = std::get<1>(startStationInfo);
+        Time queryendTime = std::get<0>(endStationInfo);
+        // 根据车次、始末站日期时间，查找和该安排重叠的订单
+        std::vector<Order> ordersOverlap = order_manager->getOrdersUnusedAndOverlapByTrainNumber(train.getNumber(),
+                                                                                                 queryStartDate, queryEndDate,
+                                                                                                 queryStartTime, queryendTime);
+        // 遍历每个重叠订单
+        for (auto order : ordersOverlap) {
+            if (order.getSeatLevel() == "一等座") {
+                firstClassCount--;
+                qWarning() << "检测到一等座被占用！";
+            } else if (order.getSeatLevel() == "二等座") {
+                secondClassCount--;
+                qWarning() << "检测到二等座被占用！";
+            } else if (order.getSeatLevel() == "商务座") {
+                businessClassCount--;
+                qWarning() << "检测到商务座被占用！";
             }
         }
         // 如果遍历完所有订单后，发现该车次当天仍然有余票，则向前端返回该安排
         QVariantMap map;
         map["trainNumber"] = train.getNumber();
-        std::tuple<Time, Time, int, int, QString> startStationInfo =
-            timetable.getStationInfo(startStation.getStationName());
-        std::tuple<Time, Time, int, int, QString> endStationInfo =
-            timetable.getStationInfo(endStation.getStationName());
         map["startStationName"] = startStation.getStationName();
         map["startHour"] = std::get<1>(startStationInfo).getHour();
         map["startMinute"] = std::get<1>(startStationInfo).getMinute();
-        map["startStationStopInfo"] = std::get<2>(startStationInfo);
+        map["startStationStopInfo"] = std::get<4>(startStationInfo);
         map["endStationName"] = endStation.getStationName();
         map["endHour"] = std::get<0>(endStationInfo).getHour();
         map["endMinute"] = std::get<0>(endStationInfo).getMinute();
-        map["endStationStopInfo"] = std::get<2>(endStationInfo);
+        map["endStationStopInfo"] = std::get<4>(endStationInfo);
 
         // 计算历时
         int intervalSeconds = timetable.getInterval(startStation, endStation);
@@ -216,4 +208,3 @@ std::tuple<double, double, double> BookingSystem::computePrice(const QString &tr
 
     return std::make_tuple(firstClassPrice, secondClassPrice, businessClassPrice);
 }
-

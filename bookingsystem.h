@@ -36,6 +36,7 @@ public:
     Q_INVOKABLE QVariantList queryTickets_api(const QString &startCityName,
                                               const QString &endCityName,
                                               int year, int month, int day);
+    // Q_INVOKABLE QVariantList getPassengersAvailable(const QString &username);
 
 private:
     std::tuple<double, double, double> computePrice(const QString &trainNumber, std::vector<Station> &stations);

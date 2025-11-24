@@ -21,8 +21,10 @@ public:
     Q_INVOKABLE QVariantList getTimetableInfo_api(const QString &orderNumber);
     Q_INVOKABLE QVariantList getOrders_api();
     Q_INVOKABLE QVariantMap getOrderByOrderNumber_api(const QString &orderNumber);
-    // 根据车次查找所有未乘坐的订单
-    std::vector<Order> getOrderByTrainNumberAndUnused(const QString &trainNumber);
+    // 查找某乘车人是否有空
+    bool isPassengerAvailable(QString &passengerId, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime);
+    // 查找某个车次的乘车区间和查询区间重复的车票
+    std::vector<Order> getOrdersUnusedAndOverlapByTrainNumber(const QString &trainNumber, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime);
 
 private:
     std::vector<Order> getOrdersByUsername(const QString &username);

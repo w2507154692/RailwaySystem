@@ -14,7 +14,7 @@ private:
 public:
     Timetable();
 
-    // 输入某个车站，输出这个车站的信息（到时、发时、到天、发天、始/终/过、）
+    // 输入某个车站，输出这个车站的信息（到时、发时、到天、发天、始/终/过）
     std::tuple<Time, Time, int, int, QString> getStationInfo(const QString &stationName);
     // 获得两个车站的时间间隔
     int getInterval(const Station &station1, const Station &station2);
