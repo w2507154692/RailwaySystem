@@ -10,10 +10,16 @@ Item {
     property var ticketData: ({
         trainNumber: "G15621",
         startStationName: "呼和浩特北",
+        startYear: 2024,
+        startMonth: 7,
+        startDay: 15,
         startHour: 8,
         startMinute: 30,
         startStationStopInfo: "过",
         endStationName: "齐齐哈尔南",
+        endYear: 2024,
+        endMonth: 7,
+        endDay: 15,
         endHour: 13,
         endMinute: 30,
         endStationStopInfo: "过",
@@ -28,7 +34,7 @@ Item {
     })
 
     signal showTimetable(string trainNumber, string startStation, string endStation)
-    signal bookTicket(var ticketInfo, int seatType) // seatType: 0=二等座, 1=一等座, 2=商务座
+    signal bookTicket(int seatType) // seatType: 0=二等座, 1=一等座, 2=商务座
 
     Rectangle {
         anchors.fill: parent
@@ -339,7 +345,7 @@ Item {
                         Layout.row: 0; Layout.column: 3
                         onClicked: {
                             if (ticketData.secondClassCount > 0) {
-                                bookTicket(ticketData, 0) // 0 = 二等座
+                                bookTicket(0) // 0 = 二等座
                             }
                         }
                     }
@@ -362,7 +368,7 @@ Item {
                         Layout.row: 0; Layout.column: 3
                         onClicked: {
                             if (ticketData.firstClassCount > 0) {
-                                bookTicket(ticketData, 1) // 1 = 一等座
+                                bookTicket(1) // 1 = 一等座
                             }
                         }
                     }
@@ -385,7 +391,7 @@ Item {
                         Layout.row: 0; Layout.column: 3
                         onClicked: {
                             if (ticketData.businessClassCount > 0) {
-                                bookTicket(ticketData, 2) // 2 = 商务座
+                                bookTicket(2) // 2 = 商务座
                             }
                         }
                     }

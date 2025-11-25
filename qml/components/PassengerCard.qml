@@ -12,8 +12,10 @@ Item {
         name: "张三张三三",
         phoneNumber: "17816936112",
         id: "412828200507112111",
-        type: "学生票"
+        type: "学生票",
     })
+
+    property bool available: true
 
     // 卡片 + 按钮
     RowLayout {
@@ -25,8 +27,8 @@ Item {
             Layout.preferredHeight: parent.height
             radius: 16
             gradient: Gradient {
-                GradientStop { position: 0.0; color: "#cce5ff" }
-                GradientStop { position: 1.0; color: "#8ec9ff" }
+                GradientStop { position: 0.0; color: available ? "#cce5ff" : "#E0E0E0"}
+                GradientStop { position: 1.0; color: available ? "#8ec9ff" : "#808080"}
             }
             // anchors.left: parent.left
             // anchors.verticalCenter: parent.verticalCenter

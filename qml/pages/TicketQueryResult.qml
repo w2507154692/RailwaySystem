@@ -119,10 +119,10 @@ Window {
                             Layout.preferredHeight: 60
                             fillMode: Image.PreserveAspectFit
                             MouseArea {
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: calendarDialog.open()
-                        }
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: calendarDialog.open()
+                            }
                         }
                     }
 
@@ -267,9 +267,12 @@ Window {
                                 timetableLoader.source = "Timetable.qml"
                                 timetableLoader.active = true
                             }
-                            onBookTicket: function(ticketInfo, seatType) {
-                                // 打开确认订单窗口
-                                openConfirmOrder(ticketInfo, seatType)
+                            onBookTicket: function(seatType) {
+                                pendingOrderInfo = modelData
+                                pendingSeatType = seatType
+                                // 加载确认订单页面
+                               submitLoader.source = "OrderConfirm.qml"
+                               submitLoader.active = true
                             }
                         }
                     }
@@ -438,10 +441,16 @@ Window {
                         item.ticketData.trainNumber = pendingOrderInfo.trainNumber
                         item.ticketData.startStationName = pendingOrderInfo.startStationName
                         item.ticketData.startStationStopInfo = pendingOrderInfo.startStationStopInfo
+                        item.ticketData.startYear = pendingOrderInfo.startYear
+                        item.ticketData.startMonth = pendingOrderInfo.startMonth
+                        item.ticketData.startDay = pendingOrderInfo.startDay
                         item.ticketData.startHour = pendingOrderInfo.startHour
                         item.ticketData.startMinute = pendingOrderInfo.startMinute
                         item.ticketData.endStationName = pendingOrderInfo.endStationName
                         item.ticketData.endStationStopInfo = pendingOrderInfo.endStationStopInfo
+                        item.ticketData.endYear = pendingOrderInfo.endYear
+                        item.ticketData.endMonth = pendingOrderInfo.endMonth
+                        item.ticketData.endDay = pendingOrderInfo.endDay
                         item.ticketData.endHour = pendingOrderInfo.endHour
                         item.ticketData.endMinute = pendingOrderInfo.endMinute
                         item.ticketData.intervalHour = pendingOrderInfo.intervalHour
@@ -454,7 +463,6 @@ Window {
                 
                 // 在设置完所有属性后,手动调用 refreshPassengers
                 item.refreshPassengers()
-                
                 item.visible = true
             }
         }
@@ -462,17 +470,17 @@ Window {
 
     //查询车票
     function queryTickets() {
-    var dateInt = resultData.selectedDate.match(/(\d+)年(\d+)月(\d+)日/);
-    if (!dateInt) {
-        console.log("selectedDate 格式不正确:", resultData.selectedDate);
-        return;
-    }
-    var year = parseInt(dateInt[1]);
-    var month = parseInt(dateInt[2]);
-    var day = parseInt(dateInt[3]);
-    console.log("year:", year, "month:", month, "day:", day);
-    rawTicketList = bookingSystem.queryTickets_api(resultData.fromCity, resultData.toCity, year, month, day);
-    ticketList = rawTicketList;
+        var dateInt = resultData.selectedDate.match(/(\d+)年(\d+)月(\d+)日/);
+        if (!dateInt) {
+            console.log("selectedDate 格式不正确:", resultData.selectedDate);
+            return;
+        }
+        var year = parseInt(dateInt[1]);
+        var month = parseInt(dateInt[2]);
+        var day = parseInt(dateInt[3]);
+        console.log("year:", year, "month:", month, "day:", day);
+        rawTicketList = bookingSystem.queryTickets_api(resultData.fromCity, resultData.toCity, year, month, day);
+        ticketList = rawTicketList;
     }
 
 
@@ -571,18 +579,5 @@ Window {
         
         ticketList = tempList;
         console.log("排序完成，类型:", sortType);
-    }
-
-    // 打开确认订单页面
-    function openConfirmOrder(ticketInfo, seatType) {
-        console.log("打开订单确认页面，车次：", ticketInfo.trainNumber, "座位类型：", seatType);
-        
-        // 保存待处理的订单信息
-        pendingOrderInfo = ticketInfo
-        pendingSeatType = seatType
-        
-        // 加载确认订单页面
-        submitLoader.source = "OrderConfirm.qml"
-        submitLoader.active = true
     }
 }

@@ -138,10 +138,16 @@ QVariantList BookingSystem::queryTickets_api(const QString &startCityName,
         QVariantMap map;
         map["trainNumber"] = train.getNumber();
         map["startStationName"] = startStation.getStationName();
+        map["startYear"] = queryStartDate.getYear();
+        map["startMonth"] = queryStartDate.getMonth();;
+        map["startDay"] = queryStartDate.getDay();
         map["startHour"] = std::get<1>(startStationInfo).getHour();
         map["startMinute"] = std::get<1>(startStationInfo).getMinute();
         map["startStationStopInfo"] = std::get<4>(startStationInfo);
         map["endStationName"] = endStation.getStationName();
+        map["endYear"] = queryEndDate.getYear();
+        map["endMonth"] = queryEndDate.getMonth();
+        map["endDay"] = queryEndDate.getDay();
         map["endHour"] = std::get<0>(endStationInfo).getHour();
         map["endMinute"] = std::get<0>(endStationInfo).getMinute();
         map["endStationStopInfo"] = std::get<4>(endStationInfo);
@@ -169,6 +175,44 @@ QVariantList BookingSystem::queryTickets_api(const QString &startCityName,
 
         list << map;
     }
+    return list;
+}
+
+QVariantList BookingSystem::getPassengers_api(const QVariantMap &info) {
+    QString username = info["username"].toString();
+    int startYear = info["startYear"].toInt(), startMonth = info["startMonth"].toInt(), startDay = info["startDay"].toInt();
+    int endYear = info["endYear"].toInt(), endMonth = info["endMonth"].toInt(), endDay = info["endDay"].toInt();
+    int startHour = info["startHour"].toInt(), startMinute = info["startMinute"].toInt();
+    int endHour = info["endHour"].toInt(), endMinute = info["endMinute"].toInt();
+    Date startDate(startYear, startMonth, startDay), endDate(endYear, endMonth, endDay);
+    Time startTime(startHour, startMinute, 0), endTime(endHour, endMinute, 0);
+
+    QVariantList list;
+    if (username == "") {
+        // 管理员改签逻辑
+    }
+    else {
+        std::vector<Passenger> passengers = passenger_manager->getPassengersByUsername(username);
+        for (auto passenger : passengers) {
+            QVariantMap map;
+            map["name"] = passenger.getName();
+            map["phoneNumber"] = passenger.getPhoneNumber();
+            map["id"] = passenger.getId();
+            map["type"] = passenger.getType();
+
+            if (order_manager->isPassengerAvailable(passenger.getId(),
+                                                    startDate, endDate,
+                                                    startTime, endTime)) {
+                map["available"] = true;
+            }
+            else {
+                map["available"] = false;
+            }
+
+            list << map;
+        }
+    }
+
     return list;
 }
 

@@ -22,9 +22,11 @@ public:
     Q_INVOKABLE QVariantList getOrders_api();
     Q_INVOKABLE QVariantMap getOrderByOrderNumber_api(const QString &orderNumber);
     // 查找某乘车人是否有空
-    bool isPassengerAvailable(QString &passengerId, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime);
+    bool isPassengerAvailable(const QString &passengerId, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime);
     // 查找某个车次的乘车区间和查询区间重复的车票
     std::vector<Order> getOrdersUnusedAndOverlapByTrainNumber(const QString &trainNumber, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime);
+    // 改签模式下，需要根据订单号，获取该订单的乘车人信息
+    Q_INVOKABLE QVariantMap getPassengerByOrderNumber_api(const QString &orderNumber);
 
 private:
     std::vector<Order> getOrdersByUsername(const QString &username);

@@ -150,7 +150,7 @@ QVariantMap OrderManager::getOrderByOrderNumber_api(const QString &orderNumber) 
     return QVariantMap(); // 返回空 map
 }
 
-bool OrderManager::isPassengerAvailable(QString &passengerId, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime) {
+bool OrderManager::isPassengerAvailable(const QString &passengerId, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime) {
     for (auto order : orders) {
         if (order.getPassenger().getId() == passengerId && order.getStatus() == "待乘坐") {
             Date orderStartDate = order.getDate();
@@ -163,11 +163,11 @@ bool OrderManager::isPassengerAvailable(QString &passengerId, Date &queryStartDa
                                           orderStartTime, queryStartTime,
                                           orderEndDate, queryEndDate,
                                           orderEndTime, queryEndTime)) {
-                return true;
+                return false;
             }
         }
     }
-    return false;
+    return true;
 }
 
 std::vector<Order> OrderManager::getOrdersUnusedAndOverlapByTrainNumber(const QString &trainNumber, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime) {
@@ -188,6 +188,25 @@ std::vector<Order> OrderManager::getOrdersUnusedAndOverlapByTrainNumber(const QS
             }
         }
     }
+    return result;
+}
+
+QVariantMap OrderManager::getPassengerByOrderNumber_api(const QString &orderNumber) {
+    QVariantMap result;
+    auto findResult = getOrderByOrderNumber(orderNumber);
+    if (!findResult) {
+        result["success"] = false;
+        return result;
+    }
+    Order order = findResult.value();
+    Passenger passenger = order.getPassenger();
+    QVariantMap p;
+    p["success"] = true;
+    p["name"] = passenger.getName();
+    p["phoneNumber"] = passenger.getPhoneNumber();
+    p["id"] = passenger.getId();
+    p["type"] = passenger.getType();
+    result["passenger"] = p;
     return result;
 }
 

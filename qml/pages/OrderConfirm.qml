@@ -25,7 +25,8 @@ Window {
     property string originalOrderNumber: ""  // 原订单号(改签时使用)
 
     property var rawPassengerList: []
-    property var passengerList: []
+    property ListModel passengerList: ListModel {}
+    property int selectedPassengerCount: 0
 
     property alias ticketData: ticketData
     QtObject {
@@ -33,10 +34,16 @@ Window {
         property string trainNumber: ""
         property string startStationName: ""
         property string startStationStopInfo: ""
+        property int startYear: 0
+        property int startMonth: 0
+        property int startDay: 0
         property int startHour: 0
         property int startMinute: 0
         property string endStationName: ""
         property string endStationStopInfo: ""
+        property int endYear: 0
+        property int endMonth: 0
+        property int endDay: 0
         property int endHour: 0
         property int endMinute: 0
         property int intervalHour: 0
@@ -285,7 +292,7 @@ Window {
                 Item{
                     id:topSpacing
                     anchors.top: parent.top
-                    height: 6
+                    height: 10
                 }
 
                 //滚动卡片区
@@ -319,21 +326,39 @@ Window {
                             PassengerCard{
                                 Layout.leftMargin: 15
                                 Layout.fillWidth: true
-                                passengerData: modelData
+                                passengerData: {
+                                    "name": name,
+                                    "id": id,
+                                    "type": type,
+                                    "phoneNumber": phoneNumber
+                                }
+                                available: model.available
                             }
 
                             //按钮
-                                CheckButton{
-                                    id: checkBtn
-                                    Layout.leftMargin: 15
-                                    // 改签模式下默认选中且不可点击
-                                    checked: sourceType === "myOrders"
-                                    enabled: sourceType !== "myOrders" ? (checked || ticketData.count < ticketData.remainingTickets) : false
-                                    opacity: enabled ? 1.0 : 0.5
-                                    onToggled: function(checked) {
-                                        updateSelectedCount()
+                            CheckButton{
+                                id: checkBtn
+                                Layout.leftMargin: 15
+                                // 改签模式下默认选中且不可点击
+                                checked: model.selected
+                                // 启用逻辑:
+                                // 1. 改签模式(myOrders)下禁用(强制选中)
+                                // 2. 乘车人不可用(available=false)时禁用
+                                // 3. 达到购票数量上限(ticketData.count)且当前未选中时禁用
+                                enabled: (sourceType === "query") && model.available && (model.selected || selectedPassengerCount < ticketData.remainingTickets)
+                                opacity: enabled ? 1.0 : 0.5
+
+                                onToggled: (checked) => {
+                                    passengerList.setProperty(index, "selected", checked)
+                                    var count = 0
+                                    for (var i = 0; i < passengerList.count; i++) {
+                                        if (passengerList.get(i).selected) {
+                                            count++
+                                        }
                                     }
+                                    selectedPassengerCount = count
                                 }
+                            }
                         }
                     }
 
@@ -404,16 +429,16 @@ Window {
                     submitOrderLoader.active = false
                     pendingSubmitList = []
                 })
-                
+
                 // 设置提交订单列表数据
                 if (pendingSubmitList.length > 0) {
                     item.submitList = pendingSubmitList
                 }
-                
+
                 // 设置改签相关参数
                 item.rescheduleMode = (sourceType === "myOrders")
                 item.originalOrderNumber = originalOrderNumber
-                
+
                 item.transientParent = confirmWin
                 item.visible = true
             }
@@ -422,115 +447,100 @@ Window {
 
     // 刷新乘车人列表
     function refreshPassengers() {
+        passengerList.clear()
+        selectedPassengerCount = 0
+
         // 根据来源类型过滤乘车人列表
         if (sourceType === "query") {
             // 查询车票进入:显示当前用户的所有乘车人
-            rawPassengerList = passengerManager.getPassengersByUsername_api(SessionState.username)
-            passengerList = rawPassengerList
+            var list = bookingSystem.getPassengers_api({
+                username: SessionState.username,
+                startYear: ticketData.startYear,
+                startMonth: ticketData.startMonth,
+                startDay: ticketData.startDay,
+                startHour: ticketData.startHour,
+                startMinute: ticketData.startMinute,
+                endYear: ticketData.endYear,
+                endMonth: ticketData.endMonth,
+                endDay: ticketData.endDay,
+                endHour: ticketData.endHour,
+                endMinute: ticketData.endMinute
+            })
+
+            for (var i = 0; i < list.length; i++) {
+                passengerList.append({
+                    name: list[i].name,
+                    id: list[i].id,
+                    type: list[i].type,
+                    phoneNumber: list[i].phoneNumber,
+                    available: list[i].available,
+                    selected: false
+                })
+            }
         } else if (sourceType === "myOrders") {
             // 改签模式:仅显示该订单的乘车人
-            if (originalOrderNumber !== "") {
-                var originalOrder = orderManager.getOrderByOrderNumber_api(originalOrderNumber)
-                if (originalOrder && originalOrder.username) {
-                    // 获取订单所属用户的乘车人列表
-                    rawPassengerList = passengerManager.getPassengersByUsername_api(originalOrder.username)
-                    // 过滤出该订单的乘车人
-                    passengerList = rawPassengerList.filter(function(passenger) {
-                        return passenger.name === originalOrder.passengerName
-                    })
-                } else {
-                    rawPassengerList = []
-                    passengerList = []
-                }
-            } else {
-                rawPassengerList = []
-                passengerList = []
-            }
-        } else {
-            // 默认显示当前用户的所有乘车人
-            rawPassengerList = passengerManager.getPassengersByUsername_api(SessionState.username)
-            passengerList = rawPassengerList
-        }
-        console.log("sourceType:", sourceType, "passengerList length:", passengerList.length)
-    }
-
-    // 更新选中的乘车人数量
-    function updateSelectedCount() {
-        var count = 0
-        for (var i = 0; i < selectPassengerList.count; i++) {
-            var item = selectPassengerList.itemAtIndex(i)
-            if (item && item.children[0] && item.children[0].children[1]) {
-                var checkButton = item.children[0].children[1]
-                if (checkButton.checked) {
-                    count++
-                }
+            var result = orderManager.getPassengerByOrderNumber_api(originalOrderNumber);
+            if (result.success) {
+                var p = result.passenger
+                passengerList.append({
+                    name: p.name,
+                    id: p.id,
+                    type: p.type,
+                    phoneNumber: p.phoneNumber,
+                    available: true,
+                    selected: true
+                })
+                selectedPassengerCount = 1
             }
         }
-        ticketData.count = count
-        
-        // 更新所有按钮的启用状态
-        for (var j = 0; j < selectPassengerList.count; j++) {
-            var itemJ = selectPassengerList.itemAtIndex(j)
-            if (itemJ && itemJ.children[0] && itemJ.children[0].children[1]) {
-                var checkBtnJ = itemJ.children[0].children[1]
-                // 如果已经选择了足够数量的乘车人(达到余票数),且当前按钮未选中,则禁用
-                checkBtnJ.enabled = checkBtnJ.checked || count < ticketData.remainingTickets
-                checkBtnJ.opacity = checkBtnJ.enabled ? 1.0 : 0.5
-            }
-        }
+        console.log("sourceType:", sourceType, "passengerList count:", passengerList.count)
     }
 
     // 打开提交订单页面
     function openSubmitOrder() {
         // 构建订单列表数据
         var submitOrders = []
-        
-        for (var i = 0; i < selectPassengerList.count; i++) {
-            var item = selectPassengerList.itemAtIndex(i)
-            if (item && item.children[0] && item.children[0].children[1]) {
-                var checkButton = item.children[0].children[1]
-                if (checkButton.checked) {
-                    // 获取对应的乘车人数据
-                    var passenger = passengerList[i]
-                    
-                    // 构建订单数据对象
-                    var orderData = {
-                        orderNumber: "待生成",  // 提交后才会生成订单号
-                        trainNumber: ticketData.trainNumber,
-                        year: new Date().getFullYear(),
-                        month: new Date().getMonth() + 1,
-                        day: new Date().getDate(),
-                        seatLevel: ticketData.seatType,
-                        carriageNumber: 0,  // 待分配
-                        seatRow: 0,  // 待分配
-                        seatCol: 0,  // 待分配
-                        price: ticketData.price,
-                        status: "待提交",
-                        passengerName: passenger.name,
-                        type: passenger.type || "成人",
-                        startStationName: ticketData.startStationName,
-                        startStationStopInfo: ticketData.startStationStopInfo,
-                        startHour: ticketData.startHour,
-                        startMinute: ticketData.startMinute,
-                        endStationName: ticketData.endStationName,
-                        endStationStopInfo: ticketData.endStationStopInfo,
-                        endHour: ticketData.endHour,
-                        endMinute: ticketData.endMinute,
-                        intervalHour: ticketData.intervalHour,
-                        intervalMinute: ticketData.intervalMinute
-                    }
-                    
-                    submitOrders.push(orderData)
+
+        for (var i = 0; i < passengerList.count; i++) {
+            var passenger = passengerList.get(i)
+            if (passenger.selected) {
+                // 构建订单数据对象
+                var orderData = {
+                    orderNumber: "待生成",  // 提交后才会生成订单号
+                    trainNumber: ticketData.trainNumber,
+                    year: new Date().getFullYear(),
+                    month: new Date().getMonth() + 1,
+                    day: new Date().getDate(),
+                    seatLevel: ticketData.seatType,
+                    carriageNumber: 0,  // 待分配
+                    seatRow: 0,  // 待分配
+                    seatCol: 0,  // 待分配
+                    price: ticketData.price,
+                    status: "待提交",
+                    passengerName: passenger.name,
+                    type: passenger.type || "成人",
+                    startStationName: ticketData.startStationName,
+                    startStationStopInfo: ticketData.startStationStopInfo,
+                    startHour: ticketData.startHour,
+                    startMinute: ticketData.startMinute,
+                    endStationName: ticketData.endStationName,
+                    endStationStopInfo: ticketData.endStationStopInfo,
+                    endHour: ticketData.endHour,
+                    endMinute: ticketData.endMinute,
+                    intervalHour: ticketData.intervalHour,
+                    intervalMinute: ticketData.intervalMinute
                 }
+
+                submitOrders.push(orderData)
             }
         }
-        
+
         console.log("准备提交的订单数量:", submitOrders.length)
-        
+
         // 保存待提交的订单列表
         submitOrderLoader.pendingSubmitList = submitOrders
-        
-        // 加载提交订单页面
+
+订单页面
         submitOrderLoader.source = "SubmitOrderDialog.qml"
         submitOrderLoader.active = true
     }

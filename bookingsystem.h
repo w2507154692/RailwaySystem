@@ -36,7 +36,8 @@ public:
     Q_INVOKABLE QVariantList queryTickets_api(const QString &startCityName,
                                               const QString &endCityName,
                                               int year, int month, int day);
-    // Q_INVOKABLE QVariantList getPassengersAvailable(const QString &username);
+    // 根据时间区间，查找该用户所有乘车人并标记是否空闲
+    Q_INVOKABLE QVariantList getPassengers_api(const QVariantMap &info);
 
 private:
     std::tuple<double, double, double> computePrice(const QString &trainNumber, std::vector<Station> &stations);

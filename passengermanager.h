@@ -21,10 +21,10 @@ public:
     Q_INVOKABLE QVariantMap deletePassengersByUsername_api(const QString &username);
     Q_INVOKABLE QVariantMap editPassenger_api(const QString &username, const QString &id_old,
                                               const QString &name, const QString &phoneNumber, const QString &id_new, const QString &type);
+    std::vector<Passenger> getPassengersByUsername(const QString &username);
 
 private:
     std::vector<Passenger> getPassengersById(const QString &id);
-    std::vector<Passenger> getPassengersByUsername(const QString &username);
     std::optional<Passenger> getPassengerByUsernameAndId(const QString &username, const QString &id);
     bool readFromFile(const char filename[]);
     bool writeToFile(const char filename[]);
