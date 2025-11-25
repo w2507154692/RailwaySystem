@@ -438,26 +438,32 @@ Window {
                     
                     // 设置订单信息到 ticketData
                     if (item.ticketData) {
-                        item.ticketData.trainNumber = pendingOrderInfo.trainNumber
-                        item.ticketData.startStationName = pendingOrderInfo.startStationName
-                        item.ticketData.startStationStopInfo = pendingOrderInfo.startStationStopInfo
-                        item.ticketData.startYear = pendingOrderInfo.startYear
-                        item.ticketData.startMonth = pendingOrderInfo.startMonth
-                        item.ticketData.startDay = pendingOrderInfo.startDay
-                        item.ticketData.startHour = pendingOrderInfo.startHour
-                        item.ticketData.startMinute = pendingOrderInfo.startMinute
-                        item.ticketData.endStationName = pendingOrderInfo.endStationName
-                        item.ticketData.endStationStopInfo = pendingOrderInfo.endStationStopInfo
-                        item.ticketData.endYear = pendingOrderInfo.endYear
-                        item.ticketData.endMonth = pendingOrderInfo.endMonth
-                        item.ticketData.endDay = pendingOrderInfo.endDay
-                        item.ticketData.endHour = pendingOrderInfo.endHour
-                        item.ticketData.endMinute = pendingOrderInfo.endMinute
-                        item.ticketData.intervalHour = pendingOrderInfo.intervalHour
-                        item.ticketData.intervalMinute = pendingOrderInfo.intervalMinute
-                        item.ticketData.seatType = seatTypeName
-                        item.ticketData.price = price
-                        item.ticketData.remainingTickets = remainingTickets
+                        item.ticketData = Object.assign({}, pendingOrderInfo, {
+                            seatType: seatTypeName,
+                            price: price,
+                            remainingTickets: remainingTickets
+                        })
+
+                        // item.ticketData.trainNumber = pendingOrderInfo.trainNumber
+                        // item.ticketData.startStationName = pendingOrderInfo.startStationName
+                        // item.ticketData.startStationStopInfo = pendingOrderInfo.startStationStopInfo
+                        // item.ticketData.startYear = pendingOrderInfo.startYear
+                        // item.ticketData.startMonth = pendingOrderInfo.startMonth
+                        // item.ticketData.startDay = pendingOrderInfo.startDay
+                        // item.ticketData.startHour = pendingOrderInfo.startHour
+                        // item.ticketData.startMinute = pendingOrderInfo.startMinute
+                        // item.ticketData.endStationName = pendingOrderInfo.endStationName
+                        // item.ticketData.endStationStopInfo = pendingOrderInfo.endStationStopInfo
+                        // item.ticketData.endYear = pendingOrderInfo.endYear
+                        // item.ticketData.endMonth = pendingOrderInfo.endMonth
+                        // item.ticketData.endDay = pendingOrderInfo.endDay
+                        // item.ticketData.endHour = pendingOrderInfo.endHour
+                        // item.ticketData.endMinute = pendingOrderInfo.endMinute
+                        // item.ticketData.intervalHour = pendingOrderInfo.intervalHour
+                        // item.ticketData.intervalMinute = pendingOrderInfo.intervalMinute
+                        // item.ticketData.seatType = seatTypeName
+                        // item.ticketData.price = price
+                        // item.ticketData.remainingTickets = remainingTickets
                     }
                 }
                 

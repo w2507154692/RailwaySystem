@@ -28,31 +28,31 @@ Window {
     property ListModel passengerList: ListModel {}
     property int selectedPassengerCount: 0
 
-    property alias ticketData: ticketData
-    QtObject {
-        id: ticketData
-        property string trainNumber: ""
-        property string startStationName: ""
-        property string startStationStopInfo: ""
-        property int startYear: 0
-        property int startMonth: 0
-        property int startDay: 0
-        property int startHour: 0
-        property int startMinute: 0
-        property string endStationName: ""
-        property string endStationStopInfo: ""
-        property int endYear: 0
-        property int endMonth: 0
-        property int endDay: 0
-        property int endHour: 0
-        property int endMinute: 0
-        property int intervalHour: 0
-        property int intervalMinute: 0
-        property string seatType: ""
-        property real price: 0
-        property int count: 0  // 购票数量,默认为0
-        property int remainingTickets: 0  // 余票数量,默认为0
-    }
+    property var ticketData: ({})
+    // QtObject {
+    //     id: ticketData
+    //     property string trainNumber: ""
+    //     property string startStationName: ""
+    //     property string startStationStopInfo: ""
+    //     property int startYear: 0
+    //     property int startMonth: 0
+    //     property int startDay: 0
+    //     property int startHour: 0
+    //     property int startMinute: 0
+    //     property string endStationName: ""
+    //     property string endStationStopInfo: ""
+    //     property int endYear: 0
+    //     property int endMonth: 0
+    //     property int endDay: 0
+    //     property int endHour: 0
+    //     property int endMinute: 0
+    //     property int intervalHour: 0
+    //     property int intervalMinute: 0
+    //     property string seatType: ""
+    //     property real price: 0
+    //     property int count: 0  // 购票数量,默认为0
+    //     property int remainingTickets: 0  // 余票数量,默认为0
+    // }
 
     Component.onCompleted: {
         // 不在这里调用 refreshPassengers()
@@ -211,7 +211,7 @@ Window {
 
                     Text {
                         width: 20; height: 32;
-                        text: ticketData.count
+                        text: selectedPassengerCount
                         font.pixelSize: 24
                         horizontalAlignment: Text.AlignHCenter
                         Layout.alignment: Qt.AlignVCenter
@@ -242,7 +242,7 @@ Window {
 
                     Text {
                         width: 160; height: 48;
-                        text: (ticketData.price * ticketData.count).toFixed(2)
+                        text: (ticketData.price * selectedPassengerCount).toFixed(2)
                         font.pixelSize: 32
                         color: "#ee8732"
                         horizontalAlignment: Text.AlignLeft
@@ -481,6 +481,7 @@ Window {
             // 改签模式:仅显示该订单的乘车人
             var result = orderManager.getPassengerByOrderNumber_api(originalOrderNumber);
             if (result.success) {
+                console.log("能够找到该订单的乘车人")
                 var p = result.passenger
                 passengerList.append({
                     name: p.name,
@@ -540,7 +541,7 @@ Window {
         // 保存待提交的订单列表
         submitOrderLoader.pendingSubmitList = submitOrders
 
-订单页面
+        //订单页面
         submitOrderLoader.source = "SubmitOrderDialog.qml"
         submitOrderLoader.active = true
     }

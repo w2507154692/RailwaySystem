@@ -201,11 +201,11 @@ QVariantMap OrderManager::getPassengerByOrderNumber_api(const QString &orderNumb
     Order order = findResult.value();
     Passenger passenger = order.getPassenger();
     QVariantMap p;
-    p["success"] = true;
     p["name"] = passenger.getName();
     p["phoneNumber"] = passenger.getPhoneNumber();
     p["id"] = passenger.getId();
     p["type"] = passenger.getType();
+    result["success"] = true;
     result["passenger"] = p;
     return result;
 }
@@ -221,7 +221,7 @@ std::vector<Order> OrderManager::getOrdersByUsername(const QString &username) {
 }
 
 std::optional<Order> OrderManager::getOrderByOrderNumber(const QString &orderNumber) {
-    for (auto &order : orders) {
+    for (auto order : orders) {
         if (order.getOrderNumber() == orderNumber) {
             return order;
         }
