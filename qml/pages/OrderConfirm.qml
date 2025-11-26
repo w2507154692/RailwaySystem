@@ -447,13 +447,14 @@ Window {
 
     // 刷新乘车人列表
     function refreshPassengers() {
+        rawPassengerList = []
         passengerList.clear()
         selectedPassengerCount = 0
 
         // 根据来源类型过滤乘车人列表
         if (sourceType === "query") {
             // 查询车票进入:显示当前用户的所有乘车人
-            var list = bookingSystem.getPassengers_api({
+            rawPassengerList = bookingSystem.getPassengers_api({
                 username: SessionState.username,
                 startYear: ticketData.startYear,
                 startMonth: ticketData.startMonth,
@@ -467,33 +468,37 @@ Window {
                 endMinute: ticketData.endMinute
             })
 
-            for (var i = 0; i < list.length; i++) {
+            for (var i = 0; i < rawPassengerList.length; i++) {
                 passengerList.append(
-                    Object.assign({}, list[i], {
+                    Object.assign({}, rawPassengerList[i], {
                         selected: false,
                     })
                 )
             }
         } else if (sourceType === "myOrders") {
             // 改签模式:仅显示该订单的乘车人
-            var result = orderManager.getPassengerByOrderNumber_api(originalOrderNumber);
+            var result = orderManager.getPassengerForReschedule_api({
+                orderNumber: originalOrderNumber,
+                startYear: ticketData.startYear,
+                startMonth: ticketData.startMonth,
+                startDay: ticketData.startDay,
+                startHour: ticketData.startHour,
+                startMinute: ticketData.startMinute,
+                endYear: ticketData.endYear,
+                endMonth: ticketData.endMonth,
+                endDay: ticketData.endDay,
+                endHour: ticketData.endHour,
+                endMinute: ticketData.endMinute
+            });
             if (result.success) {
-                console.log("能够找到该订单的乘车人")
-                var p = result.passenger
-                passengerList.append({
-                    name: p.name,
-                    id: p.id,
-                    type: p.type,
-                    phoneNumber: p.phoneNumber,
-                    available: true,
-                    selected: true
-                })
-                passengerList.append(
-                    Object.assign({}, p, {
-                        available: true,
-                        selected: true,
-                    })
-                )
+                rawPassengerList.push(result.passenger)
+                for (var i = 0; i < rawPassengerList.length; i++) {
+                    passengerList.append(
+                        Object.assign({}, rawPassengerList[i], {
+                            selected: rawPassengerList[i].available
+                        })
+                    )
+                }
                 selectedPassengerCount = 1
             }
         }

@@ -26,7 +26,7 @@ bool isDateTimeIntervalOverlap(Date &startDate1, Date &startDate2,
     return true;
 }
 
-QVariantMap converOrderToMap(Order &order) {
+QVariantMap convertOrderToMap(Order &order) {
     QVariantMap map;
     map["orderNumber"] = order.getOrderNumber();
     map["trainNumber"] = order.getTrainNumber();
@@ -75,7 +75,7 @@ QVariantList OrderManager::getOrdersByUsername_api(const QString &username) {
     QVariantList list;
     std::vector<Order> findResult = getOrdersByUsername(username);
     for (auto &order : findResult) {
-        QVariantMap map = converOrderToMap(order);
+        QVariantMap map = convertOrderToMap(order);
         list << map;
     }
     
@@ -133,7 +133,7 @@ QVariantList OrderManager::getTimetableInfo_api(const QString &orderNumber) {
 QVariantList OrderManager::getOrders_api() {
     QVariantList list;
     for (auto &order : orders) {
-        QVariantMap map = converOrderToMap(order);
+        QVariantMap map = convertOrderToMap(order);
         list << map;
     }
 
@@ -144,15 +144,17 @@ QVariantMap OrderManager::getOrderByOrderNumber_api(const QString &orderNumber) 
     auto findResult = getOrderByOrderNumber(orderNumber);
     if (findResult) {
         Order order = findResult.value();
-        QVariantMap map = converOrderToMap(order);
+        QVariantMap map = convertOrderToMap(order);
         return map;
     }
     return QVariantMap(); // 返回空 map
 }
 
-bool OrderManager::isPassengerAvailable(const QString &passengerId, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime) {
+bool OrderManager::isPassengerAvailable(const QString &passengerId, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime, const QString orderNumber) {
     for (auto order : orders) {
         if (order.getPassenger().getId() == passengerId && order.getStatus() == "待乘坐") {
+            if (orderNumber != "" && order.getOrderNumber() == orderNumber)
+                continue;
             Date orderStartDate = order.getDate();
             std::tuple<Time, Time, int, int, QString> startStationInfo = order.getTimetable().getStationInfo(order.getStartStation().getStationName());
             std::tuple<Time, Time, int, int, QString> endStationInfo = order.getTimetable().getStationInfo(order.getEndStation().getStationName());
@@ -191,8 +193,15 @@ std::vector<Order> OrderManager::getOrdersUnusedAndOverlapByTrainNumber(const QS
     return result;
 }
 
-QVariantMap OrderManager::getPassengerByOrderNumber_api(const QString &orderNumber) {
+QVariantMap OrderManager::getPassengerForReschedule_api(const QVariantMap &info) {
     QVariantMap result;
+    QString orderNumber = info["orderNumber"].toString();
+    int startYear = info["startYear"].toInt(), startMonth = info["startMonth"].toInt(), startDay = info["startDay"].toInt();
+    int endYear = info["endYear"].toInt(), endMonth = info["endMonth"].toInt(), endDay = info["endDay"].toInt();
+    int startHour = info["startHour"].toInt(), startMinute = info["startMinute"].toInt();
+    int endHour = info["endHour"].toInt(), endMinute = info["endMinute"].toInt();
+    Date startDate(startYear, startMonth, startDay), endDate(endYear, endMonth, endDay);
+    Time startTime(startHour, startMinute, 0), endTime(endHour, endMinute, 0);
     auto findResult = getOrderByOrderNumber(orderNumber);
     if (!findResult) {
         result["success"] = false;
@@ -205,6 +214,7 @@ QVariantMap OrderManager::getPassengerByOrderNumber_api(const QString &orderNumb
     p["phoneNumber"] = passenger.getPhoneNumber();
     p["id"] = passenger.getId();
     p["type"] = passenger.getType();
+    p["available"] = isPassengerAvailable(passenger.getId(), startDate, endDate, startTime, endTime, orderNumber);
     result["success"] = true;
     result["passenger"] = p;
     return result;
