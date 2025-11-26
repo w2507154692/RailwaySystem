@@ -27,6 +27,12 @@ public:
     std::vector<Order> getOrdersUnusedAndOverlapByTrainNumber(const QString &trainNumber, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime);
     // 改签模式下，需要根据订单号，获取该订单的乘车人信息
     Q_INVOKABLE QVariantMap getPassengerForReschedule_api(const QVariantMap &info);
+    // 根据车次号、座位等级、日期和时间区间，在所有订单中查询与该时间重叠且座位等级相同的订单，返回该订单的座位信息（车厢号、行号、列号）
+    std::vector<std::tuple<int, int, int>> getUnavailableSeatsInfo(const QString &trainNumber, const QString &seatLevel,
+                                                                   Date &queryStartDate, Date &queryEndDate,
+                                                                   Time &queryStartTime, Time &queryEndTime);
+    // 创建订单，分配订单号
+    bool createOrder(Order &order);
 
 private:
     std::vector<Order> getOrdersByUsername(const QString &username);

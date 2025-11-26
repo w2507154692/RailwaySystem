@@ -10,26 +10,26 @@ Window{
     signal closed()
     onVisibleChanged: if (!visible) closed()
     
-    width: 740; height: 640
+    width: 740; height: 580
     minimumWidth: 480; minimumHeight: 360
     maximumWidth: 1920; maximumHeight: 1440
     
     visible: true
     color: "transparent"
     flags: Qt.FramelessWindowHint
-    modality: Qt.WindowModal
+    modality: Qt.ApplicationModal
 
     property var submitList: []
     property var timetable: []
-    property bool rescheduleMode: false
+    property string mode: "query"
     property string originalOrderNumber: ""
 
     Rectangle {
         id:root
-        width: parent.width
-        height: parent.height
+        anchors.fill: parent
         color: "#ffffff"
         radius: 16
+        border.color: "#808080"
 
         MouseArea {
            anchors.fill: parent
@@ -51,7 +51,9 @@ Window{
         //标题
         Header {
             id: header
-            width: parent.width
+            anchors.top: parent.top
+            anchors.topMargin: 1
+            width: parent.width - 5
             title: "提交订单"
             onCloseClicked: {
                 submitWin.visible = false
@@ -65,9 +67,11 @@ Window{
             anchors.top: parent.top
             anchors.topMargin: header.height + 20
             anchors.left: parent.left
+            anchors.leftMargin: 5
             anchors.right: parent.right
-
-
+            anchors.rightMargin: 5
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 5
 
             ColumnLayout {
                 anchors.fill: parent
@@ -159,7 +163,7 @@ Window{
                             
                             if (submitSuccess) {
                                 // 如果是改签模式且提交成功,删除原订单
-                                if (rescheduleMode && originalOrderNumber !== "") {
+                                if (mode === "reschedule" && originalOrderNumber !== "") {
                                     console.log("改签成功,删除原订单:", originalOrderNumber)
                                     var cancelResult = orderManager.cancelOrder_api(originalOrderNumber)
                                     if (cancelResult) {

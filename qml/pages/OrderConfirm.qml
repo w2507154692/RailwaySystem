@@ -446,7 +446,7 @@ Window {
                 }
 
                 // 设置改签相关参数
-                item.rescheduleMode = (sourceType === "myOrders")
+                item.mode = (sourceType === "myOrders" ? "reschedule" : "query")
                 item.originalOrderNumber = originalOrderNumber
 
                 item.transientParent = confirmWin
@@ -527,9 +527,6 @@ Window {
                 var orderData = {
                     orderNumber: "待生成",  // 提交后才会生成订单号
                     trainNumber: ticketData.trainNumber,
-                    year: new Date().getFullYear(),
-                    month: new Date().getMonth() + 1,
-                    day: new Date().getDate(),
                     seatLevel: ticketData.seatType,
                     carriageNumber: 0,  // 待分配
                     seatRow: 0,  // 待分配
@@ -537,13 +534,20 @@ Window {
                     price: ticketData.price,
                     status: "待提交",
                     passengerName: passenger.name,
+                    passengerId: passenger.id,
                     type: passenger.type || "成人",
                     startStationName: ticketData.startStationName,
                     startStationStopInfo: ticketData.startStationStopInfo,
+                    startYear: ticketData.startYear,
+                    startMonth: ticketData.startMonth,
+                    startDay: ticketData.startDay,
                     startHour: ticketData.startHour,
                     startMinute: ticketData.startMinute,
                     endStationName: ticketData.endStationName,
                     endStationStopInfo: ticketData.endStationStopInfo,
+                    endYear: ticketData.endYear,
+                    endMonth: ticketData.endMonth,
+                    endDay: ticketData.endDay,
                     endHour: ticketData.endHour,
                     endMinute: ticketData.endMinute,
                     intervalHour: ticketData.intervalHour,

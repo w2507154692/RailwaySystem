@@ -220,6 +220,42 @@ QVariantMap OrderManager::getPassengerForReschedule_api(const QVariantMap &info)
     return result;
 }
 
+std::vector<std::tuple<int, int, int>> OrderManager::getUnavailableSeatsInfo(const QString &trainNumber, const QString &seatLevel, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime) {
+    std::vector<std::tuple<int, int, int>> result;
+    for (auto order : orders) {
+        if (order.getTrainNumber() == trainNumber && order.getSeatLevel() == seatLevel && order.getStatus() == "待乘坐") {
+            Date orderStartDate = order.getDate();
+            std::tuple<Time, Time, int, int, QString> startStationInfo = order.getTimetable().getStationInfo(order.getStartStation().getStationName());
+            std::tuple<Time, Time, int, int, QString> endStationInfo = order.getTimetable().getStationInfo(order.getEndStation().getStationName());
+            Date orderEndDate = orderStartDate + std::get<2>(endStationInfo) - std::get<3>(startStationInfo);
+            Time orderStartTime = std::get<1>(startStationInfo);
+            Time orderEndTime = std::get<0>(endStationInfo);
+            if (isDateTimeIntervalOverlap(orderStartDate, queryStartDate,
+                                          orderStartTime, queryStartTime,
+                                          orderEndDate, queryEndDate,
+                                          orderEndTime, queryEndTime)) {
+                std::tuple<int, int, int> t = std::make_tuple(order.getCarriageNumber(), order.getSeatRow(), order.getSeatCol());
+                result.push_back(t);
+            }
+        }
+    }
+    return result;
+}
+
+bool OrderManager::createOrder(Order &order) {
+    long long maxOrderNumberLongLong = 0;
+    for (auto order : orders) {
+        long long orderNumberLongLong = order.getOrderNumber().toLongLong();
+        maxOrderNumberLongLong = std::max(maxOrderNumberLongLong, orderNumberLongLong);
+    }
+
+    QString newOrderNumber = QString("%1").arg(maxOrderNumberLongLong + 1, 10, 10, QChar('0'));
+    order.setOrderNumber(newOrderNumber);
+    // 新订单在首部，这样“我的订单”显示顺序就是由新到老
+    orders.insert(orders.begin(), order);
+    return true;
+}
+
 std::vector<Order> OrderManager::getOrdersByUsername(const QString &username) {
     std::vector<Order> result;
     for (auto &order : orders) {

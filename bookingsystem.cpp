@@ -7,7 +7,7 @@
 #include <QDebug>
 #include <QVariantMap>
 
-BookingSystem::BookingSystem(StationManager* stationManager, 
+BookingSystem::BookingSystem(StationManager* stationManager,
                                 OrderManager* orderManager,
                                 TrainManager* trainManager,
                                 AccountManager* accountManager,
@@ -159,8 +159,7 @@ QVariantList BookingSystem::queryTickets_api(const QString &startCityName,
         map["intervalMinute"] = minutes;
 
         // 计算票价
-        std::vector<Station> passStations = timetable.getStationsBetweenStations(startStation, endStation);
-        std::tuple<double, double, double> prices = computePrice(train.getNumber(), passStations);
+        std::tuple<double, double, double> prices = computePrice(train.getNumber(), startStation, endStation);
         map["firstClassPrice"] = std::get<0>(prices);
         map["secondClassPrice"] = std::get<1>(prices);
         map["businessClassPrice"] = std::get<2>(prices);
@@ -216,7 +215,130 @@ QVariantList BookingSystem::getPassengers_api(const QVariantMap &info) {
     return list;
 }
 
-std::tuple<double, double, double> BookingSystem::computePrice(const QString &trainNumber, std::vector<Station> &stations) {
+QVariantMap BookingSystem::createOrder_api(const QVariantMap &info) {
+    QString username = info["username"].toString();
+    QString trainNumber = info["trainNumber"].toString();
+    QString passengerId = info["passengerId"].toString();
+    QString startStationName = info["startStationName"].toString();
+    QString endStationName = info["endStationName"].toString();
+    int year = info["year"].toInt(), month = info["month"].toInt(), day = info["day"].toInt();
+    QString seatLevel = info["seatLevel"].toString();
+
+    QVariantMap result;
+    // 根据用户名、车次号、乘客身份证号、起始站名、终点站名查找对应实体
+    auto userFindResult = account_manager->findUserByUsername(username);
+    if (!userFindResult) {
+        result["success"] = false;
+        result["message"] = QString("用户 %1 不存在！").arg(username);
+        return result;
+    }
+    auto trainFindResult = train_manager->getTrainByTrainNumber(trainNumber);
+    if (!trainFindResult) {
+        result["success"] = false;
+        result["message"] = QString("车次 %1 不存在！").arg(trainNumber);
+        return result;
+    }
+    auto passengerFindResult = passenger_manager->getPassengerByUsernameAndId(username, passengerId);
+    if (!passengerFindResult) {
+        result["success"] = false;
+        result["message"] = QString("用户 %1 下身份证号为 %2 的乘客不存在！").arg(username, passengerId);
+        return result;
+    }
+    auto startStationFindResult = station_manager->getStationByStationName(startStationName);
+    if (!startStationFindResult) {
+        result["success"] = false;
+        result["message"] = QString("车站 %1 不存在！").arg(startStationName);
+        return result;
+    }
+    auto endStationFindResult = station_manager->getStationByStationName(endStationName);
+    if (!endStationFindResult) {
+        result["success"] = false;
+        result["message"] = QString("车站 %1 不存在！").arg(endStationName);
+        return result;
+    }
+    User user = userFindResult.value();
+    Train train = trainFindResult.value();
+    Passenger passenger = passengerFindResult.value();
+    Station startStation = startStationFindResult.value();
+    Station endStation = endStationFindResult.value();
+    Date startDate(year, month, day);
+    std::tuple<Time, Time, int, int, QString> startStationInfo = train.getTimetable().getStationInfo(startStation.getStationName());
+    std::tuple<Time, Time, int, int, QString> endStationInfo = train.getTimetable().getStationInfo(endStation.getStationName());
+    Date endDate = startDate + std::get<2>(endStationInfo) - std::get<3>(startStationInfo);
+    Time startTime = std::get<1>(startStationInfo);
+    Time endTime = std::get<0>(endStationInfo);
+    int carriageNumber = -1, seatRow = -1, seatCol = -1;
+
+    // 检索被占用的座位号信息
+    std::vector<std::tuple<int, int, int>> unavailableSeatsInfo = order_manager->getUnavailableSeatsInfo(trainNumber, seatLevel,
+                                                                                               startDate, endDate,
+                                                                                               startTime, endTime);
+    // 建立三维数组，初值为0，存储每个座位信息
+    std::vector<std::tuple<QString, int, int>> carriages = train.getCarriages();
+    std::vector<std::vector<std::vector<bool>>> seats(0, std::vector<std::vector<bool>>(0, std::vector<bool> (0, true)));
+    int lenCarriages = carriages.size();
+    for (int i = 0; i < lenCarriages; i++) {
+        int lenRow = std::get<1>(carriages[i]), lenCol = std::get<2>(carriages[i]);
+        seats.push_back(std::vector<std::vector<bool>>(lenRow, std::vector<bool>(lenCol, true)));
+    }
+    // 对于被占用的座位，标记为 false
+    int lenUnavailableSeatInfo = unavailableSeatsInfo.size();
+    for (int i = 0; i < lenUnavailableSeatInfo; i++) {
+        int currentCarriageNumber = std::get<0>(unavailableSeatsInfo[i]);
+        int row = std::get<1>(unavailableSeatsInfo[i]), col = std::get<2>(unavailableSeatsInfo[i]);
+        seats[currentCarriageNumber][row][col] = false;
+    }
+    // 按顺序从小到大遍历，首次适配法选择最终座位
+    bool findFlag = false;
+    for (int i = 0; i < lenCarriages; i++) {
+        if (findFlag)
+            break;
+        QString currentSeatLevel = std::get<0>(carriages[i]);
+        if (currentSeatLevel == seatLevel) {
+            int lenRow = std::get<1>(carriages[i]), lenCol = std::get<2>(carriages[i]);
+            for (int j = 0; j < lenRow; j++) {
+                if (findFlag)
+                    break;
+                for (int k = 0; k < lenCol; k++) {
+                    if (seats[i][j][k]) {
+                        carriageNumber = i;
+                        seatRow = j;
+                        seatCol = k;
+                        findFlag = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    // 计算票价
+    std::tuple<double, double, double> prices = computePrice(train.getNumber(), startStation, endStation);
+    double rawPrice = (seatLevel == "一等座") ? std::get<0>(prices) :
+                       (seatLevel == "二等座") ? std::get<1>(prices) :
+                       (seatLevel == "商务座") ? std::get<2>(prices) : 0.0;
+    double discount = (passenger.getType() == "成人") ? 1.0 :
+                      (passenger.getType() == "儿童") ? 0.5 :
+                      (passenger.getType() == "学生") ? 0.75 : 1.0;
+    double price = rawPrice * discount;
+
+    // 创建订单
+    Order order("", train.getNumber(), passenger, price, startDate, train.getTimetable(),
+                startStation, endStation, seatLevel, carriageNumber, seatRow, seatCol,
+                "待乘坐", user.getUsername());
+    // 向OrderManager提交
+    order_manager->createOrder(order);
+
+    result["success"] = true;
+    result["message"] = "车票预定成功，可在“我的订单”查看车票！";
+    return result;
+}
+
+std::tuple<double, double, double> BookingSystem::computePrice(const QString &trainNumber, Station &startStation, Station &endStation) {
+    Train train = train_manager->getTrainByTrainNumber(trainNumber).value();
+    Timetable timetable = train.getTimetable();
+    std::vector<Station> stations = timetable.getStationsBetweenStations(startStation, endStation);
+
     QChar trainType = trainNumber[0];
     double times;
     if (trainType == 'G') {

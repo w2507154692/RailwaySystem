@@ -38,9 +38,11 @@ public:
                                               int year, int month, int day);
     // 根据时间区间，查找该用户所有乘车人并标记是否空闲
     Q_INVOKABLE QVariantList getPassengers_api(const QVariantMap &info);
+    // 提交订单，创建新订单
+    Q_INVOKABLE QVariantMap createOrder_api(const QVariantMap &info);
 
 private:
-    std::tuple<double, double, double> computePrice(const QString &trainNumber, std::vector<Station> &stations);
+    std::tuple<double, double, double> computePrice(const QString &trainNumber, Station &startStation, Station &endStation);
 
 signals:
     void queryHistoryChanged();

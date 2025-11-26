@@ -24,9 +24,9 @@ public:
     // 通过车次号和起末站获得该车次的时刻表信息
     Q_INVOKABLE QVariantList getTimetableInfo_api(const QString &trainNumber, const QString &startStationName, const QString &endStationName);
     std::vector<std::tuple<Train, Station, Station>> getRoutesByCities(const QString &startCityName, const QString &endCityName);
+    std::optional<Train> getTrainByTrainNumber(const QString &trainNumber);
 
 private:
-    std::optional<Train> getTrainByTrainNumber(const QString &trainNumber);
     bool readFromFile(const char filename[]);
     bool writeToFile(const char filename[]);
 
