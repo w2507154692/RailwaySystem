@@ -327,10 +327,10 @@ Window {
                                 Layout.leftMargin: 15
                                 Layout.fillWidth: true
                                 passengerData: {
-                                    "name": name,
-                                    "id": id,
-                                    "type": type,
-                                    "phoneNumber": phoneNumber
+                                    "name": model.name,
+                                    "id":  model.id,
+                                    "type": model.type,
+                                    "phoneNumber": model.phoneNumber
                                 }
                                 available: model.available
                             }
@@ -468,14 +468,11 @@ Window {
             })
 
             for (var i = 0; i < list.length; i++) {
-                passengerList.append({
-                    name: list[i].name,
-                    id: list[i].id,
-                    type: list[i].type,
-                    phoneNumber: list[i].phoneNumber,
-                    available: list[i].available,
-                    selected: false
-                })
+                passengerList.append(
+                    Object.assign({}, list[i], {
+                        selected: false,
+                    })
+                )
             }
         } else if (sourceType === "myOrders") {
             // 改签模式:仅显示该订单的乘车人
@@ -491,6 +488,12 @@ Window {
                     available: true,
                     selected: true
                 })
+                passengerList.append(
+                    Object.assign({}, p, {
+                        available: true,
+                        selected: true,
+                    })
+                )
                 selectedPassengerCount = 1
             }
         }
