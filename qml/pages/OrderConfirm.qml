@@ -360,6 +360,15 @@ Window {
                                 }
                             }
                         }
+
+                        Text {
+                            visible: !model.available
+                            text: "该乘车人在该时间有其他待乘坐订单！"
+                            Layout.leftMargin: 25
+                            Layout.topMargin: -2
+                            color: "#808080"
+                            font.italic: true
+                        }
                     }
 
                 }
@@ -382,13 +391,14 @@ Window {
                 Layout.alignment: Qt.AlignRight
                 text: "确认订单"
                 onClicked: {
-                    if (ticketData.count === 0) {
+                    if (selectedPassengerCount === 0) {
                         notification.message = "请至少选择一位乘车人!"
                         notification.source = "qrc:/qml/components/ConfirmDialog.qml"
                         notification.active = true
                         return
+                    } else {
+                        openSubmitOrder()
                     }
-                    openSubmitOrder()
                 }
             }
         }
@@ -499,7 +509,7 @@ Window {
                         })
                     )
                 }
-                selectedPassengerCount = 1
+                selectedPassengerCount = result.passenger.available ? 1 : 0
             }
         }
         console.log("sourceType:", sourceType, "passengerList count:", passengerList.count)
