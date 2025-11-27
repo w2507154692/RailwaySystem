@@ -19,6 +19,8 @@ public:
     int getDay();
     bool setDay(int day);
 
+    bool now();
+
     friend Date operator+(const Date &d, int days);
     friend Date operator-(const Date &d, int days);
     friend int operator-(const Date &d1, const Date &d2);

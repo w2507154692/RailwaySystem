@@ -49,6 +49,21 @@ int getDaysInMonth(int year, int month) {
     return daysInMonth[month];
 }
 
+bool Date::now() {
+    std::time_t now = std::time(nullptr); // 当前时间戳
+    std::tm* local_time = std::localtime(&now);
+    // 分别转换成整型
+    int year   = local_time->tm_year + 1900;
+    int month  = local_time->tm_mon + 1;
+    int day    = local_time->tm_mday;
+
+    this->year = year;
+    this->month = month;
+    this->day = day;
+
+    return true;
+}
+
 Date operator+(const Date &d, int days) {
     Date result = d;
     result.day += days;

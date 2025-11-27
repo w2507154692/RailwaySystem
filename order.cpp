@@ -150,6 +150,54 @@ bool Order::setUsername(const QString &username) {
     return true;
 }
 
+Date Order::getEndDate() {
+    Date startDate = date;
+    std::tuple<Time, Time, int, int, QString> startStationInfo = timetable.getStationInfo(start_station.getStationName());
+    std::tuple<Time, Time, int, int, QString> endStationInfo = timetable.getStationInfo(end_station.getStationName());
+    Date endDate = startDate + std::get<2>(endStationInfo) - std::get<3>(startStationInfo);
+
+    return endDate;
+}
+
+Time Order::getStartTime() {
+    std::tuple<Time, Time, int, int, QString> startStationInfo = timetable.getStationInfo(start_station.getStationName());
+    std::tuple<Time, Time, int, int, QString> endStationInfo = timetable.getStationInfo(end_station.getStationName());
+    Time startTime = std::get<1>(startStationInfo);
+
+    return startTime;
+}
+
+Time Order::getEndTime() {
+    std::tuple<Time, Time, int, int, QString> startStationInfo = timetable.getStationInfo(start_station.getStationName());
+    std::tuple<Time, Time, int, int, QString> endStationInfo = timetable.getStationInfo(end_station.getStationName());
+    Time endTime = std::get<0>(endStationInfo);
+
+    return endTime;
+}
+
+bool Order::isTimeRangeOverlap(Date &queryStartDate, Time &queryStartTime, Date &queryEndDate, Time &queryEndTime) {
+    Date orderStartDate = date;
+    Date orderEndDate = getEndDate();
+    Time orderStartTime = getStartTime();
+    Time orderEndTime = getEndTime();
+
+    // 先判断日期区间是否有交集
+    if (orderEndDate < queryStartDate || queryEndDate < orderStartDate) {
+        return false;
+    }
+    // 日期区间有交集，进一步判断时间
+    // 统一将区间转为 [start, end]，比较是否有重叠
+    // 情况1：区间1在区间2前面
+    if (orderEndDate == queryStartDate) {
+        if (orderEndTime < queryStartTime) return false;
+    }
+    // 情况2：区间2在区间1前面
+    if (queryEndDate == orderStartDate) {
+        if (queryEndTime < orderStartTime) return false;
+    }
+    // 其它情况均视为有重叠
+    return true;
+}
 
 bool operator==(const Order &o1, const Order &o2) {
     return o1.order_number == o2.order_number &&

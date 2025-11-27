@@ -61,6 +61,11 @@ public:
     QString getUsername();
     bool setUsername(const QString &username);
 
+    Date getEndDate();
+    Time getStartTime();
+    Time getEndTime();
+    bool isTimeRangeOverlap(Date &queryStartDate, Time &queryStartTime, Date &queryEndDate, Time &queryEndTime);
+
     friend bool operator==(const Order &o1, const Order &o2);
     friend bool operator!=(const Order &o1, const Order &o2);
     friend std::ostream &operator<<(std::ostream &os, Order &o);

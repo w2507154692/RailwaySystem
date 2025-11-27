@@ -4,28 +4,6 @@
 #include <QDebug>
 #include <QVariantMap>
 
-bool isDateTimeIntervalOverlap(Date &startDate1, Date &startDate2,
-                               Time &startTime1, Time &startTime2,
-                               Date &endDate1, Date &endDate2,
-                               Time &endTime1, Time &endTime2) {
-    // 先判断日期区间是否有交集
-    if (endDate1 < startDate2 || endDate2 < startDate1) {
-        return false;
-    }
-    // 日期区间有交集，进一步判断时间
-    // 统一将区间转为 [start, end]，比较是否有重叠
-    // 情况1：区间1在区间2前面
-    if (endDate1 == startDate2) {
-        if (endTime1 < startTime2) return false;
-    }
-    // 情况2：区间2在区间1前面
-    if (endDate2 == startDate1) {
-        if (endTime2 < startTime1) return false;
-    }
-    // 其它情况均视为有重叠
-    return true;
-}
-
 QVariantMap convertOrderToMap(Order &order) {
     QVariantMap map;
     map["orderNumber"] = order.getOrderNumber();
@@ -155,16 +133,8 @@ bool OrderManager::isPassengerAvailable(const QString &passengerId, Date &queryS
         if (order.getPassenger().getId() == passengerId && order.getStatus() == "待乘坐") {
             if (orderNumber != "" && order.getOrderNumber() == orderNumber)
                 continue;
-            Date orderStartDate = order.getDate();
-            std::tuple<Time, Time, int, int, QString> startStationInfo = order.getTimetable().getStationInfo(order.getStartStation().getStationName());
-            std::tuple<Time, Time, int, int, QString> endStationInfo = order.getTimetable().getStationInfo(order.getEndStation().getStationName());
-            Date orderEndDate = orderStartDate + std::get<2>(endStationInfo) - std::get<3>(startStationInfo);
-            Time orderStartTime = std::get<1>(startStationInfo);
-            Time orderEndTime = std::get<0>(endStationInfo);
-            if (isDateTimeIntervalOverlap(orderStartDate, queryStartDate,
-                                          orderStartTime, queryStartTime,
-                                          orderEndDate, queryEndDate,
-                                          orderEndTime, queryEndTime)) {
+            
+            if (order.isTimeRangeOverlap(queryStartDate, queryStartTime, queryEndDate, queryEndTime)) {
                 return false;
             }
         }
@@ -176,16 +146,7 @@ std::vector<Order> OrderManager::getOrdersUnusedAndOverlapByTrainNumber(const QS
     std::vector<Order> result;
     for (auto order : orders) {
         if (order.getStatus() == "待乘坐" && order.getTrainNumber() == trainNumber) {
-            Date orderStartDate = order.getDate();
-            std::tuple<Time, Time, int, int, QString> startStationInfo = order.getTimetable().getStationInfo(order.getStartStation().getStationName());
-            std::tuple<Time, Time, int, int, QString> endStationInfo = order.getTimetable().getStationInfo(order.getEndStation().getStationName());
-            Date orderEndDate = orderStartDate + std::get<2>(endStationInfo) - std::get<3>(startStationInfo);
-            Time orderStartTime = std::get<1>(startStationInfo);
-            Time orderEndTime = std::get<0>(endStationInfo);
-            if (isDateTimeIntervalOverlap(orderStartDate, queryStartDate,
-                                          orderStartTime, queryStartTime,
-                                          orderEndDate, queryEndDate,
-                                          orderEndTime, queryEndTime)) {
+            if (order.isTimeRangeOverlap(queryStartDate, queryStartTime, queryEndDate, queryEndTime)) {
                 result.push_back(order);
             }
         }
@@ -224,16 +185,7 @@ std::vector<std::tuple<int, int, int>> OrderManager::getUnavailableSeatsInfo(con
     std::vector<std::tuple<int, int, int>> result;
     for (auto order : orders) {
         if (order.getTrainNumber() == trainNumber && order.getSeatLevel() == seatLevel && order.getStatus() == "待乘坐") {
-            Date orderStartDate = order.getDate();
-            std::tuple<Time, Time, int, int, QString> startStationInfo = order.getTimetable().getStationInfo(order.getStartStation().getStationName());
-            std::tuple<Time, Time, int, int, QString> endStationInfo = order.getTimetable().getStationInfo(order.getEndStation().getStationName());
-            Date orderEndDate = orderStartDate + std::get<2>(endStationInfo) - std::get<3>(startStationInfo);
-            Time orderStartTime = std::get<1>(startStationInfo);
-            Time orderEndTime = std::get<0>(endStationInfo);
-            if (isDateTimeIntervalOverlap(orderStartDate, queryStartDate,
-                                          orderStartTime, queryStartTime,
-                                          orderEndDate, queryEndDate,
-                                          orderEndTime, queryEndTime)) {
+            if (order.isTimeRangeOverlap(queryStartDate, queryStartTime, queryEndDate, queryEndTime)) {
                 std::tuple<int, int, int> t = std::make_tuple(order.getCarriageNumber(), order.getSeatRow(), order.getSeatCol());
                 result.push_back(t);
             }

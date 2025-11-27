@@ -47,6 +47,21 @@ bool Time::setNull() {
     return true;
 }
 
+bool Time::now() {
+    std::time_t now = std::time(nullptr); // 当前时间戳
+    std::tm* local_time = std::localtime(&now);
+    // 分别转换成整型;
+    int hour   = local_time->tm_hour;
+    int minute = local_time->tm_min;
+    int second = local_time->tm_sec;
+
+    this->hour = hour;
+    this->minute = minute;
+    this->second = second;
+
+    return true;
+}
+
 bool operator==(const Time &t1, const Time &t2) {
     return t1.hour == t2.hour &&
            t1.minute == t2.minute &&
