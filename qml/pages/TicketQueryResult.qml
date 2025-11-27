@@ -42,6 +42,9 @@ Window {
     property string originalOrderNumber: ""  // 原订单号(改签时使用)
     property string rescheduleSource: ""  // 改签来源: "myOrders" 或 "management"
 
+    // 提交流程结束信号
+    signal submitOrderDone()
+
     //先初始化再onCompleted加载数据再onloaded
     Component.onCompleted: {
 
@@ -270,6 +273,10 @@ Window {
                             onBookTicket: function(seatType) {
                                 pendingOrderInfo = modelData
                                 pendingSeatType = seatType
+                                submitLoader.onSubmitOrderDoneFunction = function() {
+                                    submitOrderDone()
+                                    resultWin.close()
+                                }
                                 // 加载确认订单页面
                                submitLoader.source = "OrderConfirm.qml"
                                submitLoader.active = true
@@ -407,6 +414,7 @@ Window {
     }
     
     Loader {
+        property var onSubmitOrderDoneFunction: null
         id: submitLoader
         source: ""
         active: false
@@ -419,6 +427,9 @@ Window {
                     pendingOrderInfo = null
                     pendingSeatType = -1
                 })
+
+                // 连接提交流程结束信号
+                item.submitOrderDone.connect(onSubmitOrderDoneFunction)
                 
                 // 设置来源类型 - 必须在最前面设置,确保无论什么情况都能正确设置
                 if (rescheduleMode) {

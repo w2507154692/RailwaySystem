@@ -283,10 +283,11 @@ QVariantMap BookingSystem::createOrder_api(const QVariantMap &info) {
     }
     // 对于被占用的座位，标记为 false
     int lenUnavailableSeatInfo = unavailableSeatsInfo.size();
+    qWarning() << "冲突座位数：" << lenUnavailableSeatInfo;
     for (int i = 0; i < lenUnavailableSeatInfo; i++) {
         int currentCarriageNumber = std::get<0>(unavailableSeatsInfo[i]);
         int row = std::get<1>(unavailableSeatsInfo[i]), col = std::get<2>(unavailableSeatsInfo[i]);
-        seats[currentCarriageNumber][row][col] = false;
+        seats[currentCarriageNumber - 1][row - 1][col - 1] = false; // 这里别忘了减1！！！！
     }
     // 按顺序从小到大遍历，首次适配法选择最终座位
     bool findFlag = false;
@@ -301,9 +302,9 @@ QVariantMap BookingSystem::createOrder_api(const QVariantMap &info) {
                     break;
                 for (int k = 0; k < lenCol; k++) {
                     if (seats[i][j][k]) {
-                        carriageNumber = i;
-                        seatRow = j;
-                        seatCol = k;
+                        carriageNumber = i + 1;
+                        seatRow = j + 1;
+                        seatCol = k + 1;
                         findFlag = true;
                         break;
                     }
@@ -367,6 +368,7 @@ std::tuple<double, double, double> BookingSystem::computePrice(const QString &tr
         double distance = station_manager->computeDistance(city1, city2);
         secondClassPrice += distance * times;
     }
+    // 保留两位小数
     secondClassPrice = std::round(secondClassPrice * 100.0) / 100.0;
     double firstClassPrice = std::round(secondClassPrice * 1.5 * 100.0) / 100.0;
     double businessClassPrice = std::round(secondClassPrice * 2.0 * 100.0) / 100.0;

@@ -24,6 +24,8 @@ Window{
     property string mode: "query"
     property string originalOrderNumber: ""
 
+    signal submitOrderDone();
+
     Rectangle {
         id:root
         anchors.fill: parent
@@ -159,21 +161,31 @@ Window{
                             console.log("提交订单,共", submitList.length, "张")
                             // TODO: 调用后端API提交订单
                             // 这里假设提交成功
-                            var submitSuccess = true // 实际应该从后端API获取结果
-                            
-                            if (submitSuccess) {
-                                // 如果是改签模式且提交成功,删除原订单
-                                if (mode === "reschedule" && originalOrderNumber !== "") {
-                                    console.log("改签成功,删除原订单:", originalOrderNumber)
-                                    var cancelResult = orderManager.cancelOrder_api(originalOrderNumber)
-                                    if (cancelResult) {
-                                        console.log("原订单删除成功")
-                                    } else {
-                                        console.log("原订单删除失败")
-                                    }
+                            var success = true
+                            for (var i = 0; i < submitList.length; i++) {
+                                var order = submitList[i]
+                                var result = bookingSystem.createOrder_api({
+                                    username: SessionState.username,
+                                    trainNumber: order.trainNumber,
+                                    passengerId: order.passengerId,
+                                    startStationName: order.startStationName,
+                                    endStationName: order.endStationName,
+                                    year: order.year,
+                                    month: order.month,
+                                    day: order.day,
+                                    seatLevel: order.seatLevel
+                                })
+                                if (!result.success) {
+                                    success = false
                                 }
-                                submitWin.visible = false
                             }
+                            notification.message = success ? "全部提交成功，可到我的订单界面查看！" : "有部分订单提交失败!"
+                            notification.onClosedFunction = function() {
+                                submitOrderDone()
+                                submitWin.closed()
+                            }
+                            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+                            notification.active = true
                         }
                     }
                     CustomButton {
@@ -189,6 +201,26 @@ Window{
                         }
                     }
                 }
+            }
+        }
+    }
+
+    // 通知弹窗
+    Loader {
+        property string message: ""
+        property var onClosedFunction: null
+        id: notification
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 设置父窗口关系 - 使用主窗口避免模态窗口焦点竞争
+                item.transientParent = ApplicationWindow.window
+                // 连接关闭信号
+                item.closed.connect(onClosedFunction)
+                // 初始化参数
+                item.contentText = message
+                item.visible = true
             }
         }
     }

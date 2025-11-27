@@ -17,6 +17,7 @@ Window {
 
     modality: Qt.WindowModal
 
+
     // visible: true
     // color: "#ffffff"
 
@@ -29,30 +30,8 @@ Window {
     property int selectedPassengerCount: 0
 
     property var ticketData: ({})
-    // QtObject {
-    //     id: ticketData
-    //     property string trainNumber: ""
-    //     property string startStationName: ""
-    //     property string startStationStopInfo: ""
-    //     property int startYear: 0
-    //     property int startMonth: 0
-    //     property int startDay: 0
-    //     property int startHour: 0
-    //     property int startMinute: 0
-    //     property string endStationName: ""
-    //     property string endStationStopInfo: ""
-    //     property int endYear: 0
-    //     property int endMonth: 0
-    //     property int endDay: 0
-    //     property int endHour: 0
-    //     property int endMinute: 0
-    //     property int intervalHour: 0
-    //     property int intervalMinute: 0
-    //     property string seatType: ""
-    //     property real price: 0
-    //     property int count: 0  // 购票数量,默认为0
-    //     property int remainingTickets: 0  // 余票数量,默认为0
-    // }
+
+    signal submitOrderDone()
 
     Component.onCompleted: {
         // 不在这里调用 refreshPassengers()
@@ -428,6 +407,7 @@ Window {
     // Loader 用于加载提交订单页面
     Loader {
         property var pendingSubmitList: []
+        property var onSubmitOrderDoneFunction: null
         id: submitOrderLoader
         source: ""
         active: false
@@ -439,6 +419,9 @@ Window {
                     submitOrderLoader.active = false
                     pendingSubmitList = []
                 })
+
+                // 连接提交结束信号
+                item.submitOrderDone.connect(onSubmitOrderDoneFunction)
 
                 // 设置提交订单列表数据
                 if (pendingSubmitList.length > 0) {
@@ -538,9 +521,9 @@ Window {
                     type: passenger.type || "成人",
                     startStationName: ticketData.startStationName,
                     startStationStopInfo: ticketData.startStationStopInfo,
-                    startYear: ticketData.startYear,
-                    startMonth: ticketData.startMonth,
-                    startDay: ticketData.startDay,
+                    year: ticketData.startYear,
+                    month: ticketData.startMonth,
+                    day: ticketData.startDay,
                     startHour: ticketData.startHour,
                     startMinute: ticketData.startMinute,
                     endStationName: ticketData.endStationName,
@@ -562,6 +545,11 @@ Window {
 
         // 保存待提交的订单列表
         submitOrderLoader.pendingSubmitList = submitOrders
+        // 连接提交结束信号
+        submitOrderLoader.onSubmitOrderDoneFunction = function() {
+            submitOrderDone()
+            confirmWin.close()
+        }
 
         //订单页面
         submitOrderLoader.source = "SubmitOrderDialog.qml"
