@@ -8,26 +8,56 @@ Item {
     height: 320
 
     property var stationList: [
-        { stationName: "乌鲁木齐北", arriveHour: -1, arriveMinute: -1, departureHour: 9, departureMinute: 30, stopInterval: -1, passInfo: "起末站" },
-        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
-        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
-        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
-        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
-        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
-        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
-        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
-        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "中间站" },
-        { stationName: "呼和浩特北", arriveHour: 19, arriveMinute: 30, departureHour: -1, departureMinute: -1, stopInterval: -1, passInfo: "起末站" },
-        { stationName: "其他站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "其他站" },
-        { stationName: "其他站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "其他站" },
-        { stationName: "其他站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "其他站" },
-        { stationName: "其他站", arriveHour: 12, arriveMinute: 30, departureHour: 13, departureMinute: 0, stopInterval: 30, passInfo: "其他站" },
+        { stationName: "乌鲁木齐北", arriveHour: -1, arriveMinute: -1, arriveDay: -1, departureHour: 9, departureMinute: 30, departureDay: 0, stopInterval: -1, passInfo: "起末站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, arriveDay: 0, departureHour: 13, departureMinute: 0, departureDay: 0, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, arriveDay: 0, departureHour: 13, departureMinute: 0, departureDay: 0, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, arriveDay: 0, departureHour: 13, departureMinute: 0, departureDay: 0, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, arriveDay: 1, departureHour: 13, departureMinute: 0, departureDay: 1, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, arriveDay: 1, departureHour: 13, departureMinute: 0, departureDay: 1, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, arriveDay: 1, departureHour: 13, departureMinute: 0, departureDay: 1, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, arriveDay: 1, departureHour: 13, departureMinute: 0, departureDay: 1, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "中间站", arriveHour: 12, arriveMinute: 30, arriveDay: 2, departureHour: 13, departureMinute: 0, departureDay: 2, stopInterval: 30, passInfo: "中间站" },
+        { stationName: "呼和浩特北", arriveHour: 19, arriveMinute: 30, arriveDay: 2, departureHour: -1, departureMinute: -1, departureDay: -1, stopInterval: -1, passInfo: "起末站" },
+        { stationName: "其他站", arriveHour: 12, arriveMinute: 30, arriveDay: 0, departureHour: 13, departureMinute: 0, departureDay: 0, stopInterval: 30, passInfo: "其他站" },
+        { stationName: "其他站", arriveHour: 12, arriveMinute: 30, arriveDay: 0, departureHour: 13, departureMinute: 0, departureDay: 0, stopInterval: 30, passInfo: "其他站" },
+        { stationName: "其他站", arriveHour: 12, arriveMinute: 30, arriveDay: 0, departureHour: 13, departureMinute: 0, departureDay: 0, stopInterval: 30, passInfo: "其他站" },
+        { stationName: "其他站", arriveHour: 12, arriveMinute: 30, arriveDay: 0, departureHour: 13, departureMinute: 0, departureDay: 0, stopInterval: 30, passInfo: "其他站" },
     ]
 
     property bool showButtons: true
 
     // 新增：外部可控边框宽度
     property int borderWidth: 1
+
+    // 格式化停留时间的函数
+    // 一小时以内显示多少分，一天内显示几小时几分，超过一天显示几天几小时（不显示分了）
+    function formatStopInterval(minutes) {
+        if (minutes === -1) {
+            return "---"
+        } else if (minutes < 60) {
+            // 一小时以内：显示分钟
+            return minutes + "分"
+        } else if (minutes < 1440) {
+            // 一天内（24小时）：显示几小时几分
+            var hours = Math.floor(minutes / 60)
+            var mins = minutes % 60
+            if (mins === 0) {
+                return hours + "小时"
+            } else {
+                return hours + "小时" + mins + "分"
+            }
+        } else {
+            // 超过一天：显示几天几小时（不显示分）
+            var days = Math.floor(minutes / 1440)
+            var remainingMinutes = minutes % 1440
+            var hours = Math.floor(remainingMinutes / 60)
+            if (hours === 0) {
+                return days + "天"
+            } else {
+                return days + "天" + hours + "小时"
+            }
+        }
+    }
 
     //背景
     Rectangle {
@@ -159,9 +189,11 @@ Item {
                     ColumnLayout{
                         Layout.fillWidth: true
                         RowLayout {
+                            id:rowinfo
                             Layout.topMargin: -5
                             Layout.fillWidth: true
                             Layout.preferredHeight: 40
+                            spacing: 0
 
                             property color textColor: modelData.passInfo === "起末站"
                                                       ? "#0080FF"
@@ -190,9 +222,10 @@ Item {
                                 Layout.fillWidth: true
                             }
 
+                            //站名
                             Text {
                                 text: modelData.stationName
-                                color: parent.textColor
+                                color: rowinfo.textColor
                                 Layout.preferredWidth: 60
                                 Layout.preferredHeight: 40
                                 verticalAlignment: Text.AlignVCenter
@@ -205,16 +238,71 @@ Item {
                                 Layout.fillWidth: true
                             }
 
-                            Text {
-                                text: (modelData.arriveHour === -1 || modelData.arriveMinute === -1)
-                                      ? "---"
-                                      : ("0" + modelData.arriveHour).slice(-2) + ":" + ("0" + modelData.arriveMinute).slice(-2)
-                                color: parent.textColor
+                            //到时
+                            Rectangle{
                                 Layout.preferredWidth: 55
-                                Layout.preferredHeight: 40
-                                verticalAlignment: Text.AlignVCenter
-                                // font.pixelSize: 16
-                                horizontalAlignment: Text.AlignHCenter
+                                Layout.preferredHeight: 38
+
+                                Text {
+                                    id:arrivetime
+                                    text: (modelData.arriveHour === -1 || modelData.arriveMinute === -1)
+                                          ? "---"
+                                          : ("0" + modelData.arriveHour).slice(-2) + ":" + ("0" + modelData.arriveMinute).slice(-2)
+                                    color: rowinfo.textColor
+                                    // Layout.preferredWidth: 55
+                                    // Layout.preferredHeight: 40
+                                    anchors.centerIn: parent
+                                    // verticalAlignment: Text.AlignVCenter
+                                    // font.pixelSize: 16
+                                    // horizontalAlignment: Text.AlignHCenter
+                                }
+
+                                Text{
+                                    text: "+" + modelData.arriveDay
+                                    visible: modelData.arriveDay > 0
+                                    color: "#0080FF"
+                                    // Layout.preferredWidth: 25
+                                    // Layout.preferredHeight: 10
+                                    font.pixelSize: 8
+                                    anchors.left: arrivetime.right
+                                    anchors.top: arrivetime.top
+                                }
+                            }
+
+
+
+                            //间隔
+                            Item{
+                                Layout.fillWidth: true
+                            }
+
+                            //发时
+                            Rectangle{
+                                Layout.preferredWidth: 55
+                                Layout.preferredHeight: 38
+
+                                Text {
+                                    id:departuretime
+                                    text: (modelData.departureHour === -1 || modelData.departureMinute === -1)
+                                          ? "---"
+                                          : ("0" + modelData.departureHour).slice(-2) + ":" + ("0" + modelData.departureMinute).slice(-2)
+                                    color: rowinfo.textColor
+                                    anchors.centerIn: parent
+                                    // verticalAlignment: Text.AlignVCenter
+                                    // font.pixelSize: 16
+                                    // horizontalAlignment: Text.AlignHCenter
+                                }
+
+                                Text{
+                                    text: "+" + modelData.departureDay
+                                    visible: modelData.departureDay > 0
+                                    color: "#0080FF"
+                                    // Layout.preferredWidth: 25
+                                    // Layout.preferredHeight: 10
+                                    font.pixelSize: 8
+                                    anchors.left: departuretime.right
+                                    anchors.top: departuretime.top
+                                }
                             }
 
                             //间隔
@@ -222,28 +310,12 @@ Item {
                                 Layout.fillWidth: true
                             }
 
-                            Text {
-                                text: (modelData.departureHour === -1 || modelData.departureMinute === -1)
-                                      ? "---"
-                                      : ("0" + modelData.departureHour).slice(-2) + ":" + ("0" + modelData.departureMinute).slice(-2)
-                                color: parent.textColor
-                                Layout.preferredWidth: 55
-                                Layout.preferredHeight: 40
-                                verticalAlignment: Text.AlignVCenter
-                                // font.pixelSize: 16
-                                horizontalAlignment: Text.AlignHCenter
-                            }
-
-                            //间隔
-                            Item{
-                                Layout.fillWidth: true
-                            }
-
+                            //停留
                             Text {
                                 text: modelData.stopInterval === -1
                                       ? "---"
                                       : modelData.stopInterval + "分"
-                                color: parent.textColor
+                                color: rowinfo.textColor
                                 Layout.preferredWidth: 48
                                 Layout.preferredHeight: 40
                                 verticalAlignment: Text.AlignVCenter

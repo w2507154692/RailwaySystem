@@ -5,64 +5,111 @@ import QtQuick.Controls.impl 2.15
 
 
 Rectangle {
-    width: 1080; height: 640
+    width: 320; height: 40
     color: "#65a8ed" // 背景跟你的图一致
-
-    // 三组互斥：座位、时间、高铁
-    property int seatSelected: -1        // 0: 商务座, 1: 一等座, 2: 二等座, -1:未选
-    property int timeSelected: -1        // 0: 上午, 1: 下午, -1:未选
-    property int typeSelected: -1        // 0: 高铁, -1:未选
-
-    GridLayout {
+    RowLayout{
         anchors.fill: parent
-        columns: 3
-        rowSpacing: 14
-        columnSpacing: 42
+        spacing: 0
+        Rectangle{
+            Layout.preferredWidth: 36
+            Layout.preferredHeight: 40
+            color: "pink"
+        }
 
-        // 第一列
-        MyCheckBox {
-            text: "只看商务座"
-            checked: seatSelected === 0
-            onClicked: seatSelected = checked ? 0 : -1
-            Layout.row: 0
-            Layout.column: 0
+        //间隔
+        Item{
+            Layout.fillWidth: true
         }
-        MyCheckBox {
-            text: "上午出发"
-            checked: timeSelected === 0
-            onClicked: timeSelected = checked ? 0 : -1
-            Layout.row: 1
-            Layout.column: 0
+
+        //站名
+        Rectangle{
+            Layout.preferredWidth: 55
+            Layout.preferredHeight: 40
+            color: "red"
         }
-        // 第二列
-        MyCheckBox {
-            text: "只看一等座"
-            checked: seatSelected === 1
-            onClicked: seatSelected = checked ? 1 : -1
-            Layout.row: 0
-            Layout.column: 1
+
+        //间隔
+        Item{
+            Layout.fillWidth: true
         }
-        MyCheckBox {
-            text: "下午出发"
-            checked: timeSelected === 1
-            onClicked: timeSelected = checked ? 1 : -1
-            Layout.row: 1
-            Layout.column: 1
+
+        //到时
+        Rectangle{
+            Layout.preferredWidth: 55
+            Layout.preferredHeight: 40
+            color: "yellow"
+
+            Text {
+                id:arrivetime
+                text: "12:30"
+                color: parent.textColor
+                anchors.centerIn: parent
+                // verticalAlignment: Text.AlignVCenter
+                // font.pixelSize: 16
+                // horizontalAlignment: Text.AlignHCenter
+            }
+
+            Text{
+                text: "+" + "01"
+                color: "#0080FF"
+                font.pixelSize: 8
+                anchors.left: arrivetime.right
+                anchors.top: arrivetime.top
+            }
         }
-        // 第三列
-        MyCheckBox {
-            text: "只看二等座"
-            checked: seatSelected === 2
-            onClicked: seatSelected = checked ? 2 : -1
-            Layout.row: 0
-            Layout.column: 2
+
+
+
+        //间隔
+        Item{
+            Layout.fillWidth: true
         }
-        MyCheckBox {
-            text: "只看高铁"
-            checked: typeSelected === 0
-            onClicked: typeSelected = checked ? 0 : -1
-            Layout.row: 1
-            Layout.column: 2
+
+        //发时
+        Rectangle{
+            Layout.preferredWidth: 55
+            Layout.preferredHeight: 40
+            color: "purple"
+
+            Text {
+                text: "09:30"
+                color: parent.textColor
+                verticalAlignment: Text.AlignVCenter
+                // font.pixelSize: 16
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
+
+        //间隔
+        Item{
+            Layout.fillWidth: true
+        }
+
+        //停留
+        Rectangle{
+            Layout.preferredWidth: 48
+            Layout.preferredHeight: 40
+            color: "orange"
+            Text {
+                text: "30分"
+                color: parent.textColor
+                verticalAlignment: Text.AlignVCenter
+                // font.pixelSize: 16
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
+
+        //间隔
+        Item{
+            Layout.fillWidth: true
+        }
+
+        // 删除按钮
+        Rectangle {
+            Layout.preferredWidth: 36
+            Layout.preferredHeight: 40
+            color: "black"
+            Layout.rightMargin: 5
         }
     }
 }

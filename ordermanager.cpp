@@ -110,14 +110,16 @@ QVariantList OrderManager::getTimetableInfo_api(const QString &orderNumber) {
         return list;
     }
     Order &order = findResult.value();
-    std::vector<std::tuple<Station, Time, Time, int, QString>> info = order.getTimetable().getInfo(order.getStartStation().getStationName(), order.getEndStation().getStationName());
+    std::vector<std::tuple<Station, Time, Time, int, int, int, QString>> info = order.getTimetable().getInfo(order.getStartStation().getStationName(), order.getEndStation().getStationName());
     for (auto &t : info) {
         QVariantMap map;
         Station station = std::get<0>(t);
         Time arriveTime = std::get<1>(t);
         Time departureTime = std::get<2>(t);
-        int stopInterval = std::get<3>(t);
-        QString passInfo = std::get<4>(t);
+        int arriveDay = std::get<3>(t);
+        int departureDay = std::get<4>(t);
+        int stopInterval = std::get<5>(t);
+        QString passInfo = std::get<6>(t);
         map["stationName"] = station.getStationName();
         map["arriveHour"] = arriveTime.getHour();
         map["arriveMinute"] = arriveTime.getMinute();
