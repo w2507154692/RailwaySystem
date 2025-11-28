@@ -165,7 +165,8 @@ Window{
                             for (var i = 0; i < submitList.length; i++) {
                                 var order = submitList[i]
                                 var result = bookingSystem.createOrder_api({
-                                    username: SessionState.username,
+                                    // 管理员不传用户名，因为管理员改签的用户名来自待改签订单
+                                    username: SessionState.role === "user" ? SessionState.username : "",
                                     trainNumber: order.trainNumber,
                                     passengerId: order.passengerId,
                                     startStationName: order.startStationName,
@@ -178,6 +179,7 @@ Window{
                                 })
                                 if (!result.success) {
                                     success = false
+                                    console.log(result.message)
                                 }
                             }
                             notification.message = success ? "全部提交成功，可到我的订单界面查看！" : "有部分订单提交失败!"

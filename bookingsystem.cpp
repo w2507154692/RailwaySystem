@@ -227,19 +227,41 @@ QVariantMap BookingSystem::createOrder_api(const QVariantMap &info) {
 
     QVariantMap result;
     // 根据用户名、车次号、乘客身份证号、起始站名、终点站名、待改签订单号查找对应实体
-    auto userFindResult = account_manager->findUserByUsername(username);
-    if (!userFindResult) {
-        result["success"] = false;
-        result["message"] = QString("用户 %1 不存在！").arg(username);
-        return result;
+    if (username != "") {
+        auto userFindResult = account_manager->getUserByUsername(username);
+        if (!userFindResult) {
+            result["success"] = false;
+            result["message"] = QString("用户 %1 不存在！").arg(username);
+            return result;
+        }
     }
+    if (pendingRescheduleOrderNumber != "") {
+        auto pendingRescheduleOrderFindResult = order_manager->getOrderByOrderNumber(pendingRescheduleOrderNumber);
+        if (!pendingRescheduleOrderFindResult) {
+            result["success"] = false;
+            result["message"] = QString("待改签订单 %1 不存在！").arg(pendingRescheduleOrderNumber);
+            return result;
+        }
+    }
+
+    User user;
+    Order pendingReschduleOrder;
+    // 如果是改签模式，从待改签订单中获得用户信息，否则获取参数给的用户信息
+    if (pendingRescheduleOrderNumber != "") {
+        pendingReschduleOrder = order_manager->getOrderByOrderNumber(pendingRescheduleOrderNumber).value();
+        user = account_manager->getUserByUsername(pendingReschduleOrder.getUsername()).value();
+    }
+    else {
+        user = account_manager->getUserByUsername(username).value();
+    }
+
     auto trainFindResult = train_manager->getTrainByTrainNumber(trainNumber);
     if (!trainFindResult) {
         result["success"] = false;
         result["message"] = QString("车次 %1 不存在！").arg(trainNumber);
         return result;
     }
-    auto passengerFindResult = passenger_manager->getPassengerByUsernameAndId(username, passengerId);
+    auto passengerFindResult = passenger_manager->getPassengerByUsernameAndId(user.getUsername(), passengerId);
     if (!passengerFindResult) {
         result["success"] = false;
         result["message"] = QString("用户 %1 下身份证号为 %2 的乘客不存在！").arg(username, passengerId);
@@ -257,15 +279,6 @@ QVariantMap BookingSystem::createOrder_api(const QVariantMap &info) {
         result["message"] = QString("车站 %1 不存在！").arg(endStationName);
         return result;
     }
-    if (pendingRescheduleOrderNumber != "") {
-        auto pendingRescheduleOrderFindResult = order_manager->getOrderByOrderNumber(pendingRescheduleOrderNumber);
-        if (!pendingRescheduleOrderFindResult) {
-            result["success"] = false;
-            result["message"] = QString("待改签订单 %1 不存在！").arg(pendingRescheduleOrderNumber);
-            return result;
-        }
-    }
-    User user = userFindResult.value();
     Train train = trainFindResult.value();
     Passenger passenger = passengerFindResult.value();
     Station startStation = startStationFindResult.value();
@@ -341,7 +354,7 @@ QVariantMap BookingSystem::createOrder_api(const QVariantMap &info) {
     order_manager->createOrder(order);
     // 如果有待改签订单号，则标记为“已改签”
     if (pendingRescheduleOrderNumber != "")
-        order_manager->rescheduleOrder(pendingRescheduleOrderNumber);
+        order_manager->rescheduleOrder(pendingReschduleOrder.getOrderNumber());
 
     result["success"] = true;
     result["message"] = "车票预定成功，可在“我的订单”查看车票！";

@@ -16,7 +16,7 @@ AccountManager::AccountManager(QObject *parent)
 
 QVariantMap AccountManager::loginUser_api(const QString &username, const QString &password) {
     QVariantMap result;
-    auto findResult = findUserByUsername(username);
+    auto findResult = getUserByUsername(username);
     if (findResult) {
         User user = findResult.value();
         if (user.isLocked()) {
@@ -66,7 +66,7 @@ QVariantMap AccountManager::loginAdmin_api(const QString &username, const QStrin
 
 QVariantMap AccountManager::getUserProfile_api(const QString &username) {
     QVariantMap result;
-    auto findResult = findUserByUsername(username);
+    auto findResult = getUserByUsername(username);
     if (findResult) {
         User user = findResult.value();
         result["name"] = user.getProfile().getName();
@@ -219,7 +219,7 @@ QVariantMap AccountManager::editUserProfile_api(const QString &username, const Q
     return result;
 }
 
-std::optional<User> AccountManager::findUserByUsername(const QString &username) {
+std::optional<User> AccountManager::getUserByUsername(const QString &username) {
     for (auto &user : users) {
         if (user.getUsername() == username) {
             return user;
