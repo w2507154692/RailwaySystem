@@ -534,7 +534,8 @@ Window {
                     endHour: ticketData.endHour,
                     endMinute: ticketData.endMinute,
                     intervalHour: ticketData.intervalHour,
-                    intervalMinute: ticketData.intervalMinute
+                    intervalMinute: ticketData.intervalMinute,
+                    pendingRescheduleOrderNumber: originalOrderNumber
                 }
 
                 submitOrders.push(orderData)

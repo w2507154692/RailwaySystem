@@ -173,7 +173,8 @@ Window{
                                     year: order.year,
                                     month: order.month,
                                     day: order.day,
-                                    seatLevel: order.seatLevel
+                                    seatLevel: order.seatLevel,
+                                    pendingRescheduleOrderNumber: order.pendingRescheduleOrderNumber
                                 })
                                 if (!result.success) {
                                     success = false

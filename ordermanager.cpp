@@ -182,10 +182,10 @@ QVariantMap OrderManager::getPassengerForReschedule_api(const QVariantMap &info)
     return result;
 }
 
-std::vector<std::tuple<int, int, int>> OrderManager::getUnavailableSeatsInfo(const QString &trainNumber, const QString &seatLevel, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime) {
+std::vector<std::tuple<int, int, int>> OrderManager::getUnavailableSeatsInfo(const QString &trainNumber, const QString &seatLevel, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime, const QString &excludedOrderNumber) {
     std::vector<std::tuple<int, int, int>> result;
     for (auto order : orders) {
-        if (order.getTrainNumber() == trainNumber && order.getSeatLevel() == seatLevel && order.getStatus() == "待乘坐") {
+        if ((excludedOrderNumber == "" || order.getOrderNumber() != excludedOrderNumber) && order.getTrainNumber() == trainNumber && order.getSeatLevel() == seatLevel && order.getStatus() == "待乘坐") {
             if (order.isTimeRangeOverlap(queryStartDate, queryStartTime, queryEndDate, queryEndTime)) {
                 std::tuple<int, int, int> t = std::make_tuple(order.getCarriageNumber(), order.getSeatRow(), order.getSeatCol());
                 result.push_back(t);
@@ -233,6 +233,16 @@ bool OrderManager::cancelOrder(const QString &orderNumber) {
     for (auto &order : orders) {
         if (order.getOrderNumber() == orderNumber) {
             order.setStatus("已取消");
+            return true;
+        }
+    }
+    return false;
+}
+
+bool OrderManager::rescheduleOrder(const QString &orderNumber) {
+    for (auto &order : orders) {
+        if (order.getOrderNumber() == orderNumber) {
+            order.setStatus("已改签");
             return true;
         }
     }

@@ -223,9 +223,10 @@ QVariantMap BookingSystem::createOrder_api(const QVariantMap &info) {
     QString endStationName = info["endStationName"].toString();
     int year = info["year"].toInt(), month = info["month"].toInt(), day = info["day"].toInt();
     QString seatLevel = info["seatLevel"].toString();
+    QString pendingRescheduleOrderNumber = info["pendingRescheduleOrderNumber"].toString();
 
     QVariantMap result;
-    // 根据用户名、车次号、乘客身份证号、起始站名、终点站名查找对应实体
+    // 根据用户名、车次号、乘客身份证号、起始站名、终点站名、待改签订单号查找对应实体
     auto userFindResult = account_manager->findUserByUsername(username);
     if (!userFindResult) {
         result["success"] = false;
@@ -256,6 +257,14 @@ QVariantMap BookingSystem::createOrder_api(const QVariantMap &info) {
         result["message"] = QString("车站 %1 不存在！").arg(endStationName);
         return result;
     }
+    if (pendingRescheduleOrderNumber != "") {
+        auto pendingRescheduleOrderFindResult = order_manager->getOrderByOrderNumber(pendingRescheduleOrderNumber);
+        if (!pendingRescheduleOrderFindResult) {
+            result["success"] = false;
+            result["message"] = QString("待改签订单 %1 不存在！").arg(pendingRescheduleOrderNumber);
+            return result;
+        }
+    }
     User user = userFindResult.value();
     Train train = trainFindResult.value();
     Passenger passenger = passengerFindResult.value();
@@ -271,8 +280,9 @@ QVariantMap BookingSystem::createOrder_api(const QVariantMap &info) {
 
     // 检索被占用的座位号信息
     std::vector<std::tuple<int, int, int>> unavailableSeatsInfo = order_manager->getUnavailableSeatsInfo(trainNumber, seatLevel,
-                                                                                               startDate, endDate,
-                                                                                               startTime, endTime);
+                                                                                                         startDate, endDate,
+                                                                                                         startTime, endTime,
+                                                                                                         pendingRescheduleOrderNumber);
     // 建立三维数组，初值为0，存储每个座位信息
     std::vector<std::tuple<QString, int, int>> carriages = train.getCarriages();
     std::vector<std::vector<std::vector<bool>>> seats(0, std::vector<std::vector<bool>>(0, std::vector<bool> (0, true)));
@@ -329,6 +339,9 @@ QVariantMap BookingSystem::createOrder_api(const QVariantMap &info) {
                 "待乘坐", user.getUsername());
     // 向OrderManager提交
     order_manager->createOrder(order);
+    // 如果有待改签订单号，则标记为“已改签”
+    if (pendingRescheduleOrderNumber != "")
+        order_manager->rescheduleOrder(pendingRescheduleOrderNumber);
 
     result["success"] = true;
     result["message"] = "车票预定成功，可在“我的订单”查看车票！";

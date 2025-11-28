@@ -21,6 +21,7 @@ public:
     Q_INVOKABLE QVariantList getTimetableInfo_api(const QString &orderNumber);
     Q_INVOKABLE QVariantList getOrders_api();
     Q_INVOKABLE QVariantMap getOrderByOrderNumber_api(const QString &orderNumber);
+    std::optional<Order> getOrderByOrderNumber(const QString &orderNumber);
     // 查找某乘车人是否有空，可选择是否传订单号（改签模式下，也要查找乘车人是否有空，而查找的时候需要排除该订单）
     bool isPassengerAvailable(const QString &passengerId, Date &queryStartDate, Date &queryEndDate, Time &queryStartTime, Time &queryEndTime, const QString orderNumber = "");
     // 查找某个车次的乘车区间和查询区间重复的车票
@@ -30,13 +31,15 @@ public:
     // 根据车次号、座位等级、日期和时间区间，在所有订单中查询与该时间重叠且座位等级相同的订单，返回该订单的座位信息（车厢号、行号、列号）
     std::vector<std::tuple<int, int, int>> getUnavailableSeatsInfo(const QString &trainNumber, const QString &seatLevel,
                                                                    Date &queryStartDate, Date &queryEndDate,
-                                                                   Time &queryStartTime, Time &queryEndTime);
+                                                                   Time &queryStartTime, Time &queryEndTime,
+                                                                   const QString &excludedOrderNumber = "");
     // 创建订单，分配订单号
     bool createOrder(Order &order);
+    // 改签订单
+    bool rescheduleOrder(const QString &orderNumber);
 
 private:
     std::vector<Order> getOrdersByUsername(const QString &username);
-    std::optional<Order> getOrderByOrderNumber(const QString &orderNumber);
     bool cancelOrder(const QString &orderNumber);
     // 根据当前系统时间，检查订单是否过期，过期的设置为“已乘坐”
     bool refreshOrderStatus();
