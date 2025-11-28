@@ -47,6 +47,7 @@ OrderManager::OrderManager(QObject *parent)
     : QObject{parent}
 {
     readFromFile("../../data/order.txt");
+    refreshOrderStatus();
 }
 
 QVariantList OrderManager::getOrdersByUsername_api(const QString &username) {
@@ -236,6 +237,23 @@ bool OrderManager::cancelOrder(const QString &orderNumber) {
         }
     }
     return false;
+}
+
+bool OrderManager::refreshOrderStatus() {
+    Date nowDate;
+    Time nowTime;
+    nowDate.now();
+    nowTime.now();
+
+    for (auto it = orders.begin(); it != orders.end(); it++) {
+        Date orderEndDate = it->getEndDate();
+        Time orderEndTime = it->getEndTime();
+        if (orderEndDate < nowDate || (orderEndDate == nowDate && orderEndTime < nowTime)) {
+            it->setStatus("已乘坐");
+        }
+    }
+
+    return true;
 }
 
 bool OrderManager::readFromFile(const char filename[]) {

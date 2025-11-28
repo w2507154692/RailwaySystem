@@ -64,7 +64,7 @@ public:
     Date getEndDate();
     Time getStartTime();
     Time getEndTime();
-    bool isTimeRangeOverlap(Date &queryStartDate, Time &queryStartTime, Date &queryEndDate, Time &queryEndTime);
+    bool isTimeRangeOverlap(Date &queryStartDate, Time &queryStartTime, Date &queryEndDate, Time &queryEndTimeww);
 
     friend bool operator==(const Order &o1, const Order &o2);
     friend bool operator!=(const Order &o1, const Order &o2);

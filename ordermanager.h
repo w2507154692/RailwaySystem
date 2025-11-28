@@ -37,9 +37,9 @@ public:
 private:
     std::vector<Order> getOrdersByUsername(const QString &username);
     std::optional<Order> getOrderByOrderNumber(const QString &orderNumber);
+    bool cancelOrder(const QString &orderNumber);
     // 根据当前系统时间，检查订单是否过期，过期的设置为“已乘坐”
     bool refreshOrderStatus();
-    bool cancelOrder(const QString &orderNumber);
     bool readFromFile(const char filename[]);
     bool writeToFile(const char filename[]);
 
