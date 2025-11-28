@@ -61,19 +61,25 @@ QVariantList TrainManager::getTimetableInfo_api(const QString &trainNumber) {
         return list;
     }
     Train &train = findResult.value();
-    std::vector<std::tuple<Station, Time, Time, int, QString>> info = train.getTimetable().getInfo();
+    std::vector<std::tuple<Station, Time, Time, int, int, int, QString>> info = train.getTimetable().getInfo();
+    
     for (auto &t : info) {
         QVariantMap map;
         Station station = std::get<0>(t);
         Time arriveTime = std::get<1>(t);
         Time departureTime = std::get<2>(t);
-        int stopInterval = std::get<3>(t);
-        QString passInfo = std::get<4>(t);
+        int arriveDay = std::get<3>(t);
+        int departureDay = std::get<4>(t);
+        int stopInterval = std::get<5>(t);
+        QString passInfo = std::get<6>(t);
+        
         map["stationName"] = station.getStationName();
         map["arriveHour"] = arriveTime.getHour();
         map["arriveMinute"] = arriveTime.getMinute();
+        map["arriveDay"] = arriveDay;
         map["departureHour"] = departureTime.getHour();
         map["departureMinute"] = departureTime.getMinute();
+        map["departureDay"] = departureDay;
         map["stopInterval"] = stopInterval;
         map["passInfo"] = passInfo;
         list << map;
@@ -88,19 +94,25 @@ QVariantList TrainManager::getTimetableInfo_api(const QString &trainNumber, cons
         return list;
     }
     Train &train = findResult.value();
-    std::vector<std::tuple<Station, Time, Time, int, QString>> info = train.getTimetable().getInfo(startStationName, endStationName);
+    std::vector<std::tuple<Station, Time, Time, int, int, int, QString>> info = train.getTimetable().getInfo(startStationName, endStationName);
+    
     for (auto &t : info) {
         QVariantMap map;
         Station station = std::get<0>(t);
         Time arriveTime = std::get<1>(t);
         Time departureTime = std::get<2>(t);
-        int stopInterval = std::get<3>(t);
-        QString passInfo = std::get<4>(t);
+        int arriveDay = std::get<3>(t);
+        int departureDay = std::get<4>(t);
+        int stopInterval = std::get<5>(t);
+        QString passInfo = std::get<6>(t);
+        
         map["stationName"] = station.getStationName();
         map["arriveHour"] = arriveTime.getHour();
         map["arriveMinute"] = arriveTime.getMinute();
+        map["arriveDay"] = arriveDay;
         map["departureHour"] = departureTime.getHour();
         map["departureMinute"] = departureTime.getMinute();
+        map["departureDay"] = departureDay;
         map["stopInterval"] = stopInterval;
         map["passInfo"] = passInfo;
         list << map;
