@@ -262,7 +262,7 @@ Item {
                                 Text{
                                     anchors.centerIn: parent
                                     id: textItem
-                                    text: orderData.type + "票"
+                                    text: orderData.passengerType + "票"
                                     font.pixelSize: 11
                                     color: "#666"
                                 }

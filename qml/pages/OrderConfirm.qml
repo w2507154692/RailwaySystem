@@ -28,6 +28,7 @@ Window {
     property var rawPassengerList: []
     property ListModel passengerList: ListModel {}
     property int selectedPassengerCount: 0
+    property double totalPrice: 0
 
     property var ticketData: ({})
 
@@ -221,7 +222,7 @@ Window {
 
                     Text {
                         width: 160; height: 48;
-                        text: (ticketData.price * selectedPassengerCount).toFixed(2)
+                        text: totalPrice.toFixed(2)
                         font.pixelSize: 32
                         color: "#ee8732"
                         horizontalAlignment: Text.AlignLeft
@@ -329,13 +330,25 @@ Window {
 
                                 onToggled: (checked) => {
                                     passengerList.setProperty(index, "selected", checked)
-                                    var count = 0
+                                    var count = 0, price = 0.0
                                     for (var i = 0; i < passengerList.count; i++) {
-                                        if (passengerList.get(i).selected) {
-                                            count++
-                                        }
+                                       var item = passengerList.get(i)
+                                       if (item.selected) {
+                                           count++
+                                           var type = (item.type || "").trim()
+                                           var discount = 1.0
+                                           if (type === "成人") {
+                                               discount = 1.0        // 不打折
+                                           } else if (type === "学生") {
+                                               discount = 0.75       // 75 折
+                                           } else if (type === "儿童") {
+                                               discount = 0.5        // 5 折
+                                           }
+                                           price += ticketData.price * discount
+                                       }
                                     }
                                     selectedPassengerCount = count
+                                    totalPrice = price
                                 }
                             }
                         }

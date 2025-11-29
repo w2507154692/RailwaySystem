@@ -18,7 +18,7 @@ QVariantMap convertOrderToMap(Order &order) {
     map["price"] = order.getPrice();
     map["status"] = order.getStatus();
     map["passengerName"] = order.getPassenger().getName();
-    map["type"] = order.getPassenger().getType();
+    map["passengerType"] = order.getPassenger().getType();
 
     Station startSation = order.getStartStation();
     Station endStation = order.getEndStation();
