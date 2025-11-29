@@ -373,11 +373,30 @@ QVariantMap BookingSystem::isPassengerEditable(const QVariantMap &info) {
     }
     if (order_manager->hasUnusedOrderForPassenger(username, passengerId)) {
         result["success"] = false;
-        result["message"] = "该乘车人有待乘坐订单，无法修改乘车人信息！";
+        result["message"] = "该乘车人有待乘坐订单，无法修改该乘车人信息！";
         return result;
     }
     result["success"] = true;
     result["message"] = "该乘车人信息可以修改！";
+    return result;
+}
+
+QVariantMap BookingSystem::deleteUser_api(const QVariantMap &info) {
+    QVariantMap result;
+    QString username = info["username"].toString();
+    if (!account_manager->getUserByUsername(username)) {
+        result["success"] = false;
+        result["message"] = QString("用户 %1 不存在！").arg(username);
+        return result;
+    }
+    // 删除该用户所有订单
+    order_manager->deleteOrdersByUsername(username);
+    // 删除该用户所有乘车人信息
+    passenger_manager->deletePassengersByUsername(username);
+    // 删除该用户
+    account_manager->deleteUser(username);
+    result["success"] = true;
+    result["message"] = QString("用户 %1 注销成功！").arg(username);
     return result;
 }
 

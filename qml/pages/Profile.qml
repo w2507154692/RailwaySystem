@@ -179,14 +179,8 @@ Page{
                             text: "注销账号"
                             onClicked: {
                                 warning.onConfirmed = function() {
-                                    deleteUser()
                                     warning.active = false
-                                    //清空参数
-                                    SessionState.clear()
-                                    // 清空主内容区
-                                    if (mainWindow && mainWindow.stackView) {
-                                        mainWindow.stackView.clear()
-                                    }
+                                    deleteUser()
                                 }
                                 warning.message = "确认注销账户？"
                                 warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
@@ -224,15 +218,14 @@ Page{
     //通知
     Loader {
         property string message: ""
+        property var onClosedFunction: function() {}
         id: notification
         source: ""
         active: false
         onLoaded: {
             if (item) {
                 // 连接关闭信号
-                item.closed.connect(function() {
-                    notification.active = false
-                })
+                item.closed.connect(onClosedFunction)
                 // 初始化参数
                 item.contentText = notification.message
                 item.visible = true
@@ -267,9 +260,32 @@ Page{
     }
 
     function deleteUser() {
-        accountManager.deleteUser_api(SessionState.username)
-        passengerManager.deletePassengersByUsername_api(SessionState.username)
-        SessionState.clear()
+        var result = bookingSystem.deleteUser_api({
+            username: SessionState.username
+        })
+        // 如果注销成功，则弹出弹窗，用户确认后，返回登录页面
+        if (result.success) {
+            notification.onClosedFunction = function() {
+                notification.active = false
+                //清空参数
+                SessionState.clear()
+                // 清空主内容区
+                if (mainWindow && mainWindow.stackView) {
+                    mainWindow.stackView.clear()
+                }
+            }
+            notification.message = "用户注销成功！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+        }
+        else {
+            notification.onClosedFunction = function() {
+                wnotificationarning.active = false
+            }
+            notification.message = result.message
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+        }
     }
 
     function editPassengerInfo(name, phoneNumber, id) {

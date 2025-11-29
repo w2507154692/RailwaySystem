@@ -258,6 +258,18 @@ bool OrderManager::hasUnusedOrderForPassenger(const QString &username, const QSt
     return false;
 }
 
+bool OrderManager::deleteOrdersByUsername(const QString &username) {
+    for (auto it = orders.begin(); it != orders.end();) {
+        if (it->getUsername() == username) {
+            orders.erase(it);
+        }
+        else {
+            it++;
+        }
+    }
+    return true;
+}
+
 bool OrderManager::refreshOrderStatus() {
     Date nowDate;
     Time nowTime;

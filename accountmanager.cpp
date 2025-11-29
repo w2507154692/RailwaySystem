@@ -179,19 +179,14 @@ QVariantMap AccountManager::unlockAdmin_api(const QString &username) {
     return result;
 }
 
-QVariantMap AccountManager::deleteUser_api(const QString &username) {
-    QVariantMap result;
+bool AccountManager::deleteUser(const QString &username) {
     for (auto it = users.begin(); it != users.end(); it++) {
         if (it->getUsername() == username) {
             users.erase(it);
-            result["success"] = true;
-            result["message"] = QString("用户 %1 成功注销！").arg(username);
-            return result;
+            return true;
         }
     }
-    result["success"] = false;
-    result["message"] = QString("用户 %1 不存在！").arg(username);
-    return result;
+    return false;
 }
 
 QVariantMap AccountManager::editUserProfile_api(const QString &username, const QString &name, const QString &phoneNumber, const QString &id) {

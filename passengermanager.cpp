@@ -40,18 +40,6 @@ QVariantMap PassengerManager::deletePassengerByUsernameAndId_api(const QString &
     return result;
 }
 
-QVariantMap PassengerManager::deletePassengersByUsername_api(const QString &username) {
-    QVariantMap result;
-    for (auto it = passengers.begin(); it != passengers.end(); it++) {
-        if (it->getUsername() == username) {
-            passengers.erase(it);
-        }
-    }
-    result["success"] = true;
-    result["message"] = QString("用户 %1 下的所有乘车人成功删除！").arg(username);
-    return result;
-}
-
 QVariantMap PassengerManager::editPassenger_api(const QString &username, const QString &id_old, const QString &name, const QString &phoneNumber, const QString &id_new, const QString &type) {
     QVariantMap result;
     // 判断是否该用户下有重复的乘车人
@@ -92,6 +80,18 @@ QVariantMap PassengerManager::editPassenger_api(const QString &username, const Q
     result["success"] = false;
     result["message"] = "无法找到需要修改的乘车人！";
     return result;
+}
+
+bool PassengerManager::deletePassengersByUsername(const QString &username) {
+    for (auto it = passengers.begin(); it != passengers.end();) {
+        if (it->getUsername() == username) {
+            passengers.erase(it);
+        }
+        else {
+            it++;
+        }
+    }
+    return true;
 }
 
 std::vector<Passenger> PassengerManager::getPassengersById(const QString &id) {
