@@ -102,16 +102,31 @@ Page {
                                     anchors.fill: parent
                                     cursorShape: Qt.PointingHandCursor
                                     onClicked: {
-                                        editPassengerInfoDialog.initialName = modelData.name
-                                        editPassengerInfoDialog.initialPhoneNumber = modelData.phoneNumber
-                                        editPassengerInfoDialog.initialId = modelData.id
-                                        editPassengerInfoDialog.initialType = modelData.type
-                                        editPassengerInfoDialog.onConfirmed = function(name, phoneNumber, id, type) {
-                                            editPassengerInfo(modelData.id, name, phoneNumber, id, type)
+                                        // 先判断能否修改（即有没有待乘坐订单）
+                                        var result = bookingSystem.isPassengerEditable({
+                                            username: modelData.username,
+                                            passengerId: modelData.id
+                                        })
+                                        if (!result.success) {
+                                            warning.onConfirmed = function() {
+                                                warning.active = false
+                                            }
+                                            warning.message = result.message
+                                            warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
+                                            warning.active = true;
                                         }
+                                        else {
+                                            editPassengerInfoDialog.initialName = modelData.name
+                                            editPassengerInfoDialog.initialPhoneNumber = modelData.phoneNumber
+                                            editPassengerInfoDialog.initialId = modelData.id
+                                            editPassengerInfoDialog.initialType = modelData.type
+                                            editPassengerInfoDialog.onConfirmed = function(name, phoneNumber, id, type) {
+                                                editPassengerInfo(modelData.id, name, phoneNumber, id, type)
+                                            }
 
-                                        editPassengerInfoDialog.source = "qrc:/qml/pages/EditPassengerInfoDialog.qml"
-                                        editPassengerInfoDialog.active = true
+                                            editPassengerInfoDialog.source = "qrc:/qml/pages/EditPassengerInfoDialog.qml"
+                                            editPassengerInfoDialog.active = true
+                                        }
                                     }
                                 }
                                 Image {
@@ -197,7 +212,7 @@ Page {
 
     Loader {
         property string message: ""
-        property var onConfirmed: null
+        property var onConfirmed: function() {}
         id: warning
         source: ""
         active: false

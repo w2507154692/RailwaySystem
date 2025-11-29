@@ -19,6 +19,7 @@ QVariantList PassengerManager::getPassengersByUsername_api(const QString &userna
         map["phoneNumber"] = passenger.getPhoneNumber();
         map["id"] = passenger.getId();
         map["type"] = passenger.getType();
+        map["username"] = passenger.getUsername();
         list << map;
     }
     return list;

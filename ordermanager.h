@@ -37,6 +37,8 @@ public:
     bool createOrder(Order &order);
     // 改签订单
     bool rescheduleOrder(const QString &orderNumber);
+    // 输入乘车人，判断该乘车人有无待乘坐订单（用于乘车人修改前判断）
+    bool hasUnusedOrderForPassenger(const QString &username, const QString &passengerId);
 
 private:
     std::vector<Order> getOrdersByUsername(const QString &username);

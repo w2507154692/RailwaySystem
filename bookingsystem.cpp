@@ -361,6 +361,26 @@ QVariantMap BookingSystem::createOrder_api(const QVariantMap &info) {
     return result;
 }
 
+QVariantMap BookingSystem::isPassengerEditable(const QVariantMap &info) {
+    QVariantMap result;
+    QString username = info["username"].toString();
+    QString passengerId = info["passengerId"].toString();
+    auto passengerFindResult = passenger_manager->getPassengerByUsernameAndId(username, passengerId);
+    if (!passengerFindResult) {
+        result["success"] = false;
+        result["message"] = QString("用户 %1 下的乘车人 %2 不存在！").arg(username, passengerId);
+        return result;
+    }
+    if (order_manager->hasUnusedOrderForPassenger(username, passengerId)) {
+        result["success"] = false;
+        result["message"] = "该乘车人有待乘坐订单，无法修改乘车人信息！";
+        return result;
+    }
+    result["success"] = true;
+    result["message"] = "该乘车人信息可以修改！";
+    return result;
+}
+
 std::tuple<double, double, double> BookingSystem::computePrice(const QString &trainNumber, Station &startStation, Station &endStation) {
     Train train = train_manager->getTrainByTrainNumber(trainNumber).value();
     Timetable timetable = train.getTimetable();

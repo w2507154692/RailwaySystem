@@ -249,6 +249,15 @@ bool OrderManager::rescheduleOrder(const QString &orderNumber) {
     return false;
 }
 
+bool OrderManager::hasUnusedOrderForPassenger(const QString &username, const QString &passengerId) {
+    for (auto order : orders) {
+        if (order.getStatus() == "待乘坐" && order.getPassenger().getUsername() == username && order.getPassenger().getId() == passengerId) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool OrderManager::refreshOrderStatus() {
     Date nowDate;
     Time nowTime;
