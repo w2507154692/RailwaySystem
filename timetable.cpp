@@ -90,8 +90,8 @@ std::vector<Station> Timetable::getStationsBetweenStations(const Station &startS
     return result;
 }
 
-std::vector<std::tuple<Station, Time, Time, int, QString>> Timetable::getInfo(const QString &startStationName, const QString &endStationName) {
-    std::vector<std::tuple<Station, Time, Time, int, QString>> result;
+std::vector<std::tuple<Station, Time, Time, int, int, int, QString>> Timetable::getInfo(const QString &startStationName, const QString &endStationName) {
+    std::vector<std::tuple<Station, Time, Time, int, int, int, QString>> result;
     int startStationIndex = getIndexByStationName(startStationName);
     int endStationIndex = getIndexByStationName(endStationName);
     int len =table.size();
@@ -108,6 +108,8 @@ std::vector<std::tuple<Station, Time, Time, int, QString>> Timetable::getInfo(co
         }
         Time arriveTime = std::get<1>(table[i]);
         Time departureTime = std::get<2>(table[i]);
+        int arriveDay = std::get<3>(table[i]);
+        int departureDay = std::get<4>(table[i]);
         int stopInterval;
         if (arriveTime.isNull() || departureTime.isNull()) {
             stopInterval = -1;
@@ -119,14 +121,14 @@ std::vector<std::tuple<Station, Time, Time, int, QString>> Timetable::getInfo(co
             stopInterval = (departureTime - arriveTime) / 60;
         }
 
-        std::tuple<Station, Time, Time, int, QString> t = std::make_tuple(std::get<0>(table[i]), arriveTime, departureTime, stopInterval, info);
+        std::tuple<Station, Time, Time, int, int, int, QString> t = std::make_tuple(std::get<0>(table[i]), arriveTime, departureTime, arriveDay, departureDay, stopInterval, info);
         result.push_back(t);
     }
     return result;
 }
 
-std::vector<std::tuple<Station, Time, Time, int, QString>> Timetable::getInfo() {
-    std::vector<std::tuple<Station, Time, Time, int, QString>> result;
+std::vector<std::tuple<Station, Time, Time, int, int, int, QString>> Timetable::getInfo() {
+    std::vector<std::tuple<Station, Time, Time, int, int, int, QString>> result;
     int startStationIndex = 0;
     int endStationIndex = table.size() - 1;
     int len =table.size();
@@ -143,6 +145,8 @@ std::vector<std::tuple<Station, Time, Time, int, QString>> Timetable::getInfo() 
         }
         Time arriveTime = std::get<1>(table[i]);
         Time departureTime = std::get<2>(table[i]);
+        int arriveDay = std::get<3>(table[i]);
+        int departureDay = std::get<4>(table[i]);
         int stopInterval;
         if (arriveTime.isNull() || departureTime.isNull()) {
             stopInterval = -1;
@@ -154,7 +158,7 @@ std::vector<std::tuple<Station, Time, Time, int, QString>> Timetable::getInfo() 
             stopInterval = (departureTime - arriveTime) / 60;
         }
 
-        std::tuple<Station, Time, Time, int, QString> t = std::make_tuple(std::get<0>(table[i]), arriveTime, departureTime, stopInterval, info);
+        std::tuple<Station, Time, Time, int, int, int, QString> t = std::make_tuple(std::get<0>(table[i]), arriveTime, departureTime, arriveDay, departureDay, stopInterval, info);
         result.push_back(t);
     }
     return result;
