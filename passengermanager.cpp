@@ -52,14 +52,14 @@ QVariantMap PassengerManager::editPassenger_api(const QString &username, const Q
     // 如果已有该id和name信息，则根据已有的验证修改后的信息是否合法
     std::vector<Passenger> p = getPassengersById(id_new);
     if (id_new != id_old) {
-        if (p.size() > 0 && p[0].getName() != name) {
+        if (p.size() > 0 && (p[0].getName() != name || p[0].getType() != type)) {
             result["success"] = false;
             result["message"] = "实名信息不符！";
             return result;
         }
     }
     else {
-        if (p.size() > 1 && p[0].getName() != name) {
+        if (p.size() > 1 && (p[0].getName() != name || p[0].getType() != type)) {
             result["success"] = false;
             result["message"] = "实名信息不符！";
             return result;
@@ -79,6 +79,36 @@ QVariantMap PassengerManager::editPassenger_api(const QString &username, const Q
     }
     result["success"] = false;
     result["message"] = "无法找到需要修改的乘车人！";
+    return result;
+}
+
+QVariantMap PassengerManager::addPassenger_api(QVariantMap info) {
+    QString username = info["username"].toString();
+    QString name = info["name"].toString();
+    QString phoneNumber = info["phoneNumber"].toString();
+    QString id = info["id"].toString();
+    QString type = info["type"].toString();
+    QVariantMap result;
+
+    // 判断是否该用户下有重复的乘车人
+    auto findResult = getPassengerByUsernameAndId(username, id);
+    if (findResult) {
+        result["success"] = false;
+        result["message"] = "乘车人信息重复！";
+        return result;
+    }
+    // 如果已有该id和name信息，则根据已有的验证修改后的信息是否合法
+    std::vector<Passenger> p = getPassengersById(id);
+    if (p.size() > 0 && (p[0].getName() != name || p[0].getType() != type)) {
+        result["success"] = false;
+        result["message"] = "实名信息不符！";
+        return result;
+    }
+    // 信息合法，准备添加
+    Passenger passenger(name, phoneNumber, id, type, username);
+    passengers.push_back(passenger);
+    result["success"] = true;
+    result["message"] = "乘车人添加成功！";
     return result;
 }
 

@@ -203,6 +203,11 @@ Page {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
+                            editPassengerInfoDialog.onConfirmed = function(name, phoneNumber, id, type) {
+                                addPassengerInfo(name, phoneNumber, id, type)
+                            }
+                            editPassengerInfoDialog.source = "qrc:/qml/pages/EditPassengerInfoDialog.qml"
+                            editPassengerInfoDialog.active = true
                         }
                     }
                 }
@@ -302,39 +307,76 @@ Page {
         });
     }
 
-    function editPassengerInfo(id_old, name, phoneNumber, id_new, type) {
+    function isPassengerInfoLegal(name, phoneNumber, id, type) {
         if (name === "") {
             notification.message = "姓名不能为空！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
-            return
+            return false
         }
         if (phoneNumber === "") {
             notification.message = "联系方式不能为空！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
-            return
+            return false
         }
         if (phoneNumber.length !== 11) {
             notification.message = "联系方式不合法！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
-            return
+            return false
         }
-        if (id_new === "") {
+        if (id === "") {
             notification.message = "身份证号不能为空！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
-            return
+            return false
         }
-        if (id_new.length !== 18 || !(id_new.indexOf('x') === -1 || id_new.indexOf('x') === id_new.length - 1)) {
+        if (id.length !== 18 || !(id.indexOf('x') === -1 || id.indexOf('x') === id.length - 1)) {
             notification.message = "身份证号不合法！"
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
             notification.active = true
-            return
+            return false
         }
+        if (type === "") {
+            notification.message = "优惠类型不能为空！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return false
+        }
+        return true
+    }
+
+    function editPassengerInfo(id_old, name, phoneNumber, id_new, type) {
+        if (!isPassengerInfoLegal(name, phoneNumber, id_new, type))
+            return
 
         var result = passengerManager.editPassenger_api(SessionState.username, id_old, name, phoneNumber, id_new, type)
+        if (result.success) {
+            notification.message = result.message
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            editPassengerInfoDialog.active = false
+            refreshPassengers()
+        }
+        else {
+            notification.message = result.message
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+        }
+    }
+
+    function addPassengerInfo(name, phoneNumber, id, type) {
+        if (!isPassengerInfoLegal(name, phoneNumber, id, type))
+            return
+
+        var result = passengerManager.addPassenger_api({
+            username: SessionState.username,
+            name: name,
+            phoneNumber: phoneNumber,
+            id: id,
+            type: type
+        })
         if (result.success) {
             notification.message = result.message
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
