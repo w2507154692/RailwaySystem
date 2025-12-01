@@ -35,6 +35,8 @@ public:
     Q_INVOKABLE QVariantMap editUserProfile_api(const QString &username, const QString &name, const QString &phoneNumber, const QString &id);
     // 注册账号
     Q_INVOKABLE QVariantMap registerUser_api(QVariantMap info);
+    // 重置密码
+    Q_INVOKABLE QVariantMap resetPassword_api(QVariantMap info);
     // 注销账户，传入用户名
     bool deleteUser(const QString &username);
     // 通过用户名获得用户信息

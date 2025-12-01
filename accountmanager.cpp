@@ -227,6 +227,31 @@ QVariantMap AccountManager::registerUser_api(QVariantMap info) {
     return result;
 }
 
+QVariantMap AccountManager::resetPassword_api(QVariantMap info) {
+    QString username = info["username"].toString();
+    QString password = info["password"].toString();
+    QVariantMap result;
+
+    for (auto it = users.begin(); it != users.end(); it++) {
+        if (it->getUsername() == username) {
+            it->setPassword(password);
+            result["success"] = true;
+            result["message"] = "密码重置成功！";
+            return result;
+        }
+    }
+    for (auto it = admins.begin(); it != admins.end(); it++) {
+        if (it->getUsername() == username) {
+            it->setPassword(password);
+            result["success"] = true;
+            result["message"] = "密码重置成功！";
+            return result;
+        }
+    }
+    result["success"] = false;
+    result["message"] = QString("账户 %1 不存在！").arg(username);
+    return result;
+}
 
 bool AccountManager::deleteUser(const QString &username) {
     for (auto it = users.begin(); it != users.end(); it++) {

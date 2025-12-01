@@ -6,20 +6,23 @@ import "../components"
 
 Window {
     id: mainWindow
-    width: 400; height: 260
+    width: 420; height: 260
     minimumWidth: 400; minimumHeight: 260;
     maximumWidth: 1920; maximumHeight: 1440;
     visible: true
     color: "transparent"
     flags: Qt.FramelessWindowHint
+    modality: Qt.ApplicationModal
+
+    signal confirmed(var info)
+    signal canceled()
 
     Rectangle {
         id:root
         width: parent.width
         height: parent.height
         color: "#ffffff"
-        border.color: "#666"
-        border.width: 2
+        border.color: "#808080"
         radius: 16
 
         MouseArea {
@@ -42,15 +45,15 @@ Window {
         // 顶部渐变标题栏
         Header{
             titleFontSize: 18
-            id:titleBar
-            width: parent.width - 4
+            id: titleBar
+            width: parent.width - 5
             height: 45
             anchors.top: parent.top
-            anchors.topMargin: 2
+            anchors.topMargin: 1
             anchors.left: parent.left
-            anchors.leftMargin: 2
+            anchors.leftMargin: 1
             title: "重置密码"
-
+            onCloseClicked: canceled()
         }
 
         // 内容区
@@ -77,7 +80,8 @@ Window {
                 }
 
                 TextField {
-                    id: usernameField
+                    id: passwordField
+                    placeholderText: "请输入密码"
                     Layout.fillWidth: true
                     height: 32
                     font.pixelSize: 14
@@ -102,7 +106,8 @@ Window {
                     horizontalAlignment: Text.AlignRight
                 }
                 TextField {
-                    id: passwordField
+                    id: passwordAgainField
+                    placeholderText: "请再次输入密码"
                     Layout.fillWidth: true
                     height: 32
                     echoMode: TextInput.Password
@@ -127,6 +132,10 @@ Window {
                     height: 26
                     width:100
                     fontSize:14
+                    onClicked: confirmed({
+                        password: passwordField.text,
+                        passwordAgain: passwordAgainField.text
+                    })
                 }
 
                 Item { Layout.fillWidth: true }
@@ -138,6 +147,7 @@ Window {
                     height: 26
                     width:100
                     fontSize:14
+                    onClicked: canceled()
                 }
 
                 Item { Layout.preferredWidth: 22}

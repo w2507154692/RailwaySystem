@@ -79,6 +79,13 @@ Page {
                                 fontSize: 15
                                 borderRadius: 7
                                 buttonType: "confirm"
+                                onClicked: {
+                                    resetPasswordDialog.onConfirmedFunction = function(info) {
+                                        resetPassword(modelData.username, info)
+                                    }
+                                    resetPasswordDialog.source = "qrc:/qml/pages/ResetPasswordDialog.qml"
+                                    resetPasswordDialog.active = true
+                                }
                             }
                             CustomButton {
                                 text: "锁定"
@@ -129,9 +136,7 @@ Page {
                                     warning.active = true
                                 }
                             }
-
-                                Item { Layout.fillWidth: true } // 占位，按钮靠右
-
+                            Item { Layout.fillWidth: true } // 占位，按钮靠右
                             }
 
 
@@ -164,29 +169,6 @@ Page {
                 }
 
                 Item { Layout.fillWidth: true }
-
-                // 添加按钮
-                Rectangle {
-                    width: 38
-                    height: 38
-                    Layout.alignment: Qt.AlignRight
-                    Layout.rightMargin: 30
-                    Layout.topMargin: 4
-
-                    Image {
-                        source: "qrc:/resources/icon/Add.png" // 换成你的加号图标资源路径
-                        anchors.centerIn: parent
-                        width: 50
-                        height: 50
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: {
-
-                        }
-                    }
-                }
             }
 
             Item {
@@ -229,6 +211,26 @@ Page {
                 })
                 // 初始化参数
                 item.contentText = message
+                item.visible = true
+            }
+        }
+    }
+
+    // 重置密码
+    Loader {
+        property var onConfirmedFunction: function() {}
+        id: resetPasswordDialog
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接取消信号
+                item.canceled.connect(function() {
+                    resetPasswordDialog.active = false
+                })
+                // 连接确认信号
+                item.confirmed.connect(onConfirmedFunction)
+                //初始化参数
                 item.visible = true
             }
         }
@@ -279,4 +281,39 @@ Page {
         });
     }
 
+    function resetPassword(username, info) {
+        var password = info.password
+        var passwordAgain = info.passwordAgain
+
+        if (password === "") {
+            notification.message = "密码不能为空！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (password !== passwordAgain) {
+            notification.message = "两次输入密码不一致！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+
+        var result = accountManager.resetPassword_api({
+            username: username,
+            password: password
+        })
+
+        if (result.success) {
+            notification.message = result.message
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            resetPasswordDialog.active = false
+            refreshAccounts()
+        }
+        else {
+            notification.message = result.message
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+        }
+    }
 }
