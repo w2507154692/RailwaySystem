@@ -6,11 +6,15 @@ import "../components"
 
 Window {
     id: mainWindow
-    width: 600; height: 410
+    width: 600; height: 450
     minimumWidth: 600; minimumHeight: 410
     visible: true
     color: "#ffffff"
     flags:Qt.FramelessWindowHint
+    modality: Qt.ApplicationModal
+
+    signal confirmed(var info)
+    signal canceled()
 
     Rectangle {
         id: root
@@ -19,6 +23,7 @@ Window {
         color: "#ffffff"
         border.color: "#666"
         border.width: 2
+        radius: 16
 
         MouseArea {
            anchors.fill: parent
@@ -48,6 +53,7 @@ Window {
             anchors.left: parent.left
             anchors.leftMargin: 2
             title: "用户注册"
+            onCloseClicked: canceled()
         }
 
         // 内容区
@@ -88,11 +94,13 @@ Window {
                     horizontalAlignment: Text.AlignRight
                 }
                 TextField {
-                    id: firstStart
-                    Layout.preferredWidth: 200
+                    id: usernameField
+                    placeholderText: "请输入用户名（字母、数字或下划线，须以字母开头）"
+                    validator: RegularExpressionValidator { regularExpression: /^[A-Za-z0-9_]{0,18}$/ }
+                    Layout.preferredWidth: 350
                     height: 24
                     font.pixelSize: 12
-                    horizontalAlignment: Text.AlignHCenter
+                    horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     background: Rectangle {
                         radius: 5
@@ -114,11 +122,12 @@ Window {
                     horizontalAlignment: Text.AlignRight
                 }
                 TextField {
-                    id: password
-                    Layout.preferredWidth: 200
+                    id: passwordField
+                    placeholderText: "请输入密码"
+                    Layout.preferredWidth: 350
                     height: 24
                     font.pixelSize: 12
-                    horizontalAlignment: Text.AlignHCenter
+                    horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     background: Rectangle {
                         radius: 5
@@ -140,11 +149,12 @@ Window {
                     horizontalAlignment: Text.AlignRight
                 }
                 TextField {
-                    id: passwordAgain
-                    Layout.preferredWidth: 200
+                    id: passwordAgainField
+                    placeholderText: "请再次输入密码"
+                    Layout.preferredWidth: 350
                     height: 24
                     font.pixelSize: 12
-                    horizontalAlignment: Text.AlignHCenter
+                    horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     background: Rectangle {
                         radius: 5
@@ -182,11 +192,13 @@ Window {
                     horizontalAlignment: Text.AlignRight
                 }
                 TextField {
-                    id: name
+                    id: nameField
+                    placeholderText: "请输入姓名"
+                    validator: RegularExpressionValidator { regularExpression: /^\p{Script=Han}+$/u }
                     Layout.preferredWidth: 100
                     height: 24
                     font.pixelSize: 12
-                    horizontalAlignment: Text.AlignHCenter
+                    horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     background: Rectangle {
                         radius: 5
@@ -204,11 +216,13 @@ Window {
                     horizontalAlignment: Text.AlignRight
                 }
                 TextField {
-                    id: phoneNumber
+                    id: phoneNumberField
+                    placeholderText: "请输入联系方式"
+                    validator: RegularExpressionValidator { regularExpression:  /^[0-9]{0,11}$/ }
                     Layout.preferredWidth: 150
                     height: 24
                     font.pixelSize: 12
-                    horizontalAlignment: Text.AlignHCenter
+                    horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     background: Rectangle {
                         radius: 5
@@ -230,11 +244,13 @@ Window {
                     horizontalAlignment: Text.AlignRight
                 }
                 TextField {
-                    id: identity
+                    id: idField
+                    placeholderText: "请输入身份证号"
+                    validator: RegularExpressionValidator { regularExpression: /^[0-9x]{0,18}$/ }
                     Layout.preferredWidth: 200
                     height: 24
                     font.pixelSize: 12
-                    horizontalAlignment: Text.AlignHCenter
+                    horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     background: Rectangle {
                         radius: 5
@@ -261,6 +277,14 @@ Window {
                     height: 26
                     width: 100
                     fontSize: 14
+                    onClicked: confirmed({
+                        username: usernameField.text,
+                        password: passwordField.text,
+                        passwordAgain: passwordAgainField.text,
+                        name: nameField.text,
+                        phoneNumber: phoneNumberField.text,
+                        id: idField.text,
+                    })
                 }
                 Item { Layout.fillWidth: true }
                 // 取消按钮
@@ -270,448 +294,11 @@ Window {
                     height: 26
                     width: 100
                     fontSize: 14
+                    onClicked: canceled()
                 }
                 Item { Layout.preferredWidth: 80 }
             }
 
         }
-
-        // 内容区
-    //     ColumnLayout {
-    //         anchors.left: parent.left
-    //         anchors.leftMargin: 36
-    //         anchors.right: parent.right
-    //         anchors.rightMargin: 36
-    //         anchors.top: titleBar.bottom
-    //         anchors.topMargin: 16
-    //         anchors.bottom: parent.bottom
-    //         anchors.bottomMargin: 42
-    //         spacing: 0
-
-    //         // // 车厢数
-    //         // RowLayout {
-    //         //     Layout.fillWidth: true
-    //         //     spacing: 8
-    //         //     Label {
-    //         //         text: "车厢数："
-    //         //         font.pixelSize: 14
-    //         //         color: "#444"
-    //         //         Layout.preferredWidth: 70
-    //         //         // horizontalAlignment: Text.AlignRight
-    //         //     }
-    //         //     TextField {
-    //         //         id: totalCarriage
-    //         //         Layout.preferredWidth: 60
-    //         //         height: 26
-    //         //         font.pixelSize: 13
-    //         //         text: "16"
-    //         //         horizontalAlignment: Text.AlignHCenter
-    //         //         verticalAlignment: Text.AlignVCenter
-    //         //         background: Rectangle {
-    //         //             radius: 5
-    //         //             border.color: "#888"
-    //         //             border.width: 1
-    //         //             color: "#fff"
-    //         //         }
-    //         //     }
-    //         //     Item { Layout.fillWidth: true }
-    //         // }
-
-
-
-    //         // 注册
-    //         ColumnLayout {
-    //             Layout.fillWidth: true
-    //             spacing: 0
-
-                // Label {
-                //     text: "注册"
-                //     font.pixelSize: 14
-                //     color: "#4282e6"
-                //     Layout.topMargin: 10
-                //     Layout.bottomMargin: 2
-                // }
-
-                // Item{
-                //     Layout.preferredHeight: 2
-                // }
-
-                // // 分割线
-                // Rectangle {
-                //     Layout.fillWidth: true
-                //     height: 1
-                //     color: "#e0e6ef"
-                //     opacity: 0.9
-                // }
-
-                // Item{
-                //     Layout.fillHeight: true
-                // }
-
-                // RowLayout {
-                //     Layout.fillWidth: true
-                //     spacing: 10
-                //     Label {
-                //         text: "车厢："
-                //         font.pixelSize: 13
-                //         color: "#444"
-                //         Layout.preferredWidth: 45
-                //         horizontalAlignment: Text.AlignRight
-                //     }
-                //     TextField {
-                //         id: firstStart
-                //         Layout.preferredWidth: 40
-                //         height: 24
-                //         font.pixelSize: 12
-                //         text: "1"
-                //         horizontalAlignment: Text.AlignHCenter
-                //         verticalAlignment: Text.AlignVCenter
-                //         background: Rectangle {
-                //             radius: 5
-                //             border.color: "#888"
-                //             border.width: 1
-                //             color: "#fff"
-                //         }
-                //     }
-                //     Label { text: "到"; font.pixelSize: 13; color: "#444" }
-                //     TextField {
-                //         id: firstEnd
-                //         Layout.preferredWidth: 40
-                //         height: 24
-                //         font.pixelSize: 12
-                //         text: "2"
-                //         horizontalAlignment: Text.AlignHCenter
-                //         verticalAlignment: Text.AlignVCenter
-                //         background: Rectangle {
-                //             radius: 5
-                //             border.color: "#888"
-                //             border.width: 1
-                //             color: "#fff"
-                //         }
-                //     }
-                //     Label { text: "车厢"; font.pixelSize: 13; color: "#444" }
-
-                //     Item{
-                //         Layout.fillWidth: true
-                //     }
-
-                //     Label { text: "行数："; font.pixelSize: 13; color: "#444" }
-                //     TextField {
-                //         id: firstRows
-                //         Layout.preferredWidth: 40
-                //         height: 24
-                //         font.pixelSize: 12
-                //         text: "10"
-                //         horizontalAlignment: Text.AlignHCenter
-                //         verticalAlignment: Text.AlignVCenter
-                //         background: Rectangle {
-                //             radius: 5
-                //             border.color: "#888"
-                //             border.width: 1
-                //             color: "#fff"
-                //         }
-                //     }
-
-                //     Item{
-                //         Layout.fillWidth: true
-                //     }
-
-                //     Label { text: "列数："; font.pixelSize: 13; color: "#444" }
-                //     TextField {
-                //         id: firstCols
-                //         Layout.preferredWidth: 40
-                //         height: 24
-                //         font.pixelSize: 12
-                //         text: "2"
-                //         horizontalAlignment: Text.AlignHCenter
-                //         verticalAlignment: Text.AlignVCenter
-                //         background: Rectangle {
-                //             radius: 5
-                //             border.color: "#888"
-                //             border.width: 1
-                //             color: "#fff"
-                //         }
-                //     }
-                //     Item { Layout.fillWidth: true }
-                // }
-
-                // Item{
-                //     Layout.fillHeight: true
-                // }
-
-    //         }
-
-
-
-    //         // 二等座
-    //         ColumnLayout {
-    //             Layout.fillWidth: true
-    //             spacing: 0
-
-    //             Label {
-    //                 text: "二等座"
-    //                 font.pixelSize: 14
-    //                 color: "#4282e6"
-    //                 Layout.topMargin: 10
-    //                 Layout.bottomMargin: 2
-    //             }
-
-    //             Item{
-    //                 Layout.preferredHeight: 2
-    //             }
-
-    //             // 分割线
-    //             Rectangle {
-    //                 Layout.fillWidth: true
-    //                 height: 1
-    //                 color: "#e0e6ef"
-    //                 opacity: 0.9
-    //             }
-
-    //             Item{
-    //                 Layout.fillHeight: true
-    //             }
-
-    //             RowLayout {
-    //                 Layout.fillWidth: true
-    //                 spacing: 10
-    //                 Label {
-    //                     text: "车厢："
-    //                     font.pixelSize: 13
-    //                     color: "#444"
-    //                     Layout.preferredWidth: 45
-    //                     horizontalAlignment: Text.AlignRight
-    //                 }
-    //                 TextField {
-    //                     id: secondStart
-    //                     Layout.preferredWidth: 40
-    //                     height: 24
-    //                     font.pixelSize: 12
-    //                     text: "3"
-    //                     horizontalAlignment: Text.AlignHCenter
-    //                     verticalAlignment: Text.AlignVCenter
-    //                     background: Rectangle {
-    //                         radius: 5
-    //                         border.color: "#888"
-    //                         border.width: 1
-    //                         color: "#fff"
-    //                     }
-    //                 }
-    //                 Label { text: "到"; font.pixelSize: 13; color: "#444" }
-    //                 TextField {
-    //                     id: secondEnd
-    //                     Layout.preferredWidth: 40
-    //                     height: 24
-    //                     font.pixelSize: 12
-    //                     text: "14"
-    //                     horizontalAlignment: Text.AlignHCenter
-    //                     verticalAlignment: Text.AlignVCenter
-    //                     background: Rectangle {
-    //                         radius: 5
-    //                         border.color: "#888"
-    //                         border.width: 1
-    //                         color: "#fff"
-    //                     }
-    //                 }
-    //                 Label { text: "车厢"; font.pixelSize: 13; color: "#444" }
-
-    //                 Item{
-    //                     Layout.fillWidth: true
-    //                 }
-
-    //                 Label { text: "行数："; font.pixelSize: 13; color: "#444" }
-    //                 TextField {
-    //                     id: secondRows
-    //                     Layout.preferredWidth: 40
-    //                     height: 24
-    //                     font.pixelSize: 12
-    //                     text: "21"
-    //                     horizontalAlignment: Text.AlignHCenter
-    //                     verticalAlignment: Text.AlignVCenter
-    //                     background: Rectangle {
-    //                         radius: 5
-    //                         border.color: "#888"
-    //                         border.width: 1
-    //                         color: "#fff"
-    //                     }
-    //                 }
-
-    //                 Item{
-    //                     Layout.fillWidth: true
-    //                 }
-
-    //                 Label { text: "列数："; font.pixelSize: 13; color: "#444" }
-    //                 TextField {
-    //                     id: secondCols
-    //                     Layout.preferredWidth: 40
-    //                     height: 24
-    //                     font.pixelSize: 12
-    //                     text: "5"
-    //                     horizontalAlignment: Text.AlignHCenter
-    //                     verticalAlignment: Text.AlignVCenter
-    //                     background: Rectangle {
-    //                         radius: 5
-    //                         border.color: "#888"
-    //                         border.width: 1
-    //                         color: "#fff"
-    //                     }
-    //                 }
-    //                 Item { Layout.fillWidth: true }
-    //             }
-
-    //             Item{
-    //                 Layout.fillHeight: true
-    //             }
-
-    //         }
-
-
-    //         // 商务座
-    //         ColumnLayout {
-    //             Layout.fillWidth: true
-    //             spacing: 0
-
-    //             Label {
-    //                 text: "商务座"
-    //                 font.pixelSize: 14
-    //                 color: "#4282e6"
-    //                 Layout.topMargin: 10
-    //                 Layout.bottomMargin: 2
-    //             }
-
-    //             Item{
-    //                 Layout.preferredHeight: 2
-    //             }
-
-    //             // 分割线
-    //             Rectangle {
-    //                 Layout.fillWidth: true
-    //                 height: 1
-    //                 color: "#e0e6ef"
-    //                 opacity: 0.9
-    //             }
-
-    //             Item{
-    //                 Layout.fillHeight: true
-    //             }
-
-    //             RowLayout {
-    //                 Layout.fillWidth: true
-    //                 spacing: 10
-    //                 Label {
-    //                     text: "车厢："
-    //                     font.pixelSize: 13
-    //                     color: "#444"
-    //                     Layout.preferredWidth: 45
-    //                     horizontalAlignment: Text.AlignRight
-    //                 }
-    //                 TextField {
-    //                     id: businessStart
-    //                     Layout.preferredWidth: 40
-    //                     height: 24
-    //                     font.pixelSize: 12
-    //                     text: "15"
-    //                     horizontalAlignment: Text.AlignHCenter
-    //                     verticalAlignment: Text.AlignVCenter
-    //                     background: Rectangle {
-    //                         radius: 5
-    //                         border.color: "#888"
-    //                         border.width: 1
-    //                         color: "#fff"
-    //                     }
-    //                 }
-    //                 Label { text: "到"; font.pixelSize: 13; color: "#444" }
-    //                 TextField {
-    //                     id: businessEnd
-    //                     Layout.preferredWidth: 40
-    //                     height: 24
-    //                     font.pixelSize: 12
-    //                     text: "16"
-    //                     horizontalAlignment: Text.AlignHCenter
-    //                     verticalAlignment: Text.AlignVCenter
-    //                     background: Rectangle {
-    //                         radius: 5
-    //                         border.color: "#888"
-    //                         border.width: 1
-    //                         color: "#fff"
-    //                     }
-    //                 }
-    //                 Label { text: "车厢"; font.pixelSize: 13; color: "#444" }
-
-    //                 Item{
-    //                     Layout.fillWidth: true
-    //                 }
-
-    //                 Label { text: "行数："; font.pixelSize: 13; color: "#444" }
-    //                 TextField {
-    //                     id: businessRows
-    //                     Layout.preferredWidth: 40
-    //                     height: 24
-    //                     font.pixelSize: 12
-    //                     text: "10"
-    //                     horizontalAlignment: Text.AlignHCenter
-    //                     verticalAlignment: Text.AlignVCenter
-    //                     background: Rectangle {
-    //                         radius: 5
-    //                         border.color: "#888"
-    //                         border.width: 1
-    //                         color: "#fff"
-    //                     }
-    //                 }
-
-    //                 Item{
-    //                     Layout.fillWidth: true
-    //                 }
-
-    //                 Label { text: "列数："; font.pixelSize: 13; color: "#444" }
-    //                 TextField {
-    //                     id: businessCols
-    //                     Layout.preferredWidth: 40
-    //                     height: 24
-    //                     font.pixelSize: 12
-    //                     text: "2"
-    //                     horizontalAlignment: Text.AlignHCenter
-    //                     verticalAlignment: Text.AlignVCenter
-    //                     background: Rectangle {
-    //                         radius: 5
-    //                         border.color: "#888"
-    //                         border.width: 1
-    //                         color: "#fff"
-    //                     }
-    //                 }
-    //                 Item { Layout.fillWidth: true }
-    //             }
-
-    //             Item{
-    //                 Layout.fillHeight: true
-    //             }
-
-    //         }
-
-            // // 按钮区
-            // RowLayout {
-            //     Layout.fillWidth: true
-            //     Layout.topMargin: 20
-            //     Item { Layout.preferredWidth: 80 }
-            //     // 确认按钮
-            //     CustomButton{
-            //         buttonType: "confirm"
-            //         text: "确认"
-            //         height: 26
-            //         width: 100
-            //         fontSize: 14
-            //     }
-            //     Item { Layout.fillWidth: true }
-            //     // 取消按钮
-            //     CustomButton{
-            //         buttonType: "cancel"
-            //         text: "取消"
-            //         height: 26
-            //         width: 100
-            //         fontSize: 14
-            //     }
-            //     Item { Layout.preferredWidth: 80 }
-            // }
-    //     }
     }
 }

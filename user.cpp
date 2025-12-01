@@ -3,6 +3,12 @@
 
 User::User() {}
 
+User::User(UserProfile &profile, bool locked, const QString &username, const QString &password)
+    : profile(profile),
+      locked(locked),
+      username(username),
+      password(password) {}
+
 UserProfile User::getProfile() {
     return profile;
 }

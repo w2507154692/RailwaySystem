@@ -5,7 +5,7 @@ import "../components"
 
 // 嵌入式登录页面，不再是窗口，交由外层主窗口控制显示与销毁
 Item {
-    id: login
+    id: loginPage
     width: parent ? parent.width : 960
     height: parent ? parent.height : 720
     // width: 960
@@ -139,7 +139,7 @@ Item {
                     onExited: loginButton.color = "#409CFC"
                     onPressed: loginButton.color = "#174a73"
                     onReleased: loginButton.color = "#1f5f99"
-                    onClicked: doLogin()
+                    onClicked: login()
                 }
             }
 
@@ -156,7 +156,12 @@ Item {
                     onPressed: { registerButton.color = "#e8e8e8"; registerButton.border.color = "#999" }
                     onReleased: { registerButton.color = "#f8f8f8"; registerButton.border.color = "#aaa" }
                     onClicked: {
-                        // TODO: 注册逻辑
+                        registerDialog.source = "qrc:/qml/pages/RegisterDialog.qml"
+                        registerDialog.onConfirmedFunction = function(info) {
+                            register(info)
+                        }
+
+                        registerDialog.active = true
                     }
                 }
             }
@@ -185,8 +190,44 @@ Item {
         }
     }
 
-    function doLogin() {
-        console.log("Login triggered, isAdminLogin:", isAdminLogin)
+    Loader {
+        property string message: ""
+        id: notification
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    notification.active = false
+                })
+                // 初始化参数
+                item.contentText = message
+                item.visible = true
+            }
+        }
+    }
+
+    Loader {
+        property var onConfirmedFunction: function() {}
+        id: registerDialog
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接取消信号
+                item.canceled.connect(function() {
+                    registerDialog.active = false
+                })
+                // 连接确认信号
+                item.confirmed.connect(onConfirmedFunction)
+                // 初始化参数
+                item.visible = true
+            }
+        }
+    }
+
+    function login() {
         errorMessage = "" // 清空之前的错误
 
         var result
@@ -196,8 +237,6 @@ Item {
             result = accountManager.loginUser_api(username.text, password.text)
         }
 
-        console.log("Login result:", JSON.stringify(result))
-
         if (result.success) {
             loginSuccess(isAdminLogin ? "admin" : "user")
             SessionState.role = isAdminLogin ? "admin" : "user"
@@ -206,6 +245,84 @@ Item {
             errorMessage = result.message
             warning.source = "qrc:/qml/components/ConfirmDialog.qml"
             warning.active = true
+        }
+    }
+
+    function register(info) {
+        var username = info.username
+        var password = info.password
+        var passwordAgain = info.passwordAgain
+        var name = info.name
+        var phoneNumber = info.phoneNumber
+        var id = info.id
+
+        if (username === "") {
+            notification.message = "用户名不能为空！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        var firstChar = username.charCodeAt(0)
+        if (!((firstChar >= 65 && firstChar <= 90) || (firstChar >= 97 && firstChar <= 122))) {
+            notification.message = "用户名必须以字母开头！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (password === "") {
+            notification.message = "密码不能为空！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (password !== passwordAgain) {
+            notification.message = "两次输入密码不一致！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (name === "") {
+            notification.message = "姓名不能为空！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (phoneNumber === "") {
+            notification.message = "联系方式不能为空！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (phoneNumber.length !== 11) {
+            notification.message = "联系方式不合法！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (id === "") {
+            notification.message = "身份证号不能为空！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+        if (id.length !== 18 || !(id.indexOf('x') === -1 || id.indexOf('x') === id.length - 1)) {
+            notification.message = "身份证号不合法！"
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            return
+        }
+
+        var result = accountManager.registerUser_api(info)
+        if (result.success) {
+            notification.message = result.message
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
+            registerDialog.active = false
+        }
+        else {
+            notification.message = result.message
+            notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+            notification.active = true
         }
     }
 }

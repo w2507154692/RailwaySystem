@@ -31,11 +31,16 @@ public:
     Q_INVOKABLE QVariantMap unlockUser_api(const QString &username);
     // 对某个管理员解锁，传入用户名
     Q_INVOKABLE QVariantMap unlockAdmin_api(const QString &username);
-    // 注销账户，传入用户名
-    bool deleteUser(const QString &username);
     // 修改用户个人信息，传入用户名，以及修改后的姓名、联系方式和身份证号
     Q_INVOKABLE QVariantMap editUserProfile_api(const QString &username, const QString &name, const QString &phoneNumber, const QString &id);
+    // 注册账号
+    Q_INVOKABLE QVariantMap registerUser_api(QVariantMap info);
+    // 注销账户，传入用户名
+    bool deleteUser(const QString &username);
+    // 通过用户名获得用户信息
     std::optional<User> getUserByUsername(const QString &username);
+    // 通过用户名获得管理员信息
+    std::optional<Admin> getAdminByUsername(const QString &username);
 
 private:
     std::optional<Admin> findAdminByUsername(const QString &username);

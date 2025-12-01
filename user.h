@@ -13,6 +13,7 @@ private:
     
 public:
     User();
+    User(UserProfile &profile, bool locked, const QString &username, const QString &password);
 
     UserProfile getProfile();
     bool setProfile(const UserProfile &profile);

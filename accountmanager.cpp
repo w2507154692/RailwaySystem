@@ -179,16 +179,6 @@ QVariantMap AccountManager::unlockAdmin_api(const QString &username) {
     return result;
 }
 
-bool AccountManager::deleteUser(const QString &username) {
-    for (auto it = users.begin(); it != users.end(); it++) {
-        if (it->getUsername() == username) {
-            users.erase(it);
-            return true;
-        }
-    }
-    return false;
-}
-
 QVariantMap AccountManager::editUserProfile_api(const QString &username, const QString &name, const QString &phoneNumber, const QString &id) {
     QVariantMap result;
 
@@ -214,10 +204,54 @@ QVariantMap AccountManager::editUserProfile_api(const QString &username, const Q
     return result;
 }
 
+QVariantMap AccountManager::registerUser_api(QVariantMap info) {
+    QVariantMap result;
+    QString username = info["username"].toString();
+    QString password = info["password"].toString();
+    QString name = info["name"].toString();
+    QString phoneNumber = info["phoneNumber"].toString();
+    QString id = info["id"].toString();
+
+    // 用户名重复
+    if (getUserByUsername(username) || getAdminByUsername(username)) {
+        result["success"] = false;
+        result["message"] = "用户名重复！";
+        return result;
+    }
+    // 可以注册
+    UserProfile profile(name, phoneNumber, id);
+    User user(profile, false, username, password);
+    users.push_back(user);
+    result["success"] = true;
+    result["message"] = "注册成功！";
+    return result;
+}
+
+
+bool AccountManager::deleteUser(const QString &username) {
+    for (auto it = users.begin(); it != users.end(); it++) {
+        if (it->getUsername() == username) {
+            users.erase(it);
+            return true;
+        }
+    }
+    return false;
+}
+
+
 std::optional<User> AccountManager::getUserByUsername(const QString &username) {
-    for (auto &user : users) {
+    for (auto user : users) {
         if (user.getUsername() == username) {
             return user;
+        }
+    }
+    return std::nullopt;
+}
+
+std::optional<Admin> AccountManager::getAdminByUsername(const QString &username) {
+    for (auto admin : admins) {
+        if (admin.getUsername() == username) {
+            return admin;
         }
     }
     return std::nullopt;
