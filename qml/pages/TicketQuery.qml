@@ -56,8 +56,7 @@ Page {
                 }
 
                 RowLayout {
-                    // 始发地选择
-                    ComboBox {
+                    TicketQueryCityCombox {
                         id: fromCombo
                         model: pageData.cityList
                         currentIndex: pageData.cityList.indexOf(page.fromCity)
@@ -119,7 +118,7 @@ Page {
                     Item { Layout.fillWidth: true }
 
                     // 目的地选择
-                    ComboBox {
+                    TicketQueryCityCombox {
                         id: toCombo
                         model: pageData.cityList
                         currentIndex: pageData.cityList.indexOf(page.toCity)
@@ -152,6 +151,7 @@ Page {
                                 font.pixelSize: 48
                             }
                         }
+
                     }
                 }
 
