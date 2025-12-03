@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window {
-    width: 400; height: 500
+    width: 400; height: 450
     visible: true
     color: "#ffffff"
 
@@ -68,7 +68,7 @@ Window {
             //时刻表
             TimetableView{
                 Layout.fillWidth: true
-                Layout.preferredHeight: 350
+                Layout.preferredHeight: 330
                 borderWidth: 0
                 Layout.leftMargin: 2
                 Layout.rightMargin: 2
@@ -80,28 +80,28 @@ Window {
                 Layout.fillHeight: true
             }
 
-            // 新增按钮
-            Rectangle {
-                width: 38
-                height: 38
-                Layout.alignment: Qt.AlignRight
-                Layout.rightMargin: 30
-                Layout.topMargin: 4
+            // // 新增按钮
+            // Rectangle {
+            //     width: 38
+            //     height: 38
+            //     Layout.alignment: Qt.AlignRight
+            //     Layout.rightMargin: 30
+            //     Layout.topMargin: 4
 
-                Image {
-                    source: "qrc:/resources/icon/Add.png" // 换成你的加号图标资源路径
-                    anchors.centerIn: parent
-                    width: 50
-                    height: 50
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        stationList.push({ name: "", arrive: "", depart: "", stop: "", checked: true })
-                    }
-                }
-            }
+            //     Image {
+            //         source: "qrc:/resources/icon/Add.png" // 换成你的加号图标资源路径
+            //         anchors.centerIn: parent
+            //         width: 50
+            //         height: 50
+            //     }
+            //     MouseArea {
+            //         anchors.fill: parent
+            //         cursorShape: Qt.PointingHandCursor
+            //         onClicked: {
+            //             stationList.push({ name: "", arrive: "", depart: "", stop: "", checked: true })
+            //         }
+            //     }
+            // }
 
 
             // 按钮区

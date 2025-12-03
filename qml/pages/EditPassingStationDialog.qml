@@ -26,6 +26,7 @@ Window {
 
     property var stationList: ["北京南", "上海站", "杭州东", "嘉兴南"]
 
+    signal confirmed(var info)
     signal canceled()
 
     Rectangle {
@@ -301,6 +302,15 @@ Window {
                     height: 24
                     width: 90
                     fontSize:14
+                    onClicked: confirmed({
+                        stationName: stationList[stationNameCombo.currentIndex],
+                        arriveHour: arriveHourField.text,
+                        arriveMinute: arriveMinuteField.text,
+                        arriveDay: arriveDayField.text,
+                        departureHour: departureHourField.text,
+                        departureMinute: departureMinuteField.text,
+                        departureDay: departureDayField.texts
+                    })
                 }
 
                 Item { Layout.fillWidth: true }

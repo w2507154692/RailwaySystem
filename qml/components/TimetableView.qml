@@ -186,162 +186,222 @@ Item {
 
                 delegate: ColumnLayout {
                     width: stationListView.width
-                    ColumnLayout{
-                        Layout.fillWidth: true
-                        RowLayout {
-                            id:rowinfo
+                        Rectangle {
                             Layout.topMargin: -5
                             Layout.fillWidth: true
                             Layout.preferredHeight: 40
-                            spacing: 0
+                            radius: 6
+                            gradient: Gradient {
+                                orientation: Gradient.Horizontal   // 横向渐变
+                                GradientStop { position: 0.0; color: "#fff"}
+                                GradientStop { position: 0.2; color: mouseArea.containsMouse ? "#F0F8FF" : "#fff"}
+                                GradientStop { position: 0.8; color: mouseArea.containsMouse ? "#F0F8FF" : "#fff"}
+                                GradientStop { position: 1.0; color: "#fff"}
+                            }
 
-                            property color textColor: modelData.passInfo === "起末站"
-                                                      ? "#0080FF"
-                                                      : (modelData.passInfo === "其他站"
-                                                         ? "#808080"
-                                                         : "#000")
-
-                            // 编辑按钮
-                            Rectangle {
-                                Layout.preferredWidth: 36
-                                Layout.preferredHeight: 40
-                                Image {
-                                    source: "qrc:/resources/icon/Edit.png"
-                                    anchors.fill: parent
+                            MouseArea {
+                                id: mouseArea
+                                enabled: showButtons
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
+                                acceptedButtons: Qt.RightButton
+                                onClicked: {
+                                    menu.popup()
                                 }
-                                MouseArea {
-                                    anchors.fill: parent
-                                    cursorShape: Qt.PointingHandCursor
-                                    onClicked: {
-                                        editPassingStationDialog.active = true
+                            }
+
+                            // 新增菜单
+                            Menu {
+                                id: menu
+                                background: Rectangle {
+                                    implicitWidth: 50
+                                    implicitHeight: 20
+                                    color: "#409CFC"
+                                    radius: 3
+                                }
+                                MenuItem {
+                                    implicitWidth: 50
+                                    implicitHeight: 20
+                                    background: Rectangle {
+                                        anchors.fill: parent
+                                        radius: 2
+                                        color: "#409CFC"
+                                    }
+                                    contentItem: Text {
+                                        text: "新增"
+                                        color: "#fff"
+                                        font.pixelSize: 12
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                    }
+                                    onTriggered: console.log("点击了新增")
+                                }
+                            }
+
+                            RowLayout {
+                                id: rowinfo
+                                anchors.fill: parent
+                                spacing: 0
+
+                                property color textColor: modelData.passInfo === "起末站"
+                                                          ? "#0080FF"
+                                                          : (modelData.passInfo === "其他站"
+                                                          ? "#808080"
+                                                          : "#000")
+
+                                // 编辑按钮
+                                Rectangle {
+                                    visible: showButtons
+                                    Layout.preferredWidth: 36
+                                    Layout.preferredHeight: 40
+                                    color: "transparent"
+                                    Image {
+                                        source: "qrc:/resources/icon/Edit.png"
+                                        anchors.fill: parent
+                                    }
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        cursorShape: Qt.PointingHandCursor
+                                        onClicked: {
+                                            editPassingStationDialog.onConfirmedFunction = function(info) {
+
+                                            }
+
+                                            editPassingStationDialog.active = true
+                                        }
                                     }
                                 }
-                            }
 
-                            //间隔
-                            Item{
-                                Layout.fillWidth: true
-                            }
+                                //间隔
+                                Item{
+                                    Layout.fillWidth: true
+                                }
 
-                            //站名
-                            Text {
-                                text: modelData.stationName
-                                color: rowinfo.textColor
-                                Layout.preferredWidth: 60
-                                Layout.preferredHeight: 40
-                                verticalAlignment: Text.AlignVCenter
-                                // font.pixelSize: 16
-                                horizontalAlignment: Text.AlignHCenter
-                            }
-
-                            //间隔
-                            Item{
-                                Layout.fillWidth: true
-                            }
-
-                            //到时
-                            Rectangle{
-                                Layout.preferredWidth: 55
-                                Layout.preferredHeight: 38
-
+                                //站名
                                 Text {
-                                    id:arrivetime
-                                    text: (modelData.arriveHour === -1 || modelData.arriveMinute === -1)
-                                          ? "---"
-                                          : ("0" + modelData.arriveHour).slice(-2) + ":" + ("0" + modelData.arriveMinute).slice(-2)
+                                    text: modelData.stationName
                                     color: rowinfo.textColor
-                                    // Layout.preferredWidth: 55
-                                    // Layout.preferredHeight: 40
-                                    anchors.centerIn: parent
-                                    // verticalAlignment: Text.AlignVCenter
+                                    Layout.preferredWidth: 60
+                                    Layout.preferredHeight: 40
+                                    verticalAlignment: Text.AlignVCenter
                                     // font.pixelSize: 16
-                                    // horizontalAlignment: Text.AlignHCenter
+                                    horizontalAlignment: Text.AlignHCenter
                                 }
 
-                                Text{
-                                    text: "+" + modelData.arriveDay
-                                    visible: modelData.arriveDay > 0
-                                    color: "#0080FF"
-                                    // Layout.preferredWidth: 25
-                                    // Layout.preferredHeight: 10
-                                    font.pixelSize: 8
-                                    anchors.left: arrivetime.right
-                                    anchors.top: arrivetime.top
+                                //间隔
+                                Item{
+                                    Layout.fillWidth: true
                                 }
-                            }
+
+                                //到时
+                                Rectangle{
+                                    Layout.preferredWidth: 55
+                                    Layout.preferredHeight: 38
+                                    color: "transparent"
+
+                                    Text {
+                                        id: arrivetime
+                                        text: (modelData.arriveHour === -1 || modelData.arriveMinute === -1)
+                                              ? "---"
+                                              : ("0" + modelData.arriveHour).slice(-2) + ":" + ("0" + modelData.arriveMinute).slice(-2)
+                                        color: rowinfo.textColor
+                                        // Layout.preferredWidth: 55
+                                        // Layout.preferredHeight: 40
+                                        anchors.centerIn: parent
+                                        // verticalAlignment: Text.AlignVCenter
+                                        // font.pixelSize: 16
+                                        // horizontalAlignment: Text.AlignHCenter
+                                    }
+
+                                    Text{
+                                        text: "+" + modelData.arriveDay
+                                        visible: modelData.arriveDay > 0
+                                        color: "#0080FF"
+                                        // Layout.preferredWidth: 25
+                                        // Layout.preferredHeight: 10
+                                        font.pixelSize: 8
+                                        anchors.left: arrivetime.right
+                                        anchors.top: arrivetime.top
+                                    }
+                                }
 
 
 
-                            //间隔
-                            Item{
-                                Layout.fillWidth: true
-                            }
+                                //间隔
+                                Item{
+                                    Layout.fillWidth: true
+                                }
 
-                            //发时
-                            Rectangle{
-                                Layout.preferredWidth: 55
-                                Layout.preferredHeight: 38
+                                //发时
+                                Rectangle{
+                                    Layout.preferredWidth: 55
+                                    Layout.preferredHeight: 38
+                                    color: "transparent"
 
+                                    Text {
+                                        id: departuretime
+                                        text: (modelData.departureHour === -1 || modelData.departureMinute === -1)
+                                              ? "---"
+                                              : ("0" + modelData.departureHour).slice(-2) + ":" + ("0" + modelData.departureMinute).slice(-2)
+                                        color: rowinfo.textColor
+                                        anchors.centerIn: parent
+                                        // verticalAlignment: Text.AlignVCenter
+                                        // font.pixelSize: 16
+                                        // horizontalAlignment: Text.AlignHCenter
+                                    }
+
+                                    Text{
+                                        text: "+" + modelData.departureDay
+                                        visible: modelData.departureDay > 0
+                                        color: "#0080FF"
+                                        // Layout.preferredWidth: 25
+                                        // Layout.preferredHeight: 10
+                                        font.pixelSize: 8
+                                        anchors.left: departuretime.right
+                                        anchors.top: departuretime.top
+                                    }
+                                }
+
+                                //间隔
+                                Item{
+                                    Layout.fillWidth: true
+                                }
+
+                                //停留
                                 Text {
-                                    id:departuretime
-                                    text: (modelData.departureHour === -1 || modelData.departureMinute === -1)
+                                    text: modelData.stopInterval === -1
                                           ? "---"
-                                          : ("0" + modelData.departureHour).slice(-2) + ":" + ("0" + modelData.departureMinute).slice(-2)
+                                          : modelData.stopInterval + "分"
                                     color: rowinfo.textColor
-                                    anchors.centerIn: parent
-                                    // verticalAlignment: Text.AlignVCenter
+                                    Layout.preferredWidth: 48
+                                    Layout.preferredHeight: 40
+                                    verticalAlignment: Text.AlignVCenter
                                     // font.pixelSize: 16
-                                    // horizontalAlignment: Text.AlignHCenter
+                                    horizontalAlignment: Text.AlignHCenter
                                 }
 
-                                Text{
-                                    text: "+" + modelData.departureDay
-                                    visible: modelData.departureDay > 0
-                                    color: "#0080FF"
-                                    // Layout.preferredWidth: 25
-                                    // Layout.preferredHeight: 10
-                                    font.pixelSize: 8
-                                    anchors.left: departuretime.right
-                                    anchors.top: departuretime.top
+                                //间隔
+                                Item{
+                                    Layout.fillWidth: true
                                 }
-                            }
 
-                            //间隔
-                            Item{
-                                Layout.fillWidth: true
-                            }
+                                // 删除按钮
+                                Rectangle {
+                                    visible: showButtons
+                                    Layout.preferredWidth: 36
+                                    Layout.preferredHeight: 40
+                                    color: "transparent"
+                                    Image {
+                                        source: "qrc:/resources/icon/Delete.png"
+                                        anchors.fill: parent
+                                    }
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        cursorShape: Qt.PointingHandCursor
+                                        onClicked: {
 
-                            //停留
-                            Text {
-                                text: modelData.stopInterval === -1
-                                      ? "---"
-                                      : modelData.stopInterval + "分"
-                                color: rowinfo.textColor
-                                Layout.preferredWidth: 48
-                                Layout.preferredHeight: 40
-                                verticalAlignment: Text.AlignVCenter
-                                // font.pixelSize: 16
-                                horizontalAlignment: Text.AlignHCenter
-                            }
-
-                            //间隔
-                            Item{
-                                Layout.fillWidth: true
-                            }
-
-                            // 删除按钮
-                            Rectangle {
-                                Layout.preferredWidth: 36
-                                Layout.preferredHeight: 40
-                                Image {
-                                    source: "qrc:/resources/icon/Delete.png"
-                                    anchors.fill: parent
-                                }
-                                MouseArea {
-                                    anchors.fill: parent
-                                    cursorShape: Qt.PointingHandCursor
-                                    onClicked: {
-
+                                        }
                                     }
                                 }
                             }
@@ -349,7 +409,7 @@ Item {
 
                         // 行分割线
                         Rectangle {
-                            Layout.topMargin: -10
+                            Layout.topMargin: -12
                             Layout.leftMargin: 35
                             Layout.rightMargin: 35
                             Layout.fillWidth: true
@@ -359,7 +419,6 @@ Item {
                             color: "#b3b3b3"
                         }
                     }
-                }
             }
         }
     }
@@ -385,4 +444,6 @@ Item {
             }
         }
     }
+
+    // function
 }
