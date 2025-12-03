@@ -62,6 +62,6 @@
         <file>qml/components/ConfirmDialog.qml</file>
         <file>qml/components/TrainCard.qml</file>
         <file>qml/components/AccountCard.qml</file>
-        <file>qml/components/TicketQueryCityCombox.qml</file>
+        <file>qml/components/SearchableComboBox.qml</file>
     </qresource>
 </RCC>

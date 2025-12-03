@@ -9,7 +9,7 @@ Window {
     width: 600; height: 450
     minimumWidth: 600; minimumHeight: 410
     visible: true
-    color: "#ffffff"
+    color: "transparent"
     flags:Qt.FramelessWindowHint
     modality: Qt.ApplicationModal
 
@@ -20,10 +20,8 @@ Window {
         id: root
         width: parent.width
         height: parent.height
-        color: "#ffffff"
-        border.color: "#666"
-        border.width: 2
         radius: 16
+        border.color: "#808080"
 
         MouseArea {
            anchors.fill: parent
@@ -49,9 +47,9 @@ Window {
             width: parent.width - 4
             height: 45
             anchors.top: parent.top
-            anchors.topMargin: 2
+            anchors.topMargin: 1
             anchors.left: parent.left
-            anchors.leftMargin: 2
+            anchors.leftMargin: 1
             title: "用户注册"
             onCloseClicked: canceled()
         }

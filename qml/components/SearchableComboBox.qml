@@ -62,9 +62,9 @@ ComboBox {
                     id: searchField
                     anchors.centerIn: parent
                     width: parent.width - 20
-                    height: 36
+                    height: control.itemHeight
                     placeholderText: "搜索..."
-                    font.pixelSize: 16
+                    font.pixelSize: control.itemFontSize
                     leftPadding: 10
                     background: Rectangle {
                         color: "#f5f5f5"
@@ -83,7 +83,7 @@ ComboBox {
             ListView {
                 id: listView
                 width: parent.width
-                height: parent.height - 50
+                height: parent.height
                 clip: true
                 model: control.filteredModel
 

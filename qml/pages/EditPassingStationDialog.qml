@@ -6,21 +6,34 @@ import "../components"
 
 Window {
     id: mainWindow
-    width: 400; height: 260
+    width: 450; height: 270
     minimumWidth: 400; minimumHeight: 260;
     maximumWidth: 1920; maximumHeight: 1440
     visible: true
     color: "transparent"
     flags: Qt.FramelessWindowHint
+    modality: Qt.ApplicationModal
+
+    property var stationInfo: ({
+        stationName: "",
+        arriveHour: "",
+        arriveMinute: "",
+        arriveDay: "",
+        departureHour: "",
+        departureMinute: "",
+        departureDay: "",
+    })
+
+    property var stationList: ["北京南", "上海站", "杭州东", "嘉兴南"]
+
+    signal canceled()
 
     Rectangle {
-        id:root
+        id: root
         width: parent.width
         height: parent.height
         radius: 16
-        color: "#ffffff"
-        border.color: "#666"
-        border.width: 2
+        border.color: "#808080"
 
         MouseArea {
            anchors.fill: parent
@@ -42,165 +55,240 @@ Window {
         // 顶部渐变标题栏
         Header{
             titleFontSize: 18
-            id:titleBar
+            id: titleBar
             width: parent.width - 4
             height: 45
             anchors.top: parent.top
-            anchors.topMargin: 2
+            anchors.topMargin: 1
             anchors.left: parent.left
-            anchors.leftMargin: 2
+            anchors.leftMargin: 1
             title: "修改停靠站"
-
+            onCloseClicked: canceled()
         }
 
         // 内容区
         ColumnLayout {
             anchors.left: parent.left
-            anchors.leftMargin: 24
+            anchors.leftMargin: 36
             anchors.right: parent.right
-            anchors.rightMargin: 40
+            anchors.rightMargin: 36
             anchors.top: titleBar.bottom
-            anchors.topMargin: 20
+            anchors.topMargin: 16
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 28
+            anchors.bottomMargin: 20
+            spacing: 0
 
-            // 第一排：站名 到时
+            // 第一行：站名
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 8
                 Label {
                     text: "站名："
-                    font.pixelSize: 12
+                    font.pixelSize: 13
                     color: "#444"
                     Layout.preferredWidth: 60
                     horizontalAlignment: Text.AlignRight
                 }
-                ComboBox {
-                    id: stationName
-                    Layout.preferredWidth: 100
+                SearchableComboBox {
+                    id: stationNameCombo
+                    Layout.preferredWidth: 150
+                    Layout.preferredHeight: 25
+                    model: stationList
+                    currentIndex: stationList.indexOf(stationInfo.stationName)
+                    onCurrentIndexChanged: stationInfo.stationName = stationList[currentIndex]
+                    font.pixelSize: 13
+                    itemHeight: 30
+                    itemFontSize: 12
+                    indicator: Item {} // 隐藏右侧箭头
 
-                    model: ["--"].concat(Array.from({length: 24}, (_, i) => i.toString().padStart(2, "0")))
-                    currentIndex: 0
-                    contentItem: Text {
-                        text: parent.displayText
+                    background: Rectangle {
+                        color: stationNameCombo.hovered ? "#F5F5F5" : "#fff"
+                        border.color: "#C0C0C0"
+                        border.width: 1
+                        radius: 4
+                    }
 
-                        // horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        font.pixelSize: 12
-                        color: "#444"
+                    contentItem: MouseArea {
                         anchors.fill: parent
-                        anchors.leftMargin: 6
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: stationNameCombo.popup.open() // 点击弹出菜单
+
+                        Text {
+                            anchors.fill: parent
+                            text: parent.parent.displayText
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            color: "#222"
+                            font.pixelSize: 13
+                        }
                     }
                 }
+
+
+                // ComboBox {
+                //     id: stationName
+                //     Layout.preferredWidth: 350
+                //     Layout.preferredHeight: 25
+
+                //     model: ["--"].concat(Array.from({length: 24}, (_, i) => i.toString().padStart(2, "0")))
+                //     currentIndex: 0
+                //     contentItem: Text {
+                //         text: parent.displayText
+
+                //         // horizontalAlignment: Text.AlignHCenter
+                //         verticalAlignment: Text.AlignVCenter
+                //         font.pixelSize: 12
+                //         color: "#444"
+                //         anchors.fill: parent
+                //         anchors.leftMargin: 6
+                //     }
+                // }
 
                 Item{
                     Layout.fillWidth: true
                 }
             }
 
-            // 第二排：是否起始站 开时
+            // 第二行：到时、到天
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 8
-
+                // 到时：小时
                 Label {
                     text: "到时："
-                    font.pixelSize: 12
+                    font.pixelSize: 13
                     color: "#444"
                     Layout.preferredWidth: 60
                     horizontalAlignment: Text.AlignRight
                 }
-
-                // 到时：小时
-                ComboBox {
-                    id: arriveHour
-                    Layout.preferredWidth: 42
-
-                    model: ["--"].concat(Array.from({length: 24}, (_, i) => i.toString().padStart(2, "0")))
-                    currentIndex: 0
-                    contentItem: Text {
-                        text: parent.displayText
-
-                        // horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        font.pixelSize: 12
-                        color: "#444"
-                        anchors.fill: parent
-                        anchors.leftMargin: 6
+                TextField {
+                    id: arriveHourField
+                    Layout.preferredWidth: 60
+                    Layout.preferredHeight: 25
+                    font.pixelSize: 12
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    placeholderText: "---"
+                    padding: 5
+                    background: Rectangle {
+                        color: "transparent"
+                        border.color: "#999"
+                        border.width: 1
+                        radius: 6
                     }
-
+                    text: stationInfo.arriveHour
                 }
                 Label { text: "时"; font.pixelSize: 12; color: "#444"; }
-
                 // 到时：分钟
-                ComboBox {
-                    id: arriveMinute
-                    Layout.preferredWidth: 42
-                    model: ["--"].concat(Array.from({length: 60}, (_, i) => i.toString().padStart(2, "0")))
-                    currentIndex: 0
-                    contentItem: Text {
-                        text: parent.displayText
-                        // horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        font.pixelSize: 12
-                        color: "#444"
-                        anchors.fill: parent
-                        anchors.leftMargin: 6
+                TextField {
+                    id: arriveMinuteField
+                    Layout.preferredWidth: 60
+                    Layout.preferredHeight: 25
+                    font.pixelSize: 12
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    placeholderText: "---"
+                    padding: 5
+                    background: Rectangle {
+                        color: "transparent"
+                        border.color: "#999"
+                        border.width: 1
+                        radius: 6
                     }
+                    text: stationInfo.arriveMinute
                 }
-                Label { text: "分"; font.pixelSize: 12; color: "#444"; }
+                Label { text: "分 +"; font.pixelSize: 12; color: "#444"; }
+                // 到天
+                TextField {
+                    id: arriveDayField
+                    Layout.preferredWidth: 60
+                    Layout.preferredHeight: 25
+                    font.pixelSize: 12
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    placeholderText: "---"
+                    padding: 5
+                    background: Rectangle {
+                        color: "transparent"
+                        border.color: "#999"
+                        border.width: 1
+                        radius: 6
+                    }
+                    text: stationInfo.arriveDay
+                }
+                Label { text: "天"; font.pixelSize: 12; color: "#444"; }
             }
 
-            // 第二排：是否起始站 开时
+            // 第三行：发时、发天
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 8
-
+                // 发时：小时
                 Label {
-                    text: "开时："
-                    font.pixelSize: 12
+                    text: "发时："
+                    font.pixelSize: 13
                     color: "#444"
                     Layout.preferredWidth: 60
                     horizontalAlignment: Text.AlignRight
                 }
-
-                // 开时：小时
-                ComboBox {
-                    id: departHour
-                    Layout.preferredWidth: 42
-                    model: ["--"].concat(Array.from({length: 24}, (_, i) => i.toString().padStart(2, "0")))
-                    currentIndex: 0
-                    contentItem: Text {
-                        text: parent.displayText
-                        // horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        font.pixelSize: 12
-                        color: "#444"
-                        anchors.fill: parent
-                        anchors.leftMargin: 6
+                TextField {
+                    id: departureHourField
+                    Layout.preferredWidth: 60
+                    Layout.preferredHeight: 25
+                    font.pixelSize: 12
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    placeholderText: "---"
+                    padding: 5
+                    background: Rectangle {
+                        color: "transparent"
+                        border.color: "#999"
+                        border.width: 1
+                        radius: 6
                     }
+                    text: stationInfo.departureHour
                 }
                 Label { text: "时"; font.pixelSize: 12; color: "#444"; }
-
-                // 开时：分钟
-                ComboBox {
-                    id: departMinute
-                    Layout.preferredWidth: 42
-                    model: ["--"].concat(Array.from({length: 60}, (_, i) => i.toString().padStart(2, "0")))
-                    currentIndex: 0
-                    contentItem: Text {
-                        text: parent.displayText
-                        // horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        font.pixelSize: 12
-                        color: "#444"
-                        anchors.fill: parent
-                        anchors.leftMargin: 6
+                // 发时：分钟
+                TextField {
+                    id: departureMinuteField
+                    Layout.preferredWidth: 60
+                    Layout.preferredHeight: 25
+                    font.pixelSize: 12
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    placeholderText: "---"
+                    padding: 5
+                    background: Rectangle {
+                        color: "transparent"
+                        border.color: "#999"
+                        border.width: 1
+                        radius: 6
                     }
+                    text: stationInfo.departureMinute
                 }
-                Label { text: "分"; font.pixelSize: 12; color: "#444"; }
+                Label { text: "分 +"; font.pixelSize: 12; color: "#444"; }
+                // 发天
+                TextField {
+                    id: departureDayField
+                    Layout.preferredWidth: 60
+                    Layout.preferredHeight: 25
+                    font.pixelSize: 12
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    placeholderText: "---"
+                    padding: 5
+                    background: Rectangle {
+                        color: "transparent"
+                        border.color: "#999"
+                        border.width: 1
+                        radius: 6
+                    }
+                    text: stationInfo.departureDay
+                }
+                Label { text: "天"; font.pixelSize: 12; color: "#444"; }
             }
-
 
             // 按钮区
             RowLayout {
@@ -210,9 +298,9 @@ Window {
                 CustomButton{
                     buttonType: "confirm"
                     text: "确认"
-                    height: 20
-                    width:90
-                    fontSize:12
+                    height: 24
+                    width: 90
+                    fontSize:14
                 }
 
                 Item { Layout.fillWidth: true }
@@ -221,9 +309,10 @@ Window {
                 CustomButton{
                     buttonType: "cancel"
                     text: "取消"
-                    height: 20
+                    height: 24
                     width:90
-                    fontSize:12
+                    fontSize:14
+                    onClicked: canceled()
                 }
 
                 Item { Layout.preferredWidth: 22}

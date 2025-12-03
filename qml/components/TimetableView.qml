@@ -202,17 +202,18 @@ Item {
                                                          : "#000")
 
                             // 编辑按钮
-                            Item {
+                            Rectangle {
                                 Layout.preferredWidth: 36
                                 Layout.preferredHeight: 40
-                                visible: showButtons
-                                Button {
-                                    anchors.centerIn: parent
-                                    width: 24; height: 24
-                                    icon.source: "qrc:/resources/icon/Edit.png"
-                                    background: Rectangle { color: "transparent" }
+                                Image {
+                                    source: "qrc:/resources/icon/Edit.png"
+                                    anchors.fill: parent
+                                }
+                                MouseArea {
+                                    anchors.fill: parent
+                                    cursorShape: Qt.PointingHandCursor
                                     onClicked: {
-                                        // 编辑逻辑
+                                        editPassingStationDialog.active = true
                                     }
                                 }
                             }
@@ -329,17 +330,18 @@ Item {
                             }
 
                             // 删除按钮
-                            Item {
+                            Rectangle {
                                 Layout.preferredWidth: 36
                                 Layout.preferredHeight: 40
-                                visible: showButtons
-                                Button {
-                                    anchors.centerIn: parent
-                                    width: 36; height: 36
-                                    icon.source: "qrc:/resources/icon/Delete.png"
-                                    background: Rectangle { color: "transparent" }
+                                Image {
+                                    source: "qrc:/resources/icon/Delete.png"
+                                    anchors.fill: parent
+                                }
+                                MouseArea {
+                                    anchors.fill: parent
+                                    cursorShape: Qt.PointingHandCursor
                                     onClicked: {
-                                        timetable.stations.splice(index, 1)
+
                                     }
                                 }
                             }
@@ -348,8 +350,8 @@ Item {
                         // 行分割线
                         Rectangle {
                             Layout.topMargin: -10
-                            Layout.leftMargin: 30
-                            Layout.rightMargin: 30
+                            Layout.leftMargin: 35
+                            Layout.rightMargin: 35
                             Layout.fillWidth: true
                             Layout.preferredHeight: 2
                             // Layout.leftMargin: 36
@@ -358,6 +360,28 @@ Item {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    // 修改
+    Loader {
+        property var initialInfo: ({})
+        property var onConfirmedFunction: function() {}
+        id: editPassingStationDialog
+        source: "qrc:/qml/pages/EditPassingStationDialog.qml"
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接取消信号
+                item.canceled.connect(function() {
+                    editPassingStationDialog.active = false
+                })
+                // 连接确认信号
+                item.confirmed.connect(onConfirmedFunction)
+                //初始化参数
+                item.initialInfo = initialInfo
+                item.visible = true
             }
         }
     }

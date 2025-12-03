@@ -56,7 +56,7 @@ Page {
                 }
 
                 RowLayout {
-                    TicketQueryCityCombox {
+                    SearchableComboBox {
                         id: fromCombo
                         model: pageData.cityList
                         currentIndex: pageData.cityList.indexOf(page.fromCity)
@@ -118,7 +118,7 @@ Page {
                     Item { Layout.fillWidth: true }
 
                     // 目的地选择
-                    TicketQueryCityCombox {
+                    SearchableComboBox {
                         id: toCombo
                         model: pageData.cityList
                         currentIndex: pageData.cityList.indexOf(page.toCity)
