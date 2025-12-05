@@ -94,6 +94,7 @@ Window {
                     id: stationNameCombo
                     Layout.preferredWidth: 150
                     Layout.preferredHeight: 25
+                    popupMaxHeight: 200
                     model: stationList
                     currentIndex: stationList.indexOf(stationInfo.stationName)
                     onCurrentIndexChanged: stationInfo.stationName = stationList[currentIndex]
@@ -125,26 +126,6 @@ Window {
                         }
                     }
                 }
-
-
-                // ComboBox {
-                //     id: stationName
-                //     Layout.preferredWidth: 350
-                //     Layout.preferredHeight: 25
-
-                //     model: ["--"].concat(Array.from({length: 24}, (_, i) => i.toString().padStart(2, "0")))
-                //     currentIndex: 0
-                //     contentItem: Text {
-                //         text: parent.displayText
-
-                //         // horizontalAlignment: Text.AlignHCenter
-                //         verticalAlignment: Text.AlignVCenter
-                //         font.pixelSize: 12
-                //         color: "#444"
-                //         anchors.fill: parent
-                //         anchors.leftMargin: 6
-                //     }
-                // }
 
                 Item{
                     Layout.fillWidth: true

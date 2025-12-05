@@ -43,6 +43,14 @@ QVariantMap StationManager::getCitiesByStationNames_api(const QString &startStat
     return result;
 }
 
+QVariantList StationManager::getAllStationNames_api() {
+    QVariantList list;
+    for (auto station : stations) {
+        list << station.getStationName();
+    }
+    return list;
+}
+
 double StationManager::computeDistance(City &c1, City &c2) {
     const double PI = 3.14159265358979323846;
     double lon1 = c1.getLongitude() * PI / 180.0;

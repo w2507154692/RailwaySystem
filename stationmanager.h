@@ -17,6 +17,8 @@ public:
     explicit StationManager(QObject *parent = nullptr);
     Q_INVOKABLE QStringList getCitiesName_api();
     Q_INVOKABLE QVariantMap getCitiesByStationNames_api(const QString &startStationName, const QString &endStationName);
+    // 时刻表修改、添加时，需要获取所有的车站名
+    Q_INVOKABLE QVariantList getAllStationNames_api();
     double computeDistance(City &c1, City &c2);
     std::optional<Station> getStationByStationName(const QString &stationName);
     std::optional<City> getCityByCityName(const QString &cityName);

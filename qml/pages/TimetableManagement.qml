@@ -73,7 +73,7 @@ Window {
                 Layout.leftMargin: 2
                 Layout.rightMargin: 2
                 Layout.topMargin: 4
-                stationList: timetable
+                passingStationList: timetable
             }
 
             Item {

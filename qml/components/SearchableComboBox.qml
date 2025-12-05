@@ -11,6 +11,9 @@ ComboBox {
     property int itemHeight: 40
     property int itemFontSize: 15
 
+    // 新增：下拉列表最大高度
+    property int popupMaxHeight: 400
+
     // 内部使用的过滤后的模型
     property var filteredModel: model
 
@@ -39,7 +42,7 @@ ComboBox {
     popup: Popup {
         y: control.height - 1
         width: control.width
-        height: Math.min(listView.contentHeight + 60, 400) // 增加一点最大高度
+        height: Math.min(listView.contentHeight + 60, control.popupMaxHeight) // 增加一点最大高度
         padding: 1
 
         background: Rectangle {
@@ -83,7 +86,7 @@ ComboBox {
             ListView {
                 id: listView
                 width: parent.width
-                height: parent.height
+                height: control.popup.height - 60
                 clip: true
                 model: control.filteredModel
 

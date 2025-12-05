@@ -7,7 +7,7 @@ Item {
     width: 370
     height: 320
 
-    property var stationList: [
+    property var passingStationList: [
         { stationName: "乌鲁木齐北", arriveHour: -1, arriveMinute: -1, arriveDay: -1, departureHour: 9, departureMinute: 30, departureDay: 0, stopInterval: -1, passInfo: "起末站" },
         { stationName: "中间站", arriveHour: 12, arriveMinute: 30, arriveDay: 0, departureHour: 13, departureMinute: 0, departureDay: 0, stopInterval: 30, passInfo: "中间站" },
         { stationName: "中间站", arriveHour: 12, arriveMinute: 30, arriveDay: 0, departureHour: 13, departureMinute: 0, departureDay: 0, stopInterval: 30, passInfo: "中间站" },
@@ -170,7 +170,7 @@ Item {
             ListView {
                 id: stationListView
                 clip: true
-                model: stationList
+                model: passingStationList
                 anchors.fill: parent
 
                 // 完全自定义滚动条样式
@@ -264,6 +264,7 @@ Item {
                                         cursorShape: Qt.PointingHandCursor
                                         onClicked: {
                                             editPassingStationDialog.initialInfo = modelData
+                                            editPassingStationDialog.stationList = stationManager.getAllStationNames_api()
                                             editPassingStationDialog.onConfirmedFunction = function(info) {
                                                 editPassingStaion(index, info)
                                             }
@@ -424,7 +425,11 @@ Item {
 
     // 修改
     Loader {
+        // 初始信息，即修改前的信息
         property var initialInfo: ({})
+        // 所有车站名，从后端获得
+        property var stationList: []
+        // 点击确认后执行的函数
         property var onConfirmedFunction: function() {}
         id: editPassingStationDialog
         source: "qrc:/qml/pages/EditPassingStationDialog.qml"
@@ -439,12 +444,14 @@ Item {
                 item.confirmed.connect(onConfirmedFunction)
                 //初始化参数
                 item.stationInfo = initialInfo
+                item.stationList = stationList
                 item.visible = true
             }
         }
     }
 
     function editPassingStaion(index, info) {
+        var passingStation = {}
         var stationName = info.stationName
         var arriveHour = info.arriveHour
         var arriveMinute = info.arriveMinute
@@ -454,69 +461,70 @@ Item {
         var departureDay = info.departureDay
 
         if (stationName === "") {
-            stationList[index].stationName = "---"
+            passingStation.stationName = "---"
         }
         else {
-            stationList[index].stationName = stationName
+            passingStation.stationName = stationName
         }
         if (arriveHour === "" || arriveHour < 0 || arriveHour > 23) {
-            stationList[index].arriveHour = -1
+            passingStation.arriveHour = -1
         }
         else {
-            stationList[index].arriveHour = arriveHour
+            passingStation.arriveHour = arriveHour
         }
         if (arriveMinute === "" || arriveMinute < 0 || arriveMinute > 59) {
-            stationList[index].arriveMinute = -1
+            passingStation.arriveMinute = -1
         }
         else {
-            stationList[index].arriveMinute = arriveMinute
+            passingStation.arriveMinute = arriveMinute
         }
         if (arriveDay === "" || arriveDay < 0 || arriveDay > 99) {
-            stationList[index].arriveHour = -1
-            stationList[index].arriveMinute = -1
-            stationList[index].arriveDay = -1
+            passingStation.arriveHour = -1
+            passingStation.arriveMinute = -1
+            passingStation.arriveDay = -1
         }
         else {
-            stationList[index].arriveDay = arriveDay
+            passingStation.arriveDay = arriveDay
         }
         if (departureHour === "" || departureHour < 0 || departureHour > 23) {
-            stationList[index].departureHour = -1
+            passingStation.departureHour = -1
         }
         else {
-            stationList[index].departureHour = departureHour
+            passingStation.departureHour = departureHour
         }
         if (departureMinute === "" || departureMinute < 0 || departureMinute > 59) {
-            stationList[index].departureMinute = -1
+            passingStation.departureMinute = -1
         }
         else {
-            stationList[index].departureMinute = departureMinute
+            passingStation.departureMinute = departureMinute
         }
         if (departureDay === "" || departureDay < 0 || departureDay > 99) {
-            stationList[index].departureHour = -1
-            stationList[index].departureMinute = -1
-            stationList[index].departureDay = -1
+            passingStation.departureHour = -1
+            passingStation.departureMinute = -1
+            passingStation.departureDay = -1
         }
         else {
-            stationList[index].departureDay = departureDay
+            passingStation.departureDay = departureDay
         }
 
         // 计算停留时间
-        if (stationList[index].arriveHour !== -1 && stationList[index].arriveMinute !== -1 &&
-            stationList[index].departureHour !== -1 && stationList[index].departureMinute !== -1 &&
-            stationList[index].arriveDay !== -1 && stationList[index].departureDay !== -1) {
-            var arriveTotalMinutes = stationList[index].arriveDay * 1440 + stationList[index].arriveHour * 60 + stationList[index].arriveMinute
-            var departureTotalMinutes = stationList[index].departureDay * 1440 + stationList[index].departureHour * 60 + stationList[index].departureMinute
+        if (passingStation.arriveHour !== -1 && passingStation.arriveMinute !== -1 &&
+            passingStation.departureHour !== -1 && passingStation.departureMinute !== -1 &&
+            passingStation.arriveDay !== -1 && passingStation.departureDay !== -1) {
+            var arriveTotalMinutes = passingStation.arriveDay * 1440 + passingStation.arriveHour * 60 + passingStation.arriveMinute
+            var departureTotalMinutes = passingStation.departureDay * 1440 + passingStation.departureHour * 60 + passingStation.departureMinute
             var stopInterval = departureTotalMinutes - arriveTotalMinutes
             if (stopInterval < 0) {
                 stopInterval = -1
             }
-            stationList[index].stopInterval = stopInterval
+            passingStation.stopInterval = stopInterval
         }
         else {
-            stationList[index].stopInterval = -1
+            passingStation.stopInterval = -1
         }
 
-        stationList = stationList
+        passingStationList[index] = passingStation
+        passingStationList = passingStationList
 
         editPassingStationDialog.active = false
     }
