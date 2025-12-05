@@ -150,14 +150,6 @@ Item {
             }
         }
 
-        // // 表头下的分割线
-        // Rectangle {
-        //     width: parent.width
-        //     height: 1
-        //     color: "#cce5ff"
-        // }
-
-
         //表格背景
         Rectangle{
             Layout.fillHeight: true
@@ -400,7 +392,7 @@ Item {
                                         anchors.fill: parent
                                         cursorShape: Qt.PointingHandCursor
                                         onClicked: {
-
+                                            deletePassingStation(index)
                                         }
                                     }
                                 }
@@ -527,5 +519,29 @@ Item {
         passingStationList = passingStationList
 
         editPassingStationDialog.active = false
+    }
+
+    function deletePassingStation(index) {
+        // 删除的是起始站且下方有站
+        if (passingStationList.length >= 2 && index === 0) {
+            console.log("删除起始站！")
+            passingStationList[1].arriveHour = -1
+            passingStationList[1].arriveMinute = -1
+            passingStationList[1].arriveDay = -1
+            passingStationList[1].stopInterval = -1
+            passingStationList[1].passInfo = "起末站"
+        }
+        // 删除的是终点站且上方有站
+        else if (passingStationList.length >= 2 && index === passingStationList.length - 1) {
+            console.log("删除终点站！")
+            passingStationList[index - 1].departureHour = -1
+            passingStationList[index - 1].departureMinute = -1
+            passingStationList[index - 1].departureDay = -1
+            passingStationList[index - 1].stopInterval = -1
+            passingStationList[index - 1].passInfo = "起末站"
+        }
+        // 删除该站
+        passingStationList.splice(index, 1)
+        passingStationList = passingStationList
     }
 }
