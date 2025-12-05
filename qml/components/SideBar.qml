@@ -13,9 +13,24 @@ Rectangle {
     signal navigate(string pageUrl)
 
     property var menuList: []
-    property var profileItem: ({ text: "个人中心",
-                                 icon: "qrc:/resources/icon/Profile.png",
-                                 url: "qrc:/qml/pages/Profile.qml" })
+    property var profileItem: ({ text: "个人中心", icon: "qrc:/resources/icon/Profile.png", url: "qrc:/qml/pages/Profile.qml" })
+
+    function updateProfileItem() {
+        if (role === "admin") {
+            profileItem = { text: "账户管理",icon: "qrc:/resources/icon/Profile.png",  url: "qrc:/qml/pages/AccountManagement.qml"  }
+        } else {
+            profileItem = { text: "个人中心", icon: "qrc:/resources/icon/Profile.png", url: "qrc:/qml/pages/Profile.qml" }
+        }
+    }
+
+    onRoleChanged: {
+        rebuildMenus()
+        updateProfileItem()
+    }
+    Component.onCompleted: {
+        rebuildMenus()
+        updateProfileItem()
+    }
 
     function rebuildMenus() {
         if (role === "admin") {
@@ -40,9 +55,6 @@ Rectangle {
             if (currentUrl) navigate(currentUrl)
         }
     }
-
-    onRoleChanged: rebuildMenus()
-    Component.onCompleted: rebuildMenus()
 
     function isSelected(u) { return currentUrl === u }
 
@@ -75,11 +87,9 @@ Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 2
             color: "#CCE5FF"
-            visible: role === "user"
         }
 
         MenuButton {
-            visible: role === "user"
             Layout.fillWidth: true
             Layout.preferredHeight: 50
             Layout.leftMargin: 10
