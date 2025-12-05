@@ -96,7 +96,7 @@ Item {
                             background: null
                             selectByMouse: true
                             Keys.onTabPressed: password.forceActiveFocus()
-                            Keys.onReturnPressed: doLogin()
+                            Keys.onReturnPressed: login()
                         }
                     }
                 }
@@ -121,7 +121,7 @@ Item {
                             background: null
                             selectByMouse: true
                             Keys.onTabPressed: username.forceActiveFocus()
-                            Keys.onReturnPressed: doLogin()
+                            Keys.onReturnPressed: login()
                         }
                     }
                 }
