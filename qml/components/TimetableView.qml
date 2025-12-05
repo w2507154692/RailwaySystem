@@ -204,7 +204,6 @@ Item {
                                 enabled: showButtons
                                 anchors.fill: parent
                                 hoverEnabled: true
-                                cursorShape: Qt.PointingHandCursor
                                 acceptedButtons: Qt.RightButton
                                 onClicked: {
                                     menu.popup()
@@ -264,10 +263,10 @@ Item {
                                         anchors.fill: parent
                                         cursorShape: Qt.PointingHandCursor
                                         onClicked: {
+                                            editPassingStationDialog.initialInfo = modelData
                                             editPassingStationDialog.onConfirmedFunction = function(info) {
-
+                                                editPassingStaion(index, info)
                                             }
-
                                             editPassingStationDialog.active = true
                                         }
                                     }
@@ -280,7 +279,7 @@ Item {
 
                                 //站名
                                 Text {
-                                    text: modelData.stationName
+                                    text: modelData.stationName === "" ? "---" : modelData.stationName
                                     color: rowinfo.textColor
                                     Layout.preferredWidth: 60
                                     Layout.preferredHeight: 40
@@ -439,11 +438,86 @@ Item {
                 // 连接确认信号
                 item.confirmed.connect(onConfirmedFunction)
                 //初始化参数
-                item.initialInfo = initialInfo
+                item.stationInfo = initialInfo
                 item.visible = true
             }
         }
     }
 
-    // function
+    function editPassingStaion(index, info) {
+        var stationName = info.stationName
+        var arriveHour = info.arriveHour
+        var arriveMinute = info.arriveMinute
+        var arriveDay = info.arriveDay
+        var departureHour = info.departureHour
+        var departureMinute = info.departureMinute
+        var departureDay = info.departureDay
+
+        if (stationName === "") {
+            stationList[index].stationName = "---"
+        }
+        else {
+            stationList[index].stationName = stationName
+        }
+        if (arriveHour === "" || arriveHour < 0 || arriveHour > 23) {
+            stationList[index].arriveHour = -1
+        }
+        else {
+            stationList[index].arriveHour = arriveHour
+        }
+        if (arriveMinute === "" || arriveMinute < 0 || arriveMinute > 59) {
+            stationList[index].arriveMinute = -1
+        }
+        else {
+            stationList[index].arriveMinute = arriveMinute
+        }
+        if (arriveDay === "" || arriveDay < 0 || arriveDay > 99) {
+            stationList[index].arriveHour = -1
+            stationList[index].arriveMinute = -1
+            stationList[index].arriveDay = -1
+        }
+        else {
+            stationList[index].arriveDay = arriveDay
+        }
+        if (departureHour === "" || departureHour < 0 || departureHour > 23) {
+            stationList[index].departureHour = -1
+        }
+        else {
+            stationList[index].departureHour = departureHour
+        }
+        if (departureMinute === "" || departureMinute < 0 || departureMinute > 59) {
+            stationList[index].departureMinute = -1
+        }
+        else {
+            stationList[index].departureMinute = departureMinute
+        }
+        if (departureDay === "" || departureDay < 0 || departureDay > 99) {
+            stationList[index].departureHour = -1
+            stationList[index].departureMinute = -1
+            stationList[index].departureDay = -1
+        }
+        else {
+            stationList[index].departureDay = departureDay
+        }
+
+        // 计算停留时间
+        if (stationList[index].arriveHour !== -1 && stationList[index].arriveMinute !== -1 &&
+            stationList[index].departureHour !== -1 && stationList[index].departureMinute !== -1 &&
+            stationList[index].arriveDay !== -1 && stationList[index].departureDay !== -1) {
+            var arriveTotalMinutes = stationList[index].arriveDay * 1440 + stationList[index].arriveHour * 60 + stationList[index].arriveMinute
+            var departureTotalMinutes = stationList[index].departureDay * 1440 + stationList[index].departureHour * 60 + stationList[index].departureMinute
+            var stopInterval = departureTotalMinutes - arriveTotalMinutes
+            if (stopInterval < 0) {
+                stopInterval = -1
+            }
+            stationList[index].stopInterval = stopInterval
+        }
+        else {
+            stationList[index].stopInterval = -1
+        }
+
+        stationList = stationList
+
+        editPassingStationDialog.active = false
+    }
 }

@@ -24,7 +24,7 @@ Window {
         departureDay: "",
     })
 
-    property var stationList: ["北京南", "上海站", "杭州东", "嘉兴南"]
+    property var stationList: ["北京南", "上海站", "杭州东", "嘉兴南", "温州南"]
 
     signal confirmed(var info)
     signal canceled()
@@ -309,7 +309,7 @@ Window {
                         arriveDay: arriveDayField.text,
                         departureHour: departureHourField.text,
                         departureMinute: departureMinuteField.text,
-                        departureDay: departureDayField.texts
+                        departureDay: departureDayField.text
                     })
                 }
 
