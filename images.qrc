@@ -63,5 +63,6 @@
         <file>qml/components/TrainCard.qml</file>
         <file>qml/components/AccountCard.qml</file>
         <file>qml/components/SearchableComboBox.qml</file>
+        <file>qml/pages/AccountManagement.qml</file>
     </qresource>
 </RCC>
