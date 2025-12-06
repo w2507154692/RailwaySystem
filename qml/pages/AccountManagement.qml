@@ -5,60 +5,73 @@ import QtQuick.Layouts 1.15
 import "../components"
 import MyApp 1.0
 
-Page {
+Page{
     width: parent ? parent.width : 1080
     height: parent ? parent.height : 720
     id: accountPage
-    objectName: "qrc:/qml/pages/AccountManagement.qml"
+    objectName: "qrc:/qml/pages/AccountManager.qml"
     visible: true
 
-    property var mainWindow
+    Rectangle{
+        anchors.fill: parent
 
-    ColumnLayout {
-        anchors.centerIn: parent
-        spacing: 36
+        Item {
+            anchors.fill: parent
+            anchors.leftMargin: 20
+            anchors.rightMargin: 150
+            anchors.topMargin: 30
+            anchors.bottomMargin: 86
 
-        Text {
-            text: "账号管理"
-            font.pixelSize: 28
-            font.bold: true
-            color: "#007FFF"
-            horizontalAlignment: Text.AlignHCenter
-            Layout.alignment: Qt.AlignHCenter
-        }
+            ColumnLayout {
+                width: parent.width
+                spacing: 20
 
-        CustomButton {
-            Layout.preferredWidth: 180
-            Layout.preferredHeight: 42
-            text: "退出登录"
-            Layout.alignment: Qt.AlignHCenter
-            onClicked: {
-                warning.onConfirmed = function() {               // 退出登录逻辑
-                    warning.active = false
-                    //清空参数
-                    SessionState.clear()
-                    // 清空主内容区
-                    console.log("mainWindow:", mainWindow)
-                    console.log("mainWindow.stackView:", mainWindow.stackView)
-                    if (mainWindow && mainWindow.stackView) {
-                        mainWindow.stackView.clear()
-                        console.log("mainWindow.stackView cleared")
-
-                    }
-                    console.log("已退出登录")
-                    console.log("appWin.loggedIn:", appWin.loggedIn)
-                    console.log("SessionState.isLoggedIn:", SessionState.isLoggedIn)
+                // 账号管理标题
+                Text {
+                    text: "账号管理"
+                    font.pixelSize: 35
+                    font.bold: true
+                    color: "#007FFF"
                 }
-                warning.message = "确认退出登录？"
-                warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
-                warning.active = true
+
+                // 按钮区
+                Column {
+                    CustomButton{
+                        width: 100
+                        height: 35
+                        fontSize: 16
+                        text: "退出登录"
+                        onClicked: {
+                            warning.onConfirmed = function() {               // 退出登录逻辑
+                                warning.active = false
+                                //清空参数
+                                SessionState.clear()
+                                // 清空主内容区
+                                console.log("mainWindow:", mainWindow)
+                                console.log("mainWindow.stackView:", mainWindow.stackView)
+                                if (mainWindow && mainWindow.stackView) {
+                                    mainWindow.stackView.clear()
+                                    console.log("mainWindow.stackView cleared")
+
+                                }
+                                console.log("已退出登录")
+                                console.log("appWin.loggedIn:", appWin.loggedIn)
+                                console.log("SessionState.isLoggedIn:", SessionState.isLoggedIn)
+                            }
+                            warning.message = "确认退出登录？"
+                            warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
+                            warning.active = true
+                        }
+                    }
+                }
             }
         }
     }
 
+    // 警告
     Loader {
         property string message: ""
-        property var onConfirmed: null
+        property var onConfirmedFunction: function() {}
         id: warning
         source: ""
         active: false
