@@ -100,7 +100,7 @@ Window {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
                     onClicked: {
-                        stationList.push({ name: "", arrive: "", depart: "", stop: "", checked: true })
+                        timetableView.onClickAddIconFunction()
                     }
                 }
             }
@@ -200,7 +200,7 @@ Window {
             stationFlag[stationName] = true
             // 判断起始站各时间字段是否合法
             if (i == 0 && (arriveHour !== -1 || arriveMinute !== -1 || arriveDay !== -1 ||
-                           departureHour === -1 || departureMinute === -1 || departureDay === -1)) {
+                           departureHour === -1 || departureMinute === -1 || departureDay !== 0)) {
                 notification.message = "第" + (i + 1) + "站时刻项错误！"
                 notification.active = true
                 return false

@@ -210,13 +210,13 @@ Item {
                             Menu {
                                 id: menu
                                 background: Rectangle {
-                                    implicitWidth: 50
+                                    implicitWidth: 75
                                     implicitHeight: 20
                                     color: "#409CFC"
                                     radius: 3
                                 }
                                 MenuItem {
-                                    implicitWidth: 50
+                                    implicitWidth: 75
                                     implicitHeight: 20
                                     background: Rectangle {
                                         anchors.fill: parent
@@ -224,13 +224,32 @@ Item {
                                         color: "#409CFC"
                                     }
                                     contentItem: Text {
-                                        text: "新增"
+                                        text: "在下方新增"
                                         color: "#fff"
                                         font.pixelSize: 12
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
                                     }
-                                    onTriggered: console.log("点击了新增")
+                                    onTriggered: {
+                                        // 使用局部变量捕获对象，防止 delegate 销毁后无法访问
+                                        var dialog = editPassingStationDialog
+                                        var currentIndex = index
+                                        dialog.stationList = stationManager.getAllStationNames_api()
+                                        dialog.initialInfo = {
+                                            stationName: "",
+                                            arriveHour: "",
+                                            arriveMinute: "",
+                                            arriveDay: "",
+                                            departureHour: "",
+                                            departureMinute: "",
+                                            departureDay: "",
+                                        }
+                                        dialog.onConfirmedFunction = function(info) {
+                                            addPassingStation(currentIndex + 1, info)
+                                            dialog.active = false
+                                        }
+                                        dialog.active = true
+                                    }
                                 }
                             }
 
@@ -259,12 +278,15 @@ Item {
                                         anchors.fill: parent
                                         cursorShape: Qt.PointingHandCursor
                                         onClicked: {
-                                            editPassingStationDialog.stationList = stationManager.getAllStationNames_api()
-                                            editPassingStationDialog.initialInfo = modelData
-                                            editPassingStationDialog.onConfirmedFunction = function(info) {
-                                                editPassingStaion(index, info)
+                                            var dialog = editPassingStationDialog
+                                            var currentIndex = index
+                                            dialog.stationList = stationManager.getAllStationNames_api()
+                                            dialog.initialInfo = modelData
+                                            dialog.onConfirmedFunction = function(info) {
+                                                editPassingStaion(currentIndex, info)
+                                                dialog.active = false
                                             }
-                                            editPassingStationDialog.active = true
+                                            dialog.active = true
                                         }
                                     }
                                 }
@@ -417,10 +439,18 @@ Item {
         }
     }
 
-    // 修改
+    // 修改或添加
     Loader {
         // 初始信息，即修改前的信息
-        property var initialInfo: ({})
+        property var initialInfo: ({
+           stationName: "",
+           arriveHour: "",
+           arriveMinute: "",
+           arriveDay: "",
+           departureHour: "",
+           departureMinute: "",
+           departureDay: "",
+       })
         // 所有车站名，从后端获得
         property var stationList: []
         // 点击确认后执行的函数
@@ -444,7 +474,18 @@ Item {
         }
     }
 
-    function editPassingStaion(index, info) {
+    // 整体重置停靠站列表（触发前端刷新），并且记录滚动条，参数为滚动条刷新后和原来的偏移量，默认为 0，用于增加车站后自动下移滚动条
+    function refreshPassingStationList(offset = 0) {
+        // 记录当前滚动条位置
+        var savedContentY = stationListView.contentY
+        passingStationList = passingStationList
+        // 回到之前记录的位置
+        stationListView.contentY = savedContentY + offset
+    }
+
+
+    // 根据信息输入的信息生成停靠站，作用是对于任何不符合格式的内容进行规范化处理
+    function generatePassingStation(info) {
         var passingStation = {}
         var stationName = info.stationName
         var arriveHour = info.arriveHour
@@ -517,12 +558,15 @@ Item {
             passingStation.stopInterval = -1
         }
 
+        return passingStation
+    }
+
+    function editPassingStaion(index, info) {
+        var passingStation = generatePassingStation(info)
         // 停靠信息不变
         passingStation.passInfo = passingStationList[index].passInfo
         passingStationList[index] = passingStation
-        passingStationList = passingStationList
-
-        editPassingStationDialog.active = false
+        refreshPassingStationList()
     }
 
     function deletePassingStation(index) {
@@ -546,6 +590,50 @@ Item {
         }
         // 删除该站
         passingStationList.splice(index, 1)
-        passingStationList = passingStationList
+        refreshPassingStationList()
+    }
+
+    function addPassingStation(index, info) {
+        var passingStation = generatePassingStation(info)
+        // 在终点站下方插入
+        if (index === passingStationList.length || index === -1) {
+            passingStation.passInfo = "起末站"
+        }
+        else {
+            passingStation.passInfo = "中间站"
+        }
+        // 滚动条偏移量，如果在最后插入，滚动条要自动滚动到底部
+        var offset = 0
+        // 如果点击图标插入，默认插入最后
+        if (index === -1 || index === passingStationList.length) {
+            // 原来的终点站变成中间站
+            if (passingStationList.length >= 2) {
+                passingStationList[passingStationList.length - 1].passInfo = "中间站"
+            }
+            passingStationList.splice(passingStationList.length, 0, passingStation)
+            offset = 1000
+        }
+        else {
+            passingStationList.splice(index, 0, passingStation)
+        }
+        refreshPassingStationList(offset)
+    }
+
+    function onClickAddIconFunction() {
+        editPassingStationDialog.stationList = stationManager.getAllStationNames_api()
+        editPassingStationDialog.initialInfo = {
+            stationName: "",
+            arriveHour: "",
+            arriveMinute: "",
+            arriveDay: "",
+            departureHour: "",
+            departureMinute: "",
+            departureDay: "",
+        }
+        editPassingStationDialog.onConfirmedFunction = function(info) {
+            addPassingStation(-1, info)
+            editPassingStationDialog.active = false
+        }
+        editPassingStationDialog.active = true
     }
 }
