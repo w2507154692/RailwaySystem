@@ -11,6 +11,7 @@ Page{
     id: accountPage
     objectName: "qrc:/qml/pages/AccountManager.qml"
     visible: true
+    property var mainWindow
 
     Rectangle{
         anchors.fill: parent
@@ -42,7 +43,7 @@ Page{
                         fontSize: 16
                         text: "退出登录"
                         onClicked: {
-                            warning.onConfirmed = function() {               // 退出登录逻辑
+                            warning.onConfirmedFunction = function() {               // 退出登录逻辑
                                 warning.active = false
                                 //清空参数
                                 SessionState.clear()
@@ -82,7 +83,7 @@ Page{
                     warning.active = false
                 })
                 // 连接确认信号
-                item.confirmed.connect(warning.onConfirmed)
+                item.confirmed.connect(warning.onConfirmedFunction)
                 // 初始化参数
                 item.contentText = warning.message
                 item.visible = true
