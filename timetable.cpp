@@ -111,15 +111,11 @@ std::vector<std::tuple<Station, Time, Time, int, int, int, QString>> Timetable::
         int arriveDay = std::get<3>(table[i]);
         int departureDay = std::get<4>(table[i]);
         int stopInterval;
-        if (arriveTime.isNull() || departureTime.isNull()) {
+        if (arriveTime.isNull() || departureTime.isNull() || arriveDay == -1 || departureDay == -1) {
             stopInterval = -1;
         }
-        else if (departureTime < arriveTime) {
-            stopInterval = (departureTime - arriveTime + 24 * 60 * 60) / 60;
-        }
-        else {
-            stopInterval = (departureTime - arriveTime) / 60;
-        }
+        else
+            stopInterval = (departureTime - arriveTime + (departureDay - arriveDay) * 24 * 60 * 60) / 60;
 
         std::tuple<Station, Time, Time, int, int, int, QString> t = std::make_tuple(std::get<0>(table[i]), arriveTime, departureTime, arriveDay, departureDay, stopInterval, info);
         result.push_back(t);
@@ -148,15 +144,11 @@ std::vector<std::tuple<Station, Time, Time, int, int, int, QString>> Timetable::
         int arriveDay = std::get<3>(table[i]);
         int departureDay = std::get<4>(table[i]);
         int stopInterval;
-        if (arriveTime.isNull() || departureTime.isNull()) {
+        if (arriveTime.isNull() || departureTime.isNull() || arriveDay == -1 || departureDay == -1) {
             stopInterval = -1;
         }
-        else if (departureTime < arriveTime) {
-            stopInterval = (departureTime - arriveTime + 24 * 60 * 60) / 60;
-        }
-        else {
-            stopInterval = (departureTime - arriveTime) / 60;
-        }
+        else
+            stopInterval = (departureTime - arriveTime + (departureDay - arriveDay) * 24 * 60 * 60) / 60;
 
         std::tuple<Station, Time, Time, int, int, int, QString> t = std::make_tuple(std::get<0>(table[i]), arriveTime, departureTime, arriveDay, departureDay, stopInterval, info);
         result.push_back(t);

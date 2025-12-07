@@ -96,12 +96,30 @@ Window {
                     Layout.preferredHeight: 25
                     popupMaxHeight: 200
                     model: stationList
-                    currentIndex: stationList.indexOf(stationInfo.stationName)
-                    onCurrentIndexChanged: stationInfo.stationName = stationList[currentIndex]
                     font.pixelSize: 13
                     itemHeight: 30
                     itemFontSize: 12
                     indicator: Item {} // 隐藏右侧箭头
+                    
+                    property bool updating: false
+                    
+                    // 当 stationList 变化时，更新 currentIndex
+                    onModelChanged: {
+                        if (stationInfo.stationName !== "") {
+                            var index = stationList.indexOf(stationInfo.stationName)
+                            if (index !== -1) {
+                                updating = true
+                                currentIndex = index
+                                updating = false
+                            }
+                        }
+                    }
+                    
+                    onCurrentIndexChanged: {
+                        if (!updating && currentIndex >= 0 && currentIndex < stationList.length) {
+                            stationInfo.stationName = stationList[currentIndex]
+                        }
+                    }
 
                     background: Rectangle {
                         color: stationNameCombo.hovered ? "#F5F5F5" : "#fff"

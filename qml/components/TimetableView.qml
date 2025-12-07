@@ -34,19 +34,23 @@ Item {
     function formatStopInterval(minutes) {
         if (minutes === -1) {
             return "---"
-        } else if (minutes < 60) {
+        }
+        else if (minutes < 60) {
             // 一小时以内：显示分钟
             return minutes + "分"
-        } else if (minutes < 1440) {
+        }
+        else if (minutes < 1440) {
             // 一天内（24小时）：显示几小时几分
             var hours = Math.floor(minutes / 60)
             var mins = minutes % 60
             if (mins === 0) {
                 return hours + "小时"
-            } else {
+            }
+            else {
                 return hours + "小时" + mins + "分"
             }
-        } else {
+        }
+        else {
             // 超过一天：显示几天几小时（不显示分）
             var days = Math.floor(minutes / 1440)
             var remainingMinutes = minutes % 1440
@@ -255,8 +259,8 @@ Item {
                                         anchors.fill: parent
                                         cursorShape: Qt.PointingHandCursor
                                         onClicked: {
-                                            editPassingStationDialog.initialInfo = modelData
                                             editPassingStationDialog.stationList = stationManager.getAllStationNames_api()
+                                            editPassingStationDialog.initialInfo = modelData
                                             editPassingStationDialog.onConfirmedFunction = function(info) {
                                                 editPassingStaion(index, info)
                                             }
@@ -362,9 +366,7 @@ Item {
 
                                 //停留
                                 Text {
-                                    text: modelData.stopInterval === -1
-                                          ? "---"
-                                          : modelData.stopInterval + "分"
+                                    text: formatStopInterval(modelData.stopInterval)
                                     color: rowinfo.textColor
                                     Layout.preferredWidth: 48
                                     Layout.preferredHeight: 40
@@ -515,6 +517,8 @@ Item {
             passingStation.stopInterval = -1
         }
 
+        // 停靠信息不变
+        passingStation.passInfo = passingStationList[index].passInfo
         passingStationList[index] = passingStation
         passingStationList = passingStationList
 
