@@ -122,6 +122,28 @@ QVariantList TrainManager::getTimetableInfo_api(const QString &trainNumber, cons
     return list;
 }
 
+QVariantList TrainManager::getCarriages_api(const QString &trainNumber) {
+    QVariantList list;
+    auto findResult = getTrainByTrainNumber(trainNumber);
+    if (!findResult) {
+        qWarning() << "未找到车次:" << trainNumber;
+        return list;
+    }
+    Train &train = findResult.value();
+    std::vector<std::tuple<QString, int, int>> carriages = train.getCarriages();
+    
+    for (const auto &carriage : carriages) {
+        QVariantMap map;
+        map["seatLevel"] = std::get<0>(carriage);
+        map["rows"] = std::get<1>(carriage);
+        map["cols"] = std::get<2>(carriage);
+        list << map;
+    }
+    
+    qWarning() << "获取车次" << trainNumber << "的车厢数量:" << list.size();
+    return list;
+}
+
 std::vector<std::tuple<Train, Station, Station>> TrainManager::getRoutesByCities(const QString &startCityName, const QString &endCityName) {
     std::vector<std::tuple<Train, Station, Station>> result;
     for (auto &train : trains) {

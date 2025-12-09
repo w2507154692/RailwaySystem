@@ -87,6 +87,13 @@ Page {
                                     fontSize: 15
                                     borderRadius: 7
                                     buttonType: "confirm"
+                                    onClicked: {
+                                        seatTemplateLoader.trainNumber = modelData.trainNumber
+                                        seatTemplateLoader.currentCarriages = trainManager.getCarriages_api(modelData.trainNumber)
+                                        console.log("seatTemplateLoader.currentCarriages:", seatTemplateLoader.currentCarriages)
+                                        seatTemplateLoader.source = "EditSeatTemplateDialog.qml"
+                                        seatTemplateLoader.active = true
+                                    }
                                 }
                             }
 
@@ -260,6 +267,33 @@ Page {
                 // 初始化参数
                 item.transientParent = mainWindow
                 item.timetable = timetable
+                item.visible = true
+            }
+        }
+    }
+
+    //座位模板页面
+    Loader {
+        property string trainNumber: ""
+        property var currentCarriages: []
+        id: seatTemplateLoader
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 连接关闭信号
+                item.closed.connect(function() {
+                    seatTemplateLoader.active = false
+                })
+                // 连接更新成功信号
+                item.seatTemplateUpdated.connect(function() {
+                    refreshTrains()
+                })
+                // 初始化参数
+                item.transientParent = mainWindow
+                item.trainNumber = seatTemplateLoader.trainNumber
+                console.log("seatTemplateLoader loaded, trainNumber:", seatTemplateLoader.trainNumber)
+                item.currentCarriages = seatTemplateLoader.currentCarriages
                 item.visible = true
             }
         }

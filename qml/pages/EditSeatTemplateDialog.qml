@@ -5,12 +5,30 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window {
-    id: mainWindow
+    id: modifySeatTemplateWin
+    // property var mainWindow
+    signal closed()
+    onVisibleChanged: if (!visible) closed()
+
     width: 600; height: 410
     minimumWidth: 600; minimumHeight: 410
+
     visible: true
     color: "transparent"
     flags: Qt.FramelessWindowHint
+    modality: Qt.ApplicationModal
+
+    // 车次号
+    property string trainNumber: ""
+    // 当前车厢配置 [{seatLevel: "一等座", rows: 10, cols: 2}, ...]
+    property var currentCarriages: []
+
+    signal seatTemplateUpdated()
+
+    // 当 currentCarriages 变化时自动加载模板
+    onCurrentCarriagesChanged: {
+        loadCurrentTemplate()
+    }
 
     Rectangle {
         id: root
@@ -21,6 +39,7 @@ Window {
         border.width: 2
         radius: 16
 
+        //拖动逻辑
         MouseArea {
            anchors.fill: parent
            // 定义拖动
@@ -33,10 +52,11 @@ Window {
            }
            onPositionChanged: {
                // 拖动窗口
-               mainWindow.x += mouse.x - clickX;
-               mainWindow.y += mouse.y - clickY;
+               modifySeatTemplateWin.x += mouse.x - clickX;
+               modifySeatTemplateWin.y += mouse.y - clickY;
            }
        }
+
         // 顶部渐变标题栏
         Header{
             titleFontSize: 18
@@ -47,7 +67,10 @@ Window {
             anchors.topMargin: 2
             anchors.left: parent.left
             anchors.leftMargin: 2
-            title: "修改座位模板"
+            title: "修改座位模板 - " + trainNumber
+            onCloseClicked: {
+                modifySeatTemplateWin.visible = false
+            }
         }
 
         // 内容区
@@ -60,25 +83,25 @@ Window {
             anchors.topMargin: 16
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 42
-            spacing: 0
+            spacing: 8
 
-            // 车厢数
+            // 车厢总数（只读，根据下面配置自动计算）
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 8
                 Label {
-                    text: "车厢数："
+                    text: "车厢总数："
                     font.pixelSize: 14
                     color: "#444"
                     Layout.preferredWidth: 70
-                    // horizontalAlignment: Text.AlignRight
                 }
                 TextField {
                     id: totalCarriage
                     Layout.preferredWidth: 60
                     height: 26
                     font.pixelSize: 13
-                    text: "16"
+                    text: "0"
+                    validator: IntValidator { bottom: 1; top: 26 }
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     background: Rectangle {
@@ -87,6 +110,11 @@ Window {
                         border.width: 1
                         color: "#fff"
                     }
+                }
+                Label {
+                    text: "（车厢数应等于下方配置的车厢范围总和，最多26节）"
+                    font.pixelSize: 12
+                    color: "#666"
                 }
                 Item { Layout.fillWidth: true }
             }
@@ -98,16 +126,16 @@ Window {
                 Layout.fillWidth: true
                 spacing: 0
 
+                //标题
                 Label {
                     text: "一等座"
                     font.pixelSize: 14
                     color: "#4282e6"
-                    Layout.topMargin: 10
                     Layout.bottomMargin: 2
                 }
 
                 Item{
-                    Layout.preferredHeight: 2
+                    Layout.fillHeight:true
                 }
 
                 // 分割线
@@ -122,6 +150,7 @@ Window {
                     Layout.fillHeight: true
                 }
 
+                //输入一等座信息
                 RowLayout {
                     Layout.fillWidth: true
                     spacing: 10
@@ -146,6 +175,7 @@ Window {
                             border.width: 1
                             color: "#fff"
                         }
+                        onTextChanged: updateTotalCarriageCount()
                     }
                     Label { text: "到"; font.pixelSize: 13; color: "#444" }
                     TextField {
@@ -162,6 +192,7 @@ Window {
                             border.width: 1
                             color: "#fff"
                         }
+                        onTextChanged: updateTotalCarriageCount()
                     }
                     Label { text: "车厢"; font.pixelSize: 13; color: "#444" }
 
@@ -222,16 +253,16 @@ Window {
                 Layout.fillWidth: true
                 spacing: 0
 
+                //标题
                 Label {
                     text: "二等座"
                     font.pixelSize: 14
                     color: "#4282e6"
-                    Layout.topMargin: 10
                     Layout.bottomMargin: 2
                 }
 
                 Item{
-                    Layout.preferredHeight: 2
+                    Layout.fillHeight:true
                 }
 
                 // 分割线
@@ -246,6 +277,7 @@ Window {
                     Layout.fillHeight: true
                 }
 
+                //输入二等座信息
                 RowLayout {
                     Layout.fillWidth: true
                     spacing: 10
@@ -270,6 +302,7 @@ Window {
                             border.width: 1
                             color: "#fff"
                         }
+                        onTextChanged: updateTotalCarriageCount()
                     }
                     Label { text: "到"; font.pixelSize: 13; color: "#444" }
                     TextField {
@@ -286,6 +319,7 @@ Window {
                             border.width: 1
                             color: "#fff"
                         }
+                        onTextChanged: updateTotalCarriageCount()
                     }
                     Label { text: "车厢"; font.pixelSize: 13; color: "#444" }
 
@@ -345,16 +379,16 @@ Window {
                 Layout.fillWidth: true
                 spacing: 0
 
+                //标题
                 Label {
                     text: "商务座"
                     font.pixelSize: 14
                     color: "#4282e6"
-                    Layout.topMargin: 10
                     Layout.bottomMargin: 2
                 }
 
                 Item{
-                    Layout.preferredHeight: 2
+                    Layout.fillHeight:true
                 }
 
                 // 分割线
@@ -369,6 +403,7 @@ Window {
                     Layout.fillHeight: true
                 }
 
+                //输入商务座信息
                 RowLayout {
                     Layout.fillWidth: true
                     spacing: 10
@@ -393,6 +428,7 @@ Window {
                             border.width: 1
                             color: "#fff"
                         }
+                        onTextChanged: updateTotalCarriageCount()
                     }
                     Label { text: "到"; font.pixelSize: 13; color: "#444" }
                     TextField {
@@ -409,6 +445,7 @@ Window {
                             border.width: 1
                             color: "#fff"
                         }
+                        onTextChanged: updateTotalCarriageCount()
                     }
                     Label { text: "车厢"; font.pixelSize: 13; color: "#444" }
 
@@ -462,30 +499,344 @@ Window {
 
             }
 
-            // 按钮区
+            // 底部按钮区
             RowLayout {
-                Layout.fillWidth: true
                 Layout.topMargin: 20
-                Item { Layout.preferredWidth: 80 }
-                // 确认按钮
-                CustomButton{
-                    buttonType: "confirm"
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                // anchors.horizontalCenter: parent.horizontalCenter
+                // anchors.bottom: parent.bottom
+                // anchors.bottomMargin: 30
+                spacing: 120
+                // Layout.bottomMargin: 30
+
+                CustomButton {
                     text: "确认"
-                    height: 26
-                    width: 100
-                    fontSize: 14
+                    width: 120
+                    height: 30
+                    onClicked: {
+                        submitSeatTemplate()
+                    }
                 }
-                Item { Layout.fillWidth: true }
-                // 取消按钮
-                CustomButton{
-                    buttonType: "cancel"
+                CustomButton {
                     text: "取消"
-                    height: 26
-                    width: 100
-                    fontSize: 14
+                    customColor: "#e6e6e6"
+                    textColor: "#666"
+                    pressedColor: "#666"
+                    pressedTextColor: "#fff"
+                    width: 120
+                    height: 30
+                    onClicked: {
+                        modifySeatTemplateWin.visible = false
+                    }
                 }
-                Item { Layout.preferredWidth: 80 }
             }
         }
+    }
+
+    // 通知弹窗
+    Loader {
+        property string message: ""
+        property var onClosedFunction: null
+        id: notification
+        source: ""
+        active: false
+        onLoaded: {
+            if (item) {
+                // 设置父窗口关系 - 使用主窗口避免模态窗口焦点竞争
+                item.transientParent = ApplicationWindow.window
+                // 连接关闭信号
+                item.closed.connect(onClosedFunction)
+                // 初始化参数
+                item.contentText = message
+                item.visible = true
+            }
+        }
+    }
+
+    // 加载当前车厢模板配置
+    function loadCurrentTemplate() {
+        console.log("加载车厢模板:", trainNumber, "车厢数:", currentCarriages.length)
+        
+        // 清空所有字段
+        firstStart.text = ""
+        firstEnd.text = ""
+        firstRows.text = ""
+        firstCols.text = ""
+        secondStart.text = ""
+        secondEnd.text = ""
+        secondRows.text = ""
+        secondCols.text = ""
+        businessStart.text = ""
+        businessEnd.text = ""
+        businessRows.text = ""
+        businessCols.text = ""
+        
+        if (currentCarriages.length === 0) {
+            totalCarriage.text = "0"
+            return
+        }
+        
+        // 按车厢类型分组统计
+        var firstClass = {start: -1, end: -1, rows: 0, cols: 0}
+        var secondClass = {start: -1, end: -1, rows: 0, cols: 0}
+        var businessClass = {start: -1, end: -1, rows: 0, cols: 0}
+        
+        for (var i = 0; i < currentCarriages.length; i++) {
+            var carriage = currentCarriages[i]
+            var carriageNum = i + 1
+            
+            console.log("车厢", carriageNum, ":", carriage.seatLevel, carriage.rows + "行", carriage.cols + "列")
+            
+            if (carriage.seatLevel === "一等座") {
+                if (firstClass.start === -1) {
+                    firstClass.start = carriageNum
+                    firstClass.rows = carriage.rows
+                    firstClass.cols = carriage.cols
+                }
+                firstClass.end = carriageNum
+            } else if (carriage.seatLevel === "二等座") {
+                if (secondClass.start === -1) {
+                    secondClass.start = carriageNum
+                    secondClass.rows = carriage.rows
+                    secondClass.cols = carriage.cols
+                }
+                secondClass.end = carriageNum
+            } else if (carriage.seatLevel === "商务座") {
+                if (businessClass.start === -1) {
+                    businessClass.start = carriageNum
+                    businessClass.rows = carriage.rows
+                    businessClass.cols = carriage.cols
+                }
+                businessClass.end = carriageNum
+            }
+        }
+        
+        // 设置界面值
+        if (firstClass.start !== -1) {
+            firstStart.text = firstClass.start.toString()
+            firstEnd.text = firstClass.end.toString()
+            firstRows.text = firstClass.rows.toString()
+            firstCols.text = firstClass.cols.toString()
+        }
+        
+        if (secondClass.start !== -1) {
+            secondStart.text = secondClass.start.toString()
+            secondEnd.text = secondClass.end.toString()
+            secondRows.text = secondClass.rows.toString()
+            secondCols.text = secondClass.cols.toString()
+        }
+        
+        if (businessClass.start !== -1) {
+            businessStart.text = businessClass.start.toString()
+            businessEnd.text = businessClass.end.toString()
+            businessRows.text = businessClass.rows.toString()
+            businessCols.text = businessClass.cols.toString()
+        }
+        
+        // 设置车厢总数
+        totalCarriage.text = currentCarriages.length.toString()
+        console.log("加载完成,车厢总数:", currentCarriages.length)
+    }
+
+    // 更新车厢总数显示
+    function updateTotalCarriageCount() {
+        var total = 0
+        
+        var fStart = parseInt(firstStart.text)
+        var fEnd = parseInt(firstEnd.text)
+        if (!isNaN(fStart) && !isNaN(fEnd) && fEnd >= fStart) {
+            total += (fEnd - fStart + 1)
+        }
+        
+        var sStart = parseInt(secondStart.text)
+        var sEnd = parseInt(secondEnd.text)
+        if (!isNaN(sStart) && !isNaN(sEnd) && sEnd >= sStart) {
+            total += (sEnd - sStart + 1)
+        }
+        
+        var bStart = parseInt(businessStart.text)
+        var bEnd = parseInt(businessEnd.text)
+        if (!isNaN(bStart) && !isNaN(bEnd) && bEnd >= bStart) {
+            total += (bEnd - bStart + 1)
+        }
+        
+        totalCarriage.text = total.toString()
+    }
+
+    // 提交座位模板
+    function submitSeatTemplate() {
+        // 获取输入值
+        var totalCarriageNum = parseInt(totalCarriage.text)
+        var fStart = parseInt(firstStart.text)
+        var fEnd = parseInt(firstEnd.text)
+        var fRows = parseInt(firstRows.text)
+        var fCols = parseInt(firstCols.text)
+        
+        var sStart = parseInt(secondStart.text)
+        var sEnd = parseInt(secondEnd.text)
+        var sRows = parseInt(secondRows.text)
+        var sCols = parseInt(secondCols.text)
+        
+        var bStart = parseInt(businessStart.text)
+        var bEnd = parseInt(businessEnd.text)
+        var bRows = parseInt(businessRows.text)
+        var bCols = parseInt(businessCols.text)
+        
+        // 基础验证
+        if (isNaN(totalCarriageNum) || totalCarriageNum <= 0) {
+            showError("请输入有效的车厢总数")
+            return
+        }
+        
+        if (totalCarriageNum > 26) {
+            showError("车厢总数不能超过26节")
+            return
+        }
+        
+        // 收集所有有效的车厢范围
+        var ranges = []
+        
+        // 一等座
+        if (!isNaN(fStart) && !isNaN(fEnd)) {
+            if (fEnd < fStart) {
+                showError("一等座结束车厢号不能小于起始车厢号")
+                return
+            }
+            if (isNaN(fRows) || fRows <= 0 || isNaN(fCols) || fCols <= 0) {
+                showError("一等座行数和列数必须为正整数")
+                return
+            }
+            ranges.push({
+                start: fStart,
+                end: fEnd,
+                type: "一等座",
+                rows: fRows,
+                cols: fCols
+            })
+        }
+        
+        // 二等座
+        if (!isNaN(sStart) && !isNaN(sEnd)) {
+            if (sEnd < sStart) {
+                showError("二等座结束车厢号不能小于起始车厢号")
+                return
+            }
+            if (isNaN(sRows) || sRows <= 0 || isNaN(sCols) || sCols <= 0) {
+                showError("二等座行数和列数必须为正整数")
+                return
+            }
+            ranges.push({
+                start: sStart,
+                end: sEnd,
+                type: "二等座",
+                rows: sRows,
+                cols: sCols
+            })
+        }
+        
+        // 商务座
+        if (!isNaN(bStart) && !isNaN(bEnd)) {
+            if (bEnd < bStart) {
+                showError("商务座结束车厢号不能小于起始车厢号")
+                return
+            }
+            if (isNaN(bRows) || bRows <= 0 || isNaN(bCols) || bCols <= 0) {
+                showError("商务座行数和列数必须为正整数")
+                return
+            }
+            ranges.push({
+                start: bStart,
+                end: bEnd,
+                type: "商务座",
+                rows: bRows,
+                cols: bCols
+            })
+        }
+        
+        // 至少要有一种座位类型
+        if (ranges.length === 0) {
+            showError("至少需要配置一种座位类型")
+            return
+        }
+        
+        // 按起始车厢号排序
+        ranges.sort(function(a, b) { return a.start - b.start })
+        
+        // 验证车厢范围不交叉且连续
+        for (var i = 0; i < ranges.length; i++) {
+            // 检查是否从1开始
+            if (i === 0 && ranges[i].start !== 1) {
+                showError("车厢必须从1号开始,当前从" + ranges[i].start + "号开始")
+                return
+            }
+            
+            // 检查是否有交叉或遗漏
+            if (i > 0) {
+                var prevEnd = ranges[i - 1].end
+                var currStart = ranges[i].start
+                
+                if (currStart <= prevEnd) {
+                    showError(ranges[i - 1].type + "(" + ranges[i - 1].start + "-" + prevEnd + ")与" + 
+                             ranges[i].type + "(" + currStart + "-" + ranges[i].end + ")车厢范围交叉")
+                    return
+                }
+                
+                if (currStart !== prevEnd + 1) {
+                    showError("车厢范围不连续:第" + prevEnd + "号车厢后应为第" + (prevEnd + 1) + "号,但配置为第" + currStart + "号")
+                    return
+                }
+            }
+        }
+        
+        // 验证最后一个车厢号等于总车厢数
+        var lastEnd = ranges[ranges.length - 1].end
+        if (lastEnd !== totalCarriageNum) {
+            showError("车厢配置总数(" + lastEnd + ")与车厢总数(" + totalCarriageNum + ")不符")
+            return
+        }
+        
+        // 构建新的车厢配置数组
+        var carriages = []
+        for (var i = 0; i < ranges.length; i++) {
+            var range = ranges[i]
+            for (var j = range.start; j <= range.end; j++) {
+                carriages.push({
+                    seatLevel: range.type,
+                    rows: range.rows,
+                    cols: range.cols
+                })
+            }
+        }
+
+        // 调用后端API更新座位模板
+        var result = trainManager.updateSeatTemplate_api({
+            trainNumber: trainNumber,
+            carriages: carriages
+        })
+
+        if (result.success) {
+            notification.message = "座位模板修改成功！"
+            notification.onClosedFunction = function() {
+                notification.active = false
+                seatTemplateUpdated()
+                modifySeatTemplateWin.visible = false
+            }
+        } else {
+            notification.message = result.message || "座位模板修改失败！"
+            notification.onClosedFunction = function() { notification.active = false }
+        }
+        
+        notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+        notification.active = true
+    }
+    
+    // 显示错误提示
+    function showError(message) {
+        console.log("验证错误:", message)
+        notification.message = message
+        notification.onClosedFunction = function() { notification.active = false }
+        notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+        notification.active = true
     }
 }
