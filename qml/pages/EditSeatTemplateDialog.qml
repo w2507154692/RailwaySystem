@@ -101,7 +101,7 @@ Window {
                     height: 26
                     font.pixelSize: 13
                     text: "0"
-                    validator: IntValidator { bottom: 1; top: 26 }
+                    validator: IntValidator { bottom: 1 }
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     background: Rectangle {
@@ -112,7 +112,7 @@ Window {
                     }
                 }
                 Label {
-                    text: "（车厢数应等于下方配置的车厢范围总和，最多26节）"
+                    text: "（车厢数应等于下方配置的车厢范围总和）"
                     font.pixelSize: 12
                     color: "#666"
                 }
@@ -228,6 +228,7 @@ Window {
                         height: 24
                         font.pixelSize: 12
                         text: "2"
+                        validator: IntValidator { bottom: 1; top: 26 }
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         background: Rectangle {
@@ -355,6 +356,7 @@ Window {
                         height: 24
                         font.pixelSize: 12
                         text: "5"
+                        validator: IntValidator { bottom: 1; top: 26 }
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         background: Rectangle {
@@ -481,6 +483,7 @@ Window {
                         height: 24
                         font.pixelSize: 12
                         text: "2"
+                        validator: IntValidator { bottom: 1; top: 26 }
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         background: Rectangle {
@@ -689,11 +692,6 @@ Window {
             return
         }
         
-        if (totalCarriageNum > 26) {
-            showError("车厢总数不能超过26节")
-            return
-        }
-        
         // 收集所有有效的车厢范围
         var ranges = []
         
@@ -705,6 +703,10 @@ Window {
             }
             if (isNaN(fRows) || fRows <= 0 || isNaN(fCols) || fCols <= 0) {
                 showError("一等座行数和列数必须为正整数")
+                return
+            }
+            if (fCols > 26) {
+                showError("一等座列数不能超过26")
                 return
             }
             ranges.push({
@@ -726,6 +728,10 @@ Window {
                 showError("二等座行数和列数必须为正整数")
                 return
             }
+            if (sCols > 26) {
+                showError("二等座列数不能超过26")
+                return
+            }
             ranges.push({
                 start: sStart,
                 end: sEnd,
@@ -743,6 +749,10 @@ Window {
             }
             if (isNaN(bRows) || bRows <= 0 || isNaN(bCols) || bCols <= 0) {
                 showError("商务座行数和列数必须为正整数")
+                return
+            }
+            if (bCols > 26) {
+                showError("商务座列数不能超过26")
                 return
             }
             ranges.push({
