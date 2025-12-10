@@ -5,11 +5,15 @@ import QtQuick.Layouts 1.15
 import "../components"
 
 Window {
+    id:timetableManagementWin
     width: 400; height: 520
     visible: true
-    color: "#ffffff"
+    color: "transparent"
+    flags: Qt.FramelessWindowHint
+    modality: Qt.ApplicationModal
 
     signal closed()
+    onVisibleChanged: if (!visible) closed()
     property var timetable: []
 
     onClosing: {
@@ -22,6 +26,25 @@ Window {
         color: "#ffffff"
         border.color: "#222"
         border.width: 1
+
+
+        //拖动逻辑
+        MouseArea {
+           anchors.fill: parent
+           // 定义拖动
+           property real clickX: 0
+           property real clickY: 0
+
+           onPressed: {
+               clickX = mouse.x;
+               clickY = mouse.y;
+           }
+           onPositionChanged: {
+               // 拖动窗口
+               timetableManagementWin.x += mouse.x - clickX;
+               timetableManagementWin.y += mouse.y - clickY;
+           }
+       }
 
         ColumnLayout{
             anchors.fill: parent
@@ -139,6 +162,9 @@ Window {
                     height: 26
                     width:130
                     fontSize:14
+                    onClicked: {
+                        timetableManagementWin.visible = false
+                    }
                 }
 
                 Item { Layout.preferredWidth: 30}
