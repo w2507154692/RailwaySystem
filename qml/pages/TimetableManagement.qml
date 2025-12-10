@@ -44,6 +44,12 @@ Window {
                timetableManagementWin.x += mouse.x - clickX;
                timetableManagementWin.y += mouse.y - clickY;
            }
+           onClicked: {
+               // 点击任意位置退出编辑模式
+               if (titleBar.isEditing) {
+                   titleBar.isEditing = false
+               }
+           }
        }
 
         ColumnLayout{
@@ -52,32 +58,81 @@ Window {
 
             // 标题栏
             Rectangle {
+                id: titleBar
                 Layout.fillWidth: true
                 height: 40
                 radius: 16
                 Layout.leftMargin: 1
                 Layout.rightMargin: 1
                 Layout.topMargin: 1
+                
+                property bool isEditing: false
+                
+                // 显示模式：文本
                 Text {
-                    id: trainNumber
-                    text: "G115"
+                    id: trainNumberText
+                    text: trainNumberInput.text
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 28
                     font.bold: true
+                    visible: !titleBar.isEditing
                 }
-                // 编辑按钮(装饰)
+                
+                // 编辑模式：输入框
+                Rectangle {
+                    id: trainNumberEditBox
+                    width: 150
+                    height: 35
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    visible: titleBar.isEditing
+                    border.color: "transparent"
+                    
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            // 阻止事件冒泡，避免点击输入框时退出编辑
+                            mouse.accepted = true
+                        }
+                    }
+                    
+                    TextInput {
+                        id: trainNumberInput
+                        text: "G115"
+                        anchors.fill: parent
+                        anchors.margins: 5
+                        font.pixelSize: 24
+                        font.bold: true
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        
+                        onAccepted: {
+                            titleBar.isEditing = false
+                        }
+                    }
+                }
+                
+                // 编辑按钮
                 Image {
-                    source: "qrc:/resources/icon/Edit.png" // 换成你的资源路径
+                    source: "qrc:/resources/icon/Edit.png" 
                     width: 40
                     height: 40
                     anchors.left: parent.horizontalCenter
                     anchors.leftMargin: 40
                     anchors.verticalCenter: parent.verticalCenter
+                    
                     MouseArea {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
-                        // onClicked: ...
+                        onClicked: {
+                            mouse.accepted = true  // 阻止事件冒泡
+                            titleBar.isEditing = !titleBar.isEditing
+                            if (titleBar.isEditing) {
+                                trainNumberInput.forceActiveFocus()
+                                trainNumberInput.selectAll()
+                            }
+                        }
                     }
                 }
             }
@@ -149,7 +204,7 @@ Window {
                     height: 26
                     width:130
                     fontSize:14
-                    onClicked: submit(trainNumber.text, timetableView.passingStationList)
+                    onClicked: submit(trainNumberInput.text, timetableView.passingStationList)
                 }
 
                 Item { Layout.fillWidth: true }
