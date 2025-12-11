@@ -400,6 +400,59 @@ QVariantMap BookingSystem::deleteUser_api(const QVariantMap &info) {
     return result;
 }
 
+QVariantMap BookingSystem::updateTimetableAndTrainNumber_api(const QVariantMap &info) {
+    QVariantMap result;
+    // 检查信息是否完整
+    if (!info.contains("passingStationList") || !info.contains("oldTrainNumber") || !info.contains("newTrainNumber")) {
+        result["success"] = false;
+        result["message"] = "信息不全！";
+        return result;
+    }
+    // 获取老车次号、新车次号和时刻表
+    QString oldTrainNumber = info["oldTrainNumber"].toString();
+    QString newTrainNumber = info["newTrainNumber"].toString();
+    QVariantList list = info["passingStationList"].toList();
+    Timetable timetable;
+    // 检查新车次号是否合法（首字母必须为大写字母且后面必须是纯数字)
+    for (int i = 0; i < newTrainNumber.size(); i++) {
+        QChar c = newTrainNumber.at(i);
+        if (i == 0 && (c < QChar('A') || c > QChar('Z'))) {
+            result["success"] = false;
+            result["message"] = "车次号必须以大写字母开头！";
+            return result;
+        }
+        if (i != 0 && (c < QChar('0') || c > QChar('9'))) {
+            result["success"] = false;
+            result["message"] = "车次号除第一个大写字母以外必须是纯数字！";
+            return result;
+        }
+    }
+    // 遍历前端传过来的时刻表，并检查车站是否存在
+    for (int i = 0; i < list.size(); i++) {
+        QVariantMap passingStation = list[i].toMap();
+        QString stationName = passingStation["stationName"].toString();
+        int arriveHour = passingStation["arriveHour"].toInt();
+        int arriveMinute = passingStation["arriveMinute"].toInt();
+        int arriveDay = passingStation["arriveDay"].toInt();
+        int departureHour = passingStation["departureHour"].toInt();
+        int departureMinute = passingStation["departureMinute"].toInt();
+        int departureDay = passingStation["departureDay"].toInt();
+        auto stationFindResult = station_manager->getStationByStationName(stationName);
+        if (!stationFindResult) {
+            result["success"] = false;
+            result["message"] = QString("车站 %1 不存在！").arg(stationName);
+            return result;
+        }
+        Station station = stationFindResult.value();
+        Time arriveTime(arriveHour, arriveMinute);
+        Time departureTime(departureHour, departureMinute);
+        timetable.insertPassingStationAtEnd(station, arriveTime, departureTime, arriveDay, departureDay);
+    }
+    // 修改车次号和时刻表（必须一起修改，否则一个失败，需要全部撤销）
+    result = train_manager->updateTimetableAndTrainNumberByTrainNumber(oldTrainNumber, timetable, newTrainNumber);
+    return result;
+}
+
 std::tuple<double, double, double> BookingSystem::computePrice(const QString &trainNumber, Station &startStation, Station &endStation) {
     Train train = train_manager->getTrainByTrainNumber(trainNumber).value();
     Timetable timetable = train.getTimetable();

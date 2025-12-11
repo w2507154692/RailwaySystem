@@ -156,6 +156,11 @@ std::vector<std::tuple<Station, Time, Time, int, int, int, QString>> Timetable::
     return result;
 }
 
+bool Timetable::insertPassingStationAtEnd(Station &station, Time &arriveTime, Time &departureTime, int arriveDay, int departureDay) {
+    table.push_back(std::make_tuple(station, arriveTime, departureTime, arriveDay, departureDay));
+    return true;
+}
+
 std::tuple<Station, Time> Timetable::getStartStationInfo() {
     Station startStation = std::get<0>(table[0]);
     Time departureTime = std::get<2>(table[0]);

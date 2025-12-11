@@ -8,8 +8,18 @@ QString Train::getNumber() {
     return number;
 }
 
+bool Train::setNumber(const QString &number) {
+    this->number = number;
+    return true;
+}
+
 Timetable Train::getTimetable() {
     return timetable;
+}
+
+bool Train::setTimetable(Timetable &timetable) {
+    this->timetable = timetable;
+    return true;
 }
 
 std::vector<std::tuple<QString, int, int>> Train::getCarriages(){

@@ -144,6 +144,31 @@ QVariantList TrainManager::getCarriages_api(const QString &trainNumber) {
     return list;
 }
 
+QVariantMap TrainManager::updateTimetableAndTrainNumberByTrainNumber(const QString &oldTrainNumber, Timetable &timetable, const QString &newTrainNumber) {
+    QVariantMap result;
+    // 如果新车次号和旧车次号不同，检查新车次号是否已存在
+    if (oldTrainNumber != newTrainNumber) {
+        auto findTrainResult = getTrainByTrainNumber(newTrainNumber);
+        if (findTrainResult) {
+            result["success"] = false;
+            result["message"] = QString("车次 %1 已存在！").arg(newTrainNumber);
+            return result;
+        }
+    }
+    for (auto &train : trains) {
+        if (train.getNumber() == oldTrainNumber) {
+            train.setTimetable(timetable);
+            train.setNumber(newTrainNumber);
+            result["success"] = true;
+            result["message"] = QString("更新成功！");
+            return result;
+        }
+    }
+    result["success"] = false;
+    result["message"] = QString("未找到车次 %1，更新失败！").arg(oldTrainNumber);
+    return result;
+}
+
 std::vector<std::tuple<Train, Station, Station>> TrainManager::getRoutesByCities(const QString &startCityName, const QString &endCityName) {
     std::vector<std::tuple<Train, Station, Station>> result;
     for (auto &train : trains) {

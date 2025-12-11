@@ -14,7 +14,6 @@ Page {
     property var mainWindow
     property var rawTrainList: []
     property var trainList: []
-    property var timetable: []
 
     Component.onCompleted: {
         refreshTrains()
@@ -75,7 +74,12 @@ Page {
                                     borderRadius: 7
                                     buttonType: "confirm"
                                     onClicked: {
-                                        timetable = trainManager.getTimetableInfo_api(modelData.trainNumber)
+                                        timetableLoader.timetable = trainManager.getTimetableInfo_api(modelData.trainNumber)
+                                        timetableLoader.oldTrainNumber = modelData.trainNumber
+                                        timetableLoader.onConfirmedFunction = function(info) {
+                                            updateTimetableAndTrainNumber(info)
+                                        }
+
                                         timetableLoader.source = "TimetableManagement.qml"
                                         timetableLoader.active = true
                                     }
@@ -238,7 +242,7 @@ Page {
     Loader {
         property string message: ""
         id: notification
-        source: ""
+        source: "qrc:/qml/components/ConfirmDialog.qml"
         active: false
         onLoaded: {
             if (item) {
@@ -255,6 +259,9 @@ Page {
 
     //时刻表页面
     Loader {
+        property var timetable: []
+        property string oldTrainNumber: ""
+        property var onConfirmedFunction: function() {}
         id: timetableLoader
         source: ""
         active: false
@@ -264,9 +271,12 @@ Page {
                 item.closed.connect(function() {
                     timetableLoader.active = false
                 })
+                // 连接确认信号
+                item.confirmed.connect(onConfirmedFunction)
                 // 初始化参数
                 item.transientParent = mainWindow
                 item.timetable = timetable
+                item.oldTrainNumber = oldTrainNumber
                 item.visible = true
             }
         }
@@ -320,6 +330,103 @@ Page {
                 && (searchStartStationName.text === "" || (train.startStationName && train.startStationName.indexOf(searchStartStationName.text) !== -1))
                 && (searchEndStationName.text === "" || (train.endStationName && train.endStationName.indexOf(searchEndStationName.text) !== -1))
         });
+    }
+
+    function isPassingStationLegal(list) {
+        // 长度为 <=1 不合法
+        if (list.length <= 1) {
+            notification.message = "起末站不完整！"
+            notification.active = true;
+            return false
+        }
+        var stationFlag = {}
+        // 每一站依次判断
+        for (var i = 0; i < list.length; i++) {
+            var stationName = list[i].stationName
+            var arriveHour = list[i].arriveHour
+            var arriveMinute = list[i].arriveMinute
+            var arriveDay = list[i].arriveDay
+            var departureHour = list[i].departureHour
+            var departureMinute = list[i].departureMinute
+            var departureDay = list[i].departureDay
+            // 判断站名是否缺失
+            if (stationName === "") {
+                notification.message = "第" + (i + 1) + "站站名缺失！"
+                notification.active = true
+                return false
+            }
+            // 判断是否重复经过某一站
+            if (stationFlag[stationName]) {
+                notification.message = "重复经过" + stationName + "站！"
+                notification.active = true
+                return false
+            }
+            // 记录经过了此站
+            stationFlag[stationName] = true
+            // 判断起始站各时间字段是否合法
+            if (i == 0 && (arriveHour !== -1 || arriveMinute !== -1 || arriveDay !== -1 ||
+                           departureHour === -1 || departureMinute === -1 || departureDay !== 0)) {
+                notification.message = "第" + (i + 1) + "站时刻项错误！"
+                notification.active = true
+                return false
+            }
+            // 判断终点站各时间字段是否合法
+            if (i == list.length - 1 && (arriveHour === -1 || arriveMinute === -1 || arriveDay === -1 ||
+                           departureHour !== -1 || departureMinute !== -1 || departureDay !== -1)) {
+                notification.message = "第" + (i + 1) + "站时刻项错误！"
+                notification.active = true
+                return false
+            }
+            // 判断中间站各时间字段是否合法
+            if (i != 0 && i != list.length - 1 && (arriveHour === -1 || arriveMinute === -1 || arriveDay === -1 ||
+                           departureHour === -1 || departureMinute === -1 || departureDay === -1)) {
+                notification.message = "第" + (i + 1) + "站时刻项错误！"
+                notification.active = true
+                return false
+            }
+
+            // 判断中间站的到时是不是在发时的前面
+            if (i != 0 && i != list.length - 1 && (arriveDay > departureDay ||
+                (arriveDay === departureDay && arriveHour > departureHour) ||
+                (arriveDay === departureDay && arriveHour === departureHour && arriveMinute >= departureMinute))) {
+                notification.message = "第" + (i + 1) + "站到时应在发时之前！"
+                notification.active = true
+                return false
+            }
+
+            // 判断该站的到时是不是在上一站发时的后面
+            if (i > 0 && (arriveDay < list[i - 1].departureDay ||
+                (arriveDay === list[i - 1].departureDay && arriveHour < list[i - 1].departureHour) ||
+                (arriveDay === list[i - 1].departureDay && arriveHour === list[i - 1].departureHour && arriveMinute <= list[i - 1].departureMinute))) {
+                notification.message = "第" + (i + 1) + "站到时应在上一站发时之后！"
+                notification.active = true
+                return false
+            }
+        }
+        return true
+    }
+
+
+    function updateTimetableAndTrainNumber(info) {
+        if (!isPassingStationLegal(info.passingStationList)) {
+            return
+        }
+        var result = bookingSystem.updateTimetableAndTrainNumber_api(info)
+        if (!result.success) {
+            notification.message = result.message
+            notification.active = true
+            return
+        }
+        notification.message = "修改成功！"
+        notification.active = true
+        timetableLoader.active = false
+        refreshTrains()
+        for (var i = 0; i < info.passingStationList.length; i++) {
+            console.log(info.passingStationList[i].stationName + " " + info.passingStationList[i].arriveHour + " " +
+                        info.passingStationList[i].arriveMinute + " " + info.passingStationList[i].arriveDay + " " +
+                        info.passingStationList[i].departureHour + " " + info.passingStationList[i].departureMinute + " " +
+                        info.passingStationList[i].departureDay)
+        }
     }
 
 }

@@ -44,6 +44,8 @@ public:
     Q_INVOKABLE QVariantMap isPassengerEditable(const QVariantMap &info);
     // 注销用户，同时要删除该用户的所有待乘坐订单
     Q_INVOKABLE QVariantMap deleteUser_api(const QVariantMap &info);
+    // 更新某个车次的时刻表和车次号
+    Q_INVOKABLE QVariantMap updateTimetableAndTrainNumber_api(const QVariantMap &info);
 
 private:
     std::tuple<double, double, double> computePrice(const QString &trainNumber, Station &startStation, Station &endStation);

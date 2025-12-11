@@ -11,7 +11,7 @@ private:
 
 public:
     Time();
-    Time(int hour, int minute, int second);
+    Time(int hour, int minute, int second=0);
 
     int getHour();
     bool setHour(int hour);

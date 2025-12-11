@@ -25,6 +25,8 @@ public:
     Q_INVOKABLE QVariantList getTimetableInfo_api(const QString &trainNumber, const QString &startStationName, const QString &endStationName);
     // 通过车次号获取车厢配置信息
     Q_INVOKABLE QVariantList getCarriages_api(const QString &trainNumber);
+    // 通过车次号更新该车次的时刻表信息和车次号
+    QVariantMap updateTimetableAndTrainNumberByTrainNumber(const QString &oldTrainNumber, Timetable &timetable, const QString &newTrainNumber);
     std::vector<std::tuple<Train, Station, Station>> getRoutesByCities(const QString &startCityName, const QString &endCityName);
     std::optional<Train> getTrainByTrainNumber(const QString &trainNumber);
 

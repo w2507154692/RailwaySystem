@@ -16,7 +16,9 @@ public:
     Train();
 
     QString getNumber();
+    bool setNumber(const QString &number);
     Timetable getTimetable();
+    bool setTimetable(Timetable &timetable);
     std::vector<std::tuple<QString, int, int>> getCarriages();
     int getFirstClassCount();
     int getSecondClassCount();

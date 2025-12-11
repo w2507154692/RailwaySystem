@@ -4,7 +4,13 @@
 Time::Time() {}
 
 Time::Time(int hour, int minute, int second)
-    : hour(hour), minute(minute), second(second) {}
+    : hour(hour), minute(minute), second(second) {
+    if (hour < 0 || hour > 23 ||
+        minute < 0 || minute > 59 ||
+        second < 0 || second > 59) {
+        setNull();
+    }
+}
 
 int Time::getHour() {
     return hour;

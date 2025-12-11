@@ -32,6 +32,8 @@ public:
     std::tuple<Station, Time> getStartStationInfo();
     // 获得时刻表最后一个车站的信息（站，到时）
     std::tuple<Station, Time> getEndStationInfo();
+    // 在尾部插入一个停靠站
+    bool insertPassingStationAtEnd(Station &station, Time &arriveTime, Time &departureTime, int arriveDay, int departureDay);
 
     friend bool operator==(const Timetable &t1, const Timetable &t2);
     friend bool operator!=(const Timetable &t1, const Timetable &t2);
