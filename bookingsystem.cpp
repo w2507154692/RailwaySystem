@@ -402,17 +402,16 @@ QVariantMap BookingSystem::deleteUser_api(const QVariantMap &info) {
 
 QVariantMap BookingSystem::updateTimetableAndTrainNumber_api(const QVariantMap &info) {
     QVariantMap result;
-    // 检查信息是否完整
-    if (!info.contains("passingStationList") || !info.contains("oldTrainNumber") || !info.contains("newTrainNumber")) {
-        result["success"] = false;
-        result["message"] = "信息不全！";
-        return result;
-    }
     // 获取老车次号、新车次号和时刻表
     QString oldTrainNumber = info["oldTrainNumber"].toString();
     QString newTrainNumber = info["newTrainNumber"].toString();
     QVariantList list = info["passingStationList"].toList();
     Timetable timetable;
+    if (newTrainNumber == "") {
+        result["success"] = false;
+        result["message"] = "车次号不能为空！";
+        return result;
+    }
     // 检查新车次号是否合法（首字母必须为大写字母且后面必须是纯数字)
     for (int i = 0; i < newTrainNumber.size(); i++) {
         QChar c = newTrainNumber.at(i);
