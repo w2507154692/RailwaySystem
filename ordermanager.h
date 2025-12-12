@@ -41,6 +41,8 @@ public:
     bool hasUnusedOrderForPassenger(const QString &username, const QString &passengerId);
     // 删除某一用户的所有订单（用于用户注销）
     bool deleteOrdersByUsername(const QString &username);
+    // 判断某个车次是否有待乘坐订单
+    bool hasUnusedOrderForTrain(const QString &trainNumber);
 
 private:
     std::vector<Order> getOrdersByUsername(const QString &username);

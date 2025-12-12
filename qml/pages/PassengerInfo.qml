@@ -103,7 +103,7 @@ Page {
                                     cursorShape: Qt.PointingHandCursor
                                     onClicked: {
                                         // 先判断能否修改（即有没有待乘坐订单）
-                                        var result = bookingSystem.isPassengerEditable({
+                                        var result = bookingSystem.isPassengerEditable_api({
                                             username: modelData.username,
                                             passengerId: modelData.id
                                         })

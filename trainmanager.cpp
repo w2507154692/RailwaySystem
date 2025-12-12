@@ -169,6 +169,21 @@ QVariantMap TrainManager::updateTimetableAndTrainNumberByTrainNumber(const QStri
     return result;
 }
 
+QVariantMap TrainManager::updateSeatTemplateByTrainNumber(const QString &trainNumber, std::vector<std::tuple<QString, int, int> > carriages) {
+    QVariantMap result;
+    for (auto it = trains.begin(); it != trains.end(); it++) {
+        if (it->getNumber() == trainNumber) {
+            it->setCarriages(carriages);
+            result["success"] = true;
+            result["message"] = "修改成功！";
+            return result;
+        }
+    }
+    result["success"] = false;
+    result["message"] = QString("车次 %1 不存在！").arg(trainNumber);
+    return result;
+}
+
 std::vector<std::tuple<Train, Station, Station>> TrainManager::getRoutesByCities(const QString &startCityName, const QString &endCityName) {
     std::vector<std::tuple<Train, Station, Station>> result;
     for (auto &train : trains) {

@@ -361,7 +361,7 @@ QVariantMap BookingSystem::createOrder_api(const QVariantMap &info) {
     return result;
 }
 
-QVariantMap BookingSystem::isPassengerEditable(const QVariantMap &info) {
+QVariantMap BookingSystem::isPassengerEditable_api(const QVariantMap &info) {
     QVariantMap result;
     QString username = info["username"].toString();
     QString passengerId = info["passengerId"].toString();
@@ -450,6 +450,59 @@ QVariantMap BookingSystem::updateTimetableAndTrainNumber_api(const QVariantMap &
     }
     // 修改车次号和时刻表（必须一起修改，否则一个失败，需要全部撤销）
     result = train_manager->updateTimetableAndTrainNumberByTrainNumber(oldTrainNumber, timetable, newTrainNumber);
+    return result;
+}
+
+QVariantMap BookingSystem::isTrainEditable_api(const QVariantMap &info) {
+    QVariantMap result;
+    QString trainNumber = info["trainNumber"].toString();
+    if (order_manager->hasUnusedOrderForTrain(trainNumber)) {
+        result["success"] = false;
+        result["message"] = "该车次有待乘坐订单，无法修改该车次信息！";
+        return result;
+    }
+    result["success"] = true;
+    result["message"] = "该车次信息可以修改！";
+    return result;
+}
+
+QVariantMap BookingSystem::updateSeatTemplate_api(const QVariantMap &info) {
+    QVariantMap result;
+    QString trainNumber = info["trainNumber"].toString();
+    int carriageNum = info["carriageNum"].toInt();
+    int firstStart = info["firstStart"].toInt();
+    int firstEnd = info["firstEnd"].toInt();
+    int firstRows = info["firstRows"].toInt();
+    int firstCols = info["firstCols"].toInt();
+    int secondStart = info["secondStart"].toInt();
+    int secondEnd = info["secondEnd"].toInt();
+    int secondRows = info["secondRows"].toInt();
+    int secondCols = info["secondCols"].toInt();
+    int businessStart = info["businessStart"].toInt();
+    int businessEnd = info["businessEnd"].toInt();
+    int businessRows = info["businessRows"].toInt();
+    int businessCols = info["businessCols"].toInt();
+
+    // qWarning() << carriageNum;
+    // qWarning() << firstStart << firstEnd << firstRows << firstCols;
+    // qWarning() << secondStart << secondEnd << secondRows << secondCols;
+    // qWarning() << businessStart << businessEnd << businessRows << businessCols;
+
+    std::vector<std::tuple<QString, int, int>> carriages;
+    carriages.resize(carriageNum);
+    for (int i = firstStart; i <= firstEnd; i++) {
+        std::tuple<QString, int, int> carriage = std::make_tuple("一等座", firstRows, firstCols);
+        carriages[i - 1] = carriage;
+    }
+    for (int i = secondStart; i <= secondEnd; i++) {
+        std::tuple<QString, int, int> carriage = std::make_tuple("二等座", secondRows, secondCols);
+        carriages[i - 1] = carriage;
+    }
+    for (int i = businessStart; i <= businessEnd; i++) {
+        std::tuple<QString, int, int> carriage = std::make_tuple("商务座", businessRows, businessCols);
+        carriages[i - 1] = carriage;
+    }
+    result = train_manager->updateSeatTemplateByTrainNumber(trainNumber, carriages);
     return result;
 }
 

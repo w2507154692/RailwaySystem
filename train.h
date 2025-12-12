@@ -20,6 +20,7 @@ public:
     Timetable getTimetable();
     bool setTimetable(Timetable &timetable);
     std::vector<std::tuple<QString, int, int>> getCarriages();
+    bool setCarriages(std::vector<std::tuple<QString, int, int>> carriages);
     int getFirstClassCount();
     int getSecondClassCount();
     int getBusinessClassCount();

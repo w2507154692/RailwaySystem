@@ -272,6 +272,15 @@ bool OrderManager::deleteOrdersByUsername(const QString &username) {
     return true;
 }
 
+bool OrderManager::hasUnusedOrderForTrain(const QString &trainNumber) {
+    for (auto order : orders) {
+        if (order.getTrainNumber() == trainNumber && order.getStatus() == "待乘坐") {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool OrderManager::refreshOrderStatus() {
     Date nowDate;
     Time nowTime;

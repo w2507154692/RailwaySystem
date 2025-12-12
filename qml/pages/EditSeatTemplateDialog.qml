@@ -7,7 +7,6 @@ import "../components"
 Window {
     id: modifySeatTemplateWin
     // property var mainWindow
-    signal closed()
     onVisibleChanged: if (!visible) closed()
 
     width: 600; height: 410
@@ -23,7 +22,9 @@ Window {
     // 当前车厢配置 [{seatLevel: "一等座", rows: 10, cols: 2}, ...]
     property var currentCarriages: []
 
-    signal seatTemplateUpdated()
+    // signal seatTemplateUpdated()
+    signal closed()
+    signal confirmed(var info)
 
     // 当 currentCarriages 变化时自动加载模板
     onCurrentCarriagesChanged: {
@@ -806,39 +807,56 @@ Window {
             return
         }
         
-        // 构建新的车厢配置数组
-        var carriages = []
-        for (var i = 0; i < ranges.length; i++) {
-            var range = ranges[i]
-            for (var j = range.start; j <= range.end; j++) {
-                carriages.push({
-                    seatLevel: range.type,
-                    rows: range.rows,
-                    cols: range.cols
-                })
-            }
-        }
-
-        // 调用后端API更新座位模板
-        var result = trainManager.updateSeatTemplate_api({
-            trainNumber: trainNumber,
-            carriages: carriages
+        // 不要构造新的车厢数组，直接使用前端传回的数据，否则传递过多无用信息
+        // // 构建新的车厢配置数组
+        // var carriages = []
+        // for (var i = 0; i < ranges.length; i++) {
+        //     var range = ranges[i]
+        //     for (var j = range.start; j <= range.end; j++) {
+        //         carriages.push({
+        //             seatLevel: range.type,
+        //             rows: range.rows,
+        //             cols: range.cols
+        //         })
+        //     }
+        // }
+        confirmed({
+            carriageNum: totalCarriageNum,
+            firstStart: fStart,
+            firstEnd: fEnd,
+            firstRows: fRows,
+            firstCols: fCols,
+            secondStart: sStart,
+            secondEnd: sEnd,
+            secondRows: sRows,
+            secondCols: sCols,
+            businessStart: bStart,
+            businessEnd: bEnd,
+            businessRows: bRows,
+            businessCols: bCols,
+            carriageRanges: ranges
         })
 
-        if (result.success) {
-            notification.message = "座位模板修改成功！"
-            notification.onClosedFunction = function() {
-                notification.active = false
-                seatTemplateUpdated()
-                modifySeatTemplateWin.visible = false
-            }
-        } else {
-            notification.message = result.message || "座位模板修改失败！"
-            notification.onClosedFunction = function() { notification.active = false }
-        }
+        // // 调用后端API更新座位模板
+        // var result = trainManager.updateSeatTemplate_api({
+        //     trainNumber: trainNumber,
+        //     carriages: carriages
+        // })
+
+        // if (result.success) {
+        //     notification.message = "座位模板修改成功！"
+        //     notification.onClosedFunction = function() {
+        //         notification.active = false
+        //         seatTemplateUpdated()
+        //         modifySeatTemplateWin.visible = false
+        //     }
+        // } else {
+        //     notification.message = result.message || "座位模板修改失败！"
+        //     notification.onClosedFunction = function() { notification.active = false }
+        // }
         
-        notification.source = "qrc:/qml/components/ConfirmDialog.qml"
-        notification.active = true
+        // notification.source = "qrc:/qml/components/ConfirmDialog.qml"
+        // notification.active = true
     }
     
     // 显示错误提示

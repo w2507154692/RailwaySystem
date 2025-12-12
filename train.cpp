@@ -26,6 +26,11 @@ std::vector<std::tuple<QString, int, int>> Train::getCarriages(){
     return carriages;
 }
 
+bool Train::setCarriages(std::vector<std::tuple<QString, int, int>> carriages) {
+    this->carriages = carriages;
+    return true;
+}
+
 int Train::getFirstClassCount() {
     int len = carriages.size();
     int count = 0;
