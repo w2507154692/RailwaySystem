@@ -531,7 +531,7 @@ Window {
                     status: "待提交",
                     passengerName: passenger.name,
                     passengerId: passenger.id,
-                    type: passenger.type || "成人",
+                    passengerType: passenger.type,
                     startStationName: ticketData.startStationName,
                     startStationStopInfo: ticketData.startStationStopInfo,
                     year: ticketData.startYear,

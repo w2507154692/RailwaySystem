@@ -25,22 +25,15 @@ std::tuple<Time, Time, int, int, QString> Timetable::getStationInfo(const QStrin
     return std::make_tuple(Time(), Time(), -1, -1, QString("Not Found"));
 }
 
-int Timetable::getInterval(const Station &station1, const Station &station2) {
-    int day = 0, len = table.size();
-    Time time1, time2;
-    for (int i = 0; i < len; i++) {
-        Station &station = std::get<0>(table[i]);
-        if (station == station1) {
-            time1 = std::get<2>(table[i]);
-        }
-        if (station == station2) {
-            time2 = std::get<1>(table[i]);
-        }
-        if (i > 0 && std::get<1>(table[i]) < std::get<2>(table[i-1])) {
-            day++;
-        }
-    }
-    return time2 - time1 + 60 * 60 * 24 * day;
+int Timetable::getInterval(Station &station1, Station &station2) {
+    std::tuple<Time, Time, int, int, QString> stationInfo1 = getStationInfo(station1.getStationName());
+    std::tuple<Time, Time, int, int, QString> stationInfo2 = getStationInfo(station2.getStationName());
+    Time departureTime = std::get<1>(stationInfo1);
+    Time arriveTime = std::get<0>(stationInfo2);
+    int departureDay = std::get<3>(stationInfo1);
+    int arriveDay = std::get<2>(stationInfo2);
+    int interval = (arriveTime - departureTime) + (arriveDay - departureDay) * 24 * 60 * 60;
+    return interval;
 }
 
 std::vector<std::tuple<Station, Station>> Timetable::getStationPairsBetweenCities(const QString &startCityName, const QString &endCityName) {

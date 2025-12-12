@@ -23,6 +23,6 @@ Window {
         width: parent.width
         height: parent.height
         showButtons: false
-        stationList: timetable
+        passingStationList: timetable
     }
 }
