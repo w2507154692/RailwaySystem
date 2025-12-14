@@ -146,6 +146,26 @@ QVariantList TrainManager::getCarriages_api(const QString &trainNumber) {
 
 QVariantMap TrainManager::updateTimetableAndTrainNumberByTrainNumber(const QString &oldTrainNumber, Timetable &timetable, const QString &newTrainNumber) {
     QVariantMap result;
+    
+    // 如果 oldTrainNumber 为空，说明是添加新车次
+    if (oldTrainNumber == "") {
+        // 检查新车次号是否已存在
+        auto findTrainResult = getTrainByTrainNumber(newTrainNumber);
+        if (findTrainResult) {
+            result["success"] = false;
+            result["message"] = QString("车次 %1 已存在！").arg(newTrainNumber);
+            return result;
+        }
+        // 创建新车次
+        Train newTrain;
+        newTrain.setNumber(newTrainNumber);
+        newTrain.setTimetable(timetable);
+        trains.push_back(newTrain);
+        result["success"] = true;
+        result["message"] = QString("添加成功！");
+        return result;
+    }
+    
     // 如果新车次号和旧车次号不同，检查新车次号是否已存在
     if (oldTrainNumber != newTrainNumber) {
         auto findTrainResult = getTrainByTrainNumber(newTrainNumber);
@@ -155,6 +175,8 @@ QVariantMap TrainManager::updateTimetableAndTrainNumberByTrainNumber(const QStri
             return result;
         }
     }
+    
+    // 修改现有车次
     for (auto &train : trains) {
         if (train.getNumber() == oldTrainNumber) {
             train.setTimetable(timetable);

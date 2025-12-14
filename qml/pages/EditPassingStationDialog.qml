@@ -177,7 +177,7 @@ Window {
                         border.width: 1
                         radius: 6
                     }
-                    text: stationInfo.arriveHour
+                    text: (stationInfo.arriveHour === "" || stationInfo.arriveHour === -1) ? "" : stationInfo.arriveHour
                 }
                 Label { text: "时"; font.pixelSize: 12; color: "#444"; }
                 // 到时：分钟
@@ -196,7 +196,7 @@ Window {
                         border.width: 1
                         radius: 6
                     }
-                    text: stationInfo.arriveMinute
+                    text: (stationInfo.arriveMinute === "" || stationInfo.arriveMinute === -1) ? "" : stationInfo.arriveMinute
                 }
                 Label { text: "分 +"; font.pixelSize: 12; color: "#444"; }
                 // 到天
@@ -215,7 +215,7 @@ Window {
                         border.width: 1
                         radius: 6
                     }
-                    text: stationInfo.arriveDay
+                    text: (stationInfo.arriveDay === "" || stationInfo.arriveDay === -1) ? "" : stationInfo.arriveDay
                 }
                 Label { text: "天"; font.pixelSize: 12; color: "#444"; }
             }
@@ -247,7 +247,7 @@ Window {
                         border.width: 1
                         radius: 6
                     }
-                    text: stationInfo.departureHour
+                    text: (stationInfo.departureHour === "" || stationInfo.departureHour === -1) ? "" : stationInfo.departureHour
                 }
                 Label { text: "时"; font.pixelSize: 12; color: "#444"; }
                 // 发时：分钟
@@ -266,7 +266,7 @@ Window {
                         border.width: 1
                         radius: 6
                     }
-                    text: stationInfo.departureMinute
+                    text: (stationInfo.departureMinute === "" || stationInfo.departureMinute === -1) ? "" : stationInfo.departureMinute
                 }
                 Label { text: "分 +"; font.pixelSize: 12; color: "#444"; }
                 // 发天
@@ -285,7 +285,7 @@ Window {
                         border.width: 1
                         radius: 6
                     }
-                    text: stationInfo.departureDay
+                    text: (stationInfo.departureDay === "" || stationInfo.departureDay === -1) ? "" : stationInfo.departureDay
                 }
                 Label { text: "天"; font.pixelSize: 12; color: "#444"; }
             }
@@ -303,12 +303,12 @@ Window {
                     fontSize:14
                     onClicked: confirmed({
                         stationName: stationList[stationNameCombo.currentIndex],
-                        arriveHour: arriveHourField.text,
-                        arriveMinute: arriveMinuteField.text,
-                        arriveDay: arriveDayField.text,
-                        departureHour: departureHourField.text,
-                        departureMinute: departureMinuteField.text,
-                        departureDay: departureDayField.text
+                        arriveHour: arriveHourField.text === "" ? "" : parseInt(arriveHourField.text),
+                        arriveMinute: arriveMinuteField.text === "" ? "" : parseInt(arriveMinuteField.text),
+                        arriveDay: arriveDayField.text === "" ? "" : parseInt(arriveDayField.text),
+                        departureHour: departureHourField.text === "" ? "" : parseInt(departureHourField.text),
+                        departureMinute: departureMinuteField.text === "" ? "" : parseInt(departureMinuteField.text),
+                        departureDay: departureDayField.text === "" ? "" : parseInt(departureDayField.text)
                     })
                 }
 

@@ -76,6 +76,7 @@ Page {
                                     onClicked: {
                                         timetableLoader.timetable = trainManager.getTimetableInfo_api(modelData.trainNumber)
                                         timetableLoader.oldTrainNumber = modelData.trainNumber
+                                        timetableLoader.isAddMode = false  // 编辑模式
                                         timetableLoader.onConfirmedFunction = function(info) {
                                             updateTimetableAndTrainNumber(info)
                                         }
@@ -208,7 +209,7 @@ Page {
                         Layout.topMargin: 4
 
                         Image {
-                            source: "qrc:/resources/icon/Add.png" // 换成你的加号图标资源路径
+                            source: "qrc:/resources/icon/Add.png"
                             anchors.centerIn: parent
                             width: 50
                             height: 50
@@ -217,7 +218,15 @@ Page {
                             anchors.fill: parent
                             cursorShape: Qt.PointingHandCursor
                             onClicked: {
-
+                                // 新增车次：先打开时刻表页面（新增模式）
+                                timetableLoader.timetable = []
+                                timetableLoader.oldTrainNumber = ""
+                                timetableLoader.isAddMode = true
+                                timetableLoader.onConfirmedFunction = function(info) {
+                                    addNewTrain(info)
+                                }
+                                timetableLoader.source = "TimetableManagement.qml"
+                                timetableLoader.active = true
                             }
                         }
                     }
@@ -269,6 +278,7 @@ Page {
     Loader {
         property var timetable: []
         property string oldTrainNumber: ""
+        property bool isAddMode: false  // 是否为新增模式
         property var onConfirmedFunction: function() {}
         id: timetableLoader
         source: ""
@@ -293,6 +303,8 @@ Page {
     //座位模板页面
     Loader {
         property string trainNumber: ""
+        property bool isAddMode: false  // 是否为新增模式
+        property var pendingTrainInfo: null  // 新增模式下，保存时刻表信息
         property var onConfirmedFunction: function() {}
         property var currentCarriages: []
         id: seatTemplateLoader
@@ -433,6 +445,66 @@ Page {
         notification.message = "修改成功！"
         notification.active = true
         timetableLoader.active = false
+        refreshTrains()
+    }
+
+    function addNewTrain(info) {
+        // 新增车次流程：先验证时刻表合法性
+        if (!isPassingStationLegal(info.passingStationList)) {
+            return
+        }
+        
+        // 调用后端验证车次号和时刻表（复用修改时刻表的验证逻辑）
+        var result = bookingSystem.updateTimetableAndTrainNumber_api(info)
+        if (!result.success) {
+            notification.message = result.message
+            notification.active = true
+            return
+        }
+        
+        // 验证通过，不关闭时刻表页面，直接打开座位模板页面
+        seatTemplateLoader.trainNumber = info.newTrainNumber
+        seatTemplateLoader.currentCarriages = []  // 新增车次，座位模板为空
+        seatTemplateLoader.isAddMode = true
+        seatTemplateLoader.pendingTrainInfo = info  // 保存时刻表信息
+        seatTemplateLoader.onConfirmedFunction = function(seatInfo) {
+            completeAddNewTrain(info, seatInfo)
+        }
+        seatTemplateLoader.source = "EditSeatTemplateDialog.qml"
+        seatTemplateLoader.active = true
+    }
+
+    function completeAddNewTrain(trainInfo, seatInfo) {
+        // 构建座位模板数据(扁平结构,直接传递所有字段)
+        var completeInfo = {
+            trainNumber: trainInfo.newTrainNumber,
+            carriageNum: seatInfo.carriageNum,
+            firstStart: seatInfo.firstStart,
+            firstEnd: seatInfo.firstEnd,
+            firstRows: seatInfo.firstRows,
+            firstCols: seatInfo.firstCols,
+            secondStart: seatInfo.secondStart,
+            secondEnd: seatInfo.secondEnd,
+            secondRows: seatInfo.secondRows,
+            secondCols: seatInfo.secondCols,
+            businessStart: seatInfo.businessStart,
+            businessEnd: seatInfo.businessEnd,
+            businessRows: seatInfo.businessRows,
+            businessCols: seatInfo.businessCols
+        }
+        
+        // 调用后端更新座位模板（此时车次已经存在）
+        var result = bookingSystem.updateSeatTemplate_api(completeInfo)
+        if (!result.success) {
+            notification.message = result.message
+            notification.active = true
+            return
+        }
+        
+        notification.message = "车次添加成功！"
+        notification.active = true
+        seatTemplateLoader.active = false
+        timetableLoader.active = false  // 关闭时刻表管理页面
         refreshTrains()
     }
 
