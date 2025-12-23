@@ -91,19 +91,19 @@
 				\hline
 				\textbf{编号} & \textbf{测试项} & \textbf{输入数据} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
 				\endhead
-				TC-0.1 & 正确用户名和密码 & 用户名:1\newline 密码:1 & 登录成功,进入用户主页 &  登录成功，进入用户页面 \hline
-				TC-0.2 & 用户名正确密码错误 & 用户名:1\newline 密码:2 & 提示密码错误 &  提示密码错误 \hline
-				TC-0.3 & 用户名错误密码正确 & 用户名:wronguser\newline 密码:123456 & 提示用户不存在 &  提示用户不存在 \hline
-				TC-0.4 & 用户名和密码都错误 & 用户名:wronguser\newline 密码:wrongpass & 提示用户不存在或密码错误 &  提示用户不存在 \hline
-				TC-0.5 & 用户名为空 & 用户名:(空)\newline 密码:123456 & 提示用户名不能为空 &  提示用户不存在 \hline
-				TC-0.6 & 密码为空 & 用户名:user1\newline 密码:(空) & 提示密码不能为空 &  提示密码错误 \hline
-				TC-0.7 & 用户名和密码都为空 & 用户名:(空)\newline 密码:(空) & 提示用户名和密码不能为空 &  提示用户不存在 \hline
-			TC-0.8 & 已锁定的用户登录 & 用户名:bob\newline 密码:qwerty & 提示账户已被锁定 &  提示账户已被锁定,请联系管理员解锁 \hline
-			TC-0.9 & 锁定用户-空密码 & 用户名:bob\newline 密码:(空) & 提示密码不能为空 &  提示账户已被锁定,请联系管理员解锁 \hline
-			TC-0.10 & 锁定用户-错误密码 & 用户名:bob\newline 密码:wrongpass & 提示密码错误 &  提示账户已被锁定,请联系管理员解锁 \hline
-			TC-0.11 & 特殊字符用户名 & 用户名:user@\#\$\%\newline 密码:123456 & 处理特殊字符或提示格式错误 &  提示用户不存在 \hline
-			TC-0.12 & 超长用户名 & 用户名:超过50个字符的用户名\newline 密码:123456 & 提示用户名过长或截断处理 &  提示用户不存在,前端页面脱标 \hline
-			\caption{用户登录测试用例}
+			TC-0.1 & 正确用户名和密码 & 用户名:1\newline 密码:1 & 登录成功,进入用户主页 & 登录成功，进入用户页面 \\ \hline
+			TC-0.2 & 用户名正确密码错误 & 用户名:1\newline 密码:2 & 提示密码错误 & 提示密码错误 \\ \hline
+			TC-0.3 & 用户名错误密码正确 & 用户名:wronguser\newline 密码:123456 & 提示用户不存在 & 提示用户不存在 \\ \hline
+			TC-0.4 & 用户名和密码都错误 & 用户名:wronguser\newline 密码:wrongpass & 提示用户不存在或密码错误 & 提示用户不存在 \\ \hline
+			TC-0.5 & 用户名为空 & 用户名:(空)\newline 密码:123456 & 提示用户名不能为空 & 提示用户不存在 \\ \hline
+			TC-0.6 & 密码为空 & 用户名:user1\newline 密码:(空) & 提示密码不能为空 & 提示密码错误 \\ \hline
+			TC-0.7 & 用户名和密码都为空 & 用户名:(空)\newline 密码:(空) & 提示用户名和密码不能为空 & 提示用户不存在 \\ \hline
+		TC-0.8 & 已锁定的用户登录 & 用户名:bob\newline 密码:qwerty & 提示账户已被锁定 & 提示账户已被锁定,请联系管理员解锁 \\ \hline
+		TC-0.9 & 锁定用户-空密码 & 用户名:bob\newline 密码:(空) & 提示密码不能为空 & 提示账户已被锁定,请联系管理员解锁 \\ \hline
+		TC-0.10 & 锁定用户-错误密码 & 用户名:bob\newline 密码:wrongpass & 提示密码错误 & 提示账户已被锁定,请联系管理员解锁 \\ \hline
+		TC-0.11 & 特殊字符用户名 & 用户名:user@\#\$\%\newline 密码:123456 & 处理特殊字符或提示格式错误 & 提示用户不存在 \\ \hline
+		TC-0.12 & 超长用户名 & 用户名:超过50个字符的用户名\newline 密码:123456 & 提示用户名过长或截断处理 & 提示用户不存在,前端页面脱标 \\ \hline
+		\caption{用户登录测试用例}
 		\end{longtable}
 			
 			\paragraph{管理员登录测试}
@@ -114,16 +114,16 @@
 				\hline
 				\textbf{编号} & \textbf{测试项} & \textbf{输入数据} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
 				\endhead
-				TC-0.11 & 正确管理员账号密码 & 用户名:2\newline 密码:2 & 登录成功,进入管理员后台 &  登录成功,进入管理员后台 \hline
-				TC-0.12 & 管理员名正确密码错误 & 用户名:2\newline 密码:wrongpass & 提示密码错误 &  提示密码错误 \hline
-				TC-0.13 & 管理员名错误密码正确 & 用户名:wrongadmin\newline 密码:2 & 提示管理员不存在 &  提示账户不存在 \hline
-				TC-0.14 & 管理员名密码都错误 & 用户名:wrongadmin\newline 密码:wrongpass & 提示管理员不存在或密码错误 &  提示账户不存在 \hline
-				TC-0.15 & 管理员名为空 & 用户名:(空)\newline 密码:2 & 提示用户名不能为空 &  提示账户不存在 \hline
-				TC-0.16 & 管理员密码为空 & 用户名:2\newline 密码:(空) & 提示密码不能为空 &  提示密码错误 \hline
-			TC-0.17 & 已锁定的管理员登录 & 用户名:locked\_admin\newline 密码:admin123 & 提示账户已被锁定 &  提示账户已被锁定,请联系管理员解锁 \hline
-			TC-0.18 & 锁定管理员-空密码 & 用户名:locked\_admin\newline 密码:(空) & 提示密码不能为空 &  提示账户已被锁定,请联系管理员解锁 \hline
-			TC-0.19 & 锁定管理员-错误密码 & 用户名:locked\_admin\newline 密码:wrongpass & 提示密码错误 &  提示账户已被锁定,请联系管理员解锁 \hline
-			TC-0.20 & 用普通用户账号登管理员 & 用户名:1\newline 密码:1 & 提示管理员不存在或权限不足 &  提示账户不存在 \hline
+			TC-0.11 & 正确管理员账号密码 & 用户名:2\newline 密码:2 & 登录成功,进入管理员后台 & 登录成功,进入管理员后台 \\ \hline
+			TC-0.12 & 管理员名正确密码错误 & 用户名:2\newline 密码:wrongpass & 提示密码错误 & 提示密码错误 \\ \hline
+			TC-0.13 & 管理员名错误密码正确 & 用户名:wrongadmin\newline 密码:2 & 提示管理员不存在 & 提示账户不存在 \\ \hline
+			TC-0.14 & 管理员名密码都错误 & 用户名:wrongadmin\newline 密码:wrongpass & 提示管理员不存在或密码错误 & 提示账户不存在 \\ \hline
+			TC-0.15 & 管理员名为空 & 用户名:(空)\newline 密码:2 & 提示用户名不能为空 & 提示账户不存在 \\ \hline
+			TC-0.16 & 管理员密码为空 & 用户名:2\newline 密码:(空) & 提示密码不能为空 & 提示密码错误 \\ \hline
+		TC-0.17 & 已锁定的管理员登录 & 用户名:locked\_admin\newline 密码:admin123 & 提示账户已被锁定 & 提示账户已被锁定,请联系管理员解锁 \\ \hline
+		TC-0.18 & 锁定管理员-空密码 & 用户名:locked\_admin\newline 密码:(空) & 提示密码不能为空 & 提示账户已被锁定,请联系管理员解锁 \\ \hline
+		TC-0.19 & 锁定管理员-错误密码 & 用户名:locked\_admin\newline 密码:wrongpass & 提示密码错误 & 提示账户已被锁定,请联系管理员解锁 \\ \hline
+		TC-0.20 & 用普通用户账号登管理员 & 用户名:1\newline 密码:1 & 提示管理员不存在或权限不足 & 提示账户不存在 \\ \hline
 			\caption{管理员登录测试用例}
 		\end{longtable}
 		
@@ -199,19 +199,17 @@
 					\hline
 					\textbf{编号} & \textbf{测试项} & \textbf{输入数据} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
 					\endhead
-					TC-1.1 & 姓名长度限制 & 输入1个字符的姓名 & 提示姓名长度不符或允许输入 &  允许输入 \hline
-					TC-1.2 & 姓名长度限制 & 输入超过20个字符的姓名 & 提示姓名过长或截断 &  允许输入 \hline
-					TC-1.3 & 身份证号格式 & 输入15位数字 & 提示格式错误(应为18位) &  提示格式错误 \hline
-					TC-1.4 & 身份证号格式 & 输入正确的18位身份证号 & 接受输入 &  接受输入 \hline
-					TC-1.5 & 身份证号格式 & 输入包含字母的身份证号 & 提示格式错误 &  不允许输入字母 \hline
-					TC-1.6 & 手机号格式 & 输入10位数字 & 提示格式错误(应为11位) &  提示格式错误 \hline
-					TC-1.7 & 手机号格式 & 输入正确的11位手机号 & 接受输入 &  接受输入 \hline
-					TC-1.8 & 用户名长度 & 输入空用户名 & 提示用户名不能为空 &  提示用户名不能为空 \hline
-					TC-1.9 & 用户名长度 & 输入超长用户名(>50字符) & 提示用户名过长或截断 &  限制输入长度 \hline
-					\caption{控件输入限定测试用例}
-				\end{longtable}
-				
-				\paragraph{人员信息完整性测试}
+				TC-1.1 & 姓名长度限制 & 输入1个字符的姓名 & 提示姓名长度不符或允许输入 & 允许输入 \\ \hline
+				TC-1.2 & 姓名长度限制 & 输入超过20个字符的姓名 & 提示姓名过长或截断 & 允许输入 \\ \hline
+				TC-1.3 & 身份证号格式 & 输入15位数字 & 提示格式错误(应为18位) & 提示格式错误 \\ \hline
+				TC-1.4 & 身份证号格式 & 输入正确的18位身份证号 & 接受输入 & 接受输入 \\ \hline
+				TC-1.5 & 身份证号格式 & 输入包含字母的身份证号 & 提示格式错误 & 不允许输入字母 \\ \hline
+				TC-1.6 & 手机号格式 & 输入10位数字 & 提示格式错误(应为11位) & 提示格式错误 \\ \hline
+			TC-1.7 & 手机号格式 & 输入正确的11位手机号 & 接受输入 & 接受输入 \\ \hline
+			TC-1.8 & 用户名长度 & 输入空用户名 & 提示用户名不能为空 & 提示用户名不能为空 \\ \hline
+			TC-1.9 & 用户名长度 & 输入超长用户名($>$50字符) & 提示用户名过长或截断 & 限制输入长度 \\ \hline
+				\caption{控件输入限定测试用例}
+			\end{longtable}				\paragraph{人员信息完整性测试}
 				\begin{longtable}{|p{1cm}|p{3cm}|p{4cm}|p{3cm}|p{2cm}|}
 					\hline
 					\textbf{编号} & \textbf{测试项} & \textbf{输入数据} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
@@ -219,24 +217,61 @@
 					\hline
 					\textbf{编号} & \textbf{测试项} & \textbf{输入数据} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
 					\endhead
-					TC-2.1 & 必填项缺失 & 姓名为空,其他正常 & 提示姓名不能为空 &  提示姓名不能为空 \hline
-					TC-2.2 & 必填项缺失 & 身份证号为空 & 提示身份证号不能为空 &  提示身份证号不能为空 \hline
-					TC-2.3 & 必填项缺失 & 手机号为空 & 提示手机号不能为空 &  手机号不能为空 \hline
-					TC-2.4 & 完整信息提交 & 所有必填项均正确填写 & 成功保存/注册 &  成功保存/注册 \hline
-					TC-2.5 & 信息修改 & 修改已存在的乘车人姓名 & 成功修改 &  成功修改 \hline
-					TC-2.6 & 信息修改 & 修改已存在的手机号 & 成功修改 &  成功修改 \hline
-					\caption{人员信息完整性测试用例}
-				\end{longtable}
-			
-			\subsubsection{测试结果}
-				% 在实际测试后填写
-				
-			\subsubsection{问题记录}
-				% 记录测试中发现的问题
+				TC-2.1 & 必填项缺失 & 姓名为空,其他正常 & 提示姓名不能为空 & 提示姓名不能为空 \\ \hline
+				TC-2.2 & 必填项缺失 & 身份证号为空 & 提示身份证号不能为空 & 提示身份证号不能为空 \\ \hline
+				TC-2.3 & 必填项缺失 & 手机号为空 & 提示手机号不能为空 & 手机号不能为空 \\ \hline
+				TC-2.4 & 完整信息提交 & 所有必填项均正确填写 & 成功保存/注册 & 成功保存/注册 \\ \hline
+				TC-2.5 & 信息修改 & 修改已存在的乘车人姓名 & 成功修改 & 成功修改 \\ \hline
+				TC-2.6 & 信息修改 & 修改已存在的手机号 & 成功修改 & 成功修改 \\ \hline
+				\caption{人员信息完整性测试用例}
+			\end{longtable}
 		
-		\subsection{人员信息列表显示界面测试}
+		\subsubsection{测试结果总结}
+			\paragraph{控件输入限定测试结果}
+			共执行9个测试用例,其中:
+			\begin{itemize}[leftmargin=2cm]
+				\item \textbf{通过}: 6个 (TC-1.3, TC-1.4, TC-1.5, TC-1.6, TC-1.7, TC-1.8)
+				\item \textbf{部分通过}: 3个 (TC-1.1, TC-1.2, TC-1.9前端有限制但提示不明确)
+			\end{itemize}
+			
+			\paragraph{人员信息完整性测试结果}
+			共执行6个测试用例,其中:
+			\begin{itemize}[leftmargin=2cm]
+				\item \textbf{通过}: 6个 (TC-2.1, TC-2.2, TC-2.3, TC-2.4, TC-2.5, TC-2.6)
+			\end{itemize}
+			
+		\subsubsection{问题记录}
+			\begin{longtable}{|p{1.5cm}|p{1.5cm}|p{5cm}|p{5cm}|}
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endfirsthead
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endhead
+				BUG-I01 & 低 & 姓名长度限制不够严格,允许输入1个字符的姓名,可能导致数据不合理 & 前端添加姓名长度验证,建议最少2个字符,最多20个字符 \\ \hline
+				BUG-I02 & 低 & 超长姓名输入时未进行截断或明确提示,允许输入超过20个字符 & 前端添加maxLength属性限制输入长度为20,或在超出时给出明确提示 \\ \hline
+				BUG-I03 & 低 & 超长用户名虽有长度限制,但未给出友好的提示信息 & 当用户输入达到长度上限时,显示提示信息"用户名不能超过50个字符" \\ \hline
+				\caption{人员信息输入输出测试问题列表}
+			\end{longtable}
+			
+			\paragraph{测试分析}
+			整体而言,人员信息输入输出/编辑界面的功能基本完善:
+			\begin{enumerate}[leftmargin=2cm]
+				\item \textbf{优点}:
+					\begin{itemize}
+						\item 身份证号和手机号格式验证严格,有效防止了无效数据输入
+						\item 必填项验证完整,能够准确提示用户缺失的信息
+						\item 信息修改功能稳定,数据更新及时
+					\end{itemize}
+				\item \textbf{需改进}:
+					\begin{itemize}
+						\item 姓名长度验证偏宽松,建议增加合理的长度区间限制(2-20个字符)
+						\item 部分输入控件缺少实时反馈,用户体验有待提升
+						\item 提示信息格式不够统一,建议规范化错误提示格式
+					\end{itemize}
+			\end{enumerate}		\subsection{人员信息列表显示界面测试}
 			\subsubsection{测试目标}
-				验证列表控件能正确显示当前人员信息集合中的所有人员,并支持信息显示和排序功能。
+				验证列表控件能正确显示当前人员信息集合中的所有人员,并支持信息显示。
 			
 			\subsubsection{测试用例设计}
 				\begin{longtable}{|p{1cm}|p{3.5cm}|p{4cm}|p{3cm}|p{2cm}|}
@@ -246,23 +281,51 @@
 					\hline
 					\textbf{编号} & \textbf{测试项} & \textbf{测试操作} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
 					\endhead
-					TC-4.1 & 空集合显示 & 无任何人员信息时查看列表 & 显示空列表或提示无数据 &  \\ \hline
-					TC-4.2 & 单个人员显示 & 仅有1个人员信息 & 正确显示该人员信息 &  \\ \hline
-					TC-4.3 & 多个人员显示 & 有多个人员信息 & 正确显示所有人员信息 &  \\ \hline
-					TC-4.4 & 信息完整性 & 检查显示的信息字段 & 姓名、身份证、手机号等完整显示 &  \\ \hline
-					TC-4.5 & 列表排序 & 按姓名排序 & 列表按姓名顺序显示 &  \\ \hline
-					TC-4.6 & 列表刷新 & 添加/删除人员后 & 列表自动刷新显示最新数据 &  \\ \hline
-					TC-4.7 & 搜索过滤 & 输入关键字搜索 & 显示匹配的人员信息 &  \\ \hline
-					\caption{人员信息列表显示测试用例}
-				\end{longtable}
+				TC-4.1 & 空集合显示 & 无任何人员信息时查看列表 & 显示空列表或提示无数据 & 显示空列表 \\ \hline
+				TC-4.2 & 单个人员显示 & 仅有1个人员信息 & 正确显示该人员信息 & 正确显示该人员信息 \\ \hline
+				TC-4.3 & 多个人员显示 & 有多个人员信息 & 正确显示所有人员信息 & 正确显示所有人员信息 \\ \hline
+				TC-4.4 & 信息完整性 & 检查显示的信息字段 & 姓名、身份证、手机号等完整显示 & 姓名、身份证、手机号等完整显示 \\ \hline
+				TC-4.5 & 列表刷新 & 添加/删除人员后 & 列表自动刷新显示最新数据 & 列表自动刷新显示最新数据 \\ \hline
+				TC-4.6 & 搜索过滤 & 输入关键字搜索 & 显示匹配的人员信息 & 显示匹配的人员信息 \\ \hline
+				\caption{人员信息列表显示测试用例}
+			\end{longtable}
+		
+		\subsubsection{测试结果总结}
+			共执行6个测试用例,其中:
+			\begin{itemize}[leftmargin=2cm]
+				\item \textbf{通过}: 6个 (TC-4.1, TC-4.2, TC-4.3, TC-4.4, TC-4.5, TC-4.6)
+				\item \textbf{失败}: 0个
+			\end{itemize}
 			
-			\subsubsection{测试结果}
-				% 在实际测试后填写
+			\paragraph{测试评价}
+			人员信息列表显示功能表现优秀,所有测试用例均通过:
+			\begin{itemize}[leftmargin=2cm]
+				\item 空列表状态处理得当,不会出现异常
+				\item 单个和多个人员信息显示正确,数据完整
+				\item 列表刷新机制工作正常,数据同步及时
+				\item 搜索过滤功能有效,能够准确匹配人员信息
+			\end{itemize}
+		
+		\subsubsection{问题记录}
+			\begin{longtable}{|p{1.5cm}|p{1.5cm}|p{5cm}|p{5cm}|}
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endfirsthead
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endhead
+				BUG-L01 & 建议 & 空列表时未显示友好的提示信息,仅显示空白列表,用户体验可以改进 & 在列表为空时,显示提示文本"暂无乘车人信息,请添加乘车人"或类似引导性文字 \\ \hline
+				BUG-L02 & 建议 & 搜索功能虽然可用,但缺少搜索结果数量统计和"未找到结果"的提示 & 添加搜索结果计数显示,如"找到3条匹配结果";无结果时显示"未找到匹配的乘车人" \\ \hline
+				BUG-L03 & 建议 & 列表缺少排序功能,无法按姓名、添加时间等进行排序 & 添加列表排序功能,支持按姓名拼音、添加时间等字段排序 \\ \hline
+				\caption{人员信息列表显示测试问题列表}
+			\end{longtable}
 			
-			\subsubsection{问题记录}
-				% 记录测试中发现的问题
-	
-	\newpage
+			\paragraph{改进建议}
+			虽然当前功能已满足基本需求,但仍有以下改进空间:
+			\begin{enumerate}[leftmargin=2cm]
+				\item \textbf{用户体验优化}:增加空状态提示和搜索反馈,提升交互友好度
+				\item \textbf{功能增强}:添加列表排序等高级功能
+			\end{enumerate}	\newpage
 	\section{功能测试}
 		\subsection{信息文件装载功能}
 			\subsubsection{测试目标}
@@ -276,22 +339,68 @@
 					\hline
 					\textbf{编号} & \textbf{测试项} & \textbf{测试场景} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
 					\endhead
-					TC-5.1 & 正常文件加载 & 数据文件存在且数据记录>0 & 所有数据正确加载并在界面显示 &  \\ \hline
-					TC-5.2 & 空文件加载 & 数据文件存在但记录为0 & 系统正常启动,显示空数据 &  \\ \hline
-					TC-5.3 & 文件不存在 & 删除某个数据文件 & 系统提示文件缺失或创建新文件 &  \\ \hline
-					TC-5.4 & 文件格式错误 & 修改文件内容为非法格式 & 系统提示格式错误或跳过错误数据 &  \\ \hline
-					TC-5.5 & 数据一致性 & 加载后检查数据 & 文件中的数据与界面显示一致 &  \\ \hline
-					TC-5.6 & 多文件加载 & 所有数据文件同时加载 & 所有模块数据正确加载 &  \\ \hline
-					\caption{信息文件装载测试用例}
-				\end{longtable}
-			
-			\subsubsection{测试结果}
-				% 在实际测试后填写
-			
-			\subsubsection{问题记录}
-				% 记录测试中发现的问题
+			TC-5.1 & 正常文件加载 & 数据文件存在且数据记录$>$0 & 所有数据正确加载并在界面显示 & 所有数据正确加载并在界面显示 \\ \hline
+			TC-5.2 & 空文件加载 & 数据文件存在但记录为0 & 系统正常启动,显示空数据 & 系统正常启动,显示空数据 \\ \hline
+			TC-5.3 & 文件不存在 & 删除某个数据文件 & 系统提示文件缺失或创建新文件 & 仅在开发者终端提示，系统不会提示 \\ \hline
+			TC-5.4 & 文件格式错误 & 修改文件内容为非法格式 & 系统提示格式错误或跳过错误数据 & 错误格式后的所有数据均不显示 \\ \hline
+			TC-5.5 & 数据一致性 & 加载后检查数据 & 文件中的数据与界面显示一致 & 文件中的数据与界面显示一致 \\ \hline
+			TC-5.6 & 多文件加载 & 所有数据文件同时加载 & 所有模块数据正确加载 & 所有模块数据正确加载 \\ \hline
+			\caption{信息文件装载测试用例}
+		\end{longtable}
+	
+	\subsubsection{测试结果总结}
+		共执行6个测试用例,其中:
+		\begin{itemize}[leftmargin=2cm]
+			\item \textbf{通过}: 4个 (TC-5.1, TC-5.2, TC-5.5, TC-5.6)
+			\item \textbf{失败}: 2个 (TC-5.3, TC-5.4)
+		\end{itemize}
 		
-		\subsection{信息添加功能}
+		\paragraph{测试评价}
+		信息文件装载功能基本可用,但存在以下问题:
+		\begin{itemize}[leftmargin=2cm]
+			\item 正常情况下数据加载准确,空文件处理得当
+			\item 多文件并发加载稳定,数据完整性良好
+			\item 异常情况处理不够友好,缺少用户层面的错误提示
+			\item 文件格式错误时容错性差,影响数据完整性
+		\end{itemize}
+	
+	\subsubsection{问题记录}
+		\begin{longtable}{|p{1.5cm}|p{1.5cm}|p{5cm}|p{5cm}|}
+			\hline
+			\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+			\endfirsthead
+			\hline
+			\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+			\endhead
+			BUG-F01 & 中 & 文件不存在时,系统仅在开发者终端输出错误信息,普通用户无法得知文件缺失,可能导致数据丢失误判 & 在文件不存在时,向用户界面显示警告对话框,提示"数据文件缺失,系统将自动创建新文件",并记录日志 \\ \hline
+			BUG-F02 & 高 & 文件格式错误时,错误数据之后的所有正确数据也无法加载,导致大量数据丢失 & 实现健壮的数据解析机制:1)跳过格式错误的行,继续解析后续数据;2)记录错误行号和内容;3)向用户提示"部分数据格式错误已跳过,共X条" \\ \hline
+			BUG-F03 & 中 & 缺少数据加载进度提示,大量数据加载时用户不清楚系统是否卡死 & 添加启动加载进度条或loading动画,显示"正在加载数据..."提示 \\ \hline
+			\caption{信息文件装载功能问题列表}
+		\end{longtable}
+		
+		\paragraph{核心问题分析}
+		经过测试发现,文件装载功能的\textbf{异常处理和容错机制存在明显不足}:
+		\begin{enumerate}[leftmargin=2cm]
+			\item \textbf{用户体验问题}:
+				\begin{itemize}
+					\item 文件异常时缺少用户可见的错误提示
+					\item 普通用户无法了解数据加载状态和异常原因
+					\item 可能误导用户认为数据丢失或系统故障
+				\end{itemize}
+			\item \textbf{数据完整性风险}:
+				\begin{itemize}
+					\item 单条数据格式错误导致后续所有数据无法加载
+					\item 缺少数据校验和修复机制
+					\item 可能造成严重的数据丢失
+				\end{itemize}
+			\item \textbf{建议的改进方案}:
+				\begin{itemize}
+					\item 实现分行解析,单行错误不影响其他数据
+					\item 添加数据校验日志,记录所有异常情况
+					\item 在界面显示加载结果统计(成功X条,失败Y条)
+					\item 提供数据修复工具或导入向导
+				\end{itemize}
+		\end{enumerate}		\subsection{信息添加功能}
 			\subsubsection{测试目标}
 				验证系统的信息添加功能,包括用户注册、乘车人添加、车次添加等,确保能正确处理唯一性约束(如身份证号不能重复)。
 			
@@ -303,23 +412,77 @@
 					\hline
 					\textbf{编号} & \textbf{测试项} & \textbf{测试数据} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
 					\endhead
-					TC-6.1 & 添加唯一信息 & 添加唯一身份证号的乘车人 & 成功添加 &  \\ \hline
-					TC-6.2 & 添加重复信息 & 添加已存在的身份证号 & 拒绝添加,提示已存在 &  \\ \hline
-					TC-6.3 & 用户注册 & 注册新用户名 & 成功注册 &  \\ \hline
-					TC-6.4 & 用户名重复 & 注册已存在的用户名 & 拒绝注册,提示用户名已存在 &  \\ \hline
-					TC-6.5 & 车次添加 & 添加新车次号 & 成功添加车次 &  \\ \hline
-					TC-6.6 & 车次重复 & 添加已存在的车次号 & 拒绝添加,提示车次已存在 &  \\ \hline
-					TC-6.7 & 数据持久化 & 添加后重启系统 & 新添加的数据仍然存在 &  \\ \hline
-					\caption{信息添加功能测试用例}
-				\end{longtable}
-			
-			\subsubsection{测试结果}
-				% 在实际测试后填写
-			
-			\subsubsection{问题记录}
-				% 记录测试中发现的问题
+				TC-6.1 & 添加唯一信息 & 添加唯一身份证号的乘车人 & 成功添加 & 成功添加 \\ \hline
+				TC-6.2 & 添加重复信息 & 添加已存在的身份证号 & 拒绝添加,提示已存在 & 拒绝添加,提示已存在 \\ \hline
+				TC-6.3 & 用户注册 & 注册新用户名 & 成功注册 & 成功注册 \\ \hline
+				TC-6.4 & 用户名重复 & 注册已存在的用户名 & 拒绝注册,提示用户名已存在 & 拒绝注册,提示用户名已存在 \\ \hline
+				TC-6.5 & 注册重复身份证 & 注册时使用已存在的身份证号 & 拒绝注册,提示身份证号已存在 & 注册成功(未检测身份证重复) \\ \hline
+				TC-6.6 & 车次添加 & 添加新车次号 & 成功添加车次 & 成功添加车次 \\ \hline
+				TC-6.7 & 车次重复 & 添加已存在的车次号 & 拒绝添加,提示车次已存在 & 拒绝添加,提示车次已存在 \\ \hline
+				TC-6.8 & 数据持久化 & 添加后重启系统 & 新添加的数据仍然存在 & 新添加的数据仍然存在 \\ \hline
+				\caption{信息添加功能测试用例}
+			\end{longtable}
 		
-		\subsection{信息查询功能}
+		\subsubsection{测试结果总结}
+			共执行8个测试用例,其中:
+			\begin{itemize}[leftmargin=2cm]
+				\item \textbf{通过}: 7个 (TC-6.1, TC-6.2, TC-6.3, TC-6.4, TC-6.6, TC-6.7, TC-6.8)
+				\item \textbf{失败}: 1个 (TC-6.5)
+			\end{itemize}
+			
+			\paragraph{测试评价}
+			信息添加功能整体表现良好,但存在严重的数据一致性问题:
+			\begin{itemize}[leftmargin=2cm]
+				\item 乘车人添加时身份证号重复检测正常
+				\item 用户名和车次号的唯一性约束有效
+				\item 数据持久化功能稳定
+				\item \textbf{注册功能缺少身份证号重复性检查,存在严重漏洞}
+			\end{itemize}
+		
+		\subsubsection{问题记录}
+			\begin{longtable}{|p{1.5cm}|p{1.5cm}|p{5cm}|p{5cm}|}
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endfirsthead
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endhead
+				BUG-A01 & 高 & 用户注册时未检测身份证号是否重复,允许多个用户使用相同身份证号注册,违反了身份证号唯一性原则 & 在用户注册流程中添加身份证号重复性检查:1)查询所有已注册用户的身份证号;2)若身份证号已存在,拒绝注册并提示"该身份证号已被注册";3)确保与乘车人添加逻辑一致 \\ \hline
+				BUG-A02 & 中 & 身份证号重复性检查逻辑不统一,乘车人添加有检查,用户注册无检查,可能导致数据混乱 & 统一身份证号验证逻辑,提取为公共验证函数,在所有需要身份证号的地方调用 \\ \hline
+				BUG-A03 & 低 & 添加成功后缺少明确的成功提示或界面反馈,用户不确定操作是否完成 & 在数据添加成功后,显示Toast提示"添加成功"或弹窗确认,提升用户体验 \\ \hline
+				\caption{信息添加功能问题列表}
+			\end{longtable}
+			
+			\paragraph{核心问题分析}
+			经过测试发现,信息添加功能存在\textbf{严重的数据一致性隐患}:
+			\begin{enumerate}[leftmargin=2cm]
+				\item \textbf{身份证号重复性检查不一致}:
+					\begin{itemize}
+						\item 在乘车人添加模块,正确实现了身份证号重复检查
+						\item 在用户注册模块,完全缺失身份证号重复检查
+						\item 这种不一致性可能是开发疏忽导致的
+					\end{itemize}
+				\item \textbf{可能导致的问题}:
+					\begin{itemize}
+						\item 同一个人可以注册多个账户(使用相同身份证号)
+						\item 违反实名制要求和身份证唯一性原则
+						\item 可能被恶意利用进行账户滥用
+						\item 影响订单管理和用户追踪
+					\end{itemize}
+				\item \textbf{测试案例}:
+					\begin{itemize}
+						\item 使用已注册用户A的身份证号注册新用户B
+						\item 系统未拒绝,注册成功
+						\item 此时用户A和用户B拥有相同的身份证号
+						\item 在订票、退票等业务中可能产生混淆
+					\end{itemize}
+				\item \textbf{修复优先级}:
+					\begin{itemize}
+						\item 建议作为\textbf{高优先级缺陷}立即修复
+						\item 需要在用户注册逻辑中添加身份证号重复性检查
+						\item 建议对现有数据进行清理,检查是否已存在重复身份证号
+					\end{itemize}
+			\end{enumerate}		\subsection{信息查询功能}
 			\subsubsection{测试目标}
 				验证各种查询功能的正确性,包括余票查询、订单查询、乘车人查询等。
 			
@@ -608,9 +771,9 @@
 		
 		\subsection{性能评估标准}
 			\begin{itemize}[leftmargin=2cm]
-				\item 空闲状态:CPU占用应 < 5\%
-				\item 普通操作:CPU占用峰值应 < 30\%
-				\item 复杂操作(如数据加载、排序):CPU占用峰值应 < 60\%
+				\item 空闲状态:CPU占用应 $<$ 5\%
+				\item 普通操作:CPU占用峰值应 $<$ 30\%
+				\item 复杂操作(如数据加载、排序):CPU占用峰值应 $<$ 60\%
 				\item 瞬时峰值后应快速下降,不应持续高占用
 			\end{itemize}
 		

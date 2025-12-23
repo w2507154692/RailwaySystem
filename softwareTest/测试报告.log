@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.16)  23 DEC 2025 22:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.16)  24 DEC 2025 00:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -672,6 +672,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 Package hyperref Info: Link coloring OFF on input line 17.
+ (./测试报告.out) (./测试报告.out)
 \@outlinefile=\write3
 \openout3 = `测试报告.out'.
 
@@ -701,11 +702,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 24--34
 
  []
 
-No file 测试报告.toc.
-\tf@toc=\write4
-\openout4 = `测试报告.toc'.
-
-
+(./测试报告.toc
 
 (d:/Latex/texlive/2025/texmf-dist/tex/generic/ctex/zhmap/ctex-zhmap-windows.tex
 File: ctex-zhmap-windows.tex 2022/07/14 v2.5.10 Windows font map loader for pdfTeX and DVIPDFMx (CTEX)
@@ -713,7 +710,15 @@ File: ctex-zhmap-windows.tex 2022/07/14 v2.5.10 Windows font map loader for pdfT
 
 ]
 
-[2{d:/Latex/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+[2])
+\tf@toc=\write4
+\openout4 = `测试报告.toc'.
+
+
+
+[3]
+
+[4{d:/Latex/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 Overfull \hbox (5.4944pt too wide) in alignment at lines 87--90
  [] [] [] [] [] 
  []
@@ -728,330 +733,105 @@ Underfull \hbox (badness 10000) in paragraph at lines 94--94
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:94: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.94 ...  登录成功，进入用户页面 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:95: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.95 				T
-          C-0.2 & 用户名正确密码错误 & 用户名:1\newline 密码:2...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 94--95
+Underfull \hbox (badness 10000) in paragraph at lines 94--94
 []|\C70/rm/m/n/10.53937/76 { \C70/rm/m/n/10.53937/5f U \C70/rm/m/n/10.53937/62 ^^P \C70/rm/m/n/10.53937/52 �|\C70/rm/m/n/10.53937/ff ^^L|
  []
 
 
-Underfull \hbox (badness 4013) in paragraph at lines 94--95
+Underfull \hbox (badness 4013) in paragraph at lines 94--94
 \C70/rm/m/n/10.53937/8f � \C70/rm/m/n/10.53937/51 e \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/98 u
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:95: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.95 				T
-          C-0.2 & 用户名正确密码错误 & 用户名:1\newline 密码:2...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 95--95
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:95: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.95 ...�密码错误 &  提示密码错误 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:96: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.96 				T
-          C-0.3 & 用户名错误密码正确 & 用户名:wronguser\newline ...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 95--96
+Underfull \hbox (badness 4013) in paragraph at lines 95--95
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/5b � \C70/rm/m/n/10.53937/78 ^^A \C70/rm/m/n/10.53937/95 ^^Y
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:96: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.96 				T
-          C-0.3 & 用户名错误密码正确 & 用户名:wronguser\newline ...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 96--96
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:96: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.96 ...�不存在 &  提示用户不存在 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:97: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.97 				T
-          C-0.4 & 用户名和密码都错误 & 用户名:wronguser\newline ...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 96--97
+Underfull \hbox (badness 4013) in paragraph at lines 96--96
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/4e ^^M
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:97: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.97 				T
-          C-0.4 & 用户名和密码都错误 & 用户名:wronguser\newline ...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 97--97
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:97: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.97 ...�码错误 &  提示用户不存在 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:98: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.98 				T
-          C-0.5 & 用户名为空 & 用户名:(空)\newline 密码:123456 & ...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 97--98
+Underfull \hbox (badness 4013) in paragraph at lines 97--97
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/4e ^^M
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:98: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.98 				T
-          C-0.5 & 用户名为空 & 用户名:(空)\newline 密码:123456 & ...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 98--98
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:98: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.98 ...�能为空 &  提示用户不存在 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:99: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.99 				T
-          C-0.6 & 密码为空 & 用户名:user1\newline 密码:(空) & 提�...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 98--99
+Underfull \hbox (badness 4013) in paragraph at lines 98--98
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/4e ^^M
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:99: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.99 				T
-          C-0.6 & 密码为空 & 用户名:user1\newline 密码:(空) & 提�...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 99--99
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:99: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.99 ...�不能为空 &  提示密码错误 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:100: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.100 				T
-           C-0.7 & 用户名和密码都为空 & 用户名:(空)\newline 密...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 99--100
+Underfull \hbox (badness 4013) in paragraph at lines 99--99
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/5b � \C70/rm/m/n/10.53937/78 ^^A \C70/rm/m/n/10.53937/95 ^^Y
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:100: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.100 				T
-           C-0.7 & 用户名和密码都为空 & 用户名:(空)\newline 密...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 100--100
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:100: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.100 ...能为空 &  提示用户不存在 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:101: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.101 			T
-          C-0.8 & 已锁定的用户登录 & 用户名:bob\newline 密码:qw...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 100--101
+Underfull \hbox (badness 4013) in paragraph at lines 100--100
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/4e ^^M
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:101: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.101 			T
-          C-0.8 & 已锁定的用户登录 & 用户名:bob\newline 密码:qw...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 101--101
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:101: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.101 ...被锁定,请联系管理员解锁 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:102: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.102 			T
-          C-0.9 & 锁定用户-空密码 & 用户名:bob\newline 密码:(空...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 101--102
+Underfull \hbox (badness 4013) in paragraph at lines 101--101
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8d & \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/5d �
  []
 
 
-Underfull \hbox (badness 4013) in paragraph at lines 101--102
+Underfull \hbox (badness 4013) in paragraph at lines 101--101
 \C70/rm/m/n/10.53937/7c � \C70/rm/m/n/10.53937/7b � \C70/rm/m/n/10.53937/74 ^^F \C70/rm/m/n/10.53937/54 X \C70/rm/m/n/10.53937/89 �
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:102: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.102 			T
-          C-0.9 & 锁定用户-空密码 & 用户名:bob\newline 密码:(空...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 102--102
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:102: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.102 ...被锁定,请联系管理员解锁 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:103: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.103 			T
-          C-0.10 & 锁定用户-错误密码 & 用户名:bob\newline 密码:...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 102--103
+Underfull \hbox (badness 4013) in paragraph at lines 102--102
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8d & \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/5d �
  []
 
 
-Underfull \hbox (badness 4013) in paragraph at lines 102--103
+Underfull \hbox (badness 4013) in paragraph at lines 102--102
 \C70/rm/m/n/10.53937/7c � \C70/rm/m/n/10.53937/7b � \C70/rm/m/n/10.53937/74 ^^F \C70/rm/m/n/10.53937/54 X \C70/rm/m/n/10.53937/89 �
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:103: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.103 			T
-          C-0.10 & 锁定用户-错误密码 & 用户名:bob\newline 密码:...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 103--103
@@ -1063,75 +843,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 103--103
 []|\C70/rm/m/n/10.53937/95 ^^A \C70/rm/m/n/10.53937/5b � \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7\OT1/cmr/m/n/10.53937 -\C70/rm/m/n/10.53937/95 ^^Y \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/5b �
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:103: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.103 ...被锁定,请联系管理员解锁 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:104: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.104 			T
-          C-0.11 & 特殊字符用户名 & 用户名:user@\#\$\%\newline 密...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 103--104
+Underfull \hbox (badness 4013) in paragraph at lines 103--103
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8d & \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/5d �
  []
 
 
-Underfull \hbox (badness 4013) in paragraph at lines 103--104
+Underfull \hbox (badness 4013) in paragraph at lines 103--103
 \C70/rm/m/n/10.53937/7c � \C70/rm/m/n/10.53937/7b � \C70/rm/m/n/10.53937/74 ^^F \C70/rm/m/n/10.53937/54 X \C70/rm/m/n/10.53937/89 �
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:104: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.104 			T
-          C-0.11 & 特殊字符用户名 & 用户名:user@\#\$\%\newline 密...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 104--104
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:104: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.104 ...式错误 &  提示用户不存在 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:105: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.105 			T
-          C-0.12 & 超长用户名 & 用户名:超过50个字符的用户名...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 104--105
+Underfull \hbox (badness 4013) in paragraph at lines 104--104
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/4e ^^M
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:105: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.105 			T
-          C-0.12 & 超长用户名 & 用户名:超过50个字符的用户名...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 105--105
@@ -1143,42 +873,17 @@ Underfull \hbox (badness 7759) in paragraph at lines 105--105
 []|\C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/54 ^^M\OT1/cmr/m/n/10.53937 :\C70/rm/m/n/10.53937/8d � \C70/rm/m/n/10.53937/8f �\OT1/cmr/m/n/10.53937 50\C70/rm/m/n/10.53937/4e * \C70/rm/m/n/10.53937/5b W \C70/rm/m/n/10.53937/7b & \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/75 (
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:105: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.105 ...用户不存在,前端页面脱标 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:106: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.106 			\caption
-                 {用户登录测试用例}
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 105--106
+Underfull \hbox (badness 4013) in paragraph at lines 105--105
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/4e ^^M
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:106: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.106 			\caption
-                 {用户登录测试用例}
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Overfull \hbox (5.4944pt too wide) in alignment at lines 93--107
  [] [] [] [] [] 
  []
 
-[3]
+[5]
 Overfull \hbox (5.4944pt too wide) in alignment at lines 110--113
  [] [] [] [] [] 
  []
@@ -1193,250 +898,75 @@ Underfull \hbox (badness 10000) in paragraph at lines 117--117
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:117: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.117 ...登录成功,进入管理员后台 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:118: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.118 				T
-           C-0.12 & 管理员名正确密码错误 & 用户名:2\newline 密...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 117--118
+Underfull \hbox (badness 4013) in paragraph at lines 117--117
 \C70/rm/m/n/10.53937/51 e \C70/rm/m/n/10.53937/7b � \C70/rm/m/n/10.53937/74 ^^F \C70/rm/m/n/10.53937/54 X ^^N
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:118: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.118 				T
-           C-0.12 & 管理员名正确密码错误 & 用户名:2\newline 密...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 118--118
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:118: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.118 ...密码错误 &  提示密码错误 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:119: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.119 				T
-           C-0.13 & 管理员名错误密码正确 & 用户名:wrongadmin\ne...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 118--119
+Underfull \hbox (badness 4013) in paragraph at lines 118--118
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/5b � \C70/rm/m/n/10.53937/78 ^^A \C70/rm/m/n/10.53937/95 ^^Y
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:119: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.119 				T
-           C-0.13 & 管理员名错误密码正确 & 用户名:wrongadmin\ne...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 119--119
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:119: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.119 ...不存在 &  提示账户不存在 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:120: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.120 				T
-           C-0.14 & 管理员名密码都错误 & 用户名:wrongadmin\newli...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 119--120
+Underfull \hbox (badness 4013) in paragraph at lines 119--119
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8d & \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/4e ^^M
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:120: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.120 				T
-           C-0.14 & 管理员名密码都错误 & 用户名:wrongadmin\newli...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 120--120
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:120: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.120 ...码错误 &  提示账户不存在 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:121: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.121 				T
-           C-0.15 & 管理员名为空 & 用户名:(空)\newline 密码:2 & ...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 120--121
+Underfull \hbox (badness 4013) in paragraph at lines 120--120
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8d & \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/4e ^^M
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:121: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.121 				T
-           C-0.15 & 管理员名为空 & 用户名:(空)\newline 密码:2 & ...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 121--121
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:121: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.121 ...能为空 &  提示账户不存在 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:122: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.122 				T
-           C-0.16 & 管理员密码为空 & 用户名:2\newline 密码:(空)...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 121--122
+Underfull \hbox (badness 4013) in paragraph at lines 121--121
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8d & \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/4e ^^M
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:122: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.122 				T
-           C-0.16 & 管理员密码为空 & 用户名:2\newline 密码:(空)...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 122--122
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:122: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.122 ...不能为空 &  提示密码错误 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:123: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.123 			T
-          C-0.17 & 已锁定的管理员登录 & 用户名:locked\_admin\new...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 122--123
+Underfull \hbox (badness 4013) in paragraph at lines 122--122
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/5b � \C70/rm/m/n/10.53937/78 ^^A \C70/rm/m/n/10.53937/95 ^^Y
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:123: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.123 			T
-          C-0.17 & 已锁定的管理员登录 & 用户名:locked\_admin\new...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 123--123
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:123: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.123 ...被锁定,请联系管理员解锁 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:124: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.124 			T
-          C-0.18 & 锁定管理员-空密码 & 用户名:locked\_admin\newli...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 123--124
+Underfull \hbox (badness 4013) in paragraph at lines 123--123
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8d & \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/5d �
  []
 
 
-Underfull \hbox (badness 4013) in paragraph at lines 123--124
+Underfull \hbox (badness 4013) in paragraph at lines 123--123
 \C70/rm/m/n/10.53937/7c � \C70/rm/m/n/10.53937/7b � \C70/rm/m/n/10.53937/74 ^^F \C70/rm/m/n/10.53937/54 X \C70/rm/m/n/10.53937/89 �
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:124: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.124 			T
-          C-0.18 & 锁定管理员-空密码 & 用户名:locked\_admin\newli...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 124--124
@@ -1448,40 +978,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 124--124
 []|\C70/rm/m/n/10.53937/95 ^^A \C70/rm/m/n/10.53937/5b � \C70/rm/m/n/10.53937/7b � \C70/rm/m/n/10.53937/74 ^^F \C70/rm/m/n/10.53937/54 X\OT1/cmr/m/n/10.53937 -\C70/rm/m/n/10.53937/7a z \C70/rm/m/n/10.53937/5b �
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:124: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.124 ...被锁定,请联系管理员解锁 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:125: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.125 			T
-          C-0.19 & 锁定管理员-错误密码 & 用户名:locked\_admin\ne...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 124--125
+Underfull \hbox (badness 4013) in paragraph at lines 124--124
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8d & \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/5d �
  []
 
 
-Underfull \hbox (badness 4013) in paragraph at lines 124--125
+Underfull \hbox (badness 4013) in paragraph at lines 124--124
 \C70/rm/m/n/10.53937/7c � \C70/rm/m/n/10.53937/7b � \C70/rm/m/n/10.53937/74 ^^F \C70/rm/m/n/10.53937/54 X \C70/rm/m/n/10.53937/89 �
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:125: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.125 			T
-          C-0.19 & 锁定管理员-错误密码 & 用户名:locked\_admin\ne...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 125--125
@@ -1493,75 +998,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 125--125
 []|\C70/rm/m/n/10.53937/95 ^^A \C70/rm/m/n/10.53937/5b � \C70/rm/m/n/10.53937/7b � \C70/rm/m/n/10.53937/74 ^^F \C70/rm/m/n/10.53937/54 X\OT1/cmr/m/n/10.53937 -\C70/rm/m/n/10.53937/95 ^^Y \C70/rm/m/n/10.53937/8b �
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:125: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.125 ...被锁定,请联系管理员解锁 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:126: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.126 			T
-          C-0.20 & 用普通用户账号登管理员 & 用户名:1\newline �...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 125--126
+Underfull \hbox (badness 4013) in paragraph at lines 125--125
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8d & \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/5d �
  []
 
 
-Underfull \hbox (badness 4013) in paragraph at lines 125--126
+Underfull \hbox (badness 4013) in paragraph at lines 125--125
 \C70/rm/m/n/10.53937/7c � \C70/rm/m/n/10.53937/7b � \C70/rm/m/n/10.53937/74 ^^F \C70/rm/m/n/10.53937/54 X \C70/rm/m/n/10.53937/89 �
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:126: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.126 			T
-          C-0.20 & 用普通用户账号登管理员 & 用户名:1\newline �...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 126--126
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:126: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.126 ...限不足 &  提示账户不存在 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:127: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.127 			\caption
-                 {管理员登录测试用例}
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 126--127
+Underfull \hbox (badness 4013) in paragraph at lines 126--126
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8d & \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/4e ^^M
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:127: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.127 			\caption
-                 {管理员登录测试用例}
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Overfull \hbox (5.4944pt too wide) in alignment at lines 116--128
@@ -1570,7 +1025,7 @@ Overfull \hbox (5.4944pt too wide) in alignment at lines 116--128
 
 
 
-[4]
+[6]
 Underfull \hbox (badness 10000) in paragraph at lines 154--154
 []|\OT1/cmr/m/n/10.53937 BUG-
  []
@@ -1672,35 +1127,10 @@ Overfull \hbox (10.98323pt too wide) in paragraph at lines 170--171
 
 
 
-[5]
+[7]
 Underfull \hbox (badness 10000) in paragraph at lines 202--202
 []|\OT1/cmr/m/n/10.53937 TC-
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:202: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.202 ...符或允许输入 &  允许输入 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:203: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.203 					T
-            C-1.2 & 姓名长度限制 & 输入超过20个字符的姓名 & ...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:203: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.203 					T
-            C-1.2 & 姓名长度限制 & 输入超过20个字符的姓名 & ...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 203--203
@@ -1712,31 +1142,6 @@ Underfull \hbox (badness 5985) in paragraph at lines 203--203
 []|\C70/rm/m/n/10.53937/8f � \C70/rm/m/n/10.53937/51 e \C70/rm/m/n/10.53937/8d � \C70/rm/m/n/10.53937/8f �\OT1/cmr/m/n/10.53937 20\C70/rm/m/n/10.53937/4e * \C70/rm/m/n/10.53937/5b W \C70/rm/m/n/10.53937/7b & \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/59 �
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:203: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.203 ...名过长或截断 &  允许输入 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:204: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.204 					T
-            C-1.3 & 身份证号格式 & 输入15位数字 & 提示格式错...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:204: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.204 					T
-            C-1.3 & 身份证号格式 & 输入15位数字 & 提示格式错...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
-
 
 Underfull \hbox (badness 10000) in paragraph at lines 204--204
 []|\OT1/cmr/m/n/10.53937 TC-
@@ -1747,35 +1152,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 204--204
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/68 < \C70/rm/m/n/10.53937/5f ^^O \C70/rm/m/n/10.53937/95 ^^Y \C70/rm/m/n/10.53937/8b �\OT1/cmr/m/n/10.53937 (\C70/rm/m/n/10.53937/5e �
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:204: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.204 ...应为18位) &  提示格式错误 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:205: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.205 					T
-            C-1.4 & 身份证号格式 & 输入正确的18位身份证号 & ...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 204--205
+Underfull \hbox (badness 4013) in paragraph at lines 204--204
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/68 < \C70/rm/m/n/10.53937/5f ^^O \C70/rm/m/n/10.53937/95 ^^Y
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:205: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.205 					T
-            C-1.4 & 身份证号格式 & 输入正确的18位身份证号 & ...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 205--205
@@ -1787,31 +1167,6 @@ Underfull \hbox (badness 5985) in paragraph at lines 205--205
 []|\C70/rm/m/n/10.53937/8f � \C70/rm/m/n/10.53937/51 e \C70/rm/m/n/10.53937/6b c \C70/rm/m/n/10.53937/78 n \C70/rm/m/n/10.53937/76 �\OT1/cmr/m/n/10.53937 18\C70/rm/m/n/10.53937/4f M \C70/rm/m/n/10.53937/8e � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/8b �
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:205: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.205 ...号 & 接受输入 &  接受输入 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:206: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.206 					T
-            C-1.5 & 身份证号格式 & 输入包含字母的身份证号 &...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:206: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.206 					T
-            C-1.5 & 身份证号格式 & 输入包含字母的身份证号 &...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
-
 
 Underfull \hbox (badness 10000) in paragraph at lines 206--206
 []|\OT1/cmr/m/n/10.53937 TC-
@@ -1822,35 +1177,10 @@ Underfull \hbox (badness 2818) in paragraph at lines 206--206
 []|\C70/rm/m/n/10.53937/8f � \C70/rm/m/n/10.53937/51 e \C70/rm/m/n/10.53937/53 ^^E \C70/rm/m/n/10.53937/54 + \C70/rm/m/n/10.53937/5b W \C70/rm/m/n/10.53937/6b � \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/8e � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/8b �
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:206: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.206 ...式错误 &  不允许输入字母 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:207: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.207 					T
-            C-1.6 & 手机号格式 & 输入10位数字 & 提示格式错误...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 206--207
+Underfull \hbox (badness 4013) in paragraph at lines 206--206
 []|\C70/rm/m/n/10.53937/4e ^^M \C70/rm/m/n/10.53937/51 A \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/8f � \C70/rm/m/n/10.53937/51 e
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:207: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.207 					T
-            C-1.6 & 手机号格式 & 输入10位数字 & 提示格式错误...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 207--207
@@ -1862,100 +1192,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 207--207
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/68 < \C70/rm/m/n/10.53937/5f ^^O \C70/rm/m/n/10.53937/95 ^^Y \C70/rm/m/n/10.53937/8b �\OT1/cmr/m/n/10.53937 (\C70/rm/m/n/10.53937/5e �
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:207: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.207 ...应为11位) &  提示格式错误 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:208: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.208 					T
-            C-1.7 & 手机号格式 & 输入正确的11位手机号 & 接受...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 207--208
+Underfull \hbox (badness 4013) in paragraph at lines 207--207
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/68 < \C70/rm/m/n/10.53937/5f ^^O \C70/rm/m/n/10.53937/95 ^^Y
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:208: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.208 					T
-            C-1.7 & 手机号格式 & 输入正确的11位手机号 & 接受...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 208--208
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:208: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.208 ...号 & 接受输入 &  接受输入 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:209: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.209 					T
-            C-1.8 & 用户名长度 & 输入空用户名 & 提示用户名�...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:209: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.209 					T
-            C-1.8 & 用户名长度 & 输入空用户名 & 提示用户名�...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
-
 
 Underfull \hbox (badness 10000) in paragraph at lines 209--209
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:209: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.209 ...空 &  提示用户名不能为空 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:210: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.210 					T
-            C-1.9 & 用户名长度 & 输入超长用户名(>50字符) & 提...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 209--210
+Underfull \hbox (badness 4013) in paragraph at lines 209--209
 []|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/54 ^^M
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:210: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.210 					T
-            C-1.9 & 用户名长度 & 输入超长用户名(>50字符) & 提...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 210--210
@@ -1963,542 +1218,419 @@ Underfull \hbox (badness 10000) in paragraph at lines 210--210
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 210--210
-[]|\C70/rm/m/n/10.53937/8f � \C70/rm/m/n/10.53937/51 e \C70/rm/m/n/10.53937/8d � \C70/rm/m/n/10.53937/95 ^^? \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/54 ^^M\OT1/cmr/m/n/10.53937 (>50\C70/rm/m/n/10.53937/5b W
+Underfull \hbox (badness 4713) in paragraph at lines 210--210
+[]|\C70/rm/m/n/10.53937/8f � \C70/rm/m/n/10.53937/51 e \C70/rm/m/n/10.53937/8d � \C70/rm/m/n/10.53937/95 ^^? \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/54 ^^M\OT1/cmr/m/n/10.53937 ($\OML/cmm/m/it/10.53937 >$\OT1/cmr/m/n/10.53937 50\C70/rm/m/n/10.53937/5b W
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:210: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.210 ...长或截断 &  限制输入长度 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:211: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.211 					\caption
-                   {控件输入限定测试用例}
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 210--211
+Underfull \hbox (badness 4013) in paragraph at lines 210--210
 []|\C70/rm/m/n/10.53937/96 P \C70/rm/m/n/10.53937/52 6 \C70/rm/m/n/10.53937/8f � \C70/rm/m/n/10.53937/51 e \C70/rm/m/n/10.53937/95 ^^?
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:211: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.211 					\caption
-                   {控件输入限定测试用例}
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 220--220
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
 
-[6]
+
+Underfull \hbox (badness 4013) in paragraph at lines 220--220
+[]|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/59 � \C70/rm/m/n/10.53937/54 ^^M \C70/rm/m/n/10.53937/4e ^^M
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--221
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 221--221
+[]|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8e � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/8b �
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 222--222
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:222: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.222 ...为空 &  提示姓名不能为空 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:223: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.223 					T
-            C-2.2 & 必填项缺失 & 身份证号为空 & 提示身份证�...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 222--223
-[]|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/59 � \C70/rm/m/n/10.53937/54 ^^M \C70/rm/m/n/10.53937/4e ^^M
+Underfull \hbox (badness 4013) in paragraph at lines 222--222
+[]|\C70/rm/m/n/10.53937/62 K \C70/rm/m/n/10.53937/67 : \C70/rm/m/n/10.53937/53 � \C70/rm/m/n/10.53937/4e ^^M \C70/rm/m/n/10.53937/80 �
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:223: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.223 					T
-            C-2.2 & 必填项缺失 & 身份证号为空 & 提示身份证�...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 223--223
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:223: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.223 ... &  提示身份证号不能为空 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:224: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.224 					T
-            C-2.3 & 必填项缺失 & 手机号为空 & 提示手机号不�...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 223--224
-[]|\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8e � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/8b �
+Underfull \hbox (badness 10000) in paragraph at lines 223--223
+[]|\C70/rm/m/n/10.53937/62 ^^P \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/4f �
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:224: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.224 					T
-            C-2.3 & 必填项缺失 & 手机号为空 & 提示手机号不�...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 224--224
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:224: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.224 ...能为空 &  手机号不能为空 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:225: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.225 					T
-            C-2.4 & 完整信息提交 & 所有必填项均正确填写 & �...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 224--225
-[]|\C70/rm/m/n/10.53937/62 K \C70/rm/m/n/10.53937/67 : \C70/rm/m/n/10.53937/53 � \C70/rm/m/n/10.53937/4e ^^M \C70/rm/m/n/10.53937/80 �
+Underfull \hbox (badness 2818) in paragraph at lines 224--224
+[]|\C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/65 9 \C70/rm/m/n/10.53937/5d � \C70/rm/m/n/10.53937/5b X \C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/59 �
  []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:225: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.225 					T
-            C-2.4 & 完整信息提交 & 所有必填项均正确填写 & �...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 225--225
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:225: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.225 ...�存/注册 &  成功保存/注册 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
 
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:226: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.226 					T
-            C-2.5 & 信息修改 & 修改已存在的乘车人姓名 & 成�...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 225--226
-[]|\C70/rm/m/n/10.53937/62 ^^P \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/4f �
- []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:226: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.226 					T
-            C-2.5 & 信息修改 & 修改已存在的乘车人姓名 & 成�...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 226--226
-[]|\OT1/cmr/m/n/10.53937 TC-
+Underfull \hbox (badness 2073) in paragraph at lines 251--251
+\C70/rm/m/n/10.53937/51 e\OT1/cmr/m/n/10.53937 1\C70/rm/m/n/10.53937/4e * \C70/rm/m/n/10.53937/5b W \C70/rm/m/n/10.53937/7b & \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/59 � \C70/rm/m/n/10.53937/54 ^^M\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/53 � \C70/rm/m/n/10.53937/80 � \C70/rm/m/n/10.53937/5b � \C70/rm/m/n/10.53937/81 � \C70/rm/m/n/10.53937/65 p
  []
 
 
-Underfull \hbox (badness 2818) in paragraph at lines 226--226
-[]|\C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/65 9 \C70/rm/m/n/10.53937/5d � \C70/rm/m/n/10.53937/5b X \C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/59 �
- []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:226: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.226 ...名 & 成功修改 &  成功修改 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:227: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.227 					T
-            C-2.6 & 信息修改 & 修改已存在的手机号 & 成功修�...
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:227: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.227 					T
-            C-2.6 & 信息修改 & 修改已存在的手机号 & 成功修�...
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 227--227
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:227: Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
-l.227 ...号 & 成功修改 &  成功修改 \hline
-                                                  
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:228: Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.228 					\caption
-                   {人员信息完整性测试用例}
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-d:/study/train/RailwaySystem/softwareTest/测试报告.tex:228: Extra alignment tab has been changed to \cr.
-<template> ... width\arrayrulewidth }\endtemplate 
-                                                  
-l.228 					\caption
-                   {人员信息完整性测试用例}
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 249--249
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 2818) in paragraph at lines 249--249
-[]|\C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/4f U \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/54 X \C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/60 o \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/67 � \C70/rm/m/n/10.53937/77 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 250--250
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 251--251
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 252--252
-[]|\OT1/cmr/m/n/10.53937 TC-
+Underfull \hbox (badness 3417) in paragraph at lines 252--252
+[]|\C70/rm/m/n/10.53937/52 M \C70/rm/m/n/10.53937/7a � \C70/rm/m/n/10.53937/6d � \C70/rm/m/n/10.53937/52 �\OT1/cmr/m/n/10.53937 maxLength\C70/rm/m/n/10.53937/5c ^ \C70/rm/m/n/10.53937/60 ' \C70/rm/m/n/10.53937/96 P \C70/rm/m/n/10.53937/52 6
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 253--253
-[]|\OT1/cmr/m/n/10.53937 TC-
+\C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/60 o\OT1/cmr/m/n/10.53937 "\C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/54 ^^M \C70/rm/m/n/10.53937/4e ^^M \C70/rm/m/n/10.53937/80 � \C70/rm/m/n/10.53937/8d �
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 254--254
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 255--255
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-[7]
-
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 279--279
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 2818) in paragraph at lines 279--279
-[]|\C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/63 n \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/5b X \C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/4e ^^T \C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/63 n \C70/rm/m/n/10.53937/8b �
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 280--280
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 281--281
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 282--282
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 2818) in paragraph at lines 282--282
-[]|\C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/65 9 � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/51 � \C70/rm/m/n/10.53937/5b � \C70/rm/m/n/10.53937/4e : \C70/rm/m/n/10.53937/97 ^ \C70/rm/m/n/10.53937/6c � \C70/rm/m/n/10.53937/68 <
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 283--283
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
+[9]
 Underfull \hbox (badness 10000) in paragraph at lines 284--284
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 306--306
+Underfull \hbox (badness 2818) in paragraph at lines 284--284
+[]|\C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/4f U \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/54 X \C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/60 o \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/67 � \C70/rm/m/n/10.53937/77 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 285--285
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
 
-Underfull \hbox (badness 2818) in paragraph at lines 306--306
+Underfull \hbox (badness 4013) in paragraph at lines 285--285
+[]|\C70/rm/m/n/10.53937/6b c \C70/rm/m/n/10.53937/78 n \C70/rm/m/n/10.53937/66 > \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8b �
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 286--286
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 286--286
+[]|\C70/rm/m/n/10.53937/6b c \C70/rm/m/n/10.53937/78 n \C70/rm/m/n/10.53937/66 > \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/62 @
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 287--287
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 1603) in paragraph at lines 287--287
+[]|\C70/rm/m/n/10.53937/59 � \C70/rm/m/n/10.53937/54 ^^M|\C70/rm/m/n/10.53937/30 ^^A| \C70/rm/m/n/10.53937/8e � \C70/rm/m/n/10.53937/4e �
+ []
+
+
+Underfull \hbox (badness 1603) in paragraph at lines 287--287
+\C70/rm/m/n/10.53937/8b �|\C70/rm/m/n/10.53937/30 ^^A| \C70/rm/m/n/10.53937/62 K \C70/rm/m/n/10.53937/67 : \C70/rm/m/n/10.53937/53 �
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 288--288
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 288--288
+[]|\C70/rm/m/n/10.53937/52 ^^W \C70/rm/m/n/10.53937/88 h \C70/rm/m/n/10.53937/81 � \C70/rm/m/n/10.53937/52 � 7
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 288--288
+\C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/66 > \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/67 ^^@ \C70/rm/m/n/10.53937/65 �
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 289--289
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 289--289
+[]|\C70/rm/m/n/10.53937/66 > \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/53 9 \C70/rm/m/n/10.53937/91 M \C70/rm/m/n/10.53937/76 �
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 317--317
+[]|\OT1/cmr/m/n/10.53937 BUG-
+ []
+
+
+Underfull \hbox (badness 4634) in paragraph at lines 317--317
+\C70/rm/m/n/10.53937/60 o\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/66 > \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/7a z \C70/rm/m/n/10.53937/76 } \C70/rm/m/n/10.53937/52 ^^W \C70/rm/m/n/10.53937/88 h\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/4f S \C70/rm/m/n/10.53937/9a �
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 317--317
+[]|\C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/52 ^^W \C70/rm/m/n/10.53937/88 h \C70/rm/m/n/10.53937/4e : \C70/rm/m/n/10.53937/7a z \C70/rm/m/n/10.53937/65 �\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/66 > \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/65 �
+ []
+
+
+Underfull \hbox (badness 2073) in paragraph at lines 317--317
+\C70/rm/m/n/10.53937/67 ,\OT1/cmr/m/n/10.53937 "\C70/rm/m/n/10.53937/66 � \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/60 o\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/6d � \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/4e X
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 318--318
+[]|\OT1/cmr/m/n/10.53937 BUG-
+ []
+
+
+Underfull \hbox (badness 7344) in paragraph at lines 318--318
+[]|\C70/rm/m/n/10.53937/64 ^^\ \C70/rm/m/n/10.53937/7d " \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/80 � \C70/rm/m/n/10.53937/86 } \C70/rm/m/n/10.53937/71 6 \C70/rm/m/n/10.53937/53 � \C70/rm/m/n/10.53937/75 (\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/4f F \C70/rm/m/n/10.53937/7f : \C70/rm/m/n/10.53937/5c ^^Q \C70/rm/m/n/10.53937/64 ^^\
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 318--318
+\C70/rm/m/n/10.53937/7d " \C70/rm/m/n/10.53937/7e � \C70/rm/m/n/10.53937/67 � \C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/91 � \C70/rm/m/n/10.53937/7e � \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/54 �\OT1/cmr/m/n/10.53937 "\C70/rm/m/n/10.53937/67 * \C70/rm/m/n/10.53937/62 ~ \C70/rm/m/n/10.53937/52 0 \C70/rm/m/n/10.53937/7e �
+ []
+
+
+Underfull \hbox (badness 2073) in paragraph at lines 318--318
+[]|\C70/rm/m/n/10.53937/6d � \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/64 ^^\ \C70/rm/m/n/10.53937/7d " \C70/rm/m/n/10.53937/7e � \C70/rm/m/n/10.53937/67 � \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/66 > \C70/rm/m/n/10.53937/79 :\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/59 �\OT1/cmr/m/n/10.53937 "\C70/rm/m/n/10.53937/62 ~
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 318--318
+\C70/rm/m/n/10.53937/52 0\OT1/cmr/m/n/10.53937 3\C70/rm/m/n/10.53937/67 a \C70/rm/m/n/10.53937/53 9 \C70/rm/m/n/10.53937/91 M \C70/rm/m/n/10.53937/7e � \C70/rm/m/n/10.53937/67 �\OT1/cmr/m/n/10.53937 ";\C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/7e � \C70/rm/m/n/10.53937/67 � \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/66 >
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 319--319
+[]|\OT1/cmr/m/n/10.53937 BUG-
+ []
+
+
+Underfull \hbox (badness 7344) in paragraph at lines 319--319
+[]|\C70/rm/m/n/10.53937/52 ^^W \C70/rm/m/n/10.53937/88 h \C70/rm/m/n/10.53937/7f : \C70/rm/m/n/10.53937/5c ^^Q \C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/5e � \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/80 �\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/6c � \C70/rm/m/n/10.53937/63 	 \C70/rm/m/n/10.53937/59 �
+ []
+
+
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 342--342
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 2818) in paragraph at lines 342--342
+[]|\C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/63 n \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/5b X \C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/4e ^^T \C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/63 n \C70/rm/m/n/10.53937/8b �
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 342--342
+[]|\C70/rm/m/n/10.53937/62 @ \C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/63 n \C70/rm/m/n/10.53937/6b c
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 342--342
+\C70/rm/m/n/10.53937/78 n \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/8f } \C70/rm/m/n/10.53937/5e v \C70/rm/m/n/10.53937/57 (
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 343--343
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 343--343
+[]|\C70/rm/m/n/10.53937/7c � \C70/rm/m/n/10.53937/7e � \C70/rm/m/n/10.53937/6b c \C70/rm/m/n/10.53937/5e 8 \C70/rm/m/n/10.53937/54 /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 344--344
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 344--344
+[]|\C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/5f ^^@ \C70/rm/m/n/10.53937/53 � \C70/rm/m/n/10.53937/80 ^^E
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 344--344
+\C70/rm/m/n/10.53937/7e � \C70/rm/m/n/10.53937/7a � \C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 :|\C70/rm/m/n/10.53937/ff ^^L|
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 344--344
+\C70/rm/m/n/10.53937/7c � \C70/rm/m/n/10.53937/7e � \C70/rm/m/n/10.53937/4e ^^M \C70/rm/m/n/10.53937/4f ^^Z \C70/rm/m/n/10.53937/63 �
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 345--345
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 2818) in paragraph at lines 345--345
+[]|\C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/65 9 � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/51 � \C70/rm/m/n/10.53937/5b � \C70/rm/m/n/10.53937/4e : \C70/rm/m/n/10.53937/97 ^ \C70/rm/m/n/10.53937/6c � \C70/rm/m/n/10.53937/68 <
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 345--345
+[]|\C70/rm/m/n/10.53937/95 ^^Y \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/68 < \C70/rm/m/n/10.53937/5f ^^O \C70/rm/m/n/10.53937/54 ^^N
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 345--345
+\C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/62 @ \C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/63 n
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 346--346
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 346--346
+[]|\C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/4e � - \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/65 p
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 346--346
+\C70/rm/m/n/10.53937/63 n \C70/rm/m/n/10.53937/4e ^^N \C70/rm/m/n/10.53937/75 L \C70/rm/m/n/10.53937/97 b \C70/rm/m/n/10.53937/66 >
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 347--347
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 347--347
+[]|\C70/rm/m/n/10.53937/62 @ \C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/6a ! \C70/rm/m/n/10.53937/57 W \C70/rm/m/n/10.53937/65 p
+ []
+
+
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 375--375
+[]|\OT1/cmr/m/n/10.53937 BUG-
+ []
+
+
+Underfull \hbox (badness 7344) in paragraph at lines 375--375
+[]|\C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/4e � ^^M \C70/rm/m/n/10.53937/5b X \C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/65 �\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/54 ^^Q \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/75 L \C70/rm/m/n/10.53937/97 b
+ []
+
+
+Underfull \hbox (badness 2073) in paragraph at lines 375--375
+\C70/rm/m/n/10.53937/66 > \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8b f \C70/rm/m/n/10.53937/54 J \C70/rm/m/n/10.53937/5b � \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/68 F\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 :\OT1/cmr/m/n/10.53937 "\C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/63 n \C70/rm/m/n/10.53937/65 �
+ []
+
+
+Underfull \hbox (badness 7344) in paragraph at lines 375--375
+\C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/7f : \C70/rm/m/n/10.53937/59 1\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/7c � \C70/rm/m/n/10.53937/7e � \C70/rm/m/n/10.53937/5c ^^F \C70/rm/m/n/10.53937/81 � \C70/rm/m/n/10.53937/52 � ^^[ \C70/rm/m/n/10.53937/5e � \C70/rm/m/n/10.53937/65 � �
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 376--376
+[]|\OT1/cmr/m/n/10.53937 BUG-
+ []
+
+
+Underfull \hbox (badness 7344) in paragraph at lines 376--376
+\C70/rm/m/n/10.53937/8f � \C70/rm/m/n/10.53937/68 < \C70/rm/m/n/10.53937/5f ^^O \C70/rm/m/n/10.53937/95 ^^Y \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/88 L\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/7e � � \C70/rm/m/n/10.53937/89 � \C70/rm/m/n/10.53937/67 � \C70/rm/m/n/10.53937/54 ^^N
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 376--376
+\C70/rm/m/n/10.53937/7e � \C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/63 n\OT1/cmr/m/n/10.53937 ;2)\C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/5f U \C70/rm/m/n/10.53937/95 ^^Y \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/88 L \C70/rm/m/n/10.53937/53 � \C70/rm/m/n/10.53937/54 � \C70/rm/m/n/10.53937/51 �
+ []
+
+
+Underfull \hbox (badness 4531) in paragraph at lines 376--376
+\C70/rm/m/n/10.53937/5b �\OT1/cmr/m/n/10.53937 ;3)\C70/rm/m/n/10.53937/54 ^^Q \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 :\OT1/cmr/m/n/10.53937 "\C70/rm/m/n/10.53937/90 � \C70/rm/m/n/10.53937/52 ^^F \C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/63 n \C70/rm/m/n/10.53937/68 <
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 377--377
+[]|\OT1/cmr/m/n/10.53937 BUG-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 377--377
+[]|\C70/rm/m/n/10.53937/6d � \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/54 / \C70/rm/m/n/10.53937/52 � � \C70/rm/m/n/10.53937/8f } � \C70/rm/m/n/10.53937/5e � \C70/rm/m/n/10.53937/67 a
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 377--377
+\C70/rm/m/n/10.53937/62 ^^V\OT1/cmr/m/n/10.53937 loading\C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/75 ;\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/66 > \C70/rm/m/n/10.53937/79 :\OT1/cmr/m/n/10.53937 "\C70/rm/m/n/10.53937/6b c \C70/rm/m/n/10.53937/57 (
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 415--415
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 2818) in paragraph at lines 415--415
 []|\C70/rm/m/n/10.53937/6d � \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/55 / \C70/rm/m/n/10.53937/4e ^^@ \C70/rm/m/n/10.53937/8e � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 � \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/4e X
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 307--307
+Underfull \hbox (badness 10000) in paragraph at lines 416--416
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 308--308
+Underfull \hbox (badness 10000) in paragraph at lines 417--417
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 309--309
+Underfull \hbox (badness 10000) in paragraph at lines 418--418
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 310--310
+Underfull \hbox (badness 4013) in paragraph at lines 418--418
+\C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/54 ^^M \C70/rm/m/n/10.53937/5d �
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 419--419
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 311--311
-[]|\OT1/cmr/m/n/10.53937 TC-
+Underfull \hbox (badness 2818) in paragraph at lines 419--419
+[]|\C70/rm/m/n/10.53937/6c � \C70/rm/m/n/10.53937/51 � \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/4f ^^? \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/5d � \C70/rm/m/n/10.53937/5b X \C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/8e �
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 312--312
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-[9]
-Underfull \hbox (badness 10000) in paragraph at lines 334--334
-[]|\OT1/cmr/m/n/10.53937 TC-
+Underfull \hbox (badness 4013) in paragraph at lines 419--419
+\C70/rm/m/n/10.53937/68 � \C70/rm/m/n/10.53937/6d K \C70/rm/m/n/10.53937/8e � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/8b �
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 335--335
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 336--336
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 337--337
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 338--338
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 339--339
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 340--340
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 341--341
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 363--363
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 363--363
-[]|\C70/rm/m/n/10.53937/52   \C70/rm/m/n/10.53937/96 d \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/4e �\OT1/cmr/m/n/10.53937 -\C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/8b �
- []
-
-
-Underfull \hbox (badness 2818) in paragraph at lines 363--363
-[]|\C70/rm/m/n/10.53937/52   \C70/rm/m/n/10.53937/96 d \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/5f � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/57 P \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/4e X
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 364--364
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 364--364
-[]|\C70/rm/m/n/10.53937/52   \C70/rm/m/n/10.53937/96 d \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/4e �\OT1/cmr/m/n/10.53937 -\C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/8b �
- []
-
-
-Underfull \hbox (badness 2818) in paragraph at lines 364--364
-[]|\C70/rm/m/n/10.53937/52   \C70/rm/m/n/10.53937/96 d \C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/5f � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/57 P \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/4e X
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 365--365
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 366--366
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 368--368
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 2818) in paragraph at lines 368--368
-[]|\C70/rm/m/n/10.53937/52   \C70/rm/m/n/10.53937/96 d \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/5f � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/57 P \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/8f f
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 369--369
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 2818) in paragraph at lines 369--369
-[]|\C70/rm/m/n/10.53937/52   \C70/rm/m/n/10.53937/96 d \C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/5f � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/57 P \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/8f f
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 370--370
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 392--392
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 393--393
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 393--393
-[]|\C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/65 9 \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/4e �\OT1/cmr/m/n/10.53937 -\C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/8b �
- []
-
-
-Underfull \hbox (badness 2818) in paragraph at lines 393--393
-[]|\C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/65 9 � \C70/rm/m/n/10.53937/5f � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/57 P \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/4e X
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 394--394
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 394--394
-[]|\C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/65 9 \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/4e �\OT1/cmr/m/n/10.53937 -\C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/8b �
- []
-
-
-Underfull \hbox (badness 2818) in paragraph at lines 394--394
-[]|\C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/65 9 \C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/5f � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/57 P \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/4e X
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 395--395
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 396--396
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 397--397
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 2818) in paragraph at lines 397--397
-[]|\C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/65 9 \C70/rm/m/n/10.53937/4e : \C70/rm/m/n/10.53937/5d � \C70/rm/m/n/10.53937/5b X \C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/8e � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/8b �
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 398--398
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-[11]
 Underfull \hbox (badness 10000) in paragraph at lines 420--420
 []|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 420--420
+[]|\C70/rm/m/n/10.53937/62 ^^P \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/6d � \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/8f f
  []
 
 
@@ -2507,103 +1639,77 @@ Underfull \hbox (badness 10000) in paragraph at lines 421--421
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 422--422
-[]|\OT1/cmr/m/n/10.53937 TC-
+Underfull \hbox (badness 4013) in paragraph at lines 421--421
+\C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/6b ! \C70/rm/m/n/10.53937/5d � \C70/rm/m/n/10.53937/5b X
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 422--422
-[]|\C70/rm/m/n/10.53937/52 ^^[ \C70/rm/m/n/10.53937/5e � \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U\OT1/cmr/m/n/10.53937 -\C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/4e �
- []
-
-
-Underfull \hbox (badness 2818) in paragraph at lines 422--422
-[]|\C70/rm/m/n/10.53937/90 	 \C70/rm/m/n/10.53937/62 � \C70/rm/m/n/10.53937/5d � \C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/5f � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/57 P \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U \C70/rm/m/n/10.53937/76 �
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 423--423
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 424--424
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 426--426
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 427--427
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 449--449
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 449--449
-[]|\C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/6b ! \C70/rm/m/n/10.53937/63 	 \C70/rm/m/n/10.53937/51 � \C70/rm/m/n/10.53937/53 � \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/95 � \C70/rm/m/n/10.53937/53 G
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 450--450
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 450--450
-[]|\C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/6b ! \C70/rm/m/n/10.53937/63 	 \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/68 < \C70/rm/m/n/10.53937/53 G \C70/rm/m/n/10.53937/5e �\OT1/cmr/m/n/10.53937 /\C70/rm/m/n/10.53937/96 M
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 451--451
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 451--451
-[]|\C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/6b ! \C70/rm/m/n/10.53937/63 	 \C70/rm/m/n/10.53937/60 ; \C70/rm/m/n/10.53937/80 ^^W \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/53 G
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 452--452
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 453--453
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 475--475
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 476--476
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 477--477
-[]|\OT1/cmr/m/n/10.53937 TC-
+Underfull \hbox (badness 4013) in paragraph at lines 422--422
+[]|\C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/6d � \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/65 p
  []
 
 
 
 [13]
+Underfull \hbox (badness 10000) in paragraph at lines 450--450
+[]|\OT1/cmr/m/n/10.53937 BUG-
+ []
+
+
+Underfull \hbox (badness 2073) in paragraph at lines 450--450
+\C70/rm/m/n/10.53937/53 � \C70/rm/m/n/10.53937/5d � \C70/rm/m/n/10.53937/5b X \C70/rm/m/n/10.53937/57 (\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/62 � \C70/rm/m/n/10.53937/7e � \C70/rm/m/n/10.53937/6c � \C70/rm/m/n/10.53937/51 � \C70/rm/m/n/10.53937/5e v \C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 :\OT1/cmr/m/n/10.53937 "\C70/rm/m/n/10.53937/8b �
+ []
+
+
+Underfull \hbox (badness 3179) in paragraph at lines 450--450
+\C70/rm/m/n/10.53937/8e � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 � \C70/rm/m/n/10.53937/5d � \C70/rm/m/n/10.53937/88 � \C70/rm/m/n/10.53937/6c � \C70/rm/m/n/10.53937/51 �\OT1/cmr/m/n/10.53937 ";3)\C70/rm/m/n/10.53937/78 n \C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/4e ^^N
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 451--451
+[]|\OT1/cmr/m/n/10.53937 BUG-
+ []
+
+
+Underfull \hbox (badness 4634) in paragraph at lines 451--451
+\C70/rm/m/n/10.53937/4e ^^@\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/6d � \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/68 � \C70/rm/m/n/10.53937/67 �\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/62 7 \C70/rm/m/n/10.53937/6c �
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 452--452
+[]|\OT1/cmr/m/n/10.53937 BUG-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 452--452
+[]|\C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/63 n \C70/rm/m/n/10.53937/6d � \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/62 ^^P \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/54 ^^N\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/66 >
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 452--452
+\C70/rm/m/n/10.53937/79 :\OT1/cmr/m/n/10.53937 Toast\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 :\OT1/cmr/m/n/10.53937 "\C70/rm/m/n/10.53937/6d � \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/62 ^^P \C70/rm/m/n/10.53937/52 �\OT1/cmr/m/n/10.53937 "\C70/rm/m/n/10.53937/62 ^^V
+ []
+
+
+
+[14]
+
+[15]
+Underfull \hbox (badness 10000) in paragraph at lines 497--497
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 498--498
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 499--499
 []|\OT1/cmr/m/n/10.53937 TC-
  []
@@ -2629,16 +1735,273 @@ Underfull \hbox (badness 10000) in paragraph at lines 503--503
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 504--504
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
 
-[14]
 
-[15]
+Underfull \hbox (badness 10000) in paragraph at lines 526--526
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 526--526
+[]|\C70/rm/m/n/10.53937/52   \C70/rm/m/n/10.53937/96 d \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/4e �\OT1/cmr/m/n/10.53937 -\C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/8b �
+ []
+
+
+Underfull \hbox (badness 2818) in paragraph at lines 526--526
+[]|\C70/rm/m/n/10.53937/52   \C70/rm/m/n/10.53937/96 d \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/5f � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/57 P \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/4e X
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 527--527
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 527--527
+[]|\C70/rm/m/n/10.53937/52   \C70/rm/m/n/10.53937/96 d \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/4e �\OT1/cmr/m/n/10.53937 -\C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/8b �
+ []
+
+
+Underfull \hbox (badness 2818) in paragraph at lines 527--527
+[]|\C70/rm/m/n/10.53937/52   \C70/rm/m/n/10.53937/96 d \C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/5f � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/57 P \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/4e X
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 528--528
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 529--529
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 530--530
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 531--531
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 2818) in paragraph at lines 531--531
+[]|\C70/rm/m/n/10.53937/52   \C70/rm/m/n/10.53937/96 d \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/5f � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/57 P \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/8f f
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 532--532
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 2818) in paragraph at lines 532--532
+[]|\C70/rm/m/n/10.53937/52   \C70/rm/m/n/10.53937/96 d \C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/5f � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/57 P \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/8f f
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 533--533
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
 
 [16]
+Underfull \hbox (badness 10000) in paragraph at lines 555--555
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 556--556
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 556--556
+[]|\C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/65 9 \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/4e �\OT1/cmr/m/n/10.53937 -\C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/8b �
+ []
+
+
+Underfull \hbox (badness 2818) in paragraph at lines 556--556
+[]|\C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/65 9 � \C70/rm/m/n/10.53937/5f � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/57 P \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/4e X
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 557--557
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 557--557
+[]|\C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/65 9 \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/4e �\OT1/cmr/m/n/10.53937 -\C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/8b �
+ []
+
+
+Underfull \hbox (badness 2818) in paragraph at lines 557--557
+[]|\C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/65 9 \C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/5f � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/57 P \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/4e X
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 558--558
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 559--559
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 560--560
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 2818) in paragraph at lines 560--560
+[]|\C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/65 9 \C70/rm/m/n/10.53937/4e : \C70/rm/m/n/10.53937/5d � \C70/rm/m/n/10.53937/5b X \C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/76 � \C70/rm/m/n/10.53937/8e � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/8b �
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 561--561
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
 
 [17]
+Underfull \hbox (badness 10000) in paragraph at lines 583--583
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 584--584
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 585--585
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 585--585
+[]|\C70/rm/m/n/10.53937/52 ^^[ \C70/rm/m/n/10.53937/5e � \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U\OT1/cmr/m/n/10.53937 -\C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/4e �
+ []
+
+
+Underfull \hbox (badness 2818) in paragraph at lines 585--585
+[]|\C70/rm/m/n/10.53937/90 	 \C70/rm/m/n/10.53937/62 � \C70/rm/m/n/10.53937/5d � \C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/5f � \C70/rm/m/n/10.53937/4e X \C70/rm/m/n/10.53937/57 P \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/53 U \C70/rm/m/n/10.53937/76 �
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 586--586
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 587--587
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 588--588
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 589--589
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 590--590
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 612--612
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 612--612
+[]|\C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/6b ! \C70/rm/m/n/10.53937/63 	 \C70/rm/m/n/10.53937/51 � \C70/rm/m/n/10.53937/53 � \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/95 � \C70/rm/m/n/10.53937/53 G
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 613--613
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 613--613
+[]|\C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/6b ! \C70/rm/m/n/10.53937/63 	 \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/68 < \C70/rm/m/n/10.53937/53 G \C70/rm/m/n/10.53937/5e �\OT1/cmr/m/n/10.53937 /\C70/rm/m/n/10.53937/96 M
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 614--614
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 614--614
+[]|\C70/rm/m/n/10.53937/8f f \C70/rm/m/n/10.53937/6b ! \C70/rm/m/n/10.53937/63 	 \C70/rm/m/n/10.53937/60 ; \C70/rm/m/n/10.53937/80 ^^W \C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/53 G
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 615--615
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 616--616
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
 
 [18]
+Underfull \hbox (badness 10000) in paragraph at lines 638--638
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 639--639
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 640--640
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 662--662
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 663--663
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 664--664
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 665--665
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 666--666
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+
 
 [19]
 
@@ -2646,34 +2009,39 @@ Underfull \hbox (badness 10000) in paragraph at lines 503--503
 
 [21]
 
-[22] (./测试报告.aux)
+[22]
+
+[23]
+
+[24]
+
+[25]
+
+[26]
+
+[27]
+
+[28] (./测试报告.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2022/07/14>
  ***********
-
-
-Package rerunfilecheck Warning: File `测试报告.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `测试报告.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  7B03125CC816B1D9874EE073CF76766A;10134.
+Package rerunfilecheck Info: File `测试报告.out' has not changed.
+(rerunfilecheck)             Checksum: AEB9BEC203927AF374C50FFC619F1197;10198.
  ) 
 Here is how much of TeX's memory you used:
- 15030 strings out of 467748
- 250788 string characters out of 5428011
- 689303 words of memory out of 5000000
- 43014 multiletter control sequences out of 15000+600000
- 686740 words of font info for 254 fonts, out of 8000000 for 9000
+ 15288 strings out of 467748
+ 255373 string characters out of 5428011
+ 687042 words of memory out of 5000000
+ 43224 multiletter control sequences out of 15000+600000
+ 688900 words of font info for 262 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  80i,11n,83p,760b,714s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on 测试报告.pdf (22 pages, 624717 bytes).
+<c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on 测试报告.pdf (28 pages, 689005 bytes).
 PDF statistics:
- 907 PDF objects out of 1000 (max. 8388607)
- 666 compressed objects within 7 object streams
- 178 named destinations out of 1000 (max. 500000)
- 293 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1391 PDF objects out of 1440 (max. 8388607)
+ 1131 compressed objects within 12 object streams
+ 208 named destinations out of 1000 (max. 500000)
+ 1101 words of extra memory for PDF output out of 10000 (max. 10000000)
 
