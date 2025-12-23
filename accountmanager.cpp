@@ -218,6 +218,16 @@ QVariantMap AccountManager::registerUser_api(QVariantMap info) {
         result["message"] = "用户名重复！";
         return result;
     }
+    
+    // 身份证号重复检查
+    for (auto& user : users) {
+        if (user.getProfile().getId() == id) {
+            result["success"] = false;
+            result["message"] = "该身份证号已被注册！";
+            return result;
+        }
+    }
+    
     // 可以注册
     UserProfile profile(name, phoneNumber, id);
     User user(profile, false, username, password);
