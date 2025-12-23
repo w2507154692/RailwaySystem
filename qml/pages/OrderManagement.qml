@@ -54,7 +54,7 @@ Page {
                         height: parent.height - 8
                         policy: ScrollBar.AlwaysOn
                         handleNormalColor: "#a0a0a0"
-                        handleLength: 60 // 这里设置你想要的长度
+                        handleLength: 60 
                     }
 
                     delegate: ColumnLayout {

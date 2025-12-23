@@ -172,7 +172,7 @@ Window {
                 Layout.topMargin: 4
 
                 Image {
-                    source: "qrc:/resources/icon/Add.png" // 换成你的加号图标资源路径
+                    source: "qrc:/resources/icon/Add.png" 
                     anchors.centerIn: parent
                     width: 50
                     height: 50

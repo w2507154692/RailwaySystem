@@ -17,7 +17,7 @@ Rectangle {
         orientation: Gradient.Horizontal   // 横向渐变
         GradientStop { position: 0.0; color: "#1976D2" }  // 深蓝
         GradientStop { position: 0.5; color: "#42A5F5" }  // 中蓝
-        GradientStop { position: 0.85; color: "#ffffff" }  // 很浅的蓝
+        GradientStop { position: 0.85; color: "#ffffff" } 
     }
 
     // 左侧标题，外部可传入

@@ -6,7 +6,7 @@ import QtQuick.Controls.impl 2.15
 
 Rectangle {
     width: 320; height: 40
-    color: "#65a8ed" // 背景跟你的图一致
+    color: "#65a8ed" 
     RowLayout{
         anchors.fill: parent
         spacing: 0

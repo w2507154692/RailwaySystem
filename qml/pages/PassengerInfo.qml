@@ -50,7 +50,7 @@ Page {
                         height: parent.height - 8
                         policy: ScrollBar.AlwaysOn
                         handleNormalColor: "#a0a0a0"
-                        handleLength: 60 // 这里设置你想要的长度
+                        handleLength: 60 
                     }
 
                     delegate: ColumnLayout {
@@ -71,13 +71,28 @@ Page {
                                     anchors.fill: parent
                                     cursorShape: Qt.PointingHandCursor
                                     onClicked: {
-                                        warning.onConfirmed = function() {
-                                            warning.active = false
-                                            deletePassenger(SessionState.username, modelData.id)
+                                        // 先判断能否删除（即有没有待乘坐订单）
+                                        var result = bookingSystem.isPassengerEditable_api({
+                                            username: modelData.username,
+                                            passengerId: modelData.id
+                                        })
+                                        if (!result.success) {
+                                            warning.onConfirmed = function() {
+                                                warning.active = false
+                                            }
+                                            warning.message = result.message
+                                            warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
+                                            warning.active = true;
                                         }
-                                        warning.message = "确认删除该乘车人？"
-                                        warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
-                                        warning.active = true
+                                        else {
+                                            warning.onConfirmed = function() {
+                                                warning.active = false
+                                                deletePassenger(SessionState.username, modelData.id)
+                                            }
+                                            warning.message = "确认删除该乘车人？"
+                                            warning.source = "qrc:/qml/components/ConfirmCancelDialog.qml"
+                                            warning.active = true
+                                        }
                                     }
                                 }
                                 Image {
@@ -194,7 +209,7 @@ Page {
                     Layout.topMargin: 4
 
                     Image {
-                        source: "qrc:/resources/icon/Add.png" // 换成你的加号图标资源路径
+                        source: "qrc:/resources/icon/Add.png" 
                         anchors.centerIn: parent
                         width: 50
                         height: 50
