@@ -218,16 +218,17 @@ Page{
     //通知
     Loader {
         property string message: ""
-        property var onClosedFunction: function() {}
         id: notification
         source: ""
         active: false
         onLoaded: {
             if (item) {
                 // 连接关闭信号
-                item.closed.connect(onClosedFunction)
+                item.closed.connect(function() {
+                    notification.active = false
+                })
                 // 初始化参数
-                item.contentText = notification.message
+                item.contentText = message
                 item.visible = true
             }
         }

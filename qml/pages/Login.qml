@@ -173,6 +173,7 @@ Item {
         username.forceActiveFocus()
     }
 
+    //警告
     Loader {
         id: warning 
         source: ""
@@ -190,6 +191,7 @@ Item {
         }
     }
 
+    //通知
     Loader {
         property string message: ""
         id: notification
