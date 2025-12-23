@@ -494,24 +494,59 @@
 					\hline
 					\textbf{编号} & \textbf{测试项} & \textbf{测试数据} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
 					\endhead
-					TC-7.1 & 余票查询-有票 & 查询有余票的车次 & 返回可预订车次列表 &  \\ \hline
-					TC-7.2 & 余票查询-无票 & 查询无余票的车次 & 显示无票或售罄 &  \\ \hline
-					TC-7.3 & 余票查询-不存在 & 查询不存在的线路 & 提示无该线路车次 &  \\ \hline
-					TC-7.4 & 订单查询 & 查询用户订单 & 返回该用户所有订单 &  \\ \hline
-					TC-7.5 & 订单搜索 & 按订单号搜索 & 返回匹配的订单 &  \\ \hline
-					TC-7.6 & 乘车人查询 & 查询用户乘车人 & 返回该用户所有乘车人 &  \\ \hline
-					TC-7.7 & 多条件筛选 & 使用多个筛选条件 & 返回符合所有条件的结果 &  \\ \hline
-					TC-7.8 & 日期查询 & 选择不同日期查询 & 返回对应日期的车次 &  \\ \hline
-					\caption{信息查询功能测试用例}
-				\end{longtable}
-			
-			\subsubsection{测试结果}
-				% 在实际测试后填写
-			
-			\subsubsection{问题记录}
-				% 记录测试中发现的问题
+				TC-7.1 & 余票查询-有票 & 查询有余票的车次 & 返回可预订车次列表 & 返回可预订车次列表 \\ \hline
+				TC-7.2 & 余票查询-无票 & 查询无余票的车次 & 显示无票或售罄 & 显示无票 \\ \hline
+				TC-7.3 & 余票查询-不存在 & 查询不存在的线路 & 提示无该线路车次 & 提示无该线路车次 \\ \hline
+				TC-7.4 & 订单查询 & 查询用户订单 & 返回该用户所有订单 & 返回该用户所有订单 \\ \hline
+				TC-7.5 & 订单搜索 & 按订单号搜索 & 返回匹配的订单 & 返回匹配的订单 \\ \hline
+				TC-7.6 & 乘车人查询 & 查询用户乘车人 & 返回该用户所有乘车人 & 返回该用户所有乘车人 \\ \hline
+				TC-7.7 & 多条件筛选 & 使用多个筛选条件 & 返回符合所有条件的结果 & 返回符合所有条件的结果 \\ \hline
+				TC-7.8 & 日期查询 & 选择不同日期查询 & 返回对应日期的车次 & 返回对应日期的车次 \\ \hline
+				\caption{信息查询功能测试用例}
+			\end{longtable}
 		
-		\subsection{信息删除功能}
+		\subsubsection{测试结果总结}
+			共执行8个测试用例,其中:
+			\begin{itemize}[leftmargin=2cm]
+				\item \textbf{通过}: 8个 (TC-7.1, TC-7.2, TC-7.3, TC-7.4, TC-7.5, TC-7.6, TC-7.7, TC-7.8)
+				\item \textbf{失败}: 0个
+			\end{itemize}
+			
+			\paragraph{测试评价}
+			信息查询功能表现优秀,所有测试用例均通过:
+			\begin{itemize}[leftmargin=2cm]
+				\item 余票查询功能完善,能够正确处理有票、无票和不存在线路的情况
+				\item 订单查询和搜索功能准确,数据检索迅速
+				\item 乘车人查询功能正常,返回数据完整
+				\item 多条件筛选逻辑正确,能够精确匹配查询条件
+				\item 日期查询功能稳定,支持不同日期的车次查询
+			\end{itemize}
+		
+		\subsubsection{问题记录}
+			\begin{longtable}{|p{1.5cm}|p{1.5cm}|p{5cm}|p{5cm}|}
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endfirsthead
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endhead
+				BUG-Q01 & 建议 & 查询结果缺少结果数量统计,用户不清楚查询到多少条数据 & 在查询结果上方显示"共找到X条结果"或"当前显示Y/X条"等统计信息 \\ \hline
+				\caption{信息查询功能问题列表}
+			\end{longtable}
+			
+			\paragraph{功能评价与建议}
+			信息查询功能的核心逻辑完善,但仍有优化空间:
+			\begin{enumerate}[leftmargin=2cm]
+				\item \textbf{用户体验优化}:
+					\begin{itemize}
+						\item 当前查询功能满足基本需求,但缺少高级交互特性
+					\end{itemize}
+				\item \textbf{性能优化建议}:
+					\begin{itemize}
+						\item 可以添加查询缓存机制,提升重复查询的响应速度
+					\end{itemize}
+			\end{enumerate}		
+			\subsection{信息删除功能}
 			\subsubsection{测试目标}
 				验证信息删除功能,包括乘车人删除、订单取消、用户注销等,确保级联删除正确执行。
 			
