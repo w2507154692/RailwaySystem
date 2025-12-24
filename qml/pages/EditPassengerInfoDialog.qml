@@ -34,11 +34,11 @@ Window {
            property real clickX: 0
            property real clickY: 0
 
-           onPressed: {
+           onPressed: function(mouse) {
                clickX = mouse.x;
                clickY = mouse.y;
            }
-           onPositionChanged: {
+           onPositionChanged: function(mouse) {
                // 拖动窗口
                mainWindow.x += mouse.x - clickX;
                mainWindow.y += mouse.y - clickY;

@@ -38,11 +38,11 @@ Window {
            property real clickX: 0
            property real clickY: 0
 
-           onPressed: {
+           onPressed: function(mouse) {
                clickX = mouse.x;
                clickY = mouse.y;
            }
-           onPositionChanged: {
+           onPositionChanged: function(mouse) {
                // 拖动窗口
                timetableManagementWin.x += mouse.x - clickX;
                timetableManagementWin.y += mouse.y - clickY;
