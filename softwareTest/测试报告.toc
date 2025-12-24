@@ -9,11 +9,11 @@
 \contentsline {subsubsection}{\numberline {2.1.2}测试用例设计}{5}{subsubsection.2.1.2}%
 \contentsline {paragraph}{用户登录测试}{5}{section*.2}%
 \contentsline {paragraph}{管理员登录测试}{6}{section*.3}%
-\contentsline {subsubsection}{\numberline {2.1.3}测试结果总结}{6}{subsubsection.2.1.3}%
-\contentsline {paragraph}{用户登录测试结果}{6}{section*.4}%
+\contentsline {subsubsection}{\numberline {2.1.3}测试结果总结}{7}{subsubsection.2.1.3}%
+\contentsline {paragraph}{用户登录测试结果}{7}{section*.4}%
 \contentsline {paragraph}{管理员登录测试结果}{7}{section*.5}%
 \contentsline {subsubsection}{\numberline {2.1.4}问题记录}{7}{subsubsection.2.1.4}%
-\contentsline {paragraph}{核心问题分析}{7}{section*.6}%
+\contentsline {paragraph}{核心问题分析}{8}{section*.6}%
 \contentsline {paragraph}{安全性与用户体验的平衡}{8}{section*.7}%
 \contentsline {subsection}{\numberline {2.2}人员信息输入输出/编辑界面测试}{8}{subsection.2.2}%
 \contentsline {subsubsection}{\numberline {2.2.1}测试目标}{8}{subsubsection.2.2.1}%
@@ -22,8 +22,8 @@
 \contentsline {paragraph}{人员信息完整性测试}{9}{section*.9}%
 \contentsline {subsubsection}{\numberline {2.2.3}测试结果总结}{9}{subsubsection.2.2.3}%
 \contentsline {paragraph}{控件输入限定测试结果}{9}{section*.10}%
-\contentsline {paragraph}{人员信息完整性测试结果}{9}{section*.11}%
-\contentsline {subsubsection}{\numberline {2.2.4}问题记录}{9}{subsubsection.2.2.4}%
+\contentsline {paragraph}{人员信息完整性测试结果}{10}{section*.11}%
+\contentsline {subsubsection}{\numberline {2.2.4}问题记录}{10}{subsubsection.2.2.4}%
 \contentsline {paragraph}{测试分析}{10}{section*.12}%
 \contentsline {subsection}{\numberline {2.3}人员信息列表显示界面测试}{10}{subsection.2.3}%
 \contentsline {subsubsection}{\numberline {2.3.1}测试目标}{10}{subsubsection.2.3.1}%
@@ -72,12 +72,12 @@
 \contentsline {subsubsection}{\numberline {3.6.1}测试目标}{22}{subsubsection.3.6.1}%
 \contentsline {subsubsection}{\numberline {3.6.2}测试用例设计}{22}{subsubsection.3.6.2}%
 \contentsline {subsubsection}{\numberline {3.6.3}测试结果总结}{22}{subsubsection.3.6.3}%
-\contentsline {paragraph}{测试评价}{22}{section*.25}%
+\contentsline {paragraph}{测试评价}{23}{section*.25}%
 \contentsline {subsubsection}{\numberline {3.6.4}问题记录}{23}{subsubsection.3.6.4}%
 \contentsline {paragraph}{功能评价与建议}{23}{section*.26}%
 \contentsline {subsection}{\numberline {3.7}信息排序功能}{23}{subsection.3.7}%
 \contentsline {subsubsection}{\numberline {3.7.1}测试目标}{23}{subsubsection.3.7.1}%
-\contentsline {subsubsection}{\numberline {3.7.2}测试用例设计}{23}{subsubsection.3.7.2}%
+\contentsline {subsubsection}{\numberline {3.7.2}测试用例设计}{24}{subsubsection.3.7.2}%
 \contentsline {subsubsection}{\numberline {3.7.3}测试结果总结}{24}{subsubsection.3.7.3}%
 \contentsline {paragraph}{测试评价}{24}{section*.27}%
 \contentsline {subsubsection}{\numberline {3.7.4}问题记录}{25}{subsubsection.3.7.4}%

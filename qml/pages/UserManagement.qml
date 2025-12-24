@@ -12,6 +12,7 @@ Page {
     objectName: "qrc:/qml/pages/UserManagement.qml"
     visible: true
 
+    property var mainWindow
     property var rawAccountList: []
     property var accountList: []
 
