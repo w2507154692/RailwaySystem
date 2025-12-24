@@ -37,6 +37,9 @@ Window {
     property var pendingOrderInfo: null
     property int pendingSeatType: -1
     
+    // 防抖标志,避免快速重复触发筛选
+    property bool isFiltering: false
+    
     // 改签模式标识
     property bool rescheduleMode: false  // 是否为改签模式
     property string originalOrderNumber: ""  // 原订单号(改签时使用)
@@ -47,7 +50,8 @@ Window {
 
     //先初始化再onCompleted加载数据再onloaded
     Component.onCompleted: {
-
+        // 预初始化,避免首次筛选时卡顿
+        filterTimer.triggered.connect(performFilter)
     }
 
     color: "#ffffff"
@@ -413,6 +417,13 @@ Window {
         }
     }
     
+    // 防抖定时器,避免频繁触发筛选
+    Timer {
+        id: filterTimer
+        interval: 50  // 延迟50ms执行,让UI先响应
+        repeat: false
+    }
+    
     Loader {
         property var onSubmitOrderDoneFunction: null
         id: submitLoader
@@ -501,8 +512,24 @@ Window {
     }
 
 
-    //筛选车票
+    //筛选车票 - 使用防抖机制优化性能
     function filterTickets() {
+        // 如果正在筛选,先停止之前的定时器
+        if (filterTimer.running) {
+            filterTimer.stop()
+        }
+        // 启动延迟筛选,让UI先响应
+        filterTimer.start()
+    }
+    
+    //实际执行筛选的函数
+    function performFilter() {
+        if (isFiltering) {
+            return  // 防止重复执行
+        }
+        
+        isFiltering = true
+        
         ticketList = rawTicketList.filter(function(ticket, idx) {
 
                 // if (!rawTicketList || rawTicketList.length === 0) {
@@ -550,6 +577,7 @@ Window {
             return true;
         });
 
+        isFiltering = false
         // console.log("filter result:", ticketList);
     }
 

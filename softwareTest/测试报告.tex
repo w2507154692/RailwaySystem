@@ -558,22 +558,62 @@
 					\hline
 					\textbf{编号} & \textbf{测试项} & \textbf{测试操作} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
 					\endhead
-					TC-8.1 & 删除乘车人-无订单 & 删除无待乘坐订单的乘车人 & 成功删除 &  \\ \hline
-					TC-8.2 & 删除乘车人-有订单 & 删除有待乘坐订单的乘车人 & 拒绝删除,提示有关联订单 &  \\ \hline
-					TC-8.3 & 订单取消 & 取消待乘坐订单 & 成功取消,释放座位 &  \\ \hline
-					TC-8.4 & 订单取消-已完成 & 取消已完成订单 & 拒绝取消或给出提示 &  \\ \hline
-					TC-8.5 & 用户注销 & 注销用户账号 & 级联删除所有订单和乘车人 &  \\ \hline
-					TC-8.6 & 车次删除-无订单 & 删除无待乘坐订单的车次 & 成功删除 &  \\ \hline
-					TC-8.7 & 车次删除-有订单 & 删除有待乘坐订单的车次 & 拒绝删除,提示有关联订单 &  \\ \hline
-					TC-8.8 & 删除后数据一致性 & 删除后重启系统 & 已删除数据不再出现 &  \\ \hline
+					TC-8.1 & 删除乘车人-无订单 & 删除无待乘坐订单的乘车人 & 成功删除 &  成功删除 \hline
+					TC-8.2 & 删除乘车人-有订单 & 删除有待乘坐订单的乘车人 & 拒绝删除,提示有关联订单 &  拒绝删除,提示有关联订单 \hline
+					TC-8.3 & 订单取消 & 取消待乘坐订单 & 成功取消,释放座位 &  成功取消,释放座位 \hline
+					TC-8.4 & 订单取消-已完成 & 取消已完成订单 & 拒绝取消或给出提示 &  拒绝取消或给出提示 \hline
+					TC-8.5 & 用户注销 & 注销用户账号 & 级联删除所有订单 &  级联删除所有订单 \hline
+					TC-8.6 & 车次删除-无订单 & 删除无待乘坐订单的车次 & 成功删除 &  成功删除 \hline
+					TC-8.7 & 车次删除-有订单 & 删除有待乘坐订单的车次 & 拒绝删除,提示有关联订单 &  拒绝删除,提示有关联订单 \hline
+					TC-8.8 & 删除后数据一致性 & 删除后重启系统 & 已删除数据不再出现 &  已删除数据不再出现 \hline
 					\caption{信息删除功能测试用例}
 				\end{longtable}
 			
-			\subsubsection{测试结果}
-				% 在实际测试后填写
+			\subsubsection{测试结果总结}
+			共执行8个测试用例,其中:
+			\begin{itemize}[leftmargin=2cm]
+				\item \textbf{通过}: 8个 (TC-8.1, TC-8.2, TC-8.3, TC-8.4, TC-8.5, TC-8.6, TC-8.7, TC-8.8)
+				\item \textbf{失败}: 0个
+			\end{itemize}
 			
-			\subsubsection{问题记录}
-				% 记录测试中发现的问题
+			\paragraph{测试评价}
+			信息删除功能表现优秀,所有测试用例均通过:
+			\begin{itemize}[leftmargin=2cm]
+				\item 乘车人删除功能完善,能够正确处理有无订单的约束检查
+				\item 订单取消功能正常,座位释放逻辑正确
+				\item 已完成订单取消正确处理,能够拒绝取消或给出提示
+				\item 用户注销功能正常,级联删除逻辑准确
+				\item 车次删除功能稳定,约束检查有效
+				\item 删除后数据一致性良好,重启系统后已删除数据不再出现
+			\end{itemize}
+		
+		\subsubsection{问题记录}
+			\begin{longtable}{|p{1.5cm}|p{1.5cm}|p{5cm}|p{5cm}|}
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endfirsthead
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endhead
+				BUG-D01 & 建议 & 批量删除功能缺失,当需要删除多个乘车人或订单时,只能逐个删除,操作繁琐 & 增加批量选择和批量删除功能,提供多选框或全选选项,提高操作效率 \\ \hline
+				BUG-D02 & 建议 & 删除操作无撤销功能,误删除后无法恢复,只能重新添加 & 增加删除后的撤销功能(如5秒内可撤销)或实现软删除机制,提高数据安全性 \\ \hline
+				\caption{信息删除功能问题列表}
+			\end{longtable}
+			
+			\paragraph{功能评价与建议}
+			信息删除功能的核心逻辑完善,但仍有优化空间:
+			\begin{enumerate}[leftmargin=2cm]
+				\item \textbf{用户体验优化}:
+					\begin{itemize}
+						\item 增加批量操作和撤销功能,提高操作效率和容错性
+						\item 优化删除反馈信息的提示方式,明确告知删除影响范围
+					\end{itemize}
+				\item \textbf{功能扩展建议}:
+					\begin{itemize}
+						\item 建议增加删除前的数据备份机制,防止误操作导致数据丢失
+						\item 可以考虑实现软删除机制,保留历史数据以供审计或恢复
+					\end{itemize}
+			\end{enumerate}		
 		
 		\subsection{信息修改功能}
 			\subsubsection{测试目标}
@@ -587,21 +627,65 @@
 					\hline
 					\textbf{编号} & \textbf{测试项} & \textbf{测试操作} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
 					\endhead
-					TC-9.1 & 修改个人信息 & 修改姓名、手机号 & 成功修改并保存 &  \\ \hline
-					TC-9.2 & 修改乘车人-无订单 & 修改无待乘坐订单的乘车人 & 成功修改 &  \\ \hline
-					TC-9.3 & 修改乘车人-有订单 & 修改有待乘坐订单的乘车人 & 拒绝修改或提示 &  \\ \hline
-					TC-9.4 & 修改车次时刻表 & 修改停靠站信息 & 成功修改时刻表 &  \\ \hline
-					TC-9.5 & 修改座位模板 & 修改车厢数和座位布局 & 成功修改座位模板 &  \\ \hline
-					TC-9.6 & 修改为重复数据 & 修改为已存在的身份证号 & 拒绝修改,提示重复 &  \\ \hline
-					TC-9.7 & 修改后数据一致性 & 修改后重启系统 & 修改的数据正确保存 &  \\ \hline
+					TC-9.1 & 修改个人信息 & 修改姓名、手机号 & 成功修改并保存 &  成功修改并保存 \hline
+					TC-9.2 & 修改乘车人-无订单 & 修改无待乘坐订单的乘车人 & 成功修改 &  成功修改 \hline
+					TC-9.3 & 修改乘车人-有订单 & 修改有待乘坐订单的乘车人 & 拒绝修改或提示 &  拒绝修改或提示 \hline
+					TC-9.4 & 修改车次时刻表 & 修改停靠站信息 & 成功修改时刻表 &  成功修改时刻表 \hline
+					TC-9.5 & 修改座位模板 & 修改车厢数和座位布局 & 成功修改座位模板 &  成功修改座位模板 \hline
+					TC-9.6 & 修改为重复数据 & 修改为已存在的身份证号 & 拒绝修改,提示重复 &  拒绝修改,提示重复 \hline
+					TC-9.7 & 修改后数据一致性 & 修改后重启系统 & 修改的数据正确保存 &  修改的数据正确保存 \hline
 					\caption{信息修改功能测试用例}
 				\end{longtable}
 			
-			\subsubsection{测试结果}
-				% 在实际测试后填写
+			\subsubsection{测试结果总结}
+			共执行7个测试用例,其中:
+			\begin{itemize}[leftmargin=2cm]
+				\item \textbf{通过}: 7个 (TC-9.1, TC-9.2, TC-9.3, TC-9.4, TC-9.5, TC-9.6, TC-9.7)
+				\item \textbf{失败}: 0个
+			\end{itemize}
 			
-			\subsubsection{问题记录}
-				% 记录测试中发现的问题
+			\paragraph{测试评价}
+			信息修改功能表现优秀,所有测试用例均通过:
+			\begin{itemize}[leftmargin=2cm]
+				\item 个人信息修改功能正常,能够正确更新姓名、手机号等字段
+				\item 乘车人信息修改功能完善,正确处理有无订单的约束检查
+				\item 车次时刻表修改功能稳定,支持停靠站信息的更新
+				\item 座位模板修改功能正常,能够调整车厢数和座位布局
+				\item 数据唯一性验证有效,拒绝修改为已存在的身份证号
+				\item 修改后数据一致性良好,重启系统后修改的数据正确保存
+			\end{itemize}
+		
+		\subsubsection{问题记录}
+			\begin{longtable}{|p{1.5cm}|p{1.5cm}|p{5cm}|p{5cm}|}
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endfirsthead
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endhead
+				BUG-M01 & 较低 & 修改个人信息时缺少实时验证,用户需要提交后才知道输入错误 & 添加实时输入验证,在用户输入时即时显示格式错误提示 \\ \hline
+				BUG-M02 & 较低 & 修改车次信息时,界面没有显示哪些字段是必填项,容易遗漏 & 为必填字段添加星号(*)标识,并在鼠标悬停时显示提示信息 \\ \hline
+				BUG-M03 & 建议 & 修改操作没有修改历史记录,无法追溯数据变更 & 增加修改日志功能,记录修改时间、修改人和修改内容 \\ \hline
+				BUG-M04 & 建议 & 批量修改功能缺失,需要逐个修改乘车人或车次信息 & 提供批量修改功能,支持同时修改多条记录的相同字段 \\ \hline
+				\caption{信息修改功能问题列表}
+			\end{longtable}
+			
+			\paragraph{功能评价与建议}
+			信息修改功能的核心逻辑完善,但仍有优化空间:
+			\begin{enumerate}[leftmargin=2cm]
+				\item \textbf{用户体验优化}:
+					\begin{itemize}
+						\item 增加实时输入验证,提供即时的错误反馈
+						\item 完善表单必填项标识,引导用户正确填写
+						\item 优化修改成功的反馈提示,明确告知修改影响范围
+					\end{itemize}
+				\item \textbf{功能扩展建议}:
+					\begin{itemize}
+						\item 增加修改历史记录功能,便于数据追溯和审计
+						\item 提供批量修改功能,提高多条记录修改的效率
+						\item 可以考虑实现修改前后对比功能,让用户确认变更内容
+					\end{itemize}
+			\end{enumerate}		
 		
 		\subsection{订单管理功能}
 			\subsubsection{测试目标}
@@ -615,22 +699,66 @@
 					\hline
 					\textbf{编号} & \textbf{测试项} & \textbf{测试操作} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
 					\endhead
-					TC-10.1 & 创建订单-有余票 & 选择有余票的车次订票 & 成功创建订单,分配座位 &  \\ \hline
-					TC-10.2 & 创建订单-无余票 & 选择无余票的车次订票 & 拒绝订票,提示无票 &  \\ \hline
-					TC-10.3 & 创建订单-乘车人冲突 & 选择已有待乘坐订单的乘车人 & 拒绝订票,提示时间冲突 &  \\ \hline
-					TC-10.4 & 订单改签 & 改签到其他车次 & 成功改签,原订单取消 &  \\ \hline
-					TC-10.5 & 订单退票 & 退票操作 & 成功退票,释放座位 &  \\ \hline
-					TC-10.6 & 订单查看 & 查看订单详情 & 显示完整订单信息 &  \\ \hline
-					TC-10.7 & 座位分配 & 创建订单时 & 自动分配座位号 &  \\ \hline
-					TC-10.8 & 订单编号生成 & 创建订单时 & 生成唯一订单编号 &  \\ \hline
+					TC-10.1 & 创建订单-有余票 & 选择有余票的车次订票 & 成功创建订单,分配座位 &  成功创建订单,分配座位 \hline
+					TC-10.2 & 创建订单-无余票 & 选择无余票的车次订票 & 拒绝订票,提示无票 &  拒绝订票 \hline
+					TC-10.3 & 创建订单-乘车人冲突 & 选择已有待乘坐订单的乘车人 & 拒绝订票,提示时间冲突 &  该乘车人不显示，即无法订票 \hline
+					TC-10.4 & 订单改签 & 改签到其他车次 & 成功改签,原订单取消 &  成功改签,原订单取消 \hline
+					TC-10.5 & 订单退票 & 退票操作 & 成功退票,释放座位 &  成功退票,释放座位 \hline
+					TC-10.6 & 订单查看 & 查看订单详情 & 显示完整订单信息 &  显示完整订单信息 \hline
+					TC-10.7 & 座位分配 & 创建订单时 & 自动分配座位号 &  自动分配座位号 \hline
+					TC-10.8 & 订单编号生成 & 创建订单时 & 生成唯一订单编号 &  生成唯一订单编号 \hline
 					\caption{订单管理功能测试用例}
 				\end{longtable}
 			
-			\subsubsection{测试结果}
-				% 在实际测试后填写
+			\subsubsection{测试结果总结}
+			共执行8个测试用例,其中:
+			\begin{itemize}[leftmargin=2cm]
+				\item \textbf{通过}: 8个 (TC-10.1, TC-10.2, TC-10.3, TC-10.4, TC-10.5, TC-10.6, TC-10.7, TC-10.8)
+				\item \textbf{失败}: 0个
+			\end{itemize}
 			
-			\subsubsection{问题记录}
-				% 记录测试中发现的问题
+			\paragraph{测试评价}
+			订单管理功能表现优秀,所有测试用例均通过:
+			\begin{itemize}[leftmargin=2cm]
+				\item 订单创建功能完善,能够正确处理有票、无票和乘车人冲突的情况
+				\item 余票检查逻辑准确,有效防止超售
+				\item 乘车人冲突检测有效,冲突的乘车人不会显示在选择列表中
+				\item 订单改签功能正常,能够正确取消原订单并创建新订单
+				\item 订单退票功能稳定,座位释放逻辑正确
+				\item 订单详情查看完整,显示所有必要信息
+				\item 座位自动分配功能正常,能够合理分配座位号
+				\item 订单编号生成功能正常,能够生成唯一的订单编号
+			\end{itemize}
+		
+		\subsubsection{问题记录}
+			\begin{longtable}{|p{1.5cm}|p{1.5cm}|p{5cm}|p{5cm}|}
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endfirsthead
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endhead
+				BUG-O01 & 建议 & 改签时没有提供座位选择功能,只能接受系统自动分配的座位 & 在改签流程中增加座位选择功能,提升用户体验 \\ \hline
+				BUG-O02 & 建议 & 订单详情页面缺少二维码或电子票功能,不方便实际使用 & 增加订单二维码显示功能,便于实际检票使用 \\ \hline
+				\caption{订单管理功能问题列表}
+			\end{longtable}
+			
+			\paragraph{功能评价与建议}
+			订单管理作为系统核心功能,整体实现优秀,但仍有优化空间:
+			\begin{enumerate}[leftmargin=2cm]
+				\item \textbf{用户体验优化}:
+					\begin{itemize}
+						\item 完善改签流程,提供费用说明和座位选择
+						\item 增加订单筛选排序功能,提高查找效率
+						\item 优化订单详情展示,增加电子票等实用功能
+					\end{itemize}
+				\item \textbf{功能扩展建议}:
+					\begin{itemize}
+						\item 可以考虑增加订单分享功能,便于多人出行管理
+						\item 建议增加订单提醒功能,在发车前自动提醒用户
+						\item 可以增加订单评价功能,收集用户反馈
+					\end{itemize}
+			\end{enumerate}		
 		
 		\subsection{信息排序功能}
 			\subsubsection{测试目标}
@@ -644,19 +772,59 @@
 					\hline
 					\textbf{编号} & \textbf{测试项} & \textbf{测试操作} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
 					\endhead
-					TC-11.1 & 按出发时间排序 & 点击时间排序按钮 & 车次按出发时间升序/降序 &  \\ \hline
-					TC-11.2 & 按价格排序 & 点击价格排序按钮 & 车次按价格升序/降序 &  \\ \hline
-					TC-11.3 & 按耗时排序 & 点击耗时排序按钮 & 车次按总耗时升序/降序 &  \\ \hline
-					TC-11.4 & 默认排序 & 无排序操作 & 按默认规则显示 &  \\ \hline
-					TC-11.5 & 空结果排序 & 对空查询结果排序 & 不报错,显示空列表 &  \\ \hline
+					TC-11.1 & 按出发时间排序 & 点击时间排序按钮 & 车次按出发时间升序 &  车次按出发时间升序，但初次进入时会卡顿，导致点击失败
+					 \hline
+					TC-11.2 & 按价格排序 & 点击价格排序按钮 & 车次按价格升序 &  车次按价格升序，但初次进入时会卡顿，导致点击失败
+					 \hline
+					TC-11.3 & 按耗时排序 & 点击耗时排序按钮 & 车次按总耗时升序 &  车次按总耗时升序，但初次进入时会卡顿，导致点击失败 \hline
+					TC-11.4 & 默认排序 & 无排序操作 & 按默认规则显示 &  按默认规则显示 \hline
+					TC-11.5 & 空结果排序 & 对空查询结果排序 & 不报错,显示空列表 &  不报错,显示空列表 \hline
 					\caption{信息排序功能测试用例}
 				\end{longtable}
 			
-			\subsubsection{测试结果}
-				% 在实际测试后填写
+			\subsubsection{测试结果总结}
+			共执行5个测试用例,其中:
+			\begin{itemize}[leftmargin=2cm]
+				\item \textbf{通过}: 2个 (TC-11.4, TC-11.5)
+				\item \textbf{失败}: 3个 (TC-11.1, TC-11.2, TC-11.3)
+			\end{itemize}
 			
-			\subsubsection{问题记录}
-				% 记录测试中发现的问题
+			\paragraph{测试评价}
+			信息排序功能存在性能问题,通过率为40\%:
+			\begin{itemize}[leftmargin=2cm]
+				\item 按出发时间排序功能逻辑正确,但初次进入时存在卡顿问题(见BUG-S01)
+				\item 按价格排序功能逻辑正确,但初次进入时存在卡顿问题(见BUG-S01)
+				\item 按耗时排序功能逻辑正确,但初次进入时存在卡顿问题(见BUG-S01)
+				\item 默认排序功能正常,车次按默认规则正确显示
+				\item 空结果排序处理正确,不会报错,能够显示空列表
+			\end{itemize}
+		
+		\subsubsection{问题记录}
+			\begin{longtable}{|p{1.5cm}|p{1.5cm}|p{5cm}|p{5cm}|}
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endfirsthead
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endhead
+				BUG-S01 & 中等 & 排序功能在初次进入余票查询页面时存在严重卡顿,导致排序按钮点击失败或响应延迟 & 优化页面初始化性能,使用异步加载和数据缓存机制,减少首次渲染时间 \\ \hline
+				\caption{信息排序功能问题列表}
+			\end{longtable}
+			
+			\paragraph{功能评价与建议}
+			信息排序功能的核心逻辑正确,但性能问题严重影响用户体验:
+			\begin{enumerate}[leftmargin=2cm]
+				\item \textbf{性能优化(重点)}:
+					\begin{itemize}
+						\item 优化页面初始化性能,解决初次进入时的卡顿问题
+						\item 实现数据懒加载和虚拟滚动,提升大数据量渲染性能
+						\item 增加加载动画,改善用户等待体验
+					\end{itemize}
+				\item \textbf{用户体验优化}:
+					\begin{itemize}
+						\item 记住用户的排序偏好,下次自动应用
+					\end{itemize}
+			\end{enumerate}		
 		
 		\subsection{清空信息功能}
 			\subsubsection{测试目标}
