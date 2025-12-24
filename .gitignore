@@ -54,3 +54,8 @@ compile_commands.json
 *creator.user*
 
 *_qmlcache.qrc
+
+# softwareTest folder: only track .tex and .pdf files
+softwareTest/*
+!softwareTest/*.tex
+!softwareTest/*.pdf
