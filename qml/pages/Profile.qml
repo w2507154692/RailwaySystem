@@ -218,6 +218,7 @@ Page{
     //通知
     Loader {
         property string message: ""
+        property var onClosed: null
         id: notification
         source: ""
         active: false
@@ -225,7 +226,11 @@ Page{
             if (item) {
                 // 连接关闭信号
                 item.closed.connect(function() {
-                    notification.active = false
+                    if (notification.onClosed) {
+                        notification.onClosed()
+                    } else {
+                        notification.active = false
+                    }
                 })
                 // 初始化参数
                 item.contentText = message
@@ -266,7 +271,7 @@ Page{
         })
         // 如果注销成功，则弹出弹窗，用户确认后，返回登录页面
         if (result.success) {
-            notification.onClosedFunction = function() {
+            notification.onClosed = function() {
                 notification.active = false
                 //清空参数
                 SessionState.clear()
@@ -280,8 +285,8 @@ Page{
             notification.active = true
         }
         else {
-            notification.onClosedFunction = function() {
-                wnotificationarning.active = false
+            notification.onClosed = function() {
+                notification.active = false
             }
             notification.message = result.message
             notification.source = "qrc:/qml/components/ConfirmDialog.qml"
