@@ -514,8 +514,7 @@ Item {
             passingStation.arriveMinute = arriveMinute
         }
         if (arriveDay === "" || arriveDay < 0 || arriveDay > 99) {
-            passingStation.arriveHour = -1
-            passingStation.arriveMinute = -1
+            // 修复:天数不填写时只设置天数为-1,不影响时分
             passingStation.arriveDay = -1
         }
         else {
@@ -534,8 +533,7 @@ Item {
             passingStation.departureMinute = departureMinute
         }
         if (departureDay === "" || departureDay < 0 || departureDay > 99) {
-            passingStation.departureHour = -1
-            passingStation.departureMinute = -1
+            // 修复:天数不填写时只设置天数为-1,不影响时分
             passingStation.departureDay = -1
         }
         else {
