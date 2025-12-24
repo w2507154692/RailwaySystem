@@ -7,7 +7,19 @@ import "../components"
 Window {
     id: modifySeatTemplateWin
     // property var mainWindow
-    onVisibleChanged: if (!visible) closed()
+    
+    // 处理窗口最小化和关闭问题
+    onVisibleChanged: {
+        if (!visible) closed()
+    }
+    
+    onVisibilityChanged: function(visibility) {
+        if (visibility === Window.Windowed || visibility === Window.Maximized) {
+            // 当窗口从最小化恢复时,确保窗口显示在最前面并获得焦点
+            modifySeatTemplateWin.raise()
+            modifySeatTemplateWin.requestActivate()
+        }
+    }
 
     width: 600; height: 410
     minimumWidth: 600; minimumHeight: 410

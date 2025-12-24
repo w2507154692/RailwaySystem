@@ -9,6 +9,15 @@ Window {
     signal confirmed()
     signal canceled()
     onVisibleChanged: if (!visible) canceled()
+    
+    // 处理窗口最小化问题
+    onVisibilityChanged: function(visibility) {
+        if (visibility === Window.Windowed || visibility === Window.Maximized) {
+            // 当窗口从最小化恢复时,确保窗口显示在最前面并获得焦点
+            confirmCancelWin.raise()
+            confirmCancelWin.requestActivate()
+        }
+    }
 
     width: 320
     height: 180

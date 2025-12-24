@@ -13,6 +13,15 @@ Window {
     color: "transparent"
     flags: Qt.FramelessWindowHint
     modality: Qt.ApplicationModal
+    
+    // 处理窗口最小化问题
+    onVisibilityChanged: function(visibility) {
+        if (visibility === Window.Windowed || visibility === Window.Maximized) {
+            // 当窗口从最小化恢复时,确保窗口显示在最前面并获得焦点
+            mainWindow.raise()
+            mainWindow.requestActivate()
+        }
+    }
 
     signal confirmed(var info)
     signal canceled()

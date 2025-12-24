@@ -8,7 +8,19 @@ import MyApp 1.0
 Window{
     id: submitWin
     signal closed()
-    onVisibleChanged: if (!visible) closed()
+    
+    // 处理窗口最小化和关闭问题
+    onVisibleChanged: {
+        if (!visible) closed()
+    }
+    
+    onVisibilityChanged: function(visibility) {
+        if (visibility === Window.Windowed || visibility === Window.Maximized) {
+            // 当窗口从最小化恢复时,确保窗口显示在最前面并获得焦点
+            submitWin.raise()
+            submitWin.requestActivate()
+        }
+    }
     
     width: 740; height: 580
     minimumWidth: 480; minimumHeight: 360
