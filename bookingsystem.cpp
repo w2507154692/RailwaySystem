@@ -1,6 +1,7 @@
 #include "bookingsystem.h"
 #include <QVariantMap>
 #include <QDebug>
+#include <QSet>
 #include <iostream>
 #include <stack>
 #include <ctime>
@@ -426,7 +427,18 @@ QVariantMap BookingSystem::updateTimetableAndTrainNumber_api(const QVariantMap &
             return result;
         }
     }
-    // 遍历前端传过来的时刻表，并检查车站是否存在
+    
+    // 验证时刻表长度
+    if (list.size() <= 1) {
+        result["success"] = false;
+        result["message"] = "起末站不完整！";
+        return result;
+    }
+    
+    // 用于检查站名重复
+    QSet<QString> stationSet;
+    
+    // 遍历前端传过来的时刻表,并检查车站是否存在以及时间合法性
     for (int i = 0; i < list.size(); i++) {
         QVariantMap passingStation = list[i].toMap();
         QString stationName = passingStation["stationName"].toString();
@@ -436,6 +448,71 @@ QVariantMap BookingSystem::updateTimetableAndTrainNumber_api(const QVariantMap &
         int departureHour = passingStation["departureHour"].toInt();
         int departureMinute = passingStation["departureMinute"].toInt();
         int departureDay = passingStation["departureDay"].toInt();
+        
+        // 判断站名是否缺失
+        if (stationName.isEmpty()) {
+            result["success"] = false;
+            result["message"] = QString("第 %1 站站名缺失！").arg(i + 1);
+            return result;
+        }
+        
+        // 判断是否重复经过某一站
+        if (stationSet.contains(stationName)) {
+            result["success"] = false;
+            result["message"] = QString("重复经过 %1 站！").arg(stationName);
+            return result;
+        }
+        stationSet.insert(stationName);
+        
+        // 判断起始站各时间字段是否合法
+        if (i == 0 && (arriveHour != -1 || arriveMinute != -1 || arriveDay != -1 ||
+                       departureHour == -1 || departureMinute == -1 || departureDay != 0)) {
+            result["success"] = false;
+            result["message"] = QString("第 %1 站时刻项错误！起始站不应有到达时间，发车日期应为0").arg(i + 1);
+            return result;
+        }
+        
+        // 判断终点站各时间字段是否合法
+        if (i == list.size() - 1 && (arriveHour == -1 || arriveMinute == -1 || arriveDay == -1 ||
+                       departureHour != -1 || departureMinute != -1 || departureDay != -1)) {
+            result["success"] = false;
+            result["message"] = QString("第 %1 站时刻项错误！终点站不应有发车时间").arg(i + 1);
+            return result;
+        }
+        
+        // 判断中间站各时间字段是否合法
+        if (i != 0 && i != list.size() - 1 && (arriveHour == -1 || arriveMinute == -1 || arriveDay == -1 ||
+                       departureHour == -1 || departureMinute == -1 || departureDay == -1)) {
+            result["success"] = false;
+            result["message"] = QString("第 %1 站时刻项错误！中间站必须有完整的到达和发车时间").arg(i + 1);
+            return result;
+        }
+        
+        // 判断中间站的到时是不是在发时的前面
+        if (i != 0 && i != list.size() - 1 && (arriveDay > departureDay ||
+            (arriveDay == departureDay && arriveHour > departureHour) ||
+            (arriveDay == departureDay && arriveHour == departureHour && arriveMinute >= departureMinute))) {
+            result["success"] = false;
+            result["message"] = QString("第 %1 站到时应在发时之前！").arg(i + 1);
+            return result;
+        }
+        
+        // 判断该站的到时是不是在上一站发时的后面
+        if (i > 0) {
+            QVariantMap prevStation = list[i - 1].toMap();
+            int prevDepartureDay = prevStation["departureDay"].toInt();
+            int prevDepartureHour = prevStation["departureHour"].toInt();
+            int prevDepartureMinute = prevStation["departureMinute"].toInt();
+            
+            if (arriveDay < prevDepartureDay ||
+                (arriveDay == prevDepartureDay && arriveHour < prevDepartureHour) ||
+                (arriveDay == prevDepartureDay && arriveHour == prevDepartureHour && arriveMinute <= prevDepartureMinute)) {
+                result["success"] = false;
+                result["message"] = QString("第 %1 站到时应在上一站发时之后！").arg(i + 1);
+                return result;
+            }
+        }
+        
         auto stationFindResult = station_manager->getStationByStationName(stationName);
         if (!stationFindResult) {
             result["success"] = false;
