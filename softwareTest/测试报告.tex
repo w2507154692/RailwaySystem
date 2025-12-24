@@ -32,7 +32,7 @@
 		班级： & 信息工程学院计算机科学与技术一班 \\
 		团队成员：& 王宇豪（1231001024）、熊江伟（1231001026）\\
 		测试日期： & 2025年12月23日 \\
-		测试环境： & Windows 10/11, Qt 6.x
+		测试环境： & Windows 11 专业版 24H2 (版本号: 26100.7462), Qt 6.9.3
 	\end{tabular}
 	\\
 	\\
@@ -1267,16 +1267,16 @@
 				\begin{tabular}{|l|p{10cm}|}
 					\hline
 					\textbf{配置项} & \textbf{详细信息} \\ \hline
-					操作系统 & Windows 11 专业版 \\ \hline
-					Qt版本 & Qt 6.10.0 \\ \hline
+					操作系统 & Windows 11 专业版 24H2 (版本号: 26100.7462) \\ \hline
+					Qt版本 & Qt 6.9.3 \\ \hline
 					Qt Creator & Qt Creator 18.0.0 \\ \hline
-					编译器 & MinGW 13.1.0 64-bit / MSVC 2022 17.8 \\ \hline
+					编译器 & MinGW 13.1.0 64-bit \\ \hline
 					C++标准 & C++17 \\ \hline
-					QML版本 & QtQuick 6.5 \\ \hline
-					处理器 & AMD Ryzen 7 6800H @ 3.20GHz (8核16线程) \\ \hline
-					内存 & 16GB DDR5 4800MHz \\ \hline
-					硬盘 & NVMe SSD 512GB (可用空间$>$100GB) \\ \hline
-					显示器 & 1920x1080 分辨率 \\ \hline
+					QML版本 & QtQuick 6.9 \\ \hline
+					处理器 & AMD Ryzen 7 6800H with Radeon Graphics @ 3.20 GHz \\ \hline
+					内存 & 16.0 GB DDR4 4800 MT/s \\ \hline
+					显卡 & AMD Radeon Graphics 6 GB \\ \hline
+					硬盘 & 2.29 TB (已使用 1.83 TB) \\ \hline
 					测试工具 & Windows任务管理器、Qt Creator调试器 \\ \hline
 				\end{tabular}
 				\caption{测试环境详细配置}
@@ -1290,7 +1290,8 @@
 					\begin{itemize}
 						\item 普通用户:username="1", password="1"(正常账户)
 						\item 锁定用户:username="bob"(已锁定账户,用于测试锁定状态处理)
-						\item 管理员:username="admin", password="admin"(管理员账户)
+						\item 管理员:username="2", password="2"(管理员账户)
+						\item 管理员:username="admin1", password="admin1"((已锁定管理员账户,用于测试锁定状态处理)
 					\end{itemize}
 				\item \textbf{车次数据}:包含多条高铁车次信息,覆盖不同始发站、终点站、途经站点
 				\item \textbf{乘车人数据}:测试用乘车人信息,包含姓名、身份证号、手机号等字段
@@ -1312,8 +1313,7 @@
 			
 		\subsection{参考文档}
 			\begin{itemize}[leftmargin=2cm]
-				\item 《高铁订票管理系统开发文档》
-				\item 《软件测试理论与实践》
+				\item 《项目开发文档》
 				\item Qt官方文档
 			\end{itemize}
 		
