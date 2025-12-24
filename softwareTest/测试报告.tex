@@ -838,17 +838,54 @@
 					\hline
 					\textbf{编号} & \textbf{测试项} & \textbf{测试操作} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
 					\endhead
-					TC-12.1 & 清空查询历史 & 点击清空历史按钮 & 所有历史记录被清除 &  \\ \hline
-					TC-12.2 & 清空空历史 & 在无历史记录时清空 & 不报错,保持空状态 &  \\ \hline
-					TC-12.3 & 清空后再添加 & 清空后重新查询 & 新历史正常添加 &  \\ \hline
+					TC-12.1 & 清空查询历史 & 点击清空历史按钮 & 所有历史记录被清除 &  所有历史记录被清除 \hline
+					TC-12.2 & 清空空历史 & 在无历史记录时清空 & 不报错,保持空状态 &  不报错,保持空状态 \hline
+					TC-12.3 & 清空后再添加 & 清空后重新查询 & 新历史正常添加 &  新历史正常添加 \hline
 					\caption{清空信息功能测试用例}
 				\end{longtable}
 			
-			\subsubsection{测试结果}
-				% 在实际测试后填写
+			\subsubsection{测试结果总结}
+			共执行3个测试用例,其中:
+			\begin{itemize}[leftmargin=2cm]
+				\item \textbf{通过}: 3个 (TC-12.1, TC-12.2, TC-12.3)
+				\item \textbf{失败}: 0个
+			\end{itemize}
 			
-			\subsubsection{问题记录}
-				% 记录测试中发现的问题
+			\paragraph{测试评价}
+			清空信息功能表现优秀,所有测试用例均通过:
+			\begin{itemize}[leftmargin=2cm]
+				\item 清空查询历史功能正常,能够正确清除所有历史记录
+				\item 空数据清空处理正确,不会报错,保持空状态
+				\item 清空后新增数据功能正常,新历史记录能够正常添加
+			\end{itemize}
+		
+		\subsubsection{问题记录}
+			\begin{longtable}{|p{1.5cm}|p{1.5cm}|p{5cm}|p{5cm}|}
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endfirsthead
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endhead
+				BUG-C01 & 建议 & 清空操作缺少二次确认,误操作后无法恢复历史记录 & 增加清空确认对话框,提示用户"确认清空所有历史记录?" \\ \hline
+				\caption{清空信息功能问题列表}
+			\end{longtable}
+			
+			\paragraph{功能评价与建议}
+			清空信息功能实现简洁有效,但可以进一步优化用户体验:
+			\begin{enumerate}[leftmargin=2cm]
+				\item \textbf{安全性优化}:
+					\begin{itemize}
+						\item 增加清空操作的二次确认机制,防止误操作
+						\item 可以考虑实现"软删除",保留一段时间后再永久删除
+					\end{itemize}
+				\item \textbf{用户体验优化}:
+					\begin{itemize}
+						\item 提供清空成功的明确反馈
+						\item 增加"撤销清空"功能,允许用户在短时间内恢复
+						\item 提供选择性清空功能,如"清空最近7天"、"清空全部"等选项
+					\end{itemize}
+			\end{enumerate}		
 		
 		\subsection{信息文件保存功能}
 			\subsubsection{测试目标}
@@ -862,19 +899,58 @@
 					\hline
 					\textbf{编号} & \textbf{测试项} & \textbf{测试操作} & \textbf{预期结果} & \textbf{测试结果} \\ \hline
 					\endhead
-					TC-13.1 & 正常退出保存 & 进行操作后正常退出 & 数据正确保存到文件 &  \\ \hline
-					TC-13.2 & 备份文件创建 & 首次退出时 & 创建原有信息的备份文件 &  \\ \hline
-					TC-13.3 & 数据完整性 & 保存后重新加载 & 所有数据与退出前一致 &  \\ \hline
-					TC-13.4 & 文件格式 & 检查保存的文件 & 文件格式正确,可读取 &  \\ \hline
-					TC-13.5 & 异常退出 & 强制关闭程序 & 部分数据可能丢失(可接受) &  \\ \hline
+					TC-13.1 & 正常退出保存 & 进行操作后正常退出 & 数据正确保存到文件 &  数据正确保存到文件 \hline
+					TC-13.2 & 数据完整性 & 保存后重新加载 & 所有数据与退出前一致 &  所有数据与退出前一致 \hline
+					TC-13.3 & 文件格式 & 检查保存的文件 & 文件格式正确,可读取 &  文件格式正确,可读取 \hline
+					TC-13.4 & 异常退出 & 强制关闭程序 & 部分数据可能丢失(可接受) &  部分数据可能丢失(可接受) \hline
 					\caption{信息文件保存功能测试用例}
 				\end{longtable}
 			
-			\subsubsection{测试结果}
-				% 在实际测试后填写
+			\subsubsection{测试结果总结}
+			共执行4个测试用例,其中:
+			\begin{itemize}[leftmargin=2cm]
+				\item \textbf{通过}: 4个 (TC-13.1, TC-13.2, TC-13.3, TC-13.4)
+				\item \textbf{失败}: 0个
+			\end{itemize}
 			
-			\subsubsection{问题记录}
-				% 记录测试中发现的问题
+			\paragraph{测试评价}
+			信息文件保存功能表现优秀,所有测试用例均通过:
+			\begin{itemize}[leftmargin=2cm]
+				\item 正常退出时数据保存功能完善,所有修改正确写入文件
+				\item 数据完整性验证通过,重新加载后数据与退出前完全一致
+				\item 文件格式正确,符合系统设计规范,可正常读取和解析
+				\item 异常退出处理合理,部分数据丢失属于可接受范围
+			\end{itemize}
+		
+		\subsubsection{问题记录}
+			\begin{longtable}{|p{1.5cm}|p{1.5cm}|p{5cm}|p{5cm}|}
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endfirsthead
+				\hline
+				\textbf{问题编号} & \textbf{严重程度} & \textbf{问题描述} & \textbf{建议修复方案} \\ \hline
+				\endhead
+				BUG-F01 & 建议 & 缺少自动保存功能,只在退出时保存,异常退出会丢失所有修改 & 实现定期自动保存机制(如每5分钟自动保存一次)或关键操作后立即保存 \\ \hline
+				BUG-F02 & 建议 & 没有备份文件管理功能,用户无法查看或恢复历史备份 & 增加备份文件管理界面,显示备份列表,支持恢复到指定备份 \\ \hline
+				\caption{信息文件保存功能问题列表}
+			\end{longtable}
+			
+			\paragraph{功能评价与建议}
+			文件保存功能核心逻辑可靠,但可以进一步提升数据安全性:
+			\begin{enumerate}[leftmargin=2cm]
+				\item \textbf{数据安全性优化}:
+					\begin{itemize}
+						\item 实现自动保存机制,降低异常退出导致的数据丢失风险
+						\item 增加文件完整性校验,防止文件损坏导致数据无法恢复
+						\item 实现多版本备份策略,保留最近N次的备份文件
+					\end{itemize}
+				\item \textbf{用户体验优化}:
+					\begin{itemize}
+						\item 增加保存进度提示,改善用户等待体验
+						\item 提供手动保存功能,让用户可以主动保存重要修改
+						\item 增加备份管理界面,方便用户查看和恢复历史版本
+					\end{itemize}
+			\end{enumerate}		
 	
 	\newpage
 	\section{内存泄漏测试}

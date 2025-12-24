@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.16)  24 DEC 2025 11:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.16)  24 DEC 2025 11:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2940,42 +2940,274 @@ Underfull \hbox (badness 10000) in paragraph at lines 841--841
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:841: Misplaced \noalign.
+\hline ->\noalign 
+                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
+l.841 ...除 &  所有历史记录被清除 \hline
+                                                  
+I expect to see \noalign only after the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:842: Misplaced \omit.
+\multispan ->\omit 
+                   \@multispan 
+l.842 					T
+            C-12.2 & 清空空历史 & 在无历史记录时清空 & 不报�...
+I expect to see \omit only after tab marks or the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 841--842
+[]|\C70/rm/m/n/10.53937/62 @ \C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/53 � � \C70/rm/m/n/10.53937/8b �
+ []
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:842: Extra alignment tab has been changed to \cr.
+<template> ... width\arrayrulewidth }\endtemplate 
+                                                  
+l.842 					T
+            C-12.2 & 清空空历史 & 在无历史记录时清空 & 不报�...
+You have given more \span or & marks than there were
+in the preamble to the \halign or \valign now in progress.
+So I'll assume that you meant to type \cr instead.
+
 
 Underfull \hbox (badness 10000) in paragraph at lines 842--842
 []|\OT1/cmr/m/n/10.53937 TC-
  []
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:842: Misplaced \noalign.
+\hline ->\noalign 
+                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
+l.842 ...��态 &  不报错,保持空状态 \hline
+                                                  
+I expect to see \noalign only after the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:843: Misplaced \omit.
+\multispan ->\omit 
+                   \@multispan 
+l.843 					T
+            C-12.3 & 清空后再添加 & 清空后重新查询 & 新历史�...
+I expect to see \omit only after tab marks or the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:843: Extra alignment tab has been changed to \cr.
+<template> ... width\arrayrulewidth }\endtemplate 
+                                                  
+l.843 					T
+            C-12.3 & 清空后再添加 & 清空后重新查询 & 新历史�...
+You have given more \span or & marks than there were
+in the preamble to the \halign or \valign now in progress.
+So I'll assume that you meant to type \cr instead.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 843--843
 []|\OT1/cmr/m/n/10.53937 TC-
  []
 
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:843: Misplaced \noalign.
+\hline ->\noalign 
+                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
+l.843 ...常添加 &  新历史正常添加 \hline
+                                                  
+I expect to see \noalign only after the \cr of
+an alignment. Proceed, and I'll ignore this case.
 
-Underfull \hbox (badness 10000) in paragraph at lines 865--865
-[]|\OT1/cmr/m/n/10.53937 TC-
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:844: Misplaced \omit.
+\multispan ->\omit 
+                   \@multispan 
+l.844 					\caption
+                   {清空信息功能测试用例}
+I expect to see \omit only after tab marks or the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 843--844
+[]|\C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/53 � � \C70/rm/m/n/10.53937/6b c \C70/rm/m/n/10.53937/5e 8
+ []
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:844: Extra alignment tab has been changed to \cr.
+<template> ... width\arrayrulewidth }\endtemplate 
+                                                  
+l.844 					\caption
+                   {清空信息功能测试用例}
+You have given more \span or & marks than there were
+in the preamble to the \halign or \valign now in progress.
+So I'll assume that you meant to type \cr instead.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 870--870
+[]|\OT1/cmr/m/n/10.53937 BUG-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 866--866
-[]|\OT1/cmr/m/n/10.53937 TC-
+Underfull \hbox (badness 7344) in paragraph at lines 870--870
+[]|\C70/rm/m/n/10.53937/58 � \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/6e ^^E \C70/rm/m/n/10.53937/7a z \C70/rm/m/n/10.53937/78 n \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/5b � \C70/rm/m/n/10.53937/8b � \C70/rm/m/n/10.53937/68 F\OT1/cmr/m/n/10.53937 ,\C70/rm/m/n/10.53937/63 � \C70/rm/m/n/10.53937/79 : \C70/rm/m/n/10.53937/75 (
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 867--867
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 868--868
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 869--869
-[]|\OT1/cmr/m/n/10.53937 TC-
- []
 
 [22]
+Underfull \hbox (badness 10000) in paragraph at lines 902--902
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:902: Misplaced \noalign.
+\hline ->\noalign 
+                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
+l.902 ...件 &  数据正确保存到文件 \hline
+                                                  
+I expect to see \noalign only after the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:903: Misplaced \omit.
+\multispan ->\omit 
+                   \@multispan 
+l.903 					T
+            C-13.2 & 数据完整性 & 保存后重新加载 & 所有数据�...
+I expect to see \omit only after tab marks or the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 902--903
+[]|\C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/63 n \C70/rm/m/n/10.53937/6b c \C70/rm/m/n/10.53937/78 n \C70/rm/m/n/10.53937/4f �
+ []
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:903: Extra alignment tab has been changed to \cr.
+<template> ... width\arrayrulewidth }\endtemplate 
+                                                  
+l.903 					T
+            C-13.2 & 数据完整性 & 保存后重新加载 & 所有数据�...
+You have given more \span or & marks than there were
+in the preamble to the \halign or \valign now in progress.
+So I'll assume that you meant to type \cr instead.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 903--903
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:903: Misplaced \noalign.
+\hline ->\noalign 
+                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
+l.903 ... &  所有数据与退出前一致 \hline
+                                                  
+I expect to see \noalign only after the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:904: Misplaced \omit.
+\multispan ->\omit 
+                   \@multispan 
+l.904 					T
+            C-13.3 & 文件格式 & 检查保存的文件 & 文件格式正�...
+I expect to see \omit only after tab marks or the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 903--904
+[]|\C70/rm/m/n/10.53937/62 @ \C70/rm/m/n/10.53937/67 	 \C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/63 n \C70/rm/m/n/10.53937/4e ^^N
+ []
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:904: Extra alignment tab has been changed to \cr.
+<template> ... width\arrayrulewidth }\endtemplate 
+                                                  
+l.904 					T
+            C-13.3 & 文件格式 & 检查保存的文件 & 文件格式正�...
+You have given more \span or & marks than there were
+in the preamble to the \halign or \valign now in progress.
+So I'll assume that you meant to type \cr instead.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 904--904
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:904: Misplaced \noalign.
+\hline ->\noalign 
+                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
+l.904 ...�� &  文件格式正确,可读取 \hline
+                                                  
+I expect to see \noalign only after the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:905: Misplaced \omit.
+\multispan ->\omit 
+                   \@multispan 
+l.905 					T
+            C-13.4 & 异常退出 & 强制关闭程序 & 部分数据可能�...
+I expect to see \omit only after tab marks or the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 904--905
+[]|\C70/rm/m/n/10.53937/65 � \C70/rm/m/n/10.53937/4e � \C70/rm/m/n/10.53937/68 < \C70/rm/m/n/10.53937/5f ^^O \C70/rm/m/n/10.53937/6b c
+ []
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:905: Extra alignment tab has been changed to \cr.
+<template> ... width\arrayrulewidth }\endtemplate 
+                                                  
+l.905 					T
+            C-13.4 & 异常退出 & 强制关闭程序 & 部分数据可能�...
+You have given more \span or & marks than there were
+in the preamble to the \halign or \valign now in progress.
+So I'll assume that you meant to type \cr instead.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 905--905
+[]|\OT1/cmr/m/n/10.53937 TC-
+ []
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:905: Misplaced \noalign.
+\hline ->\noalign 
+                  {\ifnum 0=`}\fi \penalty \@M \futurelet \@let@token \LT@@h...
+l.905 ...��分数据可能丢失(可接受) \hline
+                                                  
+I expect to see \noalign only after the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:906: Misplaced \omit.
+\multispan ->\omit 
+                   \@multispan 
+l.906 					\caption
+                   {信息文件保存功能测试用例}
+I expect to see \omit only after tab marks or the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 905--906
+[]|\C70/rm/m/n/10.53937/90 � \C70/rm/m/n/10.53937/52 ^^F \C70/rm/m/n/10.53937/65 p \C70/rm/m/n/10.53937/63 n \C70/rm/m/n/10.53937/53 �
+ []
+
+d:/study/train/RailwaySystem/softwareTest/测试报告.tex:906: Extra alignment tab has been changed to \cr.
+<template> ... width\arrayrulewidth }\endtemplate 
+                                                  
+l.906 					\caption
+                   {信息文件保存功能测试用例}
+You have given more \span or & marks than there were
+in the preamble to the \halign or \valign now in progress.
+So I'll assume that you meant to type \cr instead.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 933--933
+[]|\OT1/cmr/m/n/10.53937 BUG-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 933--933
+[]|\C70/rm/m/n/10.53937/5b � \C70/rm/m/n/10.53937/73 � \C70/rm/m/n/10.53937/5b � \C70/rm/m/n/10.53937/67 ^^_ \C70/rm/m/n/10.53937/81 � \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/5b X \C70/rm/m/n/10.53937/67 : \C70/rm/m/n/10.53937/52 6\OT1/cmr/m/n/10.53937 (\C70/rm/m/n/10.53937/59 �
+ []
+
+
+Underfull \hbox (badness 1253) in paragraph at lines 933--933
+\C70/rm/m/n/10.53937/6b �\OT1/cmr/m/n/10.53937 5\C70/rm/m/n/10.53937/52 ^^F \C70/rm/m/n/10.53937/94 � \C70/rm/m/n/10.53937/81 � \C70/rm/m/n/10.53937/52 � \C70/rm/m/n/10.53937/4f � \C70/rm/m/n/10.53937/5b X \C70/rm/m/n/10.53937/4e ^^@ \C70/rm/m/n/10.53937/6b !\OT1/cmr/m/n/10.53937 )\C70/rm/m/n/10.53937/62 ^^V \C70/rm/m/n/10.53937/51 s \C70/rm/m/n/10.53937/95 .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 934--934
+[]|\OT1/cmr/m/n/10.53937 BUG-
+ []
+
+
 
 [23]
 
@@ -2993,7 +3225,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 869--869
 
 [30]
 
-[31] (./测试报告.aux)
+[31]
+
+[32] (./测试报告.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2022/07/14>
@@ -3006,21 +3240,21 @@ Package rerunfilecheck Warning: File `测试报告.out' has changed.
 
 Package rerunfilecheck Info: Checksums for `测试报告.out':
 (rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  F2F0EF946E40F04979761249434252A8;10278.
+(rerunfilecheck)             After:  AE88936121C94CCFF7B884F26570F64B;10310.
  ) 
 Here is how much of TeX's memory you used:
- 15263 strings out of 467748
- 254401 string characters out of 5428011
+ 15287 strings out of 467748
+ 254711 string characters out of 5428011
  685303 words of memory out of 5000000
- 43176 multiletter control sequences out of 15000+600000
+ 43189 multiletter control sequences out of 15000+600000
  688900 words of font info for 262 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  80i,11n,83p,760b,714s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on 测试报告.pdf (31 pages, 706834 bytes).
+Output written on 测试报告.pdf (32 pages, 713737 bytes).
 PDF statistics:
- 1037 PDF objects out of 1200 (max. 8388607)
- 776 compressed objects within 8 object streams
- 236 named destinations out of 1000 (max. 500000)
+ 1053 PDF objects out of 1200 (max. 8388607)
+ 791 compressed objects within 8 object streams
+ 247 named destinations out of 1000 (max. 500000)
  305 words of extra memory for PDF output out of 10000 (max. 10000000)
 
