@@ -3,6 +3,7 @@
 #include <iostream>
 #include <QDebug>
 #include <QVariantMap>
+#include <QCoreApplication>
 
 QVariantMap convertOrderToMap(Order &order) {
     QVariantMap map;
@@ -47,7 +48,14 @@ OrderManager::OrderManager(QObject *parent)
     : QObject{parent}
 {
     readFromFile("../../data/order.txt");
+    connect(qApp, &QCoreApplication::aboutToQuit, this, [this]() {
+        this->writeToFile("../../data/order.txt");
+    });
     refreshOrderStatus();
+}
+
+OrderManager::~OrderManager() {
+    writeToFile("../../data/order.txt");
 }
 
 QVariantList OrderManager::getOrdersByUsername_api(const QString &username) {

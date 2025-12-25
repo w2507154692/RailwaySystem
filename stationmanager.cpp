@@ -4,13 +4,15 @@
 #include <iostream>
 #include <QDebug>
 #include <QVariantMap>
+#include <QCoreApplication>
 
 StationManager::StationManager(QObject *parent)
     : QObject{parent}
 {
     readFromFile("../../data/station.txt", "../../data/city.txt");
-    qDebug() << "加载车站的数量：" << stations.size();
-    qDebug() << "加载城市的数量：" << stations.size();
+    connect(qApp, &QCoreApplication::aboutToQuit, this, [this]() {
+        this->writeToFile("../../data/station.txt", "../../data/city.txt");
+    });
 }
 
 QStringList StationManager::getCitiesName_api() {
@@ -105,4 +107,31 @@ void StationManager::readFromFile(const char filenameStations[], const char file
     readFromFileCities(filenameCities);
 
     return ;
+}
+
+void StationManager::writeToFileStations(const char filename[]) {
+    std::fstream fos(filename, std::ios::out);
+    if (!fos) {
+        qWarning() << "无法打开车站文件进行写入！";
+        return;
+    }
+    for (auto &station : stations) {
+        fos << station << std::endl;
+    }
+}
+
+void StationManager::writeToFileCities(const char filename[]) {
+    std::fstream fos(filename, std::ios::out);
+    if (!fos) {
+        qWarning() << "无法打开城市信息文件进行写入！";
+        return;
+    }
+    for (auto &city : cities) {
+        fos << city << std::endl;
+    }
+}
+
+void StationManager::writeToFile(const char filenameStations[], const char filenameCities[]) {
+    writeToFileStations(filenameStations);
+    writeToFileCities(filenameCities);
 }

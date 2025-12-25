@@ -50,6 +50,9 @@ private:
     void readFromFileUser(const char filename[]);
     void readFromFileAdmin(const char filename[]);
     void readFromFile(const char filenameUser[], const char filenameAdmin[]);
+    void writeToFileUser(const char filename[]);
+    void writeToFileAdmin(const char filename[]);
+    void writeToFile(const char filenameUser[], const char filenameAdmin[]);
 
 };
 

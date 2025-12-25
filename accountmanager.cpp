@@ -4,6 +4,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <iostream>
+#include <QCoreApplication>
 
 AccountManager::AccountManager(QObject *parent)
     : QObject{parent}
@@ -11,6 +12,9 @@ AccountManager::AccountManager(QObject *parent)
     readFromFile("../../data/user.txt", "../../data/admin.txt");
     qDebug() << "加载用户数量:" << users.size();
     qDebug() << "加载管理员数量:" << admins.size();
+    connect(qApp, &QCoreApplication::aboutToQuit, this, [this]() {
+        this->writeToFile("../../data/user.txt", "../../data/admin.txt");
+    });
     std::cout << admins[0];
 }
 
@@ -218,7 +222,7 @@ QVariantMap AccountManager::registerUser_api(QVariantMap info) {
         result["message"] = "用户名重复！";
         return result;
     }
-    
+
     // 身份证号重复检查
     for (auto& user : users) {
         if (user.getProfile().getId() == id) {
@@ -227,7 +231,7 @@ QVariantMap AccountManager::registerUser_api(QVariantMap info) {
             return result;
         }
     }
-    
+
     // 可以注册
     UserProfile profile(name, phoneNumber, id);
     User user(profile, false, username, password);
@@ -334,4 +338,23 @@ void AccountManager::readFromFile(const char filenameUser[], const char filename
     readFromFileAdmin(filenameAdmin);
 
     return;
+}
+
+void AccountManager::writeToFileUser(const char filename[]) {
+    std::fstream fos(filename, std::ios::out);
+    for (auto &user : users) {
+        fos << user;
+    }
+}
+
+void AccountManager::writeToFileAdmin(const char filename[]) {
+    std::fstream fos(filename, std::ios::out);
+    for (auto &admin : admins) {
+        fos << admin;
+    }
+}
+
+void AccountManager::writeToFile(const char filenameUser[], const char filenameAdmin[]) {
+    writeToFileUser(filenameUser);
+    writeToFileAdmin(filenameAdmin);
 }

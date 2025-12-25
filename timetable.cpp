@@ -183,7 +183,7 @@ std::ostream &operator<<(std::ostream &os, Timetable &timetable) {
         Time &departure = std::get<2>(entry);
         int startDayOffset = std::get<3>(entry);
         int endDayOffset = std::get<4>(entry);
-        os << station << " " << arrival << " " << departure << startDayOffset << endDayOffset <<std::endl;
+        os << station << " " << arrival << " " << departure << " " << startDayOffset << " " << endDayOffset << std::endl;
     }
     return os;
 }

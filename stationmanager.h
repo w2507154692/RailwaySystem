@@ -27,6 +27,9 @@ private:
     void readFromFileStations(const char filename[]);
     void readFromFileCities(const char filename[]);
     void readFromFile(const char filenameStations[], const char filenameCities[]);
+    void writeToFileStations(const char filename[]);
+    void writeToFileCities(const char filename[]);
+    void writeToFile(const char filenameStations[], const char filenameCities[]);
 };
 
 #endif // STATIONMANAGER_H

@@ -1,5 +1,6 @@
 #include "city.h"
 #include <iostream>
+#include <iomanip>
 
 City::City() {}
 
@@ -39,6 +40,9 @@ std::istream& operator>>(std::istream& is, City& c) {
 }
 
 std::ostream& operator<<(std::ostream& os, const City& c) {
-    os << c.name.toStdString() << " " << c.longitude << " " << c.latitude << " " << c.province.toStdString();
+    os << c.name.toStdString() << " "
+       << std::fixed << std::setprecision(4) << c.longitude << " "
+       << std::fixed << std::setprecision(4) << c.latitude << " "
+       << c.province.toStdString();
     return os;
 }

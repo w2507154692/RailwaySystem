@@ -16,6 +16,8 @@ private:
 
 public:
     explicit OrderManager(QObject *parent = nullptr);
+    ~OrderManager();
+
     Q_INVOKABLE QVariantList getOrdersByUsername_api(const QString &username);
     Q_INVOKABLE QVariantMap cancelOrder_api(const QString &orderNumber);
     Q_INVOKABLE QVariantList getTimetableInfo_api(const QString &orderNumber);

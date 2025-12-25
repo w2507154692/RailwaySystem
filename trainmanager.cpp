@@ -2,12 +2,15 @@
 #include <iostream>
 #include <fstream>
 #include <QDebug>
+#include <QCoreApplication>
 
 TrainManager::TrainManager(QObject *parent)
     : QObject{parent}
 {
     readFromFile("../../data/train.txt");
-    writeToFile("../../data/train1.txt");
+    connect(qApp, &QCoreApplication::aboutToQuit, this, [this]() {
+        this->writeToFile("../../data/train.txt");
+    });
 }
 
 QVariantList TrainManager::getTrains_api() {

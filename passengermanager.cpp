@@ -2,12 +2,15 @@
 #include <iostream>
 #include <fstream>
 #include <QDebug>
+#include <QCoreApplication>
 
 PassengerManager::PassengerManager(QObject *parent)
     : QObject{parent}
 {
     readFromFile("../../data/passenger.txt");
-    writeToFile("../../data/passenger1.txt");
+    connect(qApp, &QCoreApplication::aboutToQuit, this, [this]() {
+        this->writeToFile("../../data/passenger.txt");
+    });
 }
 
 QVariantList PassengerManager::getPassengersByUsername_api(const QString &username) {
